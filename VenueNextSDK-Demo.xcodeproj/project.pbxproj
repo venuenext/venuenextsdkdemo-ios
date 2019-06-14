@@ -12,6 +12,8 @@
 		AB2BCA93228DB66400194A7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB2BCA91228DB66400194A7A /* Main.storyboard */; };
 		AB2BCA95228DB66700194A7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB2BCA94228DB66700194A7A /* Assets.xcassets */; };
 		AB2BCA98228DB66700194A7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB2BCA96228DB66700194A7A /* LaunchScreen.storyboard */; };
+		AB5987C822B43C15003E159A /* VNAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB5987C722B43C15003E159A /* VNAnalytics.framework */; };
+		AB5987CA22B43CAC003E159A /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5987C922B43CAC003E159A /* Analytics.swift */; };
 		AB6E2343228DCA5200EDD290 /* VNCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232A228DCA1C00EDD290 /* VNCore.framework */; };
 		AB6E2344228DCA5200EDD290 /* VNCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232A228DCA1C00EDD290 /* VNCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AB6E2345228DCA5200EDD290 /* VNCoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232C228DCA1D00EDD290 /* VNCoreUI.framework */; };
@@ -62,6 +64,8 @@
 		AB2BCA94228DB66700194A7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB2BCA97228DB66700194A7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB2BCA99228DB66700194A7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB5987C722B43C15003E159A /* VNAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNAnalytics.framework; sourceTree = "<group>"; };
+		AB5987C922B43CAC003E159A /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		AB6E2329228DCA1C00EDD290 /* VNPayment.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNPayment.framework; sourceTree = "<group>"; };
 		AB6E232A228DCA1C00EDD290 /* VNCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNCore.framework; sourceTree = "<group>"; };
 		AB6E232B228DCA1D00EDD290 /* VNOrderUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNOrderUI.framework; sourceTree = "<group>"; };
@@ -86,6 +90,7 @@
 				AB6E2349228DCA5200EDD290 /* VNNetworkService.framework in Frameworks */,
 				AB6E2343228DCA5200EDD290 /* VNCore.framework in Frameworks */,
 				AB6E2345228DCA5200EDD290 /* VNCoreUI.framework in Frameworks */,
+				AB5987C822B43C15003E159A /* VNAnalytics.framework in Frameworks */,
 				AB6E234D228DCA5200EDD290 /* VNOrderData.framework in Frameworks */,
 				AB6E234F228DCA5200EDD290 /* VNOrderUI.framework in Frameworks */,
 			);
@@ -115,6 +120,7 @@
 			children = (
 				AB6E2342228DCA2D00EDD290 /* Frameworks */,
 				AB2BCA8D228DB66400194A7A /* AppDelegate.swift */,
+				AB5987C922B43CAC003E159A /* Analytics.swift */,
 				AB6E2354228DCB4800EDD290 /* TabBarController.swift */,
 				AB6E2356228DCD1800EDD290 /* PaymentAdapter.swift */,
 				AB2BCA8F228DB66400194A7A /* ViewController.swift */,
@@ -137,6 +143,7 @@
 				AB6E232E228DCA1D00EDD290 /* VNOrder.framework */,
 				AB6E232D228DCA1D00EDD290 /* VNOrderData.framework */,
 				AB6E232B228DCA1D00EDD290 /* VNOrderUI.framework */,
+				AB5987C722B43C15003E159A /* VNAnalytics.framework */,
 				AB6E2329228DCA1C00EDD290 /* VNPayment.framework */,
 			);
 			path = Frameworks;
@@ -218,6 +225,7 @@
 				AB6E2355228DCB4800EDD290 /* TabBarController.swift in Sources */,
 				AB2BCA90228DB66400194A7A /* ViewController.swift in Sources */,
 				AB6E2357228DCD1800EDD290 /* PaymentAdapter.swift in Sources */,
+				AB5987CA22B43CAC003E159A /* Analytics.swift in Sources */,
 				AB2BCA8E228DB66400194A7A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

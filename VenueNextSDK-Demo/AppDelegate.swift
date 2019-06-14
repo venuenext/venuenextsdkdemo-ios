@@ -15,10 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        let key = ProcessInfo.processInfo.environment["key"] ?? ""
+        let key = "secret-key"
         let secret = "dev"
         VenueNext.shared.initialize(sdkKey: key, sdkSecret: secret) { success, error in
             guard success else {
@@ -26,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             VNOrderData.shared.reloadStands()
         }
-
+        Analytics.initialize(with: CustomAnalytics())
         UITabBar.appearance().tintColor = .accent
         UITabBar.appearance().barTintColor = .primaryDark
         UITabBar.appearance().unselectedItemTintColor = .primary
