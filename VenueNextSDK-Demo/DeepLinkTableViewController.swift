@@ -94,15 +94,48 @@ class DeepLinkTableViewController: UITableViewController {
         
         switch linkType {
         case .rvcModal:
-            orderCoordinator.presentMenu(for: "ec02556e-242e-4606-98e4-bad32d477b3f", from: self)
+            
+            do {
+                let fetchRequest = Stand.fetchRequest() as NSFetchRequest<Stand>
+                let context = VNOrderData.shared.managedObjectContext
+                let stand = try context.fetch(fetchRequest).first!
+                
+                guard let menu = try Menu.fetchAll(for: stand.identifier!, in: context).first,
+                    let identifier = menu.identifier else {
+                        return
+                }
+                orderCoordinator.presentMenu(for: identifier, from: self)
+            } catch {
+                print(error.localizedDescription)
+            }
+            
         case .rvcPush:
-            orderCoordinator.pushMenu(for: "ec02556e-242e-4606-98e4-bad32d477b3f")
+            
+            do {
+                let fetchRequest = Stand.fetchRequest() as NSFetchRequest<Stand>
+                let context = VNOrderData.shared.managedObjectContext
+                let stand = try context.fetch(fetchRequest).first!
+                
+                guard let menu = try Menu.fetchAll(for: stand.identifier!, in: context).first,
+                    let identifier = menu.identifier else {
+                        return
+                }
+                orderCoordinator.pushMenu(for: identifier )
+            } catch {
+                print(error.localizedDescription)
+            }
+            
         case .orderHistoryModal:
             orderHistoryCoordinator.present(from: navigationController!)
         case .orderHistoryPush:
             orderHistoryCoordinator.pushViewController()
         case .receiptModal:
-            receiptCoordinator = ReceiptCoordinator(orderUUID: "7e9d1376-08f2-4153-b5b8-d8f32ccf5849", presenter: navigationController!) { [weak self] success in
+            
+            guard let orderSummary = try! OrderSummary.fetchAll(in: VNOrderData.shared.managedObjectContext).first else {
+                return
+            }
+            
+            receiptCoordinator = ReceiptCoordinator(orderUUID: orderSummary.identifier! , presenter: navigationController!) { [weak self] success in
                 guard success else {
                     let alert = UIAlertController(title: "Sorry", message: "Unable to find order", preferredStyle: .alert)
                     let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -116,5 +149,6 @@ class DeepLinkTableViewController: UITableViewController {
                 self?.receiptCoordinator?.start()
             }
         }
+        
     }
 }
