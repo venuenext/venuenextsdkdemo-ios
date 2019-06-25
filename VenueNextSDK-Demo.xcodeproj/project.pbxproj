@@ -7,29 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6594255A22C1740B00BCA348 /* VNOrderUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255122C1740A00BCA348 /* VNOrderUI.framework */; };
+		6594255B22C1740B00BCA348 /* VNAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255222C1740B00BCA348 /* VNAnalytics.framework */; };
+		6594255C22C1740B00BCA348 /* VNCoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255322C1740B00BCA348 /* VNCoreUI.framework */; };
+		6594255D22C1740B00BCA348 /* VNNetworkService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255422C1740B00BCA348 /* VNNetworkService.framework */; };
+		6594255E22C1740B00BCA348 /* VNCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255522C1740B00BCA348 /* VNCore.framework */; };
+		6594255F22C1740B00BCA348 /* VNOrderData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255622C1740B00BCA348 /* VNOrderData.framework */; };
+		6594256022C1740B00BCA348 /* VNPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255722C1740B00BCA348 /* VNPayment.framework */; };
+		6594256122C1740B00BCA348 /* VNLegacy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255822C1740B00BCA348 /* VNLegacy.framework */; };
+		6594256222C1740B00BCA348 /* VNOrder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255922C1740B00BCA348 /* VNOrder.framework */; };
+		6594256322C1741500BCA348 /* VNAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255222C1740B00BCA348 /* VNAnalytics.framework */; };
+		6594256422C1741500BCA348 /* VNAnalytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255222C1740B00BCA348 /* VNAnalytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6594256522C1741500BCA348 /* VNCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255522C1740B00BCA348 /* VNCore.framework */; };
+		6594256622C1741500BCA348 /* VNCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255522C1740B00BCA348 /* VNCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6594256722C1741500BCA348 /* VNCoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255322C1740B00BCA348 /* VNCoreUI.framework */; };
+		6594256822C1741500BCA348 /* VNCoreUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255322C1740B00BCA348 /* VNCoreUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6594256922C1741500BCA348 /* VNLegacy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255822C1740B00BCA348 /* VNLegacy.framework */; };
+		6594256A22C1741500BCA348 /* VNLegacy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255822C1740B00BCA348 /* VNLegacy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6594256B22C1741500BCA348 /* VNNetworkService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255422C1740B00BCA348 /* VNNetworkService.framework */; };
+		6594256C22C1741500BCA348 /* VNNetworkService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255422C1740B00BCA348 /* VNNetworkService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6594256D22C1741500BCA348 /* VNOrder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255922C1740B00BCA348 /* VNOrder.framework */; };
+		6594256E22C1741500BCA348 /* VNOrder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255922C1740B00BCA348 /* VNOrder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6594256F22C1741500BCA348 /* VNOrderData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255622C1740B00BCA348 /* VNOrderData.framework */; };
+		6594257022C1741500BCA348 /* VNOrderData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255622C1740B00BCA348 /* VNOrderData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6594257122C1741500BCA348 /* VNOrderUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255122C1740A00BCA348 /* VNOrderUI.framework */; };
+		6594257222C1741500BCA348 /* VNOrderUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255122C1740A00BCA348 /* VNOrderUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6594257322C1741500BCA348 /* VNPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255722C1740B00BCA348 /* VNPayment.framework */; };
+		6594257422C1741500BCA348 /* VNPayment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255722C1740B00BCA348 /* VNPayment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6594257722C23B7500BCA348 /* DeepLinkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6594257522C23B7500BCA348 /* DeepLinkTableViewController.swift */; };
+		6594257822C23B7500BCA348 /* DeepLinkTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6594257622C23B7500BCA348 /* DeepLinkTableViewController.xib */; };
+		6594257B22C2BD2200BCA348 /* LinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6594257922C2BD2100BCA348 /* LinkTableViewCell.swift */; };
+		6594257C22C2BD2200BCA348 /* LinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6594257A22C2BD2100BCA348 /* LinkTableViewCell.xib */; };
 		AB2BCA8E228DB66400194A7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2BCA8D228DB66400194A7A /* AppDelegate.swift */; };
-		AB2BCA90228DB66400194A7A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2BCA8F228DB66400194A7A /* ViewController.swift */; };
-		AB2BCA93228DB66400194A7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB2BCA91228DB66400194A7A /* Main.storyboard */; };
 		AB2BCA95228DB66700194A7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB2BCA94228DB66700194A7A /* Assets.xcassets */; };
 		AB2BCA98228DB66700194A7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB2BCA96228DB66700194A7A /* LaunchScreen.storyboard */; };
-		AB5987C822B43C15003E159A /* VNAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB5987C722B43C15003E159A /* VNAnalytics.framework */; };
 		AB5987CA22B43CAC003E159A /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5987C922B43CAC003E159A /* Analytics.swift */; };
-		AB6E2343228DCA5200EDD290 /* VNCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232A228DCA1C00EDD290 /* VNCore.framework */; };
-		AB6E2344228DCA5200EDD290 /* VNCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232A228DCA1C00EDD290 /* VNCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AB6E2345228DCA5200EDD290 /* VNCoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232C228DCA1D00EDD290 /* VNCoreUI.framework */; };
-		AB6E2346228DCA5200EDD290 /* VNCoreUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232C228DCA1D00EDD290 /* VNCoreUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AB6E2347228DCA5200EDD290 /* VNLegacy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232F228DCA1D00EDD290 /* VNLegacy.framework */; };
-		AB6E2348228DCA5200EDD290 /* VNLegacy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232F228DCA1D00EDD290 /* VNLegacy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AB6E2349228DCA5200EDD290 /* VNNetworkService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E2330228DCA1D00EDD290 /* VNNetworkService.framework */; };
-		AB6E234A228DCA5200EDD290 /* VNNetworkService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E2330228DCA1D00EDD290 /* VNNetworkService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AB6E234B228DCA5200EDD290 /* VNOrder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232E228DCA1D00EDD290 /* VNOrder.framework */; };
-		AB6E234C228DCA5200EDD290 /* VNOrder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232E228DCA1D00EDD290 /* VNOrder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AB6E234D228DCA5200EDD290 /* VNOrderData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232D228DCA1D00EDD290 /* VNOrderData.framework */; };
-		AB6E234E228DCA5200EDD290 /* VNOrderData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232D228DCA1D00EDD290 /* VNOrderData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AB6E234F228DCA5200EDD290 /* VNOrderUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232B228DCA1D00EDD290 /* VNOrderUI.framework */; };
-		AB6E2350228DCA5200EDD290 /* VNOrderUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E232B228DCA1D00EDD290 /* VNOrderUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AB6E2351228DCA5200EDD290 /* VNPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E2329228DCA1C00EDD290 /* VNPayment.framework */; };
-		AB6E2352228DCA5200EDD290 /* VNPayment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AB6E2329228DCA1C00EDD290 /* VNPayment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AB6E2355228DCB4800EDD290 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E2354228DCB4800EDD290 /* TabBarController.swift */; };
 		AB6E2357228DCD1800EDD290 /* PaymentAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E2356228DCD1800EDD290 /* PaymentAdapter.swift */; };
 		AB6E2359228DCDE400EDD290 /* vnorder-colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6E2358228DCDE400EDD290 /* vnorder-colors.plist */; };
@@ -42,14 +54,15 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				AB6E2348228DCA5200EDD290 /* VNLegacy.framework in Embed Frameworks */,
-				AB6E2352228DCA5200EDD290 /* VNPayment.framework in Embed Frameworks */,
-				AB6E234C228DCA5200EDD290 /* VNOrder.framework in Embed Frameworks */,
-				AB6E234A228DCA5200EDD290 /* VNNetworkService.framework in Embed Frameworks */,
-				AB6E2344228DCA5200EDD290 /* VNCore.framework in Embed Frameworks */,
-				AB6E2346228DCA5200EDD290 /* VNCoreUI.framework in Embed Frameworks */,
-				AB6E234E228DCA5200EDD290 /* VNOrderData.framework in Embed Frameworks */,
-				AB6E2350228DCA5200EDD290 /* VNOrderUI.framework in Embed Frameworks */,
+				6594256822C1741500BCA348 /* VNCoreUI.framework in Embed Frameworks */,
+				6594257022C1741500BCA348 /* VNOrderData.framework in Embed Frameworks */,
+				6594257422C1741500BCA348 /* VNPayment.framework in Embed Frameworks */,
+				6594256E22C1741500BCA348 /* VNOrder.framework in Embed Frameworks */,
+				6594256422C1741500BCA348 /* VNAnalytics.framework in Embed Frameworks */,
+				6594256622C1741500BCA348 /* VNCore.framework in Embed Frameworks */,
+				6594257222C1741500BCA348 /* VNOrderUI.framework in Embed Frameworks */,
+				6594256A22C1741500BCA348 /* VNLegacy.framework in Embed Frameworks */,
+				6594256C22C1741500BCA348 /* VNNetworkService.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -57,23 +70,25 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6594255122C1740A00BCA348 /* VNOrderUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNOrderUI.framework; sourceTree = "<group>"; };
+		6594255222C1740B00BCA348 /* VNAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNAnalytics.framework; sourceTree = "<group>"; };
+		6594255322C1740B00BCA348 /* VNCoreUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNCoreUI.framework; sourceTree = "<group>"; };
+		6594255422C1740B00BCA348 /* VNNetworkService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNNetworkService.framework; sourceTree = "<group>"; };
+		6594255522C1740B00BCA348 /* VNCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNCore.framework; sourceTree = "<group>"; };
+		6594255622C1740B00BCA348 /* VNOrderData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNOrderData.framework; sourceTree = "<group>"; };
+		6594255722C1740B00BCA348 /* VNPayment.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNPayment.framework; sourceTree = "<group>"; };
+		6594255822C1740B00BCA348 /* VNLegacy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNLegacy.framework; sourceTree = "<group>"; };
+		6594255922C1740B00BCA348 /* VNOrder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNOrder.framework; sourceTree = "<group>"; };
+		6594257522C23B7500BCA348 /* DeepLinkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkTableViewController.swift; sourceTree = "<group>"; };
+		6594257622C23B7500BCA348 /* DeepLinkTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeepLinkTableViewController.xib; sourceTree = "<group>"; };
+		6594257922C2BD2100BCA348 /* LinkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkTableViewCell.swift; sourceTree = "<group>"; };
+		6594257A22C2BD2100BCA348 /* LinkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LinkTableViewCell.xib; sourceTree = "<group>"; };
 		AB2BCA8A228DB66400194A7A /* VenueNextSDK-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VenueNextSDK-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB2BCA8D228DB66400194A7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AB2BCA8F228DB66400194A7A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		AB2BCA92228DB66400194A7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AB2BCA94228DB66700194A7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB2BCA97228DB66700194A7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB2BCA99228DB66700194A7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AB5987C722B43C15003E159A /* VNAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNAnalytics.framework; sourceTree = "<group>"; };
 		AB5987C922B43CAC003E159A /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
-		AB6E2329228DCA1C00EDD290 /* VNPayment.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNPayment.framework; sourceTree = "<group>"; };
-		AB6E232A228DCA1C00EDD290 /* VNCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNCore.framework; sourceTree = "<group>"; };
-		AB6E232B228DCA1D00EDD290 /* VNOrderUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNOrderUI.framework; sourceTree = "<group>"; };
-		AB6E232C228DCA1D00EDD290 /* VNCoreUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNCoreUI.framework; sourceTree = "<group>"; };
-		AB6E232D228DCA1D00EDD290 /* VNOrderData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNOrderData.framework; sourceTree = "<group>"; };
-		AB6E232E228DCA1D00EDD290 /* VNOrder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNOrder.framework; sourceTree = "<group>"; };
-		AB6E232F228DCA1D00EDD290 /* VNLegacy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNLegacy.framework; sourceTree = "<group>"; };
-		AB6E2330228DCA1D00EDD290 /* VNNetworkService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNNetworkService.framework; sourceTree = "<group>"; };
 		AB6E2354228DCB4800EDD290 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		AB6E2356228DCD1800EDD290 /* PaymentAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentAdapter.swift; sourceTree = "<group>"; };
 		AB6E2358228DCDE400EDD290 /* vnorder-colors.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "vnorder-colors.plist"; sourceTree = "<group>"; };
@@ -84,15 +99,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB6E2347228DCA5200EDD290 /* VNLegacy.framework in Frameworks */,
-				AB6E2351228DCA5200EDD290 /* VNPayment.framework in Frameworks */,
-				AB6E234B228DCA5200EDD290 /* VNOrder.framework in Frameworks */,
-				AB6E2349228DCA5200EDD290 /* VNNetworkService.framework in Frameworks */,
-				AB6E2343228DCA5200EDD290 /* VNCore.framework in Frameworks */,
-				AB6E2345228DCA5200EDD290 /* VNCoreUI.framework in Frameworks */,
-				AB5987C822B43C15003E159A /* VNAnalytics.framework in Frameworks */,
-				AB6E234D228DCA5200EDD290 /* VNOrderData.framework in Frameworks */,
-				AB6E234F228DCA5200EDD290 /* VNOrderUI.framework in Frameworks */,
+				6594256922C1741500BCA348 /* VNLegacy.framework in Frameworks */,
+				6594256D22C1741500BCA348 /* VNOrder.framework in Frameworks */,
+				6594255C22C1740B00BCA348 /* VNCoreUI.framework in Frameworks */,
+				6594257122C1741500BCA348 /* VNOrderUI.framework in Frameworks */,
+				6594255E22C1740B00BCA348 /* VNCore.framework in Frameworks */,
+				6594255D22C1740B00BCA348 /* VNNetworkService.framework in Frameworks */,
+				6594255A22C1740B00BCA348 /* VNOrderUI.framework in Frameworks */,
+				6594256B22C1741500BCA348 /* VNNetworkService.framework in Frameworks */,
+				6594256222C1740B00BCA348 /* VNOrder.framework in Frameworks */,
+				6594255B22C1740B00BCA348 /* VNAnalytics.framework in Frameworks */,
+				6594255F22C1740B00BCA348 /* VNOrderData.framework in Frameworks */,
+				6594257322C1741500BCA348 /* VNPayment.framework in Frameworks */,
+				6594256022C1740B00BCA348 /* VNPayment.framework in Frameworks */,
+				6594256F22C1741500BCA348 /* VNOrderData.framework in Frameworks */,
+				6594256122C1740B00BCA348 /* VNLegacy.framework in Frameworks */,
+				6594256722C1741500BCA348 /* VNCoreUI.framework in Frameworks */,
+				6594256322C1741500BCA348 /* VNAnalytics.framework in Frameworks */,
+				6594256522C1741500BCA348 /* VNCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,8 +147,10 @@
 				AB5987C922B43CAC003E159A /* Analytics.swift */,
 				AB6E2354228DCB4800EDD290 /* TabBarController.swift */,
 				AB6E2356228DCD1800EDD290 /* PaymentAdapter.swift */,
-				AB2BCA8F228DB66400194A7A /* ViewController.swift */,
-				AB2BCA91228DB66400194A7A /* Main.storyboard */,
+				6594257922C2BD2100BCA348 /* LinkTableViewCell.swift */,
+				6594257A22C2BD2100BCA348 /* LinkTableViewCell.xib */,
+				6594257522C23B7500BCA348 /* DeepLinkTableViewController.swift */,
+				6594257622C23B7500BCA348 /* DeepLinkTableViewController.xib */,
 				AB2BCA94228DB66700194A7A /* Assets.xcassets */,
 				AB2BCA96228DB66700194A7A /* LaunchScreen.storyboard */,
 				AB2BCA99228DB66700194A7A /* Info.plist */,
@@ -136,15 +162,15 @@
 		AB6E2342228DCA2D00EDD290 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AB6E232A228DCA1C00EDD290 /* VNCore.framework */,
-				AB6E232C228DCA1D00EDD290 /* VNCoreUI.framework */,
-				AB6E232F228DCA1D00EDD290 /* VNLegacy.framework */,
-				AB6E2330228DCA1D00EDD290 /* VNNetworkService.framework */,
-				AB6E232E228DCA1D00EDD290 /* VNOrder.framework */,
-				AB6E232D228DCA1D00EDD290 /* VNOrderData.framework */,
-				AB6E232B228DCA1D00EDD290 /* VNOrderUI.framework */,
-				AB5987C722B43C15003E159A /* VNAnalytics.framework */,
-				AB6E2329228DCA1C00EDD290 /* VNPayment.framework */,
+				6594255222C1740B00BCA348 /* VNAnalytics.framework */,
+				6594255522C1740B00BCA348 /* VNCore.framework */,
+				6594255322C1740B00BCA348 /* VNCoreUI.framework */,
+				6594255822C1740B00BCA348 /* VNLegacy.framework */,
+				6594255422C1740B00BCA348 /* VNNetworkService.framework */,
+				6594255922C1740B00BCA348 /* VNOrder.framework */,
+				6594255622C1740B00BCA348 /* VNOrderData.framework */,
+				6594255122C1740A00BCA348 /* VNOrderUI.framework */,
+				6594255722C1740B00BCA348 /* VNPayment.framework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -208,10 +234,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6594257C22C2BD2200BCA348 /* LinkTableViewCell.xib in Resources */,
 				AB2BCA98228DB66700194A7A /* LaunchScreen.storyboard in Resources */,
 				AB6E2359228DCDE400EDD290 /* vnorder-colors.plist in Resources */,
 				AB2BCA95228DB66700194A7A /* Assets.xcassets in Resources */,
-				AB2BCA93228DB66400194A7A /* Main.storyboard in Resources */,
+				6594257822C23B7500BCA348 /* DeepLinkTableViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,24 +250,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB6E2355228DCB4800EDD290 /* TabBarController.swift in Sources */,
-				AB2BCA90228DB66400194A7A /* ViewController.swift in Sources */,
 				AB6E2357228DCD1800EDD290 /* PaymentAdapter.swift in Sources */,
 				AB5987CA22B43CAC003E159A /* Analytics.swift in Sources */,
 				AB2BCA8E228DB66400194A7A /* AppDelegate.swift in Sources */,
+				6594257722C23B7500BCA348 /* DeepLinkTableViewController.swift in Sources */,
+				6594257B22C2BD2200BCA348 /* LinkTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		AB2BCA91228DB66400194A7A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AB2BCA92228DB66400194A7A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		AB2BCA96228DB66700194A7A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

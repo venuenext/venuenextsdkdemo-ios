@@ -1,0 +1,6 @@
+framework module VNCoreUI {
+  umbrella header "VNCoreUI.h"
+
+  export *
+  module * { export * }
+}
