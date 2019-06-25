@@ -1,10 +1,6 @@
-//
-//  Analytics.swift
 //  VenueNextSDK-Demo
-//
-//  Created by Nathan Fulkerson on 6/14/19.
 //  Copyright © 2019 VenueNext, Inc. All rights reserved.
-//
+
 
 import Foundation
 import VNCore

@@ -7,37 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6594255A22C1740B00BCA348 /* VNOrderUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255122C1740A00BCA348 /* VNOrderUI.framework */; };
-		6594255B22C1740B00BCA348 /* VNAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255222C1740B00BCA348 /* VNAnalytics.framework */; };
-		6594255C22C1740B00BCA348 /* VNCoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255322C1740B00BCA348 /* VNCoreUI.framework */; };
-		6594255D22C1740B00BCA348 /* VNNetworkService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255422C1740B00BCA348 /* VNNetworkService.framework */; };
-		6594255E22C1740B00BCA348 /* VNCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255522C1740B00BCA348 /* VNCore.framework */; };
-		6594255F22C1740B00BCA348 /* VNOrderData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255622C1740B00BCA348 /* VNOrderData.framework */; };
-		6594256022C1740B00BCA348 /* VNPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255722C1740B00BCA348 /* VNPayment.framework */; };
-		6594256122C1740B00BCA348 /* VNLegacy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255822C1740B00BCA348 /* VNLegacy.framework */; };
-		6594256222C1740B00BCA348 /* VNOrder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255922C1740B00BCA348 /* VNOrder.framework */; };
-		6594256322C1741500BCA348 /* VNAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255222C1740B00BCA348 /* VNAnalytics.framework */; };
 		6594256422C1741500BCA348 /* VNAnalytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255222C1740B00BCA348 /* VNAnalytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6594256522C1741500BCA348 /* VNCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255522C1740B00BCA348 /* VNCore.framework */; };
 		6594256622C1741500BCA348 /* VNCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255522C1740B00BCA348 /* VNCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6594256722C1741500BCA348 /* VNCoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255322C1740B00BCA348 /* VNCoreUI.framework */; };
 		6594256822C1741500BCA348 /* VNCoreUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255322C1740B00BCA348 /* VNCoreUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6594256922C1741500BCA348 /* VNLegacy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255822C1740B00BCA348 /* VNLegacy.framework */; };
 		6594256A22C1741500BCA348 /* VNLegacy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255822C1740B00BCA348 /* VNLegacy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6594256B22C1741500BCA348 /* VNNetworkService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255422C1740B00BCA348 /* VNNetworkService.framework */; };
 		6594256C22C1741500BCA348 /* VNNetworkService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255422C1740B00BCA348 /* VNNetworkService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6594256D22C1741500BCA348 /* VNOrder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255922C1740B00BCA348 /* VNOrder.framework */; };
 		6594256E22C1741500BCA348 /* VNOrder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255922C1740B00BCA348 /* VNOrder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6594256F22C1741500BCA348 /* VNOrderData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255622C1740B00BCA348 /* VNOrderData.framework */; };
 		6594257022C1741500BCA348 /* VNOrderData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255622C1740B00BCA348 /* VNOrderData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6594257122C1741500BCA348 /* VNOrderUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255122C1740A00BCA348 /* VNOrderUI.framework */; };
 		6594257222C1741500BCA348 /* VNOrderUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255122C1740A00BCA348 /* VNOrderUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6594257322C1741500BCA348 /* VNPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255722C1740B00BCA348 /* VNPayment.framework */; };
 		6594257422C1741500BCA348 /* VNPayment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255722C1740B00BCA348 /* VNPayment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6594257722C23B7500BCA348 /* DeepLinkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6594257522C23B7500BCA348 /* DeepLinkTableViewController.swift */; };
 		6594257822C23B7500BCA348 /* DeepLinkTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6594257622C23B7500BCA348 /* DeepLinkTableViewController.xib */; };
 		6594257B22C2BD2200BCA348 /* LinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6594257922C2BD2100BCA348 /* LinkTableViewCell.swift */; };
 		6594257C22C2BD2200BCA348 /* LinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6594257A22C2BD2100BCA348 /* LinkTableViewCell.xib */; };
+		6594258122C2C7A100BCA348 /* VNOrderUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255122C1740A00BCA348 /* VNOrderUI.framework */; };
+		6594258222C2C7A100BCA348 /* VNPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255722C1740B00BCA348 /* VNPayment.framework */; };
+		6594258322C2C7A100BCA348 /* VNOrderData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255622C1740B00BCA348 /* VNOrderData.framework */; };
+		6594258422C2C7A100BCA348 /* VNOrder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255922C1740B00BCA348 /* VNOrder.framework */; };
+		6594258522C2C7A100BCA348 /* VNNetworkService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255422C1740B00BCA348 /* VNNetworkService.framework */; };
+		6594258622C2C7A100BCA348 /* VNLegacy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255822C1740B00BCA348 /* VNLegacy.framework */; };
+		6594258722C2C7A100BCA348 /* VNCoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255322C1740B00BCA348 /* VNCoreUI.framework */; };
+		6594258822C2C7A100BCA348 /* VNCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255522C1740B00BCA348 /* VNCore.framework */; };
+		6594258922C2C7A100BCA348 /* VNAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6594255222C1740B00BCA348 /* VNAnalytics.framework */; };
 		AB2BCA8E228DB66400194A7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2BCA8D228DB66400194A7A /* AppDelegate.swift */; };
 		AB2BCA95228DB66700194A7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB2BCA94228DB66700194A7A /* Assets.xcassets */; };
 		AB2BCA98228DB66700194A7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB2BCA96228DB66700194A7A /* LaunchScreen.storyboard */; };
@@ -99,35 +90,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6594256922C1741500BCA348 /* VNLegacy.framework in Frameworks */,
-				6594256D22C1741500BCA348 /* VNOrder.framework in Frameworks */,
-				6594255C22C1740B00BCA348 /* VNCoreUI.framework in Frameworks */,
-				6594257122C1741500BCA348 /* VNOrderUI.framework in Frameworks */,
-				6594255E22C1740B00BCA348 /* VNCore.framework in Frameworks */,
-				6594255D22C1740B00BCA348 /* VNNetworkService.framework in Frameworks */,
-				6594255A22C1740B00BCA348 /* VNOrderUI.framework in Frameworks */,
-				6594256B22C1741500BCA348 /* VNNetworkService.framework in Frameworks */,
-				6594256222C1740B00BCA348 /* VNOrder.framework in Frameworks */,
-				6594255B22C1740B00BCA348 /* VNAnalytics.framework in Frameworks */,
-				6594255F22C1740B00BCA348 /* VNOrderData.framework in Frameworks */,
-				6594257322C1741500BCA348 /* VNPayment.framework in Frameworks */,
-				6594256022C1740B00BCA348 /* VNPayment.framework in Frameworks */,
-				6594256F22C1741500BCA348 /* VNOrderData.framework in Frameworks */,
-				6594256122C1740B00BCA348 /* VNLegacy.framework in Frameworks */,
-				6594256722C1741500BCA348 /* VNCoreUI.framework in Frameworks */,
-				6594256322C1741500BCA348 /* VNAnalytics.framework in Frameworks */,
-				6594256522C1741500BCA348 /* VNCore.framework in Frameworks */,
+				6594258122C2C7A100BCA348 /* VNOrderUI.framework in Frameworks */,
+				6594258222C2C7A100BCA348 /* VNPayment.framework in Frameworks */,
+				6594258322C2C7A100BCA348 /* VNOrderData.framework in Frameworks */,
+				6594258422C2C7A100BCA348 /* VNOrder.framework in Frameworks */,
+				6594258522C2C7A100BCA348 /* VNNetworkService.framework in Frameworks */,
+				6594258622C2C7A100BCA348 /* VNLegacy.framework in Frameworks */,
+				6594258722C2C7A100BCA348 /* VNCoreUI.framework in Frameworks */,
+				6594258822C2C7A100BCA348 /* VNCore.framework in Frameworks */,
+				6594258922C2C7A100BCA348 /* VNAnalytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6594258022C2C7A100BCA348 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AB2BCA81228DB66400194A7A = {
 			isa = PBXGroup;
 			children = (
 				AB2BCA8C228DB66400194A7A /* VenueNextSDK-Demo */,
 				AB2BCA8B228DB66400194A7A /* Products */,
+				6594258022C2C7A100BCA348 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
