@@ -8,7 +8,8 @@ import VNOrderData
 class TabBarController: UITabBarController {
     var orderCoordinator: OrderCoordinator!
     var orderHistoryCoordinator: OrderHistoryCoordinator!
-
+    var deepLinkTableViewController: DeepLinkTableViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,11 +19,15 @@ class TabBarController: UITabBarController {
         orderCoordinator.start()
         orderCoordinator.navigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
 
-        orderHistoryCoordinator = OrderHistoryCoordinator()
+        orderHistoryCoordinator = OrderHistoryCoordinator(paymentProcessor: paymentProcessor)
         orderHistoryCoordinator.start()
         orderHistoryCoordinator.navigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 1)
 
-        let tabBarList = [orderCoordinator.navigationController!, orderHistoryCoordinator.navigationController!]
+        deepLinkTableViewController = DeepLinkTableViewController()
+        let deepLinkNavigationController = UINavigationController(rootViewController: deepLinkTableViewController)
+        deepLinkNavigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 2)
+        
+        let tabBarList = [orderCoordinator.navigationController!, orderHistoryCoordinator.navigationController!, deepLinkNavigationController]
         viewControllers = tabBarList
 
         tabBar.isTranslucent = false

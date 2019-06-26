@@ -1,0 +1,11 @@
+framework module VNNetworkService {
+  umbrella header "VNNetworkService.h"
+
+  export *
+  module * { export * }
+}
+
+module VNNetworkService.Swift {
+    header "VNNetworkService-Swift.h"
+    requires objc
+}
