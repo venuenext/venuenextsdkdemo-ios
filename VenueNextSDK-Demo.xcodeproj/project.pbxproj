@@ -36,6 +36,12 @@
 		AB6E2355228DCB4800EDD290 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E2354228DCB4800EDD290 /* TabBarController.swift */; };
 		AB6E2357228DCD1800EDD290 /* PaymentAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E2356228DCD1800EDD290 /* PaymentAdapter.swift */; };
 		AB6E2359228DCDE400EDD290 /* vnorder-colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6E2358228DCDE400EDD290 /* vnorder-colors.plist */; };
+		ABC68E7B230EF7F500F41B01 /* ObjCTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC68E72230EF7F500F41B01 /* ObjCTabBarController.m */; };
+		ABC68E7C230EF7F500F41B01 /* ObjCConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC68E73230EF7F500F41B01 /* ObjCConfiguration.m */; };
+		ABC68E7D230EF7F500F41B01 /* DemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC68E77230EF7F500F41B01 /* DemoViewController.xib */; };
+		ABC68E7E230EF7F500F41B01 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC68E78230EF7F500F41B01 /* DemoViewController.m */; };
+		ABC68E7F230EF7F500F41B01 /* SwiftConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC68E7A230EF7F500F41B01 /* SwiftConfiguration.swift */; };
+		ABC68E81230EF97F00F41B01 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC68E80230EF97F00F41B01 /* Appearance.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -83,6 +89,16 @@
 		AB6E2354228DCB4800EDD290 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		AB6E2356228DCD1800EDD290 /* PaymentAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentAdapter.swift; sourceTree = "<group>"; };
 		AB6E2358228DCDE400EDD290 /* vnorder-colors.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "vnorder-colors.plist"; sourceTree = "<group>"; };
+		ABC68E72230EF7F500F41B01 /* ObjCTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCTabBarController.m; sourceTree = "<group>"; };
+		ABC68E73230EF7F500F41B01 /* ObjCConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCConfiguration.m; sourceTree = "<group>"; };
+		ABC68E74230EF7F500F41B01 /* ObjCTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCTabBarController.h; sourceTree = "<group>"; };
+		ABC68E76230EF7F500F41B01 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
+		ABC68E77230EF7F500F41B01 /* DemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoViewController.xib; sourceTree = "<group>"; };
+		ABC68E78230EF7F500F41B01 /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
+		ABC68E79230EF7F500F41B01 /* ObjCConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCConfiguration.h; sourceTree = "<group>"; };
+		ABC68E7A230EF7F500F41B01 /* SwiftConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftConfiguration.swift; sourceTree = "<group>"; };
+		ABC68E80230EF97F00F41B01 /* Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
+		ABC68E84230EFB7400F41B01 /* VenueNextSDK_Demo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VenueNextSDK_Demo-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +148,10 @@
 		AB2BCA8C228DB66400194A7A /* VenueNextSDK-Demo */ = {
 			isa = PBXGroup;
 			children = (
+				ABC68E80230EF97F00F41B01 /* Appearance.swift */,
 				AB6E2342228DCA2D00EDD290 /* Frameworks */,
+				ABC68E71230EF7F500F41B01 /* ObjC */,
+				ABC68E7A230EF7F500F41B01 /* SwiftConfiguration.swift */,
 				AB2BCA8D228DB66400194A7A /* AppDelegate.swift */,
 				AB5987C922B43CAC003E159A /* Analytics.swift */,
 				AB6E2354228DCB4800EDD290 /* TabBarController.swift */,
@@ -145,6 +164,7 @@
 				AB2BCA96228DB66700194A7A /* LaunchScreen.storyboard */,
 				AB2BCA99228DB66700194A7A /* Info.plist */,
 				AB6E2358228DCDE400EDD290 /* vnorder-colors.plist */,
+				ABC68E84230EFB7400F41B01 /* VenueNextSDK_Demo-Bridging-Header.h */,
 			);
 			path = "VenueNextSDK-Demo";
 			sourceTree = "<group>";
@@ -163,6 +183,28 @@
 				6594255722C1740B00BCA348 /* VNPayment.framework */,
 			);
 			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		ABC68E71230EF7F500F41B01 /* ObjC */ = {
+			isa = PBXGroup;
+			children = (
+				ABC68E72230EF7F500F41B01 /* ObjCTabBarController.m */,
+				ABC68E73230EF7F500F41B01 /* ObjCConfiguration.m */,
+				ABC68E74230EF7F500F41B01 /* ObjCTabBarController.h */,
+				ABC68E79230EF7F500F41B01 /* ObjCConfiguration.h */,
+				ABC68E75230EF7F500F41B01 /* DemoViewController */,
+			);
+			path = ObjC;
+			sourceTree = "<group>";
+		};
+		ABC68E75230EF7F500F41B01 /* DemoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				ABC68E76230EF7F500F41B01 /* DemoViewController.h */,
+				ABC68E77230EF7F500F41B01 /* DemoViewController.xib */,
+				ABC68E78230EF7F500F41B01 /* DemoViewController.m */,
+			);
+			path = DemoViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6594257C22C2BD2200BCA348 /* LinkTableViewCell.xib in Resources */,
+				ABC68E7D230EF7F500F41B01 /* DemoViewController.xib in Resources */,
 				AB2BCA98228DB66700194A7A /* LaunchScreen.storyboard in Resources */,
 				AB6E2359228DCDE400EDD290 /* vnorder-colors.plist in Resources */,
 				AB2BCA95228DB66700194A7A /* Assets.xcassets in Resources */,
@@ -239,11 +282,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABC68E7B230EF7F500F41B01 /* ObjCTabBarController.m in Sources */,
 				AB6E2355228DCB4800EDD290 /* TabBarController.swift in Sources */,
 				AB6E2357228DCD1800EDD290 /* PaymentAdapter.swift in Sources */,
 				AB5987CA22B43CAC003E159A /* Analytics.swift in Sources */,
+				ABC68E7C230EF7F500F41B01 /* ObjCConfiguration.m in Sources */,
 				AB2BCA8E228DB66400194A7A /* AppDelegate.swift in Sources */,
+				ABC68E7E230EF7F500F41B01 /* DemoViewController.m in Sources */,
+				ABC68E81230EF97F00F41B01 /* Appearance.swift in Sources */,
 				6594257722C23B7500BCA348 /* DeepLinkTableViewController.swift in Sources */,
+				ABC68E7F230EF7F500F41B01 /* SwiftConfiguration.swift in Sources */,
 				6594257B22C2BD2200BCA348 /* LinkTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,7 +431,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4DL8PZB55U;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -397,6 +445,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.venuenext.VenueNextSDK-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -407,7 +457,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4DL8PZB55U;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -421,6 +471,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.venuenext.VenueNextSDK-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
