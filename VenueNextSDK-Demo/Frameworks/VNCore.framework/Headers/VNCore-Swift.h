@@ -204,6 +204,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) Environment * _Nonnull
 @property (nonatomic, readonly, copy) NSString * _Nullable venueHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable userHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable stadiumHost;
+@property (nonatomic, readonly, copy) NSString * _Nullable stubsHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable paymentHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable notifyHost;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -262,6 +263,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) VenueNext * _Nonnull s
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -471,6 +474,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) Environment * _Nonnull
 @property (nonatomic, readonly, copy) NSString * _Nullable venueHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable userHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable stadiumHost;
+@property (nonatomic, readonly, copy) NSString * _Nullable stubsHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable paymentHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable notifyHost;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -529,6 +533,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) VenueNext * _Nonnull s
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
