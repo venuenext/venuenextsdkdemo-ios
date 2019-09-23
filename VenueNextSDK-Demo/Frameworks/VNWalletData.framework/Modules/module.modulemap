@@ -1,0 +1,6 @@
+framework module VNWalletData {
+  umbrella header "VNWalletData.h"
+
+  export *
+  module * { export * }
+}

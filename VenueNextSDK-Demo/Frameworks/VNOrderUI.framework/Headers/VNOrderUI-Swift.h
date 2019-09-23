@@ -173,6 +173,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import ObjectiveC;
 @import UIKit;
 @import VNAnalytics;
+@import VNCore;
 @import VNOrderData;
 #endif
 
@@ -205,27 +206,33 @@ SWIFT_CLASS("_TtC9VNOrderUI12AddItemEvent")
 @property (nonatomic, readonly, copy) NSString * _Nonnull eventName;
 @end
 
+@class NSCoder;
 @class UITableView;
 @class UITableViewCell;
 @class NSBundle;
-@class NSCoder;
 
 SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
 @interface CheckoutTableViewController : UITableViewController
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
 - (void)viewDidAppear:(BOOL)animated;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithStyle:(UITableViewStyle)style SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
 
 @interface CheckoutTableViewController (SWIFT_EXTENSION(VNOrderUI)) <NSFetchedResultsControllerDelegate>
 @end
+
+
+
+
 
 
 
@@ -246,7 +253,7 @@ SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
 SWIFT_PROTOCOL("_TtP9VNOrderUI35CheckoutTableViewControllerDelegate_")
 @protocol CheckoutTableViewControllerDelegate
 - (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
-- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary error:(NSError * _Nullable)error;
+- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
 - (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
 
@@ -311,11 +318,14 @@ SWIFT_CLASS("_TtC9VNOrderUI25MarketplaceViewController")
 
 
 
+
+
 SWIFT_CLASS("_TtC9VNOrderUI22MetadataViewController")
 @interface MetadataViewController : UIViewController
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
@@ -342,49 +352,49 @@ SWIFT_CLASS("_TtC9VNOrderUI22MetadataViewController")
 /// \code
 /// // Good
 /// class MyClass {
-///    let orderCoordinator: OrderCoordinator
+/// let orderCoordinator: OrderCoordinator
 ///
-///    init() {
-///        orderCoordinator = OrderCoordinator()
-///    }
+/// init() {
+/// orderCoordinator = OrderCoordinator()
+/// }
 /// }
 ///
 /// // Bad
 /// func showOrderMenu() {
-///    let coordinator = OrderCoordinator()
+/// let coordinator = OrderCoordinator()
 ///
-///    coordinator.presentMenu(for: menuUUID, from: self)
+/// coordinator.presentMenu(for: menuUUID, from: self)
 /// }
 ///
 /// \endcodeYou can access the coordinators <code>navigationController</code> property to display the view after calling <code>start()</code>.
 /// <h2>Showing on a UITabBarController:</h2>
 /// \code
 /// class TabBarController: UITabBarController {
-///     var orderCoordinator: OrderCoordinator!
+/// var orderCoordinator: OrderCoordinator!
 ///
-///     override func viewDidLoad() {
-///         orderCoordinator = OrderCoordinator() // Don't pass in a navigationController
-///         orderCoordinator.productTypes = [.food] // Optionally set the productTypes you'd like to show
-///         orderCoordinator.start()
-///         orderCoordinator.navigationController.tabBarItem = ...
+/// override func viewDidLoad() {
+/// orderCoordinator = OrderCoordinator() // Don't pass in a navigationController
+/// orderCoordinator.productTypes = [.food] // Optionally set the productTypes you'd like to show
+/// orderCoordinator.start()
+/// orderCoordinator.navigationController.tabBarItem = ...
 ///
-///         viewControllers = [orderCoordinator.navigationController!]
-///     }
+/// viewControllers = [orderCoordinator.navigationController!]
+/// }
 /// }
 ///
 /// \endcode<h2>Pushing onto your UINavigationController:</h2>
 /// \code
 /// class MyViewController: UIViewController {
-///     var orderCoordinator: OrderCoordinator!
+/// var orderCoordinator: OrderCoordinator!
 ///
-///     override func viewDidLoad() {
-///         orderCoordinator = OrderCoordinator(navigationController: self.navigationController!) // Ensure to pass in a navigationController
-///         orderCoordinator.start()
-///     }
+/// override func viewDidLoad() {
+/// orderCoordinator = OrderCoordinator(navigationController: self.navigationController!) // Ensure to pass in a navigationController
+/// orderCoordinator.start()
+/// }
 ///
-///     func pushOrder() {
-///        orderCoordinator.pushMenu(for: menuUUID)
-///     }
+/// func pushOrder() {
+/// orderCoordinator.pushMenu(for: menuUUID)
+/// }
 /// }
 ///
 /// \endcode<h2>Presenting modally:</h2>
@@ -392,14 +402,14 @@ SWIFT_CLASS("_TtC9VNOrderUI22MetadataViewController")
 /// class MyViewController: UIViewController {
 /// var orderCoordinator: OrderCoordinator!
 ///
-///     override func viewDidLoad() {
-///         orderHistoryCoordinator = OrderCoordinator() // Passing in a navigationController is optional. The coordinator won't use it if presenting modally.
-///         orderCoordinator.start()
-///     }
+/// override func viewDidLoad() {
+/// orderHistoryCoordinator = OrderCoordinator() // Passing in a navigationController is optional. The coordinator won't use it if presenting modally.
+/// orderCoordinator.start()
+/// }
 ///
-///     func presentOrderMenu() {
-///        orderCoordinator.presentMenu(for: menuUUID from: self)
-///     }
+/// func presentOrderMenu() {
+/// orderCoordinator.presentMenu(for: menuUUID from: self)
+/// }
 /// }
 ///
 /// \endcode
@@ -436,7 +446,7 @@ SWIFT_CLASS("_TtC9VNOrderUI16OrderCoordinator")
 
 
 @interface OrderCoordinator (SWIFT_EXTENSION(VNOrderUI)) <CheckoutTableViewControllerDelegate>
-- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary error:(NSError * _Nullable)error;
+- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
 - (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
@@ -445,6 +455,7 @@ SWIFT_CLASS("_TtC9VNOrderUI16OrderCoordinator")
 
 
 @interface OrderCoordinator (SWIFT_EXTENSION(VNOrderUI))
+- (void)showExperiencesMenuFor:(NSString * _Nonnull)menuUUID;
 - (void)pushRvCList;
 /// Presents the StandMenuViewController from a presenter.
 /// \param menuUUID The UUID of the menu to present.
@@ -463,6 +474,8 @@ SWIFT_CLASS("_TtC9VNOrderUI16OrderCoordinator")
 /// Dismisses the presented view controller.
 - (void)dismiss;
 @end
+
+
 
 
 /// The coordinator for displaying Order History.
@@ -566,7 +579,7 @@ SWIFT_CLASS("_TtC9VNOrderUI23OrderHistoryCoordinator")
 
 
 @interface OrderHistoryCoordinator (SWIFT_EXTENSION(VNOrderUI)) <CheckoutTableViewControllerDelegate>
-- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary error:(NSError * _Nullable)error;
+- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
 - (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
@@ -726,13 +739,13 @@ SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
 
-
-
 @class UICollectionViewLayout;
 
 @interface StandMenuViewController (SWIFT_EXTENSION(VNOrderUI)) <UICollectionViewDelegateFlowLayout>
 - (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView layout:(UICollectionViewLayout * _Nonnull)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 @class UICollectionViewCell;
 
@@ -814,6 +827,21 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 
 
 
+
+
+
+
+
+
+
+
+SWIFT_CLASS("_TtC9VNOrderUI7VNOrder")
+@interface VNOrder : NSObject
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNOrder * _Nonnull shared;)
++ (VNOrder * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
++ (void)enableWalletWithWallet:(id _Nonnull)wallet;
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -992,6 +1020,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import ObjectiveC;
 @import UIKit;
 @import VNAnalytics;
+@import VNCore;
 @import VNOrderData;
 #endif
 
@@ -1024,27 +1053,33 @@ SWIFT_CLASS("_TtC9VNOrderUI12AddItemEvent")
 @property (nonatomic, readonly, copy) NSString * _Nonnull eventName;
 @end
 
+@class NSCoder;
 @class UITableView;
 @class UITableViewCell;
 @class NSBundle;
-@class NSCoder;
 
 SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
 @interface CheckoutTableViewController : UITableViewController
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
 - (void)viewDidAppear:(BOOL)animated;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithStyle:(UITableViewStyle)style SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
 
 @interface CheckoutTableViewController (SWIFT_EXTENSION(VNOrderUI)) <NSFetchedResultsControllerDelegate>
 @end
+
+
+
+
 
 
 
@@ -1065,7 +1100,7 @@ SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
 SWIFT_PROTOCOL("_TtP9VNOrderUI35CheckoutTableViewControllerDelegate_")
 @protocol CheckoutTableViewControllerDelegate
 - (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
-- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary error:(NSError * _Nullable)error;
+- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
 - (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
 
@@ -1130,11 +1165,14 @@ SWIFT_CLASS("_TtC9VNOrderUI25MarketplaceViewController")
 
 
 
+
+
 SWIFT_CLASS("_TtC9VNOrderUI22MetadataViewController")
 @interface MetadataViewController : UIViewController
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
@@ -1161,49 +1199,49 @@ SWIFT_CLASS("_TtC9VNOrderUI22MetadataViewController")
 /// \code
 /// // Good
 /// class MyClass {
-///    let orderCoordinator: OrderCoordinator
+/// let orderCoordinator: OrderCoordinator
 ///
-///    init() {
-///        orderCoordinator = OrderCoordinator()
-///    }
+/// init() {
+/// orderCoordinator = OrderCoordinator()
+/// }
 /// }
 ///
 /// // Bad
 /// func showOrderMenu() {
-///    let coordinator = OrderCoordinator()
+/// let coordinator = OrderCoordinator()
 ///
-///    coordinator.presentMenu(for: menuUUID, from: self)
+/// coordinator.presentMenu(for: menuUUID, from: self)
 /// }
 ///
 /// \endcodeYou can access the coordinators <code>navigationController</code> property to display the view after calling <code>start()</code>.
 /// <h2>Showing on a UITabBarController:</h2>
 /// \code
 /// class TabBarController: UITabBarController {
-///     var orderCoordinator: OrderCoordinator!
+/// var orderCoordinator: OrderCoordinator!
 ///
-///     override func viewDidLoad() {
-///         orderCoordinator = OrderCoordinator() // Don't pass in a navigationController
-///         orderCoordinator.productTypes = [.food] // Optionally set the productTypes you'd like to show
-///         orderCoordinator.start()
-///         orderCoordinator.navigationController.tabBarItem = ...
+/// override func viewDidLoad() {
+/// orderCoordinator = OrderCoordinator() // Don't pass in a navigationController
+/// orderCoordinator.productTypes = [.food] // Optionally set the productTypes you'd like to show
+/// orderCoordinator.start()
+/// orderCoordinator.navigationController.tabBarItem = ...
 ///
-///         viewControllers = [orderCoordinator.navigationController!]
-///     }
+/// viewControllers = [orderCoordinator.navigationController!]
+/// }
 /// }
 ///
 /// \endcode<h2>Pushing onto your UINavigationController:</h2>
 /// \code
 /// class MyViewController: UIViewController {
-///     var orderCoordinator: OrderCoordinator!
+/// var orderCoordinator: OrderCoordinator!
 ///
-///     override func viewDidLoad() {
-///         orderCoordinator = OrderCoordinator(navigationController: self.navigationController!) // Ensure to pass in a navigationController
-///         orderCoordinator.start()
-///     }
+/// override func viewDidLoad() {
+/// orderCoordinator = OrderCoordinator(navigationController: self.navigationController!) // Ensure to pass in a navigationController
+/// orderCoordinator.start()
+/// }
 ///
-///     func pushOrder() {
-///        orderCoordinator.pushMenu(for: menuUUID)
-///     }
+/// func pushOrder() {
+/// orderCoordinator.pushMenu(for: menuUUID)
+/// }
 /// }
 ///
 /// \endcode<h2>Presenting modally:</h2>
@@ -1211,14 +1249,14 @@ SWIFT_CLASS("_TtC9VNOrderUI22MetadataViewController")
 /// class MyViewController: UIViewController {
 /// var orderCoordinator: OrderCoordinator!
 ///
-///     override func viewDidLoad() {
-///         orderHistoryCoordinator = OrderCoordinator() // Passing in a navigationController is optional. The coordinator won't use it if presenting modally.
-///         orderCoordinator.start()
-///     }
+/// override func viewDidLoad() {
+/// orderHistoryCoordinator = OrderCoordinator() // Passing in a navigationController is optional. The coordinator won't use it if presenting modally.
+/// orderCoordinator.start()
+/// }
 ///
-///     func presentOrderMenu() {
-///        orderCoordinator.presentMenu(for: menuUUID from: self)
-///     }
+/// func presentOrderMenu() {
+/// orderCoordinator.presentMenu(for: menuUUID from: self)
+/// }
 /// }
 ///
 /// \endcode
@@ -1255,7 +1293,7 @@ SWIFT_CLASS("_TtC9VNOrderUI16OrderCoordinator")
 
 
 @interface OrderCoordinator (SWIFT_EXTENSION(VNOrderUI)) <CheckoutTableViewControllerDelegate>
-- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary error:(NSError * _Nullable)error;
+- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
 - (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
@@ -1264,6 +1302,7 @@ SWIFT_CLASS("_TtC9VNOrderUI16OrderCoordinator")
 
 
 @interface OrderCoordinator (SWIFT_EXTENSION(VNOrderUI))
+- (void)showExperiencesMenuFor:(NSString * _Nonnull)menuUUID;
 - (void)pushRvCList;
 /// Presents the StandMenuViewController from a presenter.
 /// \param menuUUID The UUID of the menu to present.
@@ -1282,6 +1321,8 @@ SWIFT_CLASS("_TtC9VNOrderUI16OrderCoordinator")
 /// Dismisses the presented view controller.
 - (void)dismiss;
 @end
+
+
 
 
 /// The coordinator for displaying Order History.
@@ -1385,7 +1426,7 @@ SWIFT_CLASS("_TtC9VNOrderUI23OrderHistoryCoordinator")
 
 
 @interface OrderHistoryCoordinator (SWIFT_EXTENSION(VNOrderUI)) <CheckoutTableViewControllerDelegate>
-- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary error:(NSError * _Nullable)error;
+- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
 - (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
@@ -1545,13 +1586,13 @@ SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
 
-
-
 @class UICollectionViewLayout;
 
 @interface StandMenuViewController (SWIFT_EXTENSION(VNOrderUI)) <UICollectionViewDelegateFlowLayout>
 - (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView layout:(UICollectionViewLayout * _Nonnull)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 @class UICollectionViewCell;
 
@@ -1633,6 +1674,21 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 
 
 
+
+
+
+
+
+
+
+
+SWIFT_CLASS("_TtC9VNOrderUI7VNOrder")
+@interface VNOrder : NSObject
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNOrder * _Nonnull shared;)
++ (VNOrder * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
++ (void)enableWalletWithWallet:(id _Nonnull)wallet;
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop

@@ -207,13 +207,25 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) Environment * _Nonnull
 @property (nonatomic, readonly, copy) NSString * _Nullable stubsHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable paymentHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable notifyHost;
+@property (nonatomic, readonly, copy) NSString * _Nullable loyaltyHost;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+@interface NSObject (SWIFT_EXTENSION(VNCore))
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull classStringName;)
++ (NSString * _Nonnull)classStringName SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull domain;)
++ (NSString * _Nonnull)domain SWIFT_WARN_UNUSED_RESULT;
 @end
 
 /// The method that was used to pay, either Credit Card or Apple Pay
 typedef SWIFT_ENUM(NSInteger, PaymentMethodInstrument, closed) {
   PaymentMethodInstrumentCreditCard = 0,
   PaymentMethodInstrumentApplePay = 1,
+  PaymentMethodInstrumentMagicMoney = 2,
 };
 
 
@@ -228,7 +240,6 @@ SWIFT_PROTOCOL("_TtP6VNCore26PaymentMethodRepresentable_")
 @end
 
 @class UIViewController;
-@class NSError;
 
 /// An object conforming to PaymentProcessable will be responsible for processing payments.
 SWIFT_PROTOCOL("_TtP6VNCore18PaymentProcessable_")
@@ -236,6 +247,18 @@ SWIFT_PROTOCOL("_TtP6VNCore18PaymentProcessable_")
 - (void)processPaymentFrom:(UIViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethodWithPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
+
+typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
+  ProductTypeFood = 0,
+  ProductTypeExperience = 1,
+  ProductTypeMerchandise = 2,
+};
+
+
+
+
+
+
 
 
 
@@ -477,13 +500,25 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) Environment * _Nonnull
 @property (nonatomic, readonly, copy) NSString * _Nullable stubsHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable paymentHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable notifyHost;
+@property (nonatomic, readonly, copy) NSString * _Nullable loyaltyHost;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+@interface NSObject (SWIFT_EXTENSION(VNCore))
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull classStringName;)
++ (NSString * _Nonnull)classStringName SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull domain;)
++ (NSString * _Nonnull)domain SWIFT_WARN_UNUSED_RESULT;
 @end
 
 /// The method that was used to pay, either Credit Card or Apple Pay
 typedef SWIFT_ENUM(NSInteger, PaymentMethodInstrument, closed) {
   PaymentMethodInstrumentCreditCard = 0,
   PaymentMethodInstrumentApplePay = 1,
+  PaymentMethodInstrumentMagicMoney = 2,
 };
 
 
@@ -498,7 +533,6 @@ SWIFT_PROTOCOL("_TtP6VNCore26PaymentMethodRepresentable_")
 @end
 
 @class UIViewController;
-@class NSError;
 
 /// An object conforming to PaymentProcessable will be responsible for processing payments.
 SWIFT_PROTOCOL("_TtP6VNCore18PaymentProcessable_")
@@ -506,6 +540,18 @@ SWIFT_PROTOCOL("_TtP6VNCore18PaymentProcessable_")
 - (void)processPaymentFrom:(UIViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethodWithPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
+
+typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
+  ProductTypeFood = 0,
+  ProductTypeExperience = 1,
+  ProductTypeMerchandise = 2,
+};
+
+
+
+
+
+
 
 
 

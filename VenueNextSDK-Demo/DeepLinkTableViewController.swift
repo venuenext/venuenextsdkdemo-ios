@@ -3,6 +3,7 @@
 import UIKit
 import VNOrderUI
 import VNOrderData
+import VNWalletUI
 
 class DeepLinkTableViewController: UITableViewController {
     lazy var orderHistoryCoordinator: OrderHistoryCoordinator = {
@@ -17,6 +18,12 @@ class DeepLinkTableViewController: UITableViewController {
         return orderCoordinator
     }()
     
+    lazy var walletCoordinator: WalletCoordinator = {
+        let walletCoordinator = WalletCoordinator()
+        walletCoordinator.start()
+        return walletCoordinator
+    }()
+    
     var receiptCoordinator: ReceiptCoordinator?
 
     enum LinkType: CaseIterable {
@@ -25,6 +32,7 @@ class DeepLinkTableViewController: UITableViewController {
         case orderHistoryModal
         case orderHistoryPush
         case receiptModal
+        case wallet
         
         var name: String {
             switch self {
@@ -38,6 +46,8 @@ class DeepLinkTableViewController: UITableViewController {
                 return "Show Order History - Push"
             case .receiptModal:
                 return "Show Receipt - Modally"
+            case .wallet:
+                return "Show Wallet - Modally"
             }
         }
     }
@@ -131,11 +141,11 @@ class DeepLinkTableViewController: UITableViewController {
             orderHistoryCoordinator.pushViewController()
         case .receiptModal:
             
-            guard let orderSummary = try! OrderSummary.fetchAll(in: VNOrderData.shared.managedObjectContext).first else {
+            guard let orderSummary = OrderSummary.fetchAllFoodOrders(in: VNOrderData.shared.managedObjectContext).first else {
                 return
             }
             
-            receiptCoordinator = ReceiptCoordinator(orderUUID: orderSummary.identifier! , presenter: navigationController!) { [weak self] success in
+            ReceiptCoordinator(orderUUID: orderSummary.identifier!, for: ProductType.food, presenter: navigationController!) { [weak self] (success) in
                 guard success else {
                     let alert = UIAlertController(title: "Sorry", message: "Unable to find order", preferredStyle: .alert)
                     let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -148,6 +158,9 @@ class DeepLinkTableViewController: UITableViewController {
                 
                 self?.receiptCoordinator?.start()
             }
+        case .wallet:
+            
+            navigationController?.pushViewController(walletCoordinator.rootViewController, animated: true)
         }
         
     }

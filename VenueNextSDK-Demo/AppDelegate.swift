@@ -12,8 +12,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // VenueNext SDKs can be configured from Swift or ObjC
         // To run the ObjC app set isSwiftDemoApp to false
+        
+        //forward responder to PresenseAppDelegate
+        PresenceAppDelegate.shared.applicationDidFinishLaunching(application)
 
-        let isSwiftDemoApp = false
+        let isSwiftDemoApp = true
         
         startConfiguration(for: isSwiftDemoApp)
         Appearance.start()
