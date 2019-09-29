@@ -11,11 +11,6 @@
 
 @implementation ObjCConfiguration
 + (void)start {
-    // Requires Keys.plist to exist
-    [VenueNext configureWithCompletion:^(BOOL success, NSError * _Nullable error) {
-        [[VNOrderData shared] reloadStandsWithCompletion:nil];
-    }];
-    // OR setup manually
-    // [[VenueNext shared] initializeWithSdkKey:@"SDK_KEY" sdkSecret:@"SDK_SECRET" completion:nil];
+     [[VenueNext shared] initializeWithSdkKey:@"SDK_KEY" sdkSecret:@"SDK_SECRET" completion:nil];
 }
 @end

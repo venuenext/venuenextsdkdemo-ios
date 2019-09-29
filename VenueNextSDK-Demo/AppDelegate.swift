@@ -3,6 +3,9 @@
 import UIKit
 import VNCore
 import VNOrderData
+import VNOrderUI
+import VNWalletUI
+import PresenceSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -12,23 +15,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // VenueNext SDKs can be configured from Swift or ObjC
         // To run the ObjC app set isSwiftDemoApp to false
+    
+        let isSwift = true
         
-        //forward responder to PresenseAppDelegate
-        PresenceAppDelegate.shared.applicationDidFinishLaunching(application)
-
-        let isSwiftDemoApp = true
-        
-        startConfiguration(for: isSwiftDemoApp)
         Appearance.start()
-
+        
+        //Initialize VenueNext SDK
+        intializeSDK(for: isSwift)
+        
+        //Setup PresenceSDK
+        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "PRESENCE SDK KEY", displayName: "Demo App", useNewAccountsManager: true)
+        PresenceSDK.getPresenceSDK().setBrandingColor(color: .accent)
+        
+        //configure wallet
+        VenueNext.configure(wallet: VNWallet.shared, walletDelegate: self)
+        //turn on wallet for VNOrder
+        VenueNext.enableWallet(for: VNOrder.shared)
+       
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = tabBarController(for: isSwiftDemoApp)
+        window?.rootViewController = tabBarController(for: isSwift)
         window?.makeKeyAndVisible()
+
         return true
     }
     
-    func tabBarController(for isSwiftDemoApp: Bool) -> UIViewController {
-        switch isSwiftDemoApp {
+    func tabBarController(for isSwift: Bool) -> UIViewController {
+        switch isSwift {
         case true:
             return TabBarController()
         case false:
@@ -36,12 +48,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func startConfiguration(for isSwiftDemoApp: Bool) {
-        switch isSwiftDemoApp {
+    func intializeSDK(for isSwift: Bool) {
+        switch isSwift {
         case true:
-            SwiftConfiguration.start()
+            // use the following code in your application:didFinishLaunchingWithOptions:
+            VenueNext.shared.initialize(sdkKey: "VENUENEXT SDK KEY", sdkSecret: "SDK_SECRET")
+            Analytics.initialize(with: CustomAnalytics())
         case false:
             ObjCConfiguration.start()
         }
+    }
+}
+
+extension AppDelegate: VNWalletDelegate {
+    
+    func walletUser() -> VNWalletUser? {
+        return nil
+    }
+    
+    func loginController(completion: @escaping (VNWalletUser?, NSError?) -> Void) -> UIViewController {
+        let presenceController = PresenceController()
+        presenceController.logout()
+        presenceController.loginCompletion = { (member, error) in
+            guard let firstName = member?.firstName,
+                let lastName = member?.lastName,
+                let email = member?.email,
+                let externalID = member?.id else {
+                    let error = NSError(domain: "com.venuenext.VNWallet", code: 404, userInfo: [NSLocalizedDescriptionKey: "Failed to retrieve member information"])
+                    completion(nil, error)
+                    return
+            }
+            let walletUser = VNWalletUser(firstName: firstName, lastName: lastName, email: email, externalID: externalID)
+            completion(walletUser, nil)
+        }
+        return presenceController
+    }
+    
+    func walletTitle() -> String {
+        return "Magic Money"
+    }
+    
+    func walletVirtualCurrencyPaymentType() -> String {
+        return "magic_money"
     }
 }

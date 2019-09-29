@@ -227,16 +227,17 @@ SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
 @end
 
 
+
+
+
+
+
+
+
+
 @interface CheckoutTableViewController (SWIFT_EXTENSION(VNOrderUI)) <NSFetchedResultsControllerDelegate>
+- (void)controllerDidChangeContent:(NSFetchedResultsController<id <NSFetchRequestResult>> * _Nonnull)controller;
 @end
-
-
-
-
-
-
-
-
 
 
 
@@ -686,6 +687,7 @@ SWIFT_CLASS("_TtC9VNOrderUI18ReceiptCoordinator")
 
 SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 @interface StandMenuTableViewController : UITableViewController
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
 - (void)viewDidAppear:(BOOL)animated;
 - (void)reloadData;
@@ -695,9 +697,8 @@ SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithStyle:(UITableViewStyle)style SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
 
@@ -724,13 +725,13 @@ SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 
 SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
 @interface StandMenuViewController : UIViewController
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewDidAppear:(BOOL)animated;
 - (void)viewDidLayoutSubviews;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
 @class UICollectionView;
@@ -739,13 +740,13 @@ SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
 
+
+
 @class UICollectionViewLayout;
 
 @interface StandMenuViewController (SWIFT_EXTENSION(VNOrderUI)) <UICollectionViewDelegateFlowLayout>
 - (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView layout:(UICollectionViewLayout * _Nonnull)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 @class UICollectionViewCell;
 
@@ -794,13 +795,13 @@ SWIFT_CLASS("_TtC9VNOrderUI25StandsTableViewController")
 @end
 
 
-
-
 @interface StandsTableViewController (SWIFT_EXTENSION(VNOrderUI))
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 @interface StandsTableViewController (SWIFT_EXTENSION(VNOrderUI)) <NSFetchedResultsControllerDelegate>
@@ -835,12 +836,18 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 
 
 
+
+
 SWIFT_CLASS("_TtC9VNOrderUI7VNOrder")
 @interface VNOrder : NSObject
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNOrder * _Nonnull shared;)
 + (VNOrder * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-+ (void)enableWalletWithWallet:(id _Nonnull)wallet;
+@end
+
+
+@interface VNOrder (SWIFT_EXTENSION(VNOrderUI)) <VNOrderProtocol>
+- (void)enableWalletWithWallet:(id _Nonnull)wallet;
 @end
 
 #if __has_attribute(external_source_symbol)
@@ -1074,16 +1081,17 @@ SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
 @end
 
 
+
+
+
+
+
+
+
+
 @interface CheckoutTableViewController (SWIFT_EXTENSION(VNOrderUI)) <NSFetchedResultsControllerDelegate>
+- (void)controllerDidChangeContent:(NSFetchedResultsController<id <NSFetchRequestResult>> * _Nonnull)controller;
 @end
-
-
-
-
-
-
-
-
 
 
 
@@ -1533,6 +1541,7 @@ SWIFT_CLASS("_TtC9VNOrderUI18ReceiptCoordinator")
 
 SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 @interface StandMenuTableViewController : UITableViewController
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
 - (void)viewDidAppear:(BOOL)animated;
 - (void)reloadData;
@@ -1542,9 +1551,8 @@ SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithStyle:(UITableViewStyle)style SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
 
@@ -1571,13 +1579,13 @@ SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 
 SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
 @interface StandMenuViewController : UIViewController
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewDidAppear:(BOOL)animated;
 - (void)viewDidLayoutSubviews;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
 @class UICollectionView;
@@ -1586,13 +1594,13 @@ SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
 
+
+
 @class UICollectionViewLayout;
 
 @interface StandMenuViewController (SWIFT_EXTENSION(VNOrderUI)) <UICollectionViewDelegateFlowLayout>
 - (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView layout:(UICollectionViewLayout * _Nonnull)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 @class UICollectionViewCell;
 
@@ -1641,13 +1649,13 @@ SWIFT_CLASS("_TtC9VNOrderUI25StandsTableViewController")
 @end
 
 
-
-
 @interface StandsTableViewController (SWIFT_EXTENSION(VNOrderUI))
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 @interface StandsTableViewController (SWIFT_EXTENSION(VNOrderUI)) <NSFetchedResultsControllerDelegate>
@@ -1682,12 +1690,18 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 
 
 
+
+
 SWIFT_CLASS("_TtC9VNOrderUI7VNOrder")
 @interface VNOrder : NSObject
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNOrder * _Nonnull shared;)
 + (VNOrder * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-+ (void)enableWalletWithWallet:(id _Nonnull)wallet;
+@end
+
+
+@interface VNOrder (SWIFT_EXTENSION(VNOrderUI)) <VNOrderProtocol>
+- (void)enableWalletWithWallet:(id _Nonnull)wallet;
 @end
 
 #if __has_attribute(external_source_symbol)

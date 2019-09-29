@@ -545,8 +545,6 @@ SWIFT_CLASS_NAMED("Menu")
 
 
 
-
-
 @interface Menu (SWIFT_EXTENSION(VNOrderData))
 - (void)addCategoriesObject:(ItemCategory * _Nonnull)value;
 - (void)removeCategoriesObject:(ItemCategory * _Nonnull)value;
@@ -569,6 +567,8 @@ SWIFT_CLASS_NAMED("Menu")
 - (void)addItems:(NSSet * _Nonnull)values;
 - (void)removeItems:(NSSet * _Nonnull)values;
 @end
+
+
 
 
 @interface Menu (SWIFT_EXTENSION(VNOrderData))
@@ -1643,8 +1643,6 @@ SWIFT_CLASS_NAMED("Menu")
 
 
 
-
-
 @interface Menu (SWIFT_EXTENSION(VNOrderData))
 - (void)addCategoriesObject:(ItemCategory * _Nonnull)value;
 - (void)removeCategoriesObject:(ItemCategory * _Nonnull)value;
@@ -1667,6 +1665,8 @@ SWIFT_CLASS_NAMED("Menu")
 - (void)addItems:(NSSet * _Nonnull)values;
 - (void)removeItems:(NSSet * _Nonnull)values;
 @end
+
+
 
 
 @interface Menu (SWIFT_EXTENSION(VNOrderData))

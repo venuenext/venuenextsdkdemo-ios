@@ -358,6 +358,28 @@ SWIFT_CLASS("_TtC8VNCoreUI15RoundedTextView")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @end
 
+@class NSLayoutConstraint;
+
+SWIFT_CLASS("_TtC8VNCoreUI26SendReceiptTableFooterView")
+@interface SendReceiptTableFooterView : UIView
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified textLabel;
+@property (nonatomic, weak) IBOutlet RoundedTextField * _Null_unspecified textField;
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified errorLabel;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint * _Null_unspecified topConstraint;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint * _Null_unspecified centerConstraint;
+- (void)awakeFromNib;
+- (void)didTapTextFieldWithSender:(UIView * _Nonnull)sender;
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface SendReceiptTableFooterView (SWIFT_EXTENSION(VNCoreUI)) <UITextFieldDelegate>
+- (void)textFieldDidBeginEditing:(UITextField * _Nonnull)textField;
+- (void)textFieldDidEndEditing:(UITextField * _Nonnull)textField reason:(UITextFieldDidEndEditingReason)reason;
+- (BOOL)textFieldShouldReturn:(UITextField * _Nonnull)textField SWIFT_WARN_UNUSED_RESULT;
+@end
+
 
 SWIFT_CLASS("_TtC8VNCoreUI20SheetModalController")
 @interface SheetModalController : UIViewController
@@ -410,6 +432,11 @@ SWIFT_CLASS("_TtC8VNCoreUI11ShimmerView")
 
 
 
+
+
+@interface UIViewController (SWIFT_EXTENSION(VNCoreUI))
+- (void)dismissKeyboard;
+@end
 
 
 SWIFT_CLASS("_TtC8VNCoreUI7XIBView")
@@ -780,6 +807,28 @@ SWIFT_CLASS("_TtC8VNCoreUI15RoundedTextView")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @end
 
+@class NSLayoutConstraint;
+
+SWIFT_CLASS("_TtC8VNCoreUI26SendReceiptTableFooterView")
+@interface SendReceiptTableFooterView : UIView
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified textLabel;
+@property (nonatomic, weak) IBOutlet RoundedTextField * _Null_unspecified textField;
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified errorLabel;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint * _Null_unspecified topConstraint;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint * _Null_unspecified centerConstraint;
+- (void)awakeFromNib;
+- (void)didTapTextFieldWithSender:(UIView * _Nonnull)sender;
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface SendReceiptTableFooterView (SWIFT_EXTENSION(VNCoreUI)) <UITextFieldDelegate>
+- (void)textFieldDidBeginEditing:(UITextField * _Nonnull)textField;
+- (void)textFieldDidEndEditing:(UITextField * _Nonnull)textField reason:(UITextFieldDidEndEditingReason)reason;
+- (BOOL)textFieldShouldReturn:(UITextField * _Nonnull)textField SWIFT_WARN_UNUSED_RESULT;
+@end
+
 
 SWIFT_CLASS("_TtC8VNCoreUI20SheetModalController")
 @interface SheetModalController : UIViewController
@@ -832,6 +881,11 @@ SWIFT_CLASS("_TtC8VNCoreUI11ShimmerView")
 
 
 
+
+
+@interface UIViewController (SWIFT_EXTENSION(VNCoreUI))
+- (void)dismissKeyboard;
+@end
 
 
 SWIFT_CLASS("_TtC8VNCoreUI7XIBView")
