@@ -17,11 +17,6 @@ class TabBarController: UITabBarController {
 
         let paymentProcessor = PaymentAdapter()
     
-        //configure wallet
-        VenueNext.configure(wallet: VNWallet.shared, walletDelegate: self)
-        //turn on wallet for VNOrder
-        VenueNext.enableWallet(for: VNOrder.shared)
-
         orderCoordinator = OrderCoordinator(paymentProcessor: paymentProcessor)
         orderCoordinator.start()
         orderCoordinator.navigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
@@ -47,37 +42,6 @@ class TabBarController: UITabBarController {
     }
 }
 
-extension TabBarController: VNWalletDelegate {
-    
-    func walletUser() -> VNWalletUser? {
-        return nil
-    }
-    
-    func loginController(completion: @escaping (VNWalletUser?, NSError?) -> Void) -> UIViewController {
-        let presenceController = PresenceController()
-        presenceController.logout()
-        presenceController.loginCompletion = { (member, error) in
-            guard let firstName = member?.firstName,
-                let lastName = member?.lastName,
-                let email = member?.email,
-                let externalID = member?.id else {
-                    let error = NSError(domain: "com.venuenext.VNWallet", code: 404, userInfo: [NSLocalizedDescriptionKey: "Failed to retrieve member information"])
-                    completion(nil, error)
-                    return
-            }
-            let walletUser = VNWalletUser(firstName: firstName, lastName: lastName, email: email, externalID: externalID)
-            completion(walletUser, nil)
-        }
-        return presenceController
-    }
-    
-    func walletTitle() -> String {
-        return "Magic Money"
-    }
-    
-    func walletVirtualCurrencyPaymentType() -> String {
-        return "magic_money"
-    }
-}
+
 
 

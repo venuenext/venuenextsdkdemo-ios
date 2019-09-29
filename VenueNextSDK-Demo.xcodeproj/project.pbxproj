@@ -182,6 +182,15 @@
 			path = Adapters;
 			sourceTree = "<group>";
 		};
+		65E2C6E72340463F0096C1F9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				ABC68E80230EF97F00F41B01 /* Appearance.swift */,
+				ABC68E7A230EF7F500F41B01 /* SwiftConfiguration.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		AB2BCA81228DB66400194A7A = {
 			isa = PBXGroup;
 			children = (
@@ -202,8 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				AB2BCA8D228DB66400194A7A /* AppDelegate.swift */,
-				ABC68E80230EF97F00F41B01 /* Appearance.swift */,
-				ABC68E7A230EF7F500F41B01 /* SwiftConfiguration.swift */,
+				65E2C6E72340463F0096C1F9 /* Helpers */,
 				65E2C6E4233EDEFF0096C1F9 /* Controllers */,
 				65E2C6E6233EE5C50096C1F9 /* Adapters */,
 				65E2C6E3233EDE310096C1F9 /* Views */,
