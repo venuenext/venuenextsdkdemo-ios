@@ -3,6 +3,9 @@
 import UIKit
 import VNCore
 import VNOrderData
+import VNOrderUI
+import VNWalletUI
+import PresenceSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -12,10 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // VenueNext SDKs can be configured from Swift or ObjC
         // To run the ObjC app set isSwiftDemoApp to false
-        
-        //forward responder to PresenseAppDelegate
-        PresenceAppDelegate.shared.applicationDidFinishLaunching(application)
-
+    
         let isSwiftDemoApp = true
         
         startConfiguration(for: isSwiftDemoApp)
@@ -24,6 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController(for: isSwiftDemoApp)
         window?.makeKeyAndVisible()
+
+        //Setup PresenceSDK
+        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "", displayName: "Demo App", useNewAccountsManager: true)
+        PresenceSDK.getPresenceSDK().setBrandingColor(color: .accent)
+        
+       
+        
         return true
     }
     
@@ -45,3 +52,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 }
+

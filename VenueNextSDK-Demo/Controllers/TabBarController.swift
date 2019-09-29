@@ -10,15 +10,17 @@ class TabBarController: UITabBarController {
     var orderCoordinator: OrderCoordinator!
     var orderHistoryCoordinator: OrderHistoryCoordinator!
     var deepLinkTableViewController: DeepLinkTableViewController!
-    
+    var walletCoordinator: WalletCoordinator!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let paymentProcessor = PaymentAdapter()
-        
-        VNWallet.configure(delegate: self)
-        
-        VNOrder.enableWallet(wallet: VNWallet.shared)
+    
+        //configure wallet
+        VenueNext.configure(wallet: VNWallet.shared, walletDelegate: self)
+        //turn on wallet for VNOrder
+        VenueNext.enableWallet(for: VNOrder.shared)
 
         orderCoordinator = OrderCoordinator(paymentProcessor: paymentProcessor)
         orderCoordinator.start()
@@ -28,11 +30,16 @@ class TabBarController: UITabBarController {
         orderHistoryCoordinator.start()
         orderHistoryCoordinator.navigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 1)
 
+        walletCoordinator = WalletCoordinator()
+        walletCoordinator.start()
+        let imageIcon = UIImage(named: "wallet_icon", in: nil, compatibleWith: nil)
+        walletCoordinator.navigationController.tabBarItem = UITabBarItem(title: "Wallet", image: imageIcon, tag: 3)
+        
         deepLinkTableViewController = DeepLinkTableViewController()
         let deepLinkNavigationController = UINavigationController(rootViewController: deepLinkTableViewController)
         deepLinkNavigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 2)
         
-        let tabBarList = [orderCoordinator.navigationController!, orderHistoryCoordinator.navigationController!, deepLinkNavigationController]
+        let tabBarList = [orderCoordinator.navigationController!, orderHistoryCoordinator.navigationController!, walletCoordinator.navigationController!, deepLinkNavigationController]
         viewControllers = tabBarList
 
         tabBar.isTranslucent = false
@@ -65,11 +72,12 @@ extension TabBarController: VNWalletDelegate {
     }
     
     func walletTitle() -> String {
-        return "Swamp Bucks"
+        return "Magic Money"
     }
     
     func walletVirtualCurrencyPaymentType() -> String {
         return "magic_money"
     }
 }
+
 

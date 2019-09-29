@@ -195,6 +195,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWalletServ
 - (void)getWalletUserBalanceWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
 - (void)postQRCodeWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
 - (void)postVendPaymentTypesWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
+- (void)postVirtualCurrencyTransferWithParams:(NSDictionary<NSString *, id> * _Nonnull)params completion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -397,6 +398,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWalletServ
 - (void)getWalletUserBalanceWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
 - (void)postQRCodeWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
 - (void)postVendPaymentTypesWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
+- (void)postVirtualCurrencyTransferWithParams:(NSDictionary<NSString *, id> * _Nonnull)params completion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

@@ -263,6 +263,14 @@ typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
 
 
 
+
+
+SWIFT_PROTOCOL("_TtP6VNCore15VNOrderProtocol_")
+@protocol VNOrderProtocol
+- (void)enableWalletWithWallet:(id _Nonnull)wallet;
+@end
+
+
 /// An object to hold onto a shared PaymentProcessable. VenueNext frameworks will use this processor if set.
 SWIFT_CLASS("_TtC6VNCore18VNPaymentProcessor")
 @interface VNPaymentProcessor : NSObject
@@ -284,10 +292,18 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) VenueNext * _Nonnull s
 /// Configures the app for VenueNext frameworks.
 /// This method should be called after the app is launched and before using VenueNext services such as in application(_:didFinishLaunchingWithOptions:).
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
++ (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+
+
+@interface VenueNext (SWIFT_EXTENSION(VNCore))
+- (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
+- (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -556,6 +572,14 @@ typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
 
 
 
+
+
+SWIFT_PROTOCOL("_TtP6VNCore15VNOrderProtocol_")
+@protocol VNOrderProtocol
+- (void)enableWalletWithWallet:(id _Nonnull)wallet;
+@end
+
+
 /// An object to hold onto a shared PaymentProcessable. VenueNext frameworks will use this processor if set.
 SWIFT_CLASS("_TtC6VNCore18VNPaymentProcessor")
 @interface VNPaymentProcessor : NSObject
@@ -577,10 +601,18 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) VenueNext * _Nonnull s
 /// Configures the app for VenueNext frameworks.
 /// This method should be called after the app is launched and before using VenueNext services such as in application(_:didFinishLaunchingWithOptions:).
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
++ (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+
+
+@interface VenueNext (SWIFT_EXTENSION(VNCore))
+- (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
+- (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop

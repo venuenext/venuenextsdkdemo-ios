@@ -167,6 +167,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # define SWIFT_DEPRECATED_OBJC(Msg) SWIFT_DEPRECATED_MSG(Msg)
 #endif
 #if __has_feature(modules)
+@import CoreGraphics;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
@@ -191,15 +192,19 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 
 
+
+
 @protocol VNWalletDelegate;
 
 SWIFT_CLASS("_TtC10VNWalletUI8VNWallet")
 @interface VNWallet : NSObject
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWallet * _Nonnull shared;)
 + (VNWallet * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
-@property (nonatomic, strong) id <VNWalletDelegate> _Null_unspecified delegate;
+@property (nonatomic, readonly, strong) id <VNWalletDelegate> _Null_unspecified delegate;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
 
 
 
@@ -242,6 +247,13 @@ SWIFT_CLASS("_TtC10VNWalletUI17WalletCoordinator")
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 @end
 
+
+@interface WalletCoordinator (SWIFT_EXTENSION(VNWalletUI))
+- (void)presentFrom:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(void))completion;
+@end
+
+
+
 @class NSCoder;
 @class NSBundle;
 
@@ -255,20 +267,25 @@ SWIFT_CLASS("_TtC10VNWalletUI20WalletViewController")
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
+
+
+
+
 @class UITableView;
 @class UITableViewCell;
 
 @interface WalletViewController (SWIFT_EXTENSION(VNWalletUI)) <UITableViewDelegate>
 - (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(UITableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
-
-
 
 
 @interface WalletViewController (SWIFT_EXTENSION(VNWalletUI)) <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 @end
 
 #if __has_attribute(external_source_symbol)
@@ -442,6 +459,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # define SWIFT_DEPRECATED_OBJC(Msg) SWIFT_DEPRECATED_MSG(Msg)
 #endif
 #if __has_feature(modules)
+@import CoreGraphics;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
@@ -466,15 +484,19 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 
 
+
+
 @protocol VNWalletDelegate;
 
 SWIFT_CLASS("_TtC10VNWalletUI8VNWallet")
 @interface VNWallet : NSObject
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWallet * _Nonnull shared;)
 + (VNWallet * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
-@property (nonatomic, strong) id <VNWalletDelegate> _Null_unspecified delegate;
+@property (nonatomic, readonly, strong) id <VNWalletDelegate> _Null_unspecified delegate;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
 
 
 
@@ -517,6 +539,13 @@ SWIFT_CLASS("_TtC10VNWalletUI17WalletCoordinator")
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 @end
 
+
+@interface WalletCoordinator (SWIFT_EXTENSION(VNWalletUI))
+- (void)presentFrom:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(void))completion;
+@end
+
+
+
 @class NSCoder;
 @class NSBundle;
 
@@ -530,20 +559,25 @@ SWIFT_CLASS("_TtC10VNWalletUI20WalletViewController")
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
+
+
+
+
 @class UITableView;
 @class UITableViewCell;
 
 @interface WalletViewController (SWIFT_EXTENSION(VNWalletUI)) <UITableViewDelegate>
 - (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(UITableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
-
-
 
 
 @interface WalletViewController (SWIFT_EXTENSION(VNWalletUI)) <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 @end
 
 #if __has_attribute(external_source_symbol)

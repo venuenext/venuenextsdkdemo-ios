@@ -31,7 +31,6 @@
 		1A14B60E23397C170071A6E4 /* VNWalletService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B5E623397C100071A6E4 /* VNWalletService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1A14B60F23397C170071A6E4 /* VNWalletUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B5E723397C100071A6E4 /* VNWalletUI.framework */; };
 		1A14B61023397C170071A6E4 /* VNWalletUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B5E723397C100071A6E4 /* VNWalletUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1A14B61223397DAD0071A6E4 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A14B61123397DAD0071A6E4 /* Keys.plist */; };
 		1A14B61623397F160071A6E4 /* PresenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A14B61523397F150071A6E4 /* PresenceController.swift */; };
 		1A14B61B23397F470071A6E4 /* Presence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61723397F3D0071A6E4 /* Presence.framework */; };
 		1A14B61C23397F470071A6E4 /* Presence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61723397F3D0071A6E4 /* Presence.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -39,7 +38,6 @@
 		1A14B61E23397F470071A6E4 /* PresenceSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61823397F3E0071A6E4 /* PresenceSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1A14B62123397F8A0071A6E4 /* iosExperienceSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61F23397F7B0071A6E4 /* iosExperienceSDK.framework */; };
 		1A14B62223397F8A0071A6E4 /* iosExperienceSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61F23397F7B0071A6E4 /* iosExperienceSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1A14B62423397FA50071A6E4 /* PresenseAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A14B62323397FA50071A6E4 /* PresenseAppDelegate.swift */; };
 		6594257722C23B7500BCA348 /* DeepLinkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6594257522C23B7500BCA348 /* DeepLinkTableViewController.swift */; };
 		6594257822C23B7500BCA348 /* DeepLinkTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6594257622C23B7500BCA348 /* DeepLinkTableViewController.xib */; };
 		6594257B22C2BD2200BCA348 /* LinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6594257922C2BD2100BCA348 /* LinkTableViewCell.swift */; };
@@ -100,12 +98,10 @@
 		1A14B5EA23397C100071A6E4 /* VNLegacy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNLegacy.framework; sourceTree = "<group>"; };
 		1A14B5EB23397C100071A6E4 /* VNAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNAnalytics.framework; sourceTree = "<group>"; };
 		1A14B5EC23397C100071A6E4 /* VNOrderService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNOrderService.framework; sourceTree = "<group>"; };
-		1A14B61123397DAD0071A6E4 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		1A14B61523397F150071A6E4 /* PresenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenceController.swift; sourceTree = "<group>"; };
 		1A14B61723397F3D0071A6E4 /* Presence.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presence.framework; sourceTree = "<group>"; };
 		1A14B61823397F3E0071A6E4 /* PresenceSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PresenceSDK.framework; sourceTree = "<group>"; };
 		1A14B61F23397F7B0071A6E4 /* iosExperienceSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iosExperienceSDK.framework; sourceTree = "<group>"; };
-		1A14B62323397FA50071A6E4 /* PresenseAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenseAppDelegate.swift; sourceTree = "<group>"; };
 		6594257522C23B7500BCA348 /* DeepLinkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkTableViewController.swift; sourceTree = "<group>"; };
 		6594257622C23B7500BCA348 /* DeepLinkTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeepLinkTableViewController.xib; sourceTree = "<group>"; };
 		6594257922C2BD2100BCA348 /* LinkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkTableViewCell.swift; sourceTree = "<group>"; };
@@ -157,11 +153,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6594258022C2C7A100BCA348 /* Frameworks */ = {
+		65E2C6E3233EDE310096C1F9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6594257922C2BD2100BCA348 /* LinkTableViewCell.swift */,
+				6594257A22C2BD2100BCA348 /* LinkTableViewCell.xib */,
 			);
-			name = Frameworks;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		65E2C6E4233EDEFF0096C1F9 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6594257522C23B7500BCA348 /* DeepLinkTableViewController.swift */,
+				6594257622C23B7500BCA348 /* DeepLinkTableViewController.xib */,
+				AB6E2354228DCB4800EDD290 /* TabBarController.swift */,
+				1A14B61523397F150071A6E4 /* PresenceController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		65E2C6E6233EE5C50096C1F9 /* Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				AB5987C922B43CAC003E159A /* Analytics.swift */,
+				AB6E2356228DCD1800EDD290 /* PaymentAdapter.swift */,
+			);
+			path = Adapters;
 			sourceTree = "<group>";
 		};
 		AB2BCA81228DB66400194A7A = {
@@ -169,7 +187,6 @@
 			children = (
 				AB2BCA8C228DB66400194A7A /* VenueNextSDK-Demo */,
 				AB2BCA8B228DB66400194A7A /* Products */,
-				6594258022C2C7A100BCA348 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -184,26 +201,19 @@
 		AB2BCA8C228DB66400194A7A /* VenueNextSDK-Demo */ = {
 			isa = PBXGroup;
 			children = (
-				1A14B61123397DAD0071A6E4 /* Keys.plist */,
-				ABC68E80230EF97F00F41B01 /* Appearance.swift */,
-				AB6E2342228DCA2D00EDD290 /* Frameworks */,
-				ABC68E71230EF7F500F41B01 /* ObjC */,
-				1A14B62323397FA50071A6E4 /* PresenseAppDelegate.swift */,
-				ABC68E7A230EF7F500F41B01 /* SwiftConfiguration.swift */,
-				1A14B61523397F150071A6E4 /* PresenceController.swift */,
 				AB2BCA8D228DB66400194A7A /* AppDelegate.swift */,
-				AB5987C922B43CAC003E159A /* Analytics.swift */,
-				AB6E2354228DCB4800EDD290 /* TabBarController.swift */,
-				AB6E2356228DCD1800EDD290 /* PaymentAdapter.swift */,
-				6594257922C2BD2100BCA348 /* LinkTableViewCell.swift */,
-				6594257A22C2BD2100BCA348 /* LinkTableViewCell.xib */,
-				6594257522C23B7500BCA348 /* DeepLinkTableViewController.swift */,
-				6594257622C23B7500BCA348 /* DeepLinkTableViewController.xib */,
+				ABC68E80230EF97F00F41B01 /* Appearance.swift */,
+				ABC68E7A230EF7F500F41B01 /* SwiftConfiguration.swift */,
+				65E2C6E4233EDEFF0096C1F9 /* Controllers */,
+				65E2C6E6233EE5C50096C1F9 /* Adapters */,
+				65E2C6E3233EDE310096C1F9 /* Views */,
 				AB2BCA94228DB66700194A7A /* Assets.xcassets */,
 				AB2BCA96228DB66700194A7A /* LaunchScreen.storyboard */,
 				AB2BCA99228DB66700194A7A /* Info.plist */,
 				AB6E2358228DCDE400EDD290 /* vnorder-colors.plist */,
 				ABC68E84230EFB7400F41B01 /* VenueNextSDK_Demo-Bridging-Header.h */,
+				ABC68E71230EF7F500F41B01 /* ObjC */,
+				AB6E2342228DCA2D00EDD290 /* Frameworks */,
 			);
 			path = "VenueNextSDK-Demo";
 			sourceTree = "<group>";
@@ -315,7 +325,6 @@
 				ABC68E7D230EF7F500F41B01 /* DemoViewController.xib in Resources */,
 				AB2BCA98228DB66700194A7A /* LaunchScreen.storyboard in Resources */,
 				AB6E2359228DCDE400EDD290 /* vnorder-colors.plist in Resources */,
-				1A14B61223397DAD0071A6E4 /* Keys.plist in Resources */,
 				AB2BCA95228DB66700194A7A /* Assets.xcassets in Resources */,
 				6594257822C23B7500BCA348 /* DeepLinkTableViewController.xib in Resources */,
 			);
@@ -339,7 +348,6 @@
 				1A14B61623397F160071A6E4 /* PresenceController.swift in Sources */,
 				6594257722C23B7500BCA348 /* DeepLinkTableViewController.swift in Sources */,
 				ABC68E7F230EF7F500F41B01 /* SwiftConfiguration.swift in Sources */,
-				1A14B62423397FA50071A6E4 /* PresenseAppDelegate.swift in Sources */,
 				6594257B22C2BD2200BCA348 /* LinkTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
