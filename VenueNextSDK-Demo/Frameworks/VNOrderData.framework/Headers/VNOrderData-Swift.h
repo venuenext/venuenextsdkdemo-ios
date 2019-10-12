@@ -244,6 +244,7 @@ SWIFT_CLASS_NAMED("Cart")
 @property (nonatomic) int64_t taxInCents;
 @property (nonatomic) int64_t totalAmountInCents;
 @property (nonatomic, copy) NSString * _Nullable userEmail;
+@property (nonatomic, copy) NSString * _Nullable userFullName;
 @property (nonatomic, strong) NSSet * _Nullable cartEntries;
 @property (nonatomic, strong) Menu * _Nullable menu;
 @property (nonatomic, strong) Stand * _Nullable stand;
@@ -1345,6 +1346,7 @@ SWIFT_CLASS_NAMED("Cart")
 @property (nonatomic) int64_t taxInCents;
 @property (nonatomic) int64_t totalAmountInCents;
 @property (nonatomic, copy) NSString * _Nullable userEmail;
+@property (nonatomic, copy) NSString * _Nullable userFullName;
 @property (nonatomic, strong) NSSet * _Nullable cartEntries;
 @property (nonatomic, strong) Menu * _Nullable menu;
 @property (nonatomic, strong) Stand * _Nullable stand;

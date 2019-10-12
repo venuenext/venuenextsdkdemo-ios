@@ -63,7 +63,7 @@ class DeepLinkTableViewController: UITableViewController {
     
     private func configureNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.navigationBar.barTintColor = .primaryDark
+        navigationController?.navigationBar.barTintColor = VN.theme.primaryDark
         navigationController?.navigationBar.isTranslucent = false
     }
     

@@ -23,12 +23,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Initialize VenueNext SDK
         intializeSDK(for: isSwift)
         
+       
         //Setup PresenceSDK
         PresenceSDK.getPresenceSDK().setConfig(consumerKey: "PRESENCE SDK KEY", displayName: "Demo App", useNewAccountsManager: true)
-        PresenceSDK.getPresenceSDK().setBrandingColor(color: .accent)
+        PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
         
         //configure wallet
-        VenueNext.configure(wallet: VNWallet.shared, walletDelegate: self)
+        VenueNext.configure(wallet: VNWallet.shared, walletDelegate: self, theme: nil
+        )
         //turn on wallet for VNOrder
         VenueNext.enableWallet(for: VNOrder.shared)
        
@@ -52,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         switch isSwift {
         case true:
             // use the following code in your application:didFinishLaunchingWithOptions:
-            VenueNext.shared.initialize(sdkKey: "VENUENEXT SDK KEY", sdkSecret: "SDK_SECRET")
+            VenueNext.shared.initialize(sdkKey: "SDK_KEY", sdkSecret: "SDK_SECRET")
             Analytics.initialize(with: CustomAnalytics())
         case false:
             ObjCConfiguration.start()

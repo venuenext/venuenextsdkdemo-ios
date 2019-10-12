@@ -4,3 +4,8 @@ framework module VNWalletData {
   export *
   module * { export * }
 }
+
+module VNWalletData.Swift {
+    header "VNWalletData-Swift.h"
+    requires objc
+}

@@ -15,13 +15,14 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let paymentProcessor = PaymentAdapter()
-    
-        orderCoordinator = OrderCoordinator(paymentProcessor: paymentProcessor)
+        // Assign a payment Processor
+        VNPaymentProcessor.shared = PaymentProcessor()
+        
+        orderCoordinator = OrderCoordinator()
         orderCoordinator.start()
         orderCoordinator.navigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
 
-        orderHistoryCoordinator = OrderHistoryCoordinator(paymentProcessor: paymentProcessor)
+        orderHistoryCoordinator = OrderHistoryCoordinator()
         orderHistoryCoordinator.start()
         orderHistoryCoordinator.navigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 1)
 

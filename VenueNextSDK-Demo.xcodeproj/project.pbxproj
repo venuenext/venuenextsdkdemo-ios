@@ -25,8 +25,6 @@
 		1A14B60823397C170071A6E4 /* VNOrderUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B5E523397C100071A6E4 /* VNOrderUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1A14B60923397C170071A6E4 /* VNPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B5E923397C100071A6E4 /* VNPayment.framework */; };
 		1A14B60A23397C170071A6E4 /* VNPayment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B5E923397C100071A6E4 /* VNPayment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1A14B60B23397C170071A6E4 /* VNWalletData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B5E123397C0F0071A6E4 /* VNWalletData.framework */; };
-		1A14B60C23397C170071A6E4 /* VNWalletData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B5E123397C0F0071A6E4 /* VNWalletData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1A14B60D23397C170071A6E4 /* VNWalletService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B5E623397C100071A6E4 /* VNWalletService.framework */; };
 		1A14B60E23397C170071A6E4 /* VNWalletService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B5E623397C100071A6E4 /* VNWalletService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1A14B60F23397C170071A6E4 /* VNWalletUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B5E723397C100071A6E4 /* VNWalletUI.framework */; };
@@ -38,6 +36,9 @@
 		1A14B61E23397F470071A6E4 /* PresenceSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61823397F3E0071A6E4 /* PresenceSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1A14B62123397F8A0071A6E4 /* iosExperienceSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61F23397F7B0071A6E4 /* iosExperienceSDK.framework */; };
 		1A14B62223397F8A0071A6E4 /* iosExperienceSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61F23397F7B0071A6E4 /* iosExperienceSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		65531A5123524CF800197926 /* VNWalletData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65531A5023524CF800197926 /* VNWalletData.framework */; };
+		65531A5223524D0400197926 /* VNWalletData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65531A5023524CF800197926 /* VNWalletData.framework */; };
+		65531A5323524D0400197926 /* VNWalletData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65531A5023524CF800197926 /* VNWalletData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6594257722C23B7500BCA348 /* DeepLinkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6594257522C23B7500BCA348 /* DeepLinkTableViewController.swift */; };
 		6594257822C23B7500BCA348 /* DeepLinkTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6594257622C23B7500BCA348 /* DeepLinkTableViewController.xib */; };
 		6594257B22C2BD2200BCA348 /* LinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6594257922C2BD2100BCA348 /* LinkTableViewCell.swift */; };
@@ -72,12 +73,12 @@
 				1A14B5FA23397C170071A6E4 /* VNAnalytics.framework in Embed Frameworks */,
 				1A14B5FC23397C170071A6E4 /* VNCore.framework in Embed Frameworks */,
 				1A14B62223397F8A0071A6E4 /* iosExperienceSDK.framework in Embed Frameworks */,
+				65531A5323524D0400197926 /* VNWalletData.framework in Embed Frameworks */,
 				1A14B60023397C170071A6E4 /* VNLegacy.framework in Embed Frameworks */,
 				1A14B61023397C170071A6E4 /* VNWalletUI.framework in Embed Frameworks */,
 				1A14B60823397C170071A6E4 /* VNOrderUI.framework in Embed Frameworks */,
 				1A14B60223397C170071A6E4 /* VNNetworkService.framework in Embed Frameworks */,
 				1A14B60423397C170071A6E4 /* VNOrderData.framework in Embed Frameworks */,
-				1A14B60C23397C170071A6E4 /* VNWalletData.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -85,7 +86,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1A14B5E123397C0F0071A6E4 /* VNWalletData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNWalletData.framework; sourceTree = "<group>"; };
 		1A14B5E223397C0F0071A6E4 /* VNCoreUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNCoreUI.framework; sourceTree = "<group>"; };
 		1A14B5E323397C0F0071A6E4 /* VNNetworkService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNNetworkService.framework; sourceTree = "<group>"; };
 		1A14B5E423397C0F0071A6E4 /* VNOrderData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNOrderData.framework; sourceTree = "<group>"; };
@@ -101,6 +101,7 @@
 		1A14B61723397F3D0071A6E4 /* Presence.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presence.framework; sourceTree = "<group>"; };
 		1A14B61823397F3E0071A6E4 /* PresenceSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PresenceSDK.framework; sourceTree = "<group>"; };
 		1A14B61F23397F7B0071A6E4 /* iosExperienceSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iosExperienceSDK.framework; sourceTree = "<group>"; };
+		65531A5023524CF800197926 /* VNWalletData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNWalletData.framework; sourceTree = "<group>"; };
 		6594257522C23B7500BCA348 /* DeepLinkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkTableViewController.swift; sourceTree = "<group>"; };
 		6594257622C23B7500BCA348 /* DeepLinkTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeepLinkTableViewController.xib; sourceTree = "<group>"; };
 		6594257922C2BD2100BCA348 /* LinkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkTableViewCell.swift; sourceTree = "<group>"; };
@@ -139,12 +140,13 @@
 				1A14B5F923397C170071A6E4 /* VNAnalytics.framework in Frameworks */,
 				1A14B5FB23397C170071A6E4 /* VNCore.framework in Frameworks */,
 				1A14B62123397F8A0071A6E4 /* iosExperienceSDK.framework in Frameworks */,
+				65531A5223524D0400197926 /* VNWalletData.framework in Frameworks */,
+				65531A5123524CF800197926 /* VNWalletData.framework in Frameworks */,
 				1A14B5FF23397C170071A6E4 /* VNLegacy.framework in Frameworks */,
 				1A14B60F23397C170071A6E4 /* VNWalletUI.framework in Frameworks */,
 				1A14B60723397C170071A6E4 /* VNOrderUI.framework in Frameworks */,
 				1A14B60123397C170071A6E4 /* VNNetworkService.framework in Frameworks */,
 				1A14B60323397C170071A6E4 /* VNOrderData.framework in Frameworks */,
-				1A14B60B23397C170071A6E4 /* VNWalletData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +228,7 @@
 		AB6E2342228DCA2D00EDD290 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				65531A5023524CF800197926 /* VNWalletData.framework */,
 				1A14B61F23397F7B0071A6E4 /* iosExperienceSDK.framework */,
 				1A14B61723397F3D0071A6E4 /* Presence.framework */,
 				1A14B61823397F3E0071A6E4 /* PresenceSDK.framework */,
@@ -238,7 +241,6 @@
 				1A14B5EC23397C100071A6E4 /* VNOrderService.framework */,
 				1A14B5E523397C100071A6E4 /* VNOrderUI.framework */,
 				1A14B5E923397C100071A6E4 /* VNPayment.framework */,
-				1A14B5E123397C0F0071A6E4 /* VNWalletData.framework */,
 				1A14B5E623397C100071A6E4 /* VNWalletService.framework */,
 				1A14B5E723397C100071A6E4 /* VNWalletUI.framework */,
 			);

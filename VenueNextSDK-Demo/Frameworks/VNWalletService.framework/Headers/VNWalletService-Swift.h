@@ -196,9 +196,12 @@ SWIFT_CLASS("_TtC15VNWalletService15VNWalletService")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWalletService * _Nonnull shared;)
 + (VNWalletService * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 - (void)getWalletUserBalanceWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
+- (void)getWalletBalanceHistoryWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
+- (void)getLoyaltyAwardRulesWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
 - (void)postQRCodeWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
 - (void)postVendPaymentTypesWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
 - (void)postVirtualCurrencyTransferWithParams:(NSDictionary<NSString *, id> * _Nonnull)params completion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
+- (void)postVirtualCurrencyCancelTransferWithParams:(NSDictionary<NSString *, id> * _Nonnull)params completion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -402,9 +405,12 @@ SWIFT_CLASS("_TtC15VNWalletService15VNWalletService")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWalletService * _Nonnull shared;)
 + (VNWalletService * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 - (void)getWalletUserBalanceWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
+- (void)getWalletBalanceHistoryWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
+- (void)getLoyaltyAwardRulesWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
 - (void)postQRCodeWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
 - (void)postVendPaymentTypesWithCompletion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
 - (void)postVirtualCurrencyTransferWithParams:(NSDictionary<NSString *, id> * _Nonnull)params completion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
+- (void)postVirtualCurrencyCancelTransferWithParams:(NSDictionary<NSString *, id> * _Nonnull)params completion:(void (^ _Nonnull)(NSData * _Nullable, NSError * _Nullable))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

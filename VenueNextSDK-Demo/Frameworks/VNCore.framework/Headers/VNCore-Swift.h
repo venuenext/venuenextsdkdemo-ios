@@ -249,6 +249,7 @@ SWIFT_PROTOCOL("_TtP6VNCore18PaymentProcessable_")
 @protocol PaymentProcessable
 - (void)processPaymentFrom:(UIViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethodWithPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
+- (void)defaultPaymentMethodWithCompletion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable))completion;
 @end
 
 typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
@@ -268,6 +269,36 @@ typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
 
 
 
+
+
+
+
+
+
+SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
+@protocol VNCoreThemable
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDark;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+@end
+
+
+SWIFT_CLASS("_TtC6VNCore15VNCoreBaseTheme")
+@interface VNCoreBaseTheme : NSObject <VNCoreThemable>
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDark;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
 SWIFT_PROTOCOL("_TtP6VNCore15VNOrderProtocol_")
 @protocol VNOrderProtocol
 - (void)enableWalletWithWallet:(id _Nonnull)wallet;
@@ -284,11 +315,28 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id <PaymentProcessable
 @end
 
 
+SWIFT_PROTOCOL("_TtP6VNCore16VNWalletThemable_")
+@protocol VNWalletThemable
+@property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+@end
+
+
+SWIFT_CLASS("_TtC6VNCore17VNWalletBaseTheme")
+@interface VNWalletBaseTheme : NSObject <VNWalletThemable>
+@property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
 SWIFT_CLASS("_TtC6VNCore9VenueNext")
 @interface VenueNext : NSObject
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) VenueNext * _Nonnull shared;)
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * _Nonnull shared;)
 + (VenueNext * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
-+ (void)setShared:(VenueNext * _Nonnull)value;
 /// Configures the app for VenueNext frameworks. Raises an exception if the Keys.plist is not found. This method is thread safe and contains synchronous file I/O (reading Keys-Info.plist from disk). If you do not have a Keys.plist, then use <code>VenueNext.shared.initialize(sdkKey:sdkSecret:) instead.</code>
 /// This method should be called after the app is launched and before using VenueNext services such as in application(_:didFinishLaunchingWithOptions:).
 + (void)configureWithCompletion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
@@ -561,6 +609,7 @@ SWIFT_PROTOCOL("_TtP6VNCore18PaymentProcessable_")
 @protocol PaymentProcessable
 - (void)processPaymentFrom:(UIViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethodWithPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
+- (void)defaultPaymentMethodWithCompletion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable))completion;
 @end
 
 typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
@@ -580,6 +629,36 @@ typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
 
 
 
+
+
+
+
+
+
+SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
+@protocol VNCoreThemable
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDark;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+@end
+
+
+SWIFT_CLASS("_TtC6VNCore15VNCoreBaseTheme")
+@interface VNCoreBaseTheme : NSObject <VNCoreThemable>
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDark;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
 SWIFT_PROTOCOL("_TtP6VNCore15VNOrderProtocol_")
 @protocol VNOrderProtocol
 - (void)enableWalletWithWallet:(id _Nonnull)wallet;
@@ -596,11 +675,28 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id <PaymentProcessable
 @end
 
 
+SWIFT_PROTOCOL("_TtP6VNCore16VNWalletThemable_")
+@protocol VNWalletThemable
+@property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+@end
+
+
+SWIFT_CLASS("_TtC6VNCore17VNWalletBaseTheme")
+@interface VNWalletBaseTheme : NSObject <VNWalletThemable>
+@property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
 SWIFT_CLASS("_TtC6VNCore9VenueNext")
 @interface VenueNext : NSObject
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) VenueNext * _Nonnull shared;)
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * _Nonnull shared;)
 + (VenueNext * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
-+ (void)setShared:(VenueNext * _Nonnull)value;
 /// Configures the app for VenueNext frameworks. Raises an exception if the Keys.plist is not found. This method is thread safe and contains synchronous file I/O (reading Keys-Info.plist from disk). If you do not have a Keys.plist, then use <code>VenueNext.shared.initialize(sdkKey:sdkSecret:) instead.</code>
 /// This method should be called after the app is launched and before using VenueNext services such as in application(_:didFinishLaunchingWithOptions:).
 + (void)configureWithCompletion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;

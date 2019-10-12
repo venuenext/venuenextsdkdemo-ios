@@ -177,6 +177,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import UIKit;
 @import VNAnalytics;
 @import VNCore;
+@import VNCoreUI;
 @import VNOrderData;
 #endif
 
@@ -215,7 +216,7 @@ SWIFT_CLASS("_TtC9VNOrderUI12AddItemEvent")
 @class NSBundle;
 
 SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
-@interface CheckoutTableViewController : UITableViewController
+@interface CheckoutTableViewController : VNTableViewController
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
@@ -585,7 +586,7 @@ SWIFT_CLASS("_TtC9VNOrderUI23OrderHistoryCoordinator")
 
 
 SWIFT_CLASS("_TtC9VNOrderUI26OrderHistoryViewController")
-@interface OrderHistoryViewController : UIViewController
+@interface OrderHistoryViewController : VNViewController
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
@@ -724,7 +725,7 @@ SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 
 
 SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
-@interface StandMenuViewController : UIViewController
+@interface StandMenuViewController : VNViewController
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (void)viewDidLoad;
@@ -740,13 +741,13 @@ SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
 
-
-
 @class UICollectionViewLayout;
 
 @interface StandMenuViewController (SWIFT_EXTENSION(VNOrderUI)) <UICollectionViewDelegateFlowLayout>
 - (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView layout:(UICollectionViewLayout * _Nonnull)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 @class UICollectionViewCell;
 
@@ -779,7 +780,7 @@ SWIFT_CLASS("_TtC9VNOrderUI18StandTableViewCell")
 
 
 SWIFT_CLASS("_TtC9VNOrderUI25StandsTableViewController")
-@interface StandsTableViewController : UITableViewController
+@interface StandsTableViewController : VNTableViewController
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
@@ -795,13 +796,13 @@ SWIFT_CLASS("_TtC9VNOrderUI25StandsTableViewController")
 @end
 
 
+
+
 @interface StandsTableViewController (SWIFT_EXTENSION(VNOrderUI))
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 
 @interface StandsTableViewController (SWIFT_EXTENSION(VNOrderUI)) <NSFetchedResultsControllerDelegate>
@@ -838,6 +839,22 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+@interface UIViewController (SWIFT_EXTENSION(VNOrderUI))
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
+@end
 
 
 
@@ -1035,6 +1052,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import UIKit;
 @import VNAnalytics;
 @import VNCore;
+@import VNCoreUI;
 @import VNOrderData;
 #endif
 
@@ -1073,7 +1091,7 @@ SWIFT_CLASS("_TtC9VNOrderUI12AddItemEvent")
 @class NSBundle;
 
 SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
-@interface CheckoutTableViewController : UITableViewController
+@interface CheckoutTableViewController : VNTableViewController
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
@@ -1443,7 +1461,7 @@ SWIFT_CLASS("_TtC9VNOrderUI23OrderHistoryCoordinator")
 
 
 SWIFT_CLASS("_TtC9VNOrderUI26OrderHistoryViewController")
-@interface OrderHistoryViewController : UIViewController
+@interface OrderHistoryViewController : VNViewController
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
@@ -1582,7 +1600,7 @@ SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 
 
 SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
-@interface StandMenuViewController : UIViewController
+@interface StandMenuViewController : VNViewController
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (void)viewDidLoad;
@@ -1598,13 +1616,13 @@ SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
 
-
-
 @class UICollectionViewLayout;
 
 @interface StandMenuViewController (SWIFT_EXTENSION(VNOrderUI)) <UICollectionViewDelegateFlowLayout>
 - (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView layout:(UICollectionViewLayout * _Nonnull)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 @class UICollectionViewCell;
 
@@ -1637,7 +1655,7 @@ SWIFT_CLASS("_TtC9VNOrderUI18StandTableViewCell")
 
 
 SWIFT_CLASS("_TtC9VNOrderUI25StandsTableViewController")
-@interface StandsTableViewController : UITableViewController
+@interface StandsTableViewController : VNTableViewController
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
@@ -1653,13 +1671,13 @@ SWIFT_CLASS("_TtC9VNOrderUI25StandsTableViewController")
 @end
 
 
+
+
 @interface StandsTableViewController (SWIFT_EXTENSION(VNOrderUI))
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 
 @interface StandsTableViewController (SWIFT_EXTENSION(VNOrderUI)) <NSFetchedResultsControllerDelegate>
@@ -1696,6 +1714,22 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+@interface UIViewController (SWIFT_EXTENSION(VNOrderUI))
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
+@end
 
 
 
