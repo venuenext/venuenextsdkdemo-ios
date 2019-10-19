@@ -314,6 +314,7 @@ SWIFT_CLASS("_TtC8VNCoreUI27InteractiveSegmentedControl")
 SWIFT_CLASS("_TtC8VNCoreUI28NotificationBannerController")
 @interface NotificationBannerController : UIViewController
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)viewDidLoad;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
@@ -371,6 +372,12 @@ SWIFT_CLASS("_TtC8VNCoreUI15PickerTypedCell")
 - (NSInteger)pickerView:(UIPickerView * _Nonnull)pickerView numberOfRowsInComponent:(NSInteger)component SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nullable)pickerView:(UIPickerView * _Nonnull)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component SWIFT_WARN_UNUSED_RESULT;
 - (void)pickerView:(UIPickerView * _Nonnull)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI20PresenceControllable_")
+@protocol PresenceControllable
+@property (nonatomic) BOOL isForWalletLogIn;
 @end
 
 
@@ -503,7 +510,10 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 @interface UIViewController (SWIFT_EXTENSION(VNCoreUI))
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
+- (void)setNavigationBarAppearance;
 @end
+
+
 
 
 SWIFT_PROTOCOL("_TtP8VNCoreUI26UIViewControllerAppearance_")
@@ -511,6 +521,14 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI26UIViewControllerAppearance_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
 - (void)setNavigationBarAppearance;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI26VNCollectionViewController")
+@interface VNCollectionViewController : UICollectionViewController
+- (nonnull instancetype)initWithCollectionViewLayout:(UICollectionViewLayout * _Nonnull)layout OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -863,6 +881,7 @@ SWIFT_CLASS("_TtC8VNCoreUI27InteractiveSegmentedControl")
 SWIFT_CLASS("_TtC8VNCoreUI28NotificationBannerController")
 @interface NotificationBannerController : UIViewController
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)viewDidLoad;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
@@ -920,6 +939,12 @@ SWIFT_CLASS("_TtC8VNCoreUI15PickerTypedCell")
 - (NSInteger)pickerView:(UIPickerView * _Nonnull)pickerView numberOfRowsInComponent:(NSInteger)component SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nullable)pickerView:(UIPickerView * _Nonnull)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component SWIFT_WARN_UNUSED_RESULT;
 - (void)pickerView:(UIPickerView * _Nonnull)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI20PresenceControllable_")
+@protocol PresenceControllable
+@property (nonatomic) BOOL isForWalletLogIn;
 @end
 
 
@@ -1052,7 +1077,10 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 @interface UIViewController (SWIFT_EXTENSION(VNCoreUI))
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
+- (void)setNavigationBarAppearance;
 @end
+
+
 
 
 SWIFT_PROTOCOL("_TtP8VNCoreUI26UIViewControllerAppearance_")
@@ -1060,6 +1088,14 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI26UIViewControllerAppearance_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
 - (void)setNavigationBarAppearance;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI26VNCollectionViewController")
+@interface VNCollectionViewController : UICollectionViewController
+- (nonnull instancetype)initWithCollectionViewLayout:(UICollectionViewLayout * _Nonnull)layout OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 

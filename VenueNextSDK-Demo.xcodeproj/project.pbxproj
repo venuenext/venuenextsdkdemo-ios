@@ -36,7 +36,6 @@
 		1A14B61E23397F470071A6E4 /* PresenceSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61823397F3E0071A6E4 /* PresenceSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1A14B62123397F8A0071A6E4 /* iosExperienceSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61F23397F7B0071A6E4 /* iosExperienceSDK.framework */; };
 		1A14B62223397F8A0071A6E4 /* iosExperienceSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61F23397F7B0071A6E4 /* iosExperienceSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		65531A5123524CF800197926 /* VNWalletData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65531A5023524CF800197926 /* VNWalletData.framework */; };
 		65531A5223524D0400197926 /* VNWalletData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65531A5023524CF800197926 /* VNWalletData.framework */; };
 		65531A5323524D0400197926 /* VNWalletData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65531A5023524CF800197926 /* VNWalletData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6594257722C23B7500BCA348 /* DeepLinkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6594257522C23B7500BCA348 /* DeepLinkTableViewController.swift */; };
@@ -141,7 +140,6 @@
 				1A14B5FB23397C170071A6E4 /* VNCore.framework in Frameworks */,
 				1A14B62123397F8A0071A6E4 /* iosExperienceSDK.framework in Frameworks */,
 				65531A5223524D0400197926 /* VNWalletData.framework in Frameworks */,
-				65531A5123524CF800197926 /* VNWalletData.framework in Frameworks */,
 				1A14B5FF23397C170071A6E4 /* VNLegacy.framework in Frameworks */,
 				1A14B60F23397C170071A6E4 /* VNWalletUI.framework in Frameworks */,
 				1A14B60723397C170071A6E4 /* VNOrderUI.framework in Frameworks */,
@@ -297,11 +295,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = "VenueNext, Inc.";
 				TargetAttributes = {
 					AB2BCA89228DB66400194A7A = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1030;
 					};
 				};
 			};
@@ -509,7 +508,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -535,7 +534,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

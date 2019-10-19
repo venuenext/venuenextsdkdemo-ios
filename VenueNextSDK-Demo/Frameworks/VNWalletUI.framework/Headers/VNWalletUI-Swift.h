@@ -203,7 +203,10 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @interface UIViewController (SWIFT_EXTENSION(VNWalletUI))
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
+- (void)setNavigationBarAppearance;
 @end
+
+
 
 
 
@@ -514,7 +517,10 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @interface UIViewController (SWIFT_EXTENSION(VNWalletUI))
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
+- (void)setNavigationBarAppearance;
 @end
+
+
 
 
 

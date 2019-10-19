@@ -741,13 +741,13 @@ SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
 
+
+
 @class UICollectionViewLayout;
 
 @interface StandMenuViewController (SWIFT_EXTENSION(VNOrderUI)) <UICollectionViewDelegateFlowLayout>
 - (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView layout:(UICollectionViewLayout * _Nonnull)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 @class UICollectionViewCell;
 
@@ -854,7 +854,10 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 @interface UIViewController (SWIFT_EXTENSION(VNOrderUI))
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
+- (void)setNavigationBarAppearance;
 @end
+
+
 
 
 
@@ -1616,13 +1619,13 @@ SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
 
+
+
 @class UICollectionViewLayout;
 
 @interface StandMenuViewController (SWIFT_EXTENSION(VNOrderUI)) <UICollectionViewDelegateFlowLayout>
 - (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView layout:(UICollectionViewLayout * _Nonnull)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 @class UICollectionViewCell;
 
@@ -1729,7 +1732,10 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 @interface UIViewController (SWIFT_EXTENSION(VNOrderUI))
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
+- (void)setNavigationBarAppearance;
 @end
+
+
 
 
 

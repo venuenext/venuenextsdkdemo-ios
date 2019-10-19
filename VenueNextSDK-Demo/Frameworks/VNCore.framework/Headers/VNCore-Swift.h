@@ -275,6 +275,8 @@ typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
 
 
 
+
+
 SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
 @protocol VNCoreThemable
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
@@ -617,6 +619,8 @@ typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
   ProductTypeExperience = 1,
   ProductTypeMerchandise = 2,
 };
+
+
 
 
 
