@@ -117,7 +117,7 @@ extension PresenceController: PresenceLoginDelegate {
     }
     
     /// Notify when successfully logged-out from both backends
-    private func onLogoutAllSuccessful() {
+    public func onLogoutAllSuccessful() {
         navigationItem.rightBarButtonItem = nil
         UserDefaults.standard.removeObject(forKey: "tm_email")
         VenueNext.shared.logoutTicketingAccount()

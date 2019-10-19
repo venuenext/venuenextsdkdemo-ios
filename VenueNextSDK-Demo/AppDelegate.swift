@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
        
         //Setup PresenceSDK
-        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "PRESENCE SDK KEY", displayName: "Demo App", useNewAccountsManager: true)
+        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "PRESENCE_KEY", displayName: "Demo App", useNewAccountsManager: true)
         PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
         
         //configure wallet
@@ -34,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //turn on wallet for VNOrder
         VenueNext.enableWallet(for: VNOrder.shared)
        
+        VNPaymentProcessor.shared = PaymentProcessor()
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController(for: isSwift)
         window?.makeKeyAndVisible()
