@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
        
         //Setup PresenceSDK
-        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "PRESENCE_KEY", displayName: "Demo App", useNewAccountsManager: true)
+        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "A3G23g9aG7oeAmAghjmGfTftODa7tSTS", displayName: "Demo App", useNewAccountsManager: true)
         PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
         
         //configure wallet
@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         switch isSwift {
         case true:
             // use the following code in your application:didFinishLaunchingWithOptions:
-            VenueNext.shared.initialize(sdkKey: "SDK_KEY", sdkSecret: "SDK_SECRET")
+            VenueNext.shared.initialize(sdkKey: "vn:usw2a:production:ios-sdk-utahjazz-01DE40398MS2SKPX95E7GTA5HZ", sdkSecret: "SDK_SECRET")
             Analytics.initialize(with: CustomAnalytics())
         case false:
             ObjCConfiguration.start()
