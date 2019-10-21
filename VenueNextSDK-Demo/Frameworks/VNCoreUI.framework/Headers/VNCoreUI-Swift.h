@@ -190,6 +190,14 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSCoder;
 
+SWIFT_CLASS("_TtC8VNCoreUI19ActionTableViewCell")
+@interface ActionTableViewCell : UITableViewCell
+- (void)awakeFromNib;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 SWIFT_CLASS("_TtC8VNCoreUI13BorderedLabel")
 @interface BorderedLabel : UILabel
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
@@ -216,8 +224,29 @@ SWIFT_CLASS("_TtC8VNCoreUI10CartButton")
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class UIImageView;
+
+SWIFT_CLASS("_TtC8VNCoreUI20CircularProgressView")
+@interface CircularProgressView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class NSBundle;
+
+SWIFT_CLASS("_TtC8VNCoreUI26DetailDisclosureController")
+@interface DetailDisclosureController : UIViewController
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI20DetailDisclosureView")
+@interface DetailDisclosureView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class UIImageView;
 
 SWIFT_CLASS("_TtC8VNCoreUI22EmptySetViewController")
 @interface EmptySetViewController : UIViewController
@@ -282,7 +311,16 @@ SWIFT_CLASS("_TtC8VNCoreUI27InteractiveSegmentedControl")
 SWIFT_CLASS("_TtC8VNCoreUI28NotificationBannerController")
 @interface NotificationBannerController : UIViewController
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)viewDidLoad;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI26PaymentMethodTableViewCell")
+@interface PaymentMethodTableViewCell : UITableViewCell
+- (void)awakeFromNib;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -331,6 +369,12 @@ SWIFT_CLASS("_TtC8VNCoreUI15PickerTypedCell")
 - (NSInteger)pickerView:(UIPickerView * _Nonnull)pickerView numberOfRowsInComponent:(NSInteger)component SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nullable)pickerView:(UIPickerView * _Nonnull)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component SWIFT_WARN_UNUSED_RESULT;
 - (void)pickerView:(UIPickerView * _Nonnull)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI20PresenceControllable_")
+@protocol PresenceControllable
+@property (nonatomic) BOOL isForWalletLogIn;
 @end
 
 
@@ -419,9 +463,30 @@ SWIFT_CLASS("_TtC8VNCoreUI11ShimmerView")
 
 
 
+
+
 @interface UINavigationController (SWIFT_EXTENSION(VNCoreUI))
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 @end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
+@protocol UITabBarAppearance
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTabBarTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredUnSelectedTintColor;
+- (void)setTabBarAppearance;
+@end
+
+
+@interface UITabBarController (SWIFT_EXTENSION(VNCoreUI)) <UITabBarAppearance>
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTabBarTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredUnSelectedTintColor;
+- (void)setTabBarAppearance;
+@end
+
+
 
 
 
@@ -436,6 +501,57 @@ SWIFT_CLASS("_TtC8VNCoreUI11ShimmerView")
 
 @interface UIViewController (SWIFT_EXTENSION(VNCoreUI))
 - (void)dismissKeyboard;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI26UIViewControllerAppearance_")
+@protocol UIViewControllerAppearance
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
+- (void)setNavigationBarAppearance;
+@end
+
+
+@interface UIViewController (SWIFT_EXTENSION(VNCoreUI)) <UIViewControllerAppearance>
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
+- (void)setNavigationBarAppearance;
+@end
+
+
+
+
+
+SWIFT_CLASS("_TtC8VNCoreUI26VNCollectionViewController")
+@interface VNCollectionViewController : UICollectionViewController
+- (nonnull instancetype)initWithCollectionViewLayout:(UICollectionViewLayout * _Nonnull)layout OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI18VNTabBarController")
+@interface VNTabBarController : UITabBarController
+- (void)viewDidLoad;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI21VNTableViewController")
+@interface VNTableViewController : UITableViewController
+- (void)viewDidLoad;
+- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI16VNViewController")
+@interface VNViewController : UIViewController
+- (void)viewDidLoad;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -639,6 +755,14 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSCoder;
 
+SWIFT_CLASS("_TtC8VNCoreUI19ActionTableViewCell")
+@interface ActionTableViewCell : UITableViewCell
+- (void)awakeFromNib;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 SWIFT_CLASS("_TtC8VNCoreUI13BorderedLabel")
 @interface BorderedLabel : UILabel
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
@@ -665,8 +789,29 @@ SWIFT_CLASS("_TtC8VNCoreUI10CartButton")
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class UIImageView;
+
+SWIFT_CLASS("_TtC8VNCoreUI20CircularProgressView")
+@interface CircularProgressView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class NSBundle;
+
+SWIFT_CLASS("_TtC8VNCoreUI26DetailDisclosureController")
+@interface DetailDisclosureController : UIViewController
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI20DetailDisclosureView")
+@interface DetailDisclosureView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class UIImageView;
 
 SWIFT_CLASS("_TtC8VNCoreUI22EmptySetViewController")
 @interface EmptySetViewController : UIViewController
@@ -731,7 +876,16 @@ SWIFT_CLASS("_TtC8VNCoreUI27InteractiveSegmentedControl")
 SWIFT_CLASS("_TtC8VNCoreUI28NotificationBannerController")
 @interface NotificationBannerController : UIViewController
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)viewDidLoad;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI26PaymentMethodTableViewCell")
+@interface PaymentMethodTableViewCell : UITableViewCell
+- (void)awakeFromNib;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -780,6 +934,12 @@ SWIFT_CLASS("_TtC8VNCoreUI15PickerTypedCell")
 - (NSInteger)pickerView:(UIPickerView * _Nonnull)pickerView numberOfRowsInComponent:(NSInteger)component SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nullable)pickerView:(UIPickerView * _Nonnull)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component SWIFT_WARN_UNUSED_RESULT;
 - (void)pickerView:(UIPickerView * _Nonnull)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI20PresenceControllable_")
+@protocol PresenceControllable
+@property (nonatomic) BOOL isForWalletLogIn;
 @end
 
 
@@ -868,9 +1028,30 @@ SWIFT_CLASS("_TtC8VNCoreUI11ShimmerView")
 
 
 
+
+
 @interface UINavigationController (SWIFT_EXTENSION(VNCoreUI))
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 @end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
+@protocol UITabBarAppearance
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTabBarTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredUnSelectedTintColor;
+- (void)setTabBarAppearance;
+@end
+
+
+@interface UITabBarController (SWIFT_EXTENSION(VNCoreUI)) <UITabBarAppearance>
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTabBarTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredUnSelectedTintColor;
+- (void)setTabBarAppearance;
+@end
+
+
 
 
 
@@ -885,6 +1066,57 @@ SWIFT_CLASS("_TtC8VNCoreUI11ShimmerView")
 
 @interface UIViewController (SWIFT_EXTENSION(VNCoreUI))
 - (void)dismissKeyboard;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI26UIViewControllerAppearance_")
+@protocol UIViewControllerAppearance
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
+- (void)setNavigationBarAppearance;
+@end
+
+
+@interface UIViewController (SWIFT_EXTENSION(VNCoreUI)) <UIViewControllerAppearance>
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
+- (void)setNavigationBarAppearance;
+@end
+
+
+
+
+
+SWIFT_CLASS("_TtC8VNCoreUI26VNCollectionViewController")
+@interface VNCollectionViewController : UICollectionViewController
+- (nonnull instancetype)initWithCollectionViewLayout:(UICollectionViewLayout * _Nonnull)layout OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI18VNTabBarController")
+@interface VNTabBarController : UITabBarController
+- (void)viewDidLoad;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI21VNTableViewController")
+@interface VNTableViewController : UITableViewController
+- (void)viewDidLoad;
+- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI16VNViewController")
+@interface VNViewController : UIViewController
+- (void)viewDidLoad;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 

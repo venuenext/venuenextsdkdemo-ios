@@ -171,6 +171,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
+@import VNCoreUI;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -189,6 +190,18 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 
+
+
+
+
+
+@class UIColor;
+
+@interface UIViewController (SWIFT_EXTENSION(VNWalletUI))
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
+- (void)setNavigationBarAppearance;
+@end
 
 
 
@@ -219,12 +232,14 @@ SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @required
 - (NSString * _Nonnull)walletTitle SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nonnull)walletVirtualCurrencyPaymentType SWIFT_WARN_UNUSED_RESULT;
+@optional
+- (BOOL)shouldShowVirtualCurrencyToggle SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
 SWIFT_CLASS("_TtC10VNWalletUI12VNWalletUser")
 @interface VNWalletUser : NSObject
-- (nonnull instancetype)initWithFirstName:(NSString * _Nonnull)firstName lastName:(NSString * _Nonnull)lastName email:(NSString * _Nonnull)email externalID:(NSString * _Nonnull)externalID OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithFirstName:(NSString * _Nonnull)firstName lastName:(NSString * _Nonnull)lastName email:(NSString * _Nonnull)email externalID:(NSString * _Nonnull)externalID accountNumber:(NSString * _Nullable)accountNumber OBJC_DESIGNATED_INITIALIZER;
 + (void)logout;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
@@ -258,8 +273,10 @@ SWIFT_CLASS("_TtC10VNWalletUI17WalletCoordinator")
 @class NSBundle;
 
 SWIFT_CLASS("_TtC10VNWalletUI20WalletViewController")
-@interface WalletViewController : UIViewController
+@interface WalletViewController : VNViewController
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
@@ -283,8 +300,10 @@ SWIFT_CLASS("_TtC10VNWalletUI20WalletViewController")
 @interface WalletViewController (SWIFT_EXTENSION(VNWalletUI)) <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 @end
 
@@ -463,6 +482,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
+@import VNCoreUI;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -481,6 +501,18 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 
+
+
+
+
+
+@class UIColor;
+
+@interface UIViewController (SWIFT_EXTENSION(VNWalletUI))
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
+- (void)setNavigationBarAppearance;
+@end
 
 
 
@@ -511,12 +543,14 @@ SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @required
 - (NSString * _Nonnull)walletTitle SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nonnull)walletVirtualCurrencyPaymentType SWIFT_WARN_UNUSED_RESULT;
+@optional
+- (BOOL)shouldShowVirtualCurrencyToggle SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
 SWIFT_CLASS("_TtC10VNWalletUI12VNWalletUser")
 @interface VNWalletUser : NSObject
-- (nonnull instancetype)initWithFirstName:(NSString * _Nonnull)firstName lastName:(NSString * _Nonnull)lastName email:(NSString * _Nonnull)email externalID:(NSString * _Nonnull)externalID OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithFirstName:(NSString * _Nonnull)firstName lastName:(NSString * _Nonnull)lastName email:(NSString * _Nonnull)email externalID:(NSString * _Nonnull)externalID accountNumber:(NSString * _Nullable)accountNumber OBJC_DESIGNATED_INITIALIZER;
 + (void)logout;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
@@ -550,8 +584,10 @@ SWIFT_CLASS("_TtC10VNWalletUI17WalletCoordinator")
 @class NSBundle;
 
 SWIFT_CLASS("_TtC10VNWalletUI20WalletViewController")
-@interface WalletViewController : UIViewController
+@interface WalletViewController : VNViewController
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
@@ -575,8 +611,10 @@ SWIFT_CLASS("_TtC10VNWalletUI20WalletViewController")
 @interface WalletViewController (SWIFT_EXTENSION(VNWalletUI)) <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 @end
 
