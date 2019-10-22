@@ -4,6 +4,8 @@
 import Foundation
 import os.log
 import VNPayment
+import BraintreeDropIn
+import BraintreePaymentFlow
 
 @objc class PaymentAdapter: NSObject, PaymentProcessable {
     func defaultPaymentMethod(completion: @escaping ((PaymentMethodRepresentable?) -> Void)) {
@@ -31,9 +33,30 @@ import VNPayment
     }
 
     func postPaymentMethod(paymentMethod: PaymentMethodRepresentable, completion: @escaping ((NSError?) -> Void)) {
-//        VNPayment.shared.postPaymentMethod(for: <#String#>, paymentMethod: paymentMethod) { error in
-//            completion(error as NSError?)
-//        }
+        VNPayment.shared.getPaymentToken() { [weak self] (result) in
+            switch result {
+            case .success(let token):
+                guard let btAPIClient = BTAPIClient(authorization: token) else {
+                    completion(nil)
+                    return
+                }
+                
+                //Fetch the default payment method
+                btAPIClient.fetchPaymentMethodNonces(true, completion: { (paymentMethods, error) in
+                    guard let paymentMethod = paymentMethods?.first, paymentMethod.isDefault else {
+                        completion(nil)
+                        return
+                    }
+                    
+                    self?.nonce = paymentMethod.nonce
+                    completion(self)
+                })
+                
+            case .failure(let error):
+                print(error.error.localizedDescription)
+            }
+        }
+    
     }
 }
 

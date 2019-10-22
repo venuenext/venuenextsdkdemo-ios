@@ -25,10 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Setup PresenceSDK
         PresenceSDK.getPresenceSDK().setConfig(consumerKey: "PRESENCE SDK KEY", displayName: "Demo App", useNewAccountsManager: true)
-        PresenceSDK.getPresenceSDK().setBrandingColor(color: .accent)
+        PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
         
         //configure wallet
-        VenueNext.configure(wallet: VNWallet.shared, walletDelegate: self)
+        VenueNext.configure(wallet: VNWallet.shared, walletDelegate: self, theme: nil)
         //turn on wallet for VNOrder
         VenueNext.enableWallet(for: VNOrder.shared)
        

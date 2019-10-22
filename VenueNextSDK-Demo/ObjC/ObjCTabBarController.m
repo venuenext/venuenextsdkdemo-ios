@@ -75,4 +75,9 @@
     completion(self, nil);
 }
 
+- (void)defaultPaymentMethodWithCompletion:(void (^ _Nonnull)(id<PaymentMethodRepresentable> _Nullable))completion {
+    
+}
+
+
 @end
