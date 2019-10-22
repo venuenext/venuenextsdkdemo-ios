@@ -6,6 +6,10 @@ import os.log
 import VNPayment
 
 @objc class PaymentAdapter: NSObject, PaymentProcessable {
+    func defaultPaymentMethod(completion: @escaping ((PaymentMethodRepresentable?) -> Void)) {
+        
+    }
+    
     func processPayment(from viewController: UIViewController?, completion: @escaping (PaymentMethodRepresentable?, NSError?) -> Void) {
         VNPayment.shared.getPaymentToken() { result in
             switch result {
@@ -27,9 +31,9 @@ import VNPayment
     }
 
     func postPaymentMethod(paymentMethod: PaymentMethodRepresentable, completion: @escaping ((NSError?) -> Void)) {
-        VNPayment.shared.postPaymentMethod(paymentMethod: paymentMethod) { error in
-            completion(error as NSError?)
-        }
+//        VNPayment.shared.postPaymentMethod(for: <#String#>, paymentMethod: paymentMethod) { error in
+//            completion(error as NSError?)
+//        }
     }
 }
 
