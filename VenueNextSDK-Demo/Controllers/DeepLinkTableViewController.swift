@@ -5,7 +5,7 @@ import VNOrderUI
 import VNOrderData
 import VNWalletUI
 
-class DeepLinkTableViewController: VNTableViewController {
+class DeepLinkTableViewController: UITableViewController {
     lazy var orderHistoryCoordinator: OrderHistoryCoordinator = {
         let orderHistoryCoordinator = OrderHistoryCoordinator(navigationController: navigationController!)
         orderHistoryCoordinator.start()

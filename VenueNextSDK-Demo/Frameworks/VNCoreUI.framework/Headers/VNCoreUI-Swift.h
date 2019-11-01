@@ -479,12 +479,8 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 @end
 
 
-@interface UITabBarController (SWIFT_EXTENSION(VNCoreUI)) <UITabBarAppearance>
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTabBarTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredUnSelectedTintColor;
-- (void)setTabBarAppearance;
-@end
+
+
 
 
 
@@ -501,57 +497,6 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 
 @interface UIViewController (SWIFT_EXTENSION(VNCoreUI))
 - (void)dismissKeyboard;
-@end
-
-
-SWIFT_PROTOCOL("_TtP8VNCoreUI26UIViewControllerAppearance_")
-@protocol UIViewControllerAppearance
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
-- (void)setNavigationBarAppearance;
-@end
-
-
-@interface UIViewController (SWIFT_EXTENSION(VNCoreUI)) <UIViewControllerAppearance>
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
-- (void)setNavigationBarAppearance;
-@end
-
-
-
-
-
-SWIFT_CLASS("_TtC8VNCoreUI26VNCollectionViewController")
-@interface VNCollectionViewController : UICollectionViewController
-- (nonnull instancetype)initWithCollectionViewLayout:(UICollectionViewLayout * _Nonnull)layout OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC8VNCoreUI18VNTabBarController")
-@interface VNTabBarController : UITabBarController
-- (void)viewDidLoad;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC8VNCoreUI21VNTableViewController")
-@interface VNTableViewController : UITableViewController
-- (void)viewDidLoad;
-- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC8VNCoreUI16VNViewController")
-@interface VNViewController : UIViewController
-- (void)viewDidLoad;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -1044,12 +989,8 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 @end
 
 
-@interface UITabBarController (SWIFT_EXTENSION(VNCoreUI)) <UITabBarAppearance>
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTabBarTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredUnSelectedTintColor;
-- (void)setTabBarAppearance;
-@end
+
+
 
 
 
@@ -1066,57 +1007,6 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 
 @interface UIViewController (SWIFT_EXTENSION(VNCoreUI))
 - (void)dismissKeyboard;
-@end
-
-
-SWIFT_PROTOCOL("_TtP8VNCoreUI26UIViewControllerAppearance_")
-@protocol UIViewControllerAppearance
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
-- (void)setNavigationBarAppearance;
-@end
-
-
-@interface UIViewController (SWIFT_EXTENSION(VNCoreUI)) <UIViewControllerAppearance>
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
-- (void)setNavigationBarAppearance;
-@end
-
-
-
-
-
-SWIFT_CLASS("_TtC8VNCoreUI26VNCollectionViewController")
-@interface VNCollectionViewController : UICollectionViewController
-- (nonnull instancetype)initWithCollectionViewLayout:(UICollectionViewLayout * _Nonnull)layout OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC8VNCoreUI18VNTabBarController")
-@interface VNTabBarController : UITabBarController
-- (void)viewDidLoad;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC8VNCoreUI21VNTableViewController")
-@interface VNTableViewController : UITableViewController
-- (void)viewDidLoad;
-- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC8VNCoreUI16VNViewController")
-@interface VNViewController : UIViewController
-- (void)viewDidLoad;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 

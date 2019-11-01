@@ -174,7 +174,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import UIKit;
 @import VNAnalytics;
 @import VNCore;
-@import VNCoreUI;
 @import VNOrderData;
 #endif
 
@@ -213,7 +212,7 @@ SWIFT_CLASS("_TtC9VNOrderUI12AddItemEvent")
 @class NSBundle;
 
 SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
-@interface CheckoutTableViewController : VNTableViewController
+@interface CheckoutTableViewController : UITableViewController
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
@@ -347,74 +346,6 @@ SWIFT_CLASS("_TtC9VNOrderUI22MetadataViewController")
 @class UINavigationController;
 @protocol PaymentProcessable;
 
-/// The coordinator for displaying Revenue Centers and Menus.
-/// Ensure to call <code>start()</code> after initializing. Not calling <code>start()</code> is a programmer error and will fatalError.
-/// Ensure to hold onto the coordinator strongly.
-/// It is a progammer error to initialize this coordinator in the context of a method and not retain it. e.g
-/// \code
-/// // Good
-/// class MyClass {
-/// let orderCoordinator: OrderCoordinator
-///
-/// init() {
-/// orderCoordinator = OrderCoordinator()
-/// }
-/// }
-///
-/// // Bad
-/// func showOrderMenu() {
-/// let coordinator = OrderCoordinator()
-///
-/// coordinator.presentMenu(for: menuUUID, from: self)
-/// }
-///
-/// \endcodeYou can access the coordinators <code>navigationController</code> property to display the view after calling <code>start()</code>.
-/// <h2>Showing on a UITabBarController:</h2>
-/// \code
-/// class TabBarController: UITabBarController {
-/// var orderCoordinator: OrderCoordinator!
-///
-/// override func viewDidLoad() {
-/// orderCoordinator = OrderCoordinator() // Don't pass in a navigationController
-/// orderCoordinator.productTypes = [.food] // Optionally set the productTypes you'd like to show
-/// orderCoordinator.start()
-/// orderCoordinator.navigationController.tabBarItem = ...
-///
-/// viewControllers = [orderCoordinator.navigationController!]
-/// }
-/// }
-///
-/// \endcode<h2>Pushing onto your UINavigationController:</h2>
-/// \code
-/// class MyViewController: UIViewController {
-/// var orderCoordinator: OrderCoordinator!
-///
-/// override func viewDidLoad() {
-/// orderCoordinator = OrderCoordinator(navigationController: self.navigationController!) // Ensure to pass in a navigationController
-/// orderCoordinator.start()
-/// }
-///
-/// func pushOrder() {
-/// orderCoordinator.pushMenu(for: menuUUID)
-/// }
-/// }
-///
-/// \endcode<h2>Presenting modally:</h2>
-/// \code
-/// class MyViewController: UIViewController {
-/// var orderCoordinator: OrderCoordinator!
-///
-/// override func viewDidLoad() {
-/// orderHistoryCoordinator = OrderCoordinator() // Passing in a navigationController is optional. The coordinator won't use it if presenting modally.
-/// orderCoordinator.start()
-/// }
-///
-/// func presentOrderMenu() {
-/// orderCoordinator.presentMenu(for: menuUUID from: self)
-/// }
-/// }
-///
-/// \endcode
 SWIFT_CLASS("_TtC9VNOrderUI16OrderCoordinator")
 @interface OrderCoordinator : NSObject
 @property (nonatomic, readonly) BOOL wasStarted;
@@ -588,7 +519,7 @@ SWIFT_CLASS("_TtC9VNOrderUI23OrderHistoryCoordinator")
 
 
 SWIFT_CLASS("_TtC9VNOrderUI26OrderHistoryViewController")
-@interface OrderHistoryViewController : VNViewController
+@interface OrderHistoryViewController : UIViewController
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
@@ -686,6 +617,15 @@ SWIFT_CLASS("_TtC9VNOrderUI18ReceiptCoordinator")
 @end
 
 
+SWIFT_CLASS("_TtC9VNOrderUI31SlimCheckoutTableViewController")
+@interface SlimCheckoutTableViewController : CheckoutTableViewController
+- (void)viewDidLoad;
+- (void)onDismiss;
+- (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
 SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 @interface StandMenuTableViewController : UITableViewController
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
@@ -725,7 +665,7 @@ SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 
 
 SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
-@interface StandMenuViewController : VNViewController
+@interface StandMenuViewController : UIViewController
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (void)viewDidLoad;
@@ -780,7 +720,7 @@ SWIFT_CLASS("_TtC9VNOrderUI18StandTableViewCell")
 
 
 SWIFT_CLASS("_TtC9VNOrderUI25StandsTableViewController")
-@interface StandsTableViewController : VNTableViewController
+@interface StandsTableViewController : UITableViewController
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
@@ -847,11 +787,6 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 
 
 
-@interface UIViewController (SWIFT_EXTENSION(VNOrderUI))
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
-- (void)setNavigationBarAppearance;
-@end
 
 
 
@@ -869,6 +804,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNOrder * _N
 @interface VNOrder (SWIFT_EXTENSION(VNOrderUI)) <VNOrderProtocol>
 - (void)enableWalletWithWallet:(id _Nonnull)wallet;
 @end
+
+
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -1048,7 +985,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import UIKit;
 @import VNAnalytics;
 @import VNCore;
-@import VNCoreUI;
 @import VNOrderData;
 #endif
 
@@ -1087,7 +1023,7 @@ SWIFT_CLASS("_TtC9VNOrderUI12AddItemEvent")
 @class NSBundle;
 
 SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
-@interface CheckoutTableViewController : VNTableViewController
+@interface CheckoutTableViewController : UITableViewController
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
@@ -1221,74 +1157,6 @@ SWIFT_CLASS("_TtC9VNOrderUI22MetadataViewController")
 @class UINavigationController;
 @protocol PaymentProcessable;
 
-/// The coordinator for displaying Revenue Centers and Menus.
-/// Ensure to call <code>start()</code> after initializing. Not calling <code>start()</code> is a programmer error and will fatalError.
-/// Ensure to hold onto the coordinator strongly.
-/// It is a progammer error to initialize this coordinator in the context of a method and not retain it. e.g
-/// \code
-/// // Good
-/// class MyClass {
-/// let orderCoordinator: OrderCoordinator
-///
-/// init() {
-/// orderCoordinator = OrderCoordinator()
-/// }
-/// }
-///
-/// // Bad
-/// func showOrderMenu() {
-/// let coordinator = OrderCoordinator()
-///
-/// coordinator.presentMenu(for: menuUUID, from: self)
-/// }
-///
-/// \endcodeYou can access the coordinators <code>navigationController</code> property to display the view after calling <code>start()</code>.
-/// <h2>Showing on a UITabBarController:</h2>
-/// \code
-/// class TabBarController: UITabBarController {
-/// var orderCoordinator: OrderCoordinator!
-///
-/// override func viewDidLoad() {
-/// orderCoordinator = OrderCoordinator() // Don't pass in a navigationController
-/// orderCoordinator.productTypes = [.food] // Optionally set the productTypes you'd like to show
-/// orderCoordinator.start()
-/// orderCoordinator.navigationController.tabBarItem = ...
-///
-/// viewControllers = [orderCoordinator.navigationController!]
-/// }
-/// }
-///
-/// \endcode<h2>Pushing onto your UINavigationController:</h2>
-/// \code
-/// class MyViewController: UIViewController {
-/// var orderCoordinator: OrderCoordinator!
-///
-/// override func viewDidLoad() {
-/// orderCoordinator = OrderCoordinator(navigationController: self.navigationController!) // Ensure to pass in a navigationController
-/// orderCoordinator.start()
-/// }
-///
-/// func pushOrder() {
-/// orderCoordinator.pushMenu(for: menuUUID)
-/// }
-/// }
-///
-/// \endcode<h2>Presenting modally:</h2>
-/// \code
-/// class MyViewController: UIViewController {
-/// var orderCoordinator: OrderCoordinator!
-///
-/// override func viewDidLoad() {
-/// orderHistoryCoordinator = OrderCoordinator() // Passing in a navigationController is optional. The coordinator won't use it if presenting modally.
-/// orderCoordinator.start()
-/// }
-///
-/// func presentOrderMenu() {
-/// orderCoordinator.presentMenu(for: menuUUID from: self)
-/// }
-/// }
-///
-/// \endcode
 SWIFT_CLASS("_TtC9VNOrderUI16OrderCoordinator")
 @interface OrderCoordinator : NSObject
 @property (nonatomic, readonly) BOOL wasStarted;
@@ -1462,7 +1330,7 @@ SWIFT_CLASS("_TtC9VNOrderUI23OrderHistoryCoordinator")
 
 
 SWIFT_CLASS("_TtC9VNOrderUI26OrderHistoryViewController")
-@interface OrderHistoryViewController : VNViewController
+@interface OrderHistoryViewController : UIViewController
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
@@ -1560,6 +1428,15 @@ SWIFT_CLASS("_TtC9VNOrderUI18ReceiptCoordinator")
 @end
 
 
+SWIFT_CLASS("_TtC9VNOrderUI31SlimCheckoutTableViewController")
+@interface SlimCheckoutTableViewController : CheckoutTableViewController
+- (void)viewDidLoad;
+- (void)onDismiss;
+- (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
 SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 @interface StandMenuTableViewController : UITableViewController
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
@@ -1599,7 +1476,7 @@ SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 
 
 SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
-@interface StandMenuViewController : VNViewController
+@interface StandMenuViewController : UIViewController
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (void)viewDidLoad;
@@ -1654,7 +1531,7 @@ SWIFT_CLASS("_TtC9VNOrderUI18StandTableViewCell")
 
 
 SWIFT_CLASS("_TtC9VNOrderUI25StandsTableViewController")
-@interface StandsTableViewController : VNTableViewController
+@interface StandsTableViewController : UITableViewController
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
@@ -1721,11 +1598,6 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 
 
 
-@interface UIViewController (SWIFT_EXTENSION(VNOrderUI))
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
-- (void)setNavigationBarAppearance;
-@end
 
 
 
@@ -1743,6 +1615,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNOrder * _N
 @interface VNOrder (SWIFT_EXTENSION(VNOrderUI)) <VNOrderProtocol>
 - (void)enableWalletWithWallet:(id _Nonnull)wallet;
 @end
+
+
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop

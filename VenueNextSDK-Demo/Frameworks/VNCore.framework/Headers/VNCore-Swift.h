@@ -167,6 +167,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # define SWIFT_DEPRECATED_OBJC(Msg) SWIFT_DEPRECATED_MSG(Msg)
 #endif
 #if __has_feature(modules)
+@import CoreLocation;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
@@ -226,6 +227,7 @@ typedef SWIFT_ENUM(NSInteger, PaymentMethodInstrument, closed) {
   PaymentMethodInstrumentCreditCard = 0,
   PaymentMethodInstrumentApplePay = 1,
   PaymentMethodInstrumentMagicMoney = 2,
+  PaymentMethodInstrumentVnBank = 3,
 };
 
 
@@ -274,6 +276,8 @@ typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
 
 
 
+
+
 SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
 @protocol VNCoreThemable
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
@@ -282,6 +286,9 @@ SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryError;
 @end
 
 
@@ -289,13 +296,32 @@ SWIFT_CLASS("_TtC6VNCore15VNCoreBaseTheme")
 @interface VNCoreBaseTheme : NSObject <VNCoreThemable>
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDark;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarBackground;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryError;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+
+
+SWIFT_CLASS("_TtC6VNCore17VNLocationManager")
+@interface VNLocationManager : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+@class CLLocationManager;
+@class CLLocation;
+
+@interface VNLocationManager (SWIFT_EXTENSION(VNCore)) <CLLocationManagerDelegate>
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didUpdateLocations:(NSArray<CLLocation *> * _Nonnull)locations;
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status;
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didFailWithError:(NSError * _Nonnull)error;
+@end
 
 
 SWIFT_PROTOCOL("_TtP6VNCore15VNOrderProtocol_")
@@ -526,6 +552,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # define SWIFT_DEPRECATED_OBJC(Msg) SWIFT_DEPRECATED_MSG(Msg)
 #endif
 #if __has_feature(modules)
+@import CoreLocation;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
@@ -585,6 +612,7 @@ typedef SWIFT_ENUM(NSInteger, PaymentMethodInstrument, closed) {
   PaymentMethodInstrumentCreditCard = 0,
   PaymentMethodInstrumentApplePay = 1,
   PaymentMethodInstrumentMagicMoney = 2,
+  PaymentMethodInstrumentVnBank = 3,
 };
 
 
@@ -633,6 +661,8 @@ typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
 
 
 
+
+
 SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
 @protocol VNCoreThemable
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
@@ -641,6 +671,9 @@ SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryError;
 @end
 
 
@@ -648,13 +681,32 @@ SWIFT_CLASS("_TtC6VNCore15VNCoreBaseTheme")
 @interface VNCoreBaseTheme : NSObject <VNCoreThemable>
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDark;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarBackground;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryError;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+
+
+SWIFT_CLASS("_TtC6VNCore17VNLocationManager")
+@interface VNLocationManager : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+@class CLLocationManager;
+@class CLLocation;
+
+@interface VNLocationManager (SWIFT_EXTENSION(VNCore)) <CLLocationManagerDelegate>
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didUpdateLocations:(NSArray<CLLocation *> * _Nonnull)locations;
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status;
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didFailWithError:(NSError * _Nonnull)error;
+@end
 
 
 SWIFT_PROTOCOL("_TtP6VNCore15VNOrderProtocol_")

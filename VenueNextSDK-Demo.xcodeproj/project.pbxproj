@@ -78,7 +78,6 @@
 		AB5987CA22B43CAC003E159A /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5987C922B43CAC003E159A /* Analytics.swift */; };
 		AB6E2355228DCB4800EDD290 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E2354228DCB4800EDD290 /* TabBarController.swift */; };
 		AB6E2357228DCD1800EDD290 /* PaymentAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E2356228DCD1800EDD290 /* PaymentAdapter.swift */; };
-		AB6E2359228DCDE400EDD290 /* vnorder-colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6E2358228DCDE400EDD290 /* vnorder-colors.plist */; };
 		ABC68E7B230EF7F500F41B01 /* ObjCTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC68E72230EF7F500F41B01 /* ObjCTabBarController.m */; };
 		ABC68E7C230EF7F500F41B01 /* ObjCConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC68E73230EF7F500F41B01 /* ObjCConfiguration.m */; };
 		ABC68E7D230EF7F500F41B01 /* DemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC68E77230EF7F500F41B01 /* DemoViewController.xib */; };
@@ -163,7 +162,6 @@
 		AB5987C922B43CAC003E159A /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		AB6E2354228DCB4800EDD290 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		AB6E2356228DCD1800EDD290 /* PaymentAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentAdapter.swift; sourceTree = "<group>"; };
-		AB6E2358228DCDE400EDD290 /* vnorder-colors.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "vnorder-colors.plist"; sourceTree = "<group>"; };
 		ABC68E72230EF7F500F41B01 /* ObjCTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCTabBarController.m; sourceTree = "<group>"; };
 		ABC68E73230EF7F500F41B01 /* ObjCConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCConfiguration.m; sourceTree = "<group>"; };
 		ABC68E74230EF7F500F41B01 /* ObjCTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCTabBarController.h; sourceTree = "<group>"; };
@@ -285,7 +283,6 @@
 				AB2BCA94228DB66700194A7A /* Assets.xcassets */,
 				AB2BCA96228DB66700194A7A /* LaunchScreen.storyboard */,
 				AB2BCA99228DB66700194A7A /* Info.plist */,
-				AB6E2358228DCDE400EDD290 /* vnorder-colors.plist */,
 				ABC68E84230EFB7400F41B01 /* VenueNextSDK_Demo-Bridging-Header.h */,
 				ABC68E71230EF7F500F41B01 /* ObjC */,
 				AB6E2342228DCA2D00EDD290 /* Frameworks */,
@@ -409,7 +406,6 @@
 				6594257C22C2BD2200BCA348 /* LinkTableViewCell.xib in Resources */,
 				ABC68E7D230EF7F500F41B01 /* DemoViewController.xib in Resources */,
 				AB2BCA98228DB66700194A7A /* LaunchScreen.storyboard in Resources */,
-				AB6E2359228DCDE400EDD290 /* vnorder-colors.plist in Resources */,
 				AB2BCA95228DB66700194A7A /* Assets.xcassets in Resources */,
 				6594257822C23B7500BCA348 /* DeepLinkTableViewController.xib in Resources */,
 			);
