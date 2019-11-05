@@ -486,10 +486,8 @@ SWIFT_CLASS("_TtC9VNOrderUI23OrderHistoryCoordinator")
 /// and present the navigationController property. Otherwise, when pushing onto your own navigation stack,
 /// you should pass in your UINavigationController, call <code>start()</code> then <code>pushViewController()</code>
 @property (nonatomic, strong) UINavigationController * _Null_unspecified navigationController;
-/// Creates a new coordinator using the VNPaymentProcessor.shared and an automatically created UINavigationController.
-- (nonnull instancetype)init;
 /// Creates a new coordinator.
-/// \param navigationController The navigation controller to use when pushing the view controller.
+/// \param navigationController The navigation controller to use when pushing the view controller and presenting child viewControllers.
 ///
 /// \param paymentProcessor The PaymentProcessable object to use for processing payments. Defaults to VNPaymentProcessor.shared.
 ///
@@ -508,6 +506,8 @@ SWIFT_CLASS("_TtC9VNOrderUI23OrderHistoryCoordinator")
 - (void)presentFrom:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(void))completion;
 /// Dismisses the presented view controller.
 - (void)dismiss;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 @end
 
 
@@ -1297,10 +1297,8 @@ SWIFT_CLASS("_TtC9VNOrderUI23OrderHistoryCoordinator")
 /// and present the navigationController property. Otherwise, when pushing onto your own navigation stack,
 /// you should pass in your UINavigationController, call <code>start()</code> then <code>pushViewController()</code>
 @property (nonatomic, strong) UINavigationController * _Null_unspecified navigationController;
-/// Creates a new coordinator using the VNPaymentProcessor.shared and an automatically created UINavigationController.
-- (nonnull instancetype)init;
 /// Creates a new coordinator.
-/// \param navigationController The navigation controller to use when pushing the view controller.
+/// \param navigationController The navigation controller to use when pushing the view controller and presenting child viewControllers.
 ///
 /// \param paymentProcessor The PaymentProcessable object to use for processing payments. Defaults to VNPaymentProcessor.shared.
 ///
@@ -1319,6 +1317,8 @@ SWIFT_CLASS("_TtC9VNOrderUI23OrderHistoryCoordinator")
 - (void)presentFrom:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(void))completion;
 /// Dismisses the presented view controller.
 - (void)dismiss;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 @end
 
 

@@ -237,6 +237,7 @@ SWIFT_CLASS_NAMED("Cart")
 @property (nonatomic) int64_t discountAmountInCents;
 @property (nonatomic, copy) NSString * _Nullable identifier;
 @property (nonatomic, copy) NSArray<NSDictionary<NSString *, id> *> * _Nullable lineItemsRaw;
+@property (nonatomic, copy) NSString * _Nullable orderNumber;
 @property (nonatomic, copy) NSString * _Nullable promoCode;
 @property (nonatomic) int64_t serviceChargeInCents;
 @property (nonatomic, copy) NSString * _Nullable sourceDeviceID;
@@ -1342,6 +1343,7 @@ SWIFT_CLASS_NAMED("Cart")
 @property (nonatomic) int64_t discountAmountInCents;
 @property (nonatomic, copy) NSString * _Nullable identifier;
 @property (nonatomic, copy) NSArray<NSDictionary<NSString *, id> *> * _Nullable lineItemsRaw;
+@property (nonatomic, copy) NSString * _Nullable orderNumber;
 @property (nonatomic, copy) NSString * _Nullable promoCode;
 @property (nonatomic) int64_t serviceChargeInCents;
 @property (nonatomic, copy) NSString * _Nullable sourceDeviceID;
