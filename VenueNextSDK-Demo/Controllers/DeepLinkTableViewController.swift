@@ -6,8 +6,15 @@ import VNOrderData
 import VNWalletUI
 
 class DeepLinkTableViewController: UITableViewController {
+    
     lazy var orderHistoryCoordinator: OrderHistoryCoordinator = {
-        let orderHistoryCoordinator = OrderHistoryCoordinator(navigationController: navigationController!)
+        let orderHistoryCoordinator = OrderHistoryCoordinator(navigationController: navigationController)
+        orderHistoryCoordinator.start()
+        return orderHistoryCoordinator
+    }()
+    
+    lazy var orderHistoryCoordinatorModal: OrderHistoryCoordinator = {
+        let orderHistoryCoordinator = OrderHistoryCoordinator(navigationController: nil)
         orderHistoryCoordinator.start()
         return orderHistoryCoordinator
     }()
@@ -130,6 +137,9 @@ class DeepLinkTableViewController: UITableViewController {
     private func configureNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barTintColor = VN.theme.primaryNavigationBarBackground
+        navigationController?.navigationBar.tintColor = VN.theme.primaryNavigationBarTint
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : VN.theme.primaryLight]
     }
     
     override func viewDidLoad() {
@@ -195,7 +205,7 @@ class DeepLinkTableViewController: UITableViewController {
         case .rvcPushExperience:
             orderExperienceCoordinator.pushRvCList()
         case .orderHistoryModal:
-            orderHistoryCoordinator.present(from: navigationController!)
+            orderHistoryCoordinatorModal.present(from: navigationController!)
         case .orderHistoryPush:
             orderHistoryCoordinator.pushViewController()
         case .receiptModal:
