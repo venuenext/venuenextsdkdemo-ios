@@ -18,7 +18,7 @@
 
 
 - (IBAction)pushRvCList:(id)sender {
-    [_orderCoordinator pushRvCList];
+    [_orderCoordinator pushRvCListWithTitle:nil];
 }
 
 - (IBAction)pushMenu:(id)sender {

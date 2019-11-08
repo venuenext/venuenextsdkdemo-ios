@@ -201,7 +201,7 @@ class DeepLinkTableViewController: UITableViewController {
         case .rvcPushFood:
             orderFoodCoordinator.pushRvCList()
         case .rvcPushMerch:
-            orderMerchCoordinator.pushRvCList()
+            orderMerchCoordinator.pushRvCList(title: "Merch")
         case .rvcPushExperience:
             orderExperienceCoordinator.pushRvCList()
         case .orderHistoryModal:

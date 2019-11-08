@@ -389,7 +389,7 @@ SWIFT_CLASS("_TtC9VNOrderUI16OrderCoordinator")
 
 @interface OrderCoordinator (SWIFT_EXTENSION(VNOrderUI))
 - (void)showExperiencesMenuFor:(NSString * _Nonnull)menuUUID;
-- (void)pushRvCList;
+- (void)pushRvCListWithTitle:(NSString * _Nullable)title;
 /// Presents the StandMenuViewController from a presenter.
 /// \param menuUUID The UUID of the menu to present.
 ///
@@ -1200,7 +1200,7 @@ SWIFT_CLASS("_TtC9VNOrderUI16OrderCoordinator")
 
 @interface OrderCoordinator (SWIFT_EXTENSION(VNOrderUI))
 - (void)showExperiencesMenuFor:(NSString * _Nonnull)menuUUID;
-- (void)pushRvCList;
+- (void)pushRvCListWithTitle:(NSString * _Nullable)title;
 /// Presents the StandMenuViewController from a presenter.
 /// \param menuUUID The UUID of the menu to present.
 ///
