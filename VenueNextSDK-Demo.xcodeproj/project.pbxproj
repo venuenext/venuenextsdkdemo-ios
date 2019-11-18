@@ -355,6 +355,7 @@
 				AB2BCA87228DB66400194A7A /* Frameworks */,
 				AB2BCA88228DB66400194A7A /* Resources */,
 				AB6E2353228DCA5200EDD290 /* Embed Frameworks */,
+				AB44592F23830E180037E216 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -412,6 +413,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AB44592F23830E180037E216 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./scripts/strip-frameworks.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AB2BCA86228DB66400194A7A /* Sources */ = {
