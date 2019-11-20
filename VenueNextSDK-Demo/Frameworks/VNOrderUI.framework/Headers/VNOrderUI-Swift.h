@@ -207,9 +207,26 @@ SWIFT_CLASS("_TtC9VNOrderUI12AddItemEvent")
 @end
 
 @class NSCoder;
+@class NSBundle;
+
+SWIFT_CLASS("_TtC9VNOrderUI25BottomSheetViewController")
+@interface BottomSheetViewController : UIViewController
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewDidLayoutSubviews;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
 @class UITableView;
 @class UITableViewCell;
-@class NSBundle;
+
+@interface BottomSheetViewController (SWIFT_EXTENSION(VNOrderUI)) <UITableViewDataSource>
+- (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+@end
+
 
 SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
 @interface CheckoutTableViewController : UITableViewController
@@ -253,7 +270,7 @@ SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
 
 SWIFT_PROTOCOL("_TtP9VNOrderUI35CheckoutTableViewControllerDelegate_")
 @protocol CheckoutTableViewControllerDelegate
-- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
 - (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
@@ -274,13 +291,6 @@ SWIFT_CLASS("_TtC9VNOrderUI25ExperiencesViewController")
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (void)viewDidLoad;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
-@end
-
-@class UIScrollView;
-
-@interface ExperiencesViewController (SWIFT_EXTENSION(VNOrderUI)) <UIScrollViewDelegate>
-- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
-- (void)scrollViewDidEndDragging:(UIScrollView * _Nonnull)scrollView willDecelerate:(BOOL)decelerate;
 @end
 
 
@@ -380,16 +390,18 @@ SWIFT_CLASS("_TtC9VNOrderUI16OrderCoordinator")
 
 @interface OrderCoordinator (SWIFT_EXTENSION(VNOrderUI)) <CheckoutTableViewControllerDelegate>
 - (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
-- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
 
 
 
 
+
+
 @interface OrderCoordinator (SWIFT_EXTENSION(VNOrderUI))
 - (void)showExperiencesMenuFor:(NSString * _Nonnull)menuUUID;
-- (void)pushRvCList;
+- (void)pushRvCListWithTitle:(NSString * _Nullable)title;
 /// Presents the StandMenuViewController from a presenter.
 /// \param menuUUID The UUID of the menu to present.
 ///
@@ -408,8 +420,7 @@ SWIFT_CLASS("_TtC9VNOrderUI16OrderCoordinator")
 - (void)dismiss;
 @end
 
-
-
+@class ExperienceItem;
 
 /// The coordinator for displaying Order History.
 /// Ensure to call <code>start()</code> after initializing. Not calling <code>start()</code> is a programmer error and will fatalError.
@@ -504,6 +515,7 @@ SWIFT_CLASS("_TtC9VNOrderUI23OrderHistoryCoordinator")
 /// \param completion The closure to execute after the presentation finishes. This closure has no return value and takes no parameters. You may specify nil for this parameter.
 ///
 - (void)presentFrom:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(void))completion;
++ (void)presentReceiptFrom:(UIViewController * _Nonnull)presenter experiences:(NSArray<ExperienceItem *> * _Nonnull)experiences completion:(void (^ _Nullable)(void))completion;
 /// Dismisses the presented view controller.
 - (void)dismiss;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -513,7 +525,7 @@ SWIFT_CLASS("_TtC9VNOrderUI23OrderHistoryCoordinator")
 
 @interface OrderHistoryCoordinator (SWIFT_EXTENSION(VNOrderUI)) <CheckoutTableViewControllerDelegate>
 - (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
-- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
 
@@ -523,24 +535,10 @@ SWIFT_CLASS("_TtC9VNOrderUI26OrderHistoryViewController")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
-- (void)viewWillAppear:(BOOL)animated;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
 - (void)viewDidAppear:(BOOL)animated;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
-@end
-
-
-@interface OrderHistoryViewController (SWIFT_EXTENSION(VNOrderUI)) <UITableViewDelegate>
-@end
-
-
-@interface OrderHistoryViewController (SWIFT_EXTENSION(VNOrderUI)) <NSFetchedResultsControllerDelegate>
-@end
-
-
-@interface OrderHistoryViewController (SWIFT_EXTENSION(VNOrderUI)) <PageViewTrackable>
-@property (nonatomic, readonly, copy) NSString * _Nonnull pageViewName;
-@property (nonatomic, readonly, copy) NSString * _Nonnull pageViewTitle;
 @end
 
 
@@ -548,10 +546,20 @@ SWIFT_CLASS("_TtC9VNOrderUI26OrderHistoryViewController")
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+@interface OrderHistoryViewController (SWIFT_EXTENSION(VNOrderUI)) <UITableViewDelegate>
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+@interface OrderHistoryViewController (SWIFT_EXTENSION(VNOrderUI)) <PageViewTrackable>
+@property (nonatomic, readonly, copy) NSString * _Nonnull pageViewName;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pageViewTitle;
 @end
 
 
@@ -647,10 +655,10 @@ SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
 
+@class UIScrollView;
 
 @interface StandMenuTableViewController (SWIFT_EXTENSION(VNOrderUI))
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
-- (void)scrollViewDidEndDecelerating:(UIScrollView * _Nonnull)scrollView;
 @end
 
 
@@ -675,18 +683,12 @@ SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
+
+
 @class UICollectionView;
 
 @interface StandMenuViewController (SWIFT_EXTENSION(VNOrderUI)) <UICollectionViewDelegate>
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-@end
-
-
-
-@class UICollectionViewLayout;
-
-@interface StandMenuViewController (SWIFT_EXTENSION(VNOrderUI)) <UICollectionViewDelegateFlowLayout>
-- (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView layout:(UICollectionViewLayout * _Nonnull)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
 
 @class UICollectionViewCell;
@@ -779,6 +781,9 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 
 
 
+@interface UINavigationController (SWIFT_EXTENSION(VNOrderUI))
+@property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
+@end
 
 
 
@@ -787,6 +792,19 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 
 
 
+
+
+
+
+
+
+
+
+
+
+@interface UIViewController (SWIFT_EXTENSION(VNOrderUI))
+- (void)dismissKeyboard;
+@end
 
 
 
@@ -1018,9 +1036,26 @@ SWIFT_CLASS("_TtC9VNOrderUI12AddItemEvent")
 @end
 
 @class NSCoder;
+@class NSBundle;
+
+SWIFT_CLASS("_TtC9VNOrderUI25BottomSheetViewController")
+@interface BottomSheetViewController : UIViewController
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewDidLayoutSubviews;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
 @class UITableView;
 @class UITableViewCell;
-@class NSBundle;
+
+@interface BottomSheetViewController (SWIFT_EXTENSION(VNOrderUI)) <UITableViewDataSource>
+- (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+@end
+
 
 SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
 @interface CheckoutTableViewController : UITableViewController
@@ -1064,7 +1099,7 @@ SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
 
 SWIFT_PROTOCOL("_TtP9VNOrderUI35CheckoutTableViewControllerDelegate_")
 @protocol CheckoutTableViewControllerDelegate
-- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
 - (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
@@ -1085,13 +1120,6 @@ SWIFT_CLASS("_TtC9VNOrderUI25ExperiencesViewController")
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (void)viewDidLoad;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
-@end
-
-@class UIScrollView;
-
-@interface ExperiencesViewController (SWIFT_EXTENSION(VNOrderUI)) <UIScrollViewDelegate>
-- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
-- (void)scrollViewDidEndDragging:(UIScrollView * _Nonnull)scrollView willDecelerate:(BOOL)decelerate;
 @end
 
 
@@ -1191,16 +1219,18 @@ SWIFT_CLASS("_TtC9VNOrderUI16OrderCoordinator")
 
 @interface OrderCoordinator (SWIFT_EXTENSION(VNOrderUI)) <CheckoutTableViewControllerDelegate>
 - (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
-- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
 
 
 
 
+
+
 @interface OrderCoordinator (SWIFT_EXTENSION(VNOrderUI))
 - (void)showExperiencesMenuFor:(NSString * _Nonnull)menuUUID;
-- (void)pushRvCList;
+- (void)pushRvCListWithTitle:(NSString * _Nullable)title;
 /// Presents the StandMenuViewController from a presenter.
 /// \param menuUUID The UUID of the menu to present.
 ///
@@ -1219,8 +1249,7 @@ SWIFT_CLASS("_TtC9VNOrderUI16OrderCoordinator")
 - (void)dismiss;
 @end
 
-
-
+@class ExperienceItem;
 
 /// The coordinator for displaying Order History.
 /// Ensure to call <code>start()</code> after initializing. Not calling <code>start()</code> is a programmer error and will fatalError.
@@ -1315,6 +1344,7 @@ SWIFT_CLASS("_TtC9VNOrderUI23OrderHistoryCoordinator")
 /// \param completion The closure to execute after the presentation finishes. This closure has no return value and takes no parameters. You may specify nil for this parameter.
 ///
 - (void)presentFrom:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(void))completion;
++ (void)presentReceiptFrom:(UIViewController * _Nonnull)presenter experiences:(NSArray<ExperienceItem *> * _Nonnull)experiences completion:(void (^ _Nullable)(void))completion;
 /// Dismisses the presented view controller.
 - (void)dismiss;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -1324,7 +1354,7 @@ SWIFT_CLASS("_TtC9VNOrderUI23OrderHistoryCoordinator")
 
 @interface OrderHistoryCoordinator (SWIFT_EXTENSION(VNOrderUI)) <CheckoutTableViewControllerDelegate>
 - (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
-- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
 
@@ -1334,24 +1364,10 @@ SWIFT_CLASS("_TtC9VNOrderUI26OrderHistoryViewController")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
-- (void)viewWillAppear:(BOOL)animated;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
 - (void)viewDidAppear:(BOOL)animated;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
-@end
-
-
-@interface OrderHistoryViewController (SWIFT_EXTENSION(VNOrderUI)) <UITableViewDelegate>
-@end
-
-
-@interface OrderHistoryViewController (SWIFT_EXTENSION(VNOrderUI)) <NSFetchedResultsControllerDelegate>
-@end
-
-
-@interface OrderHistoryViewController (SWIFT_EXTENSION(VNOrderUI)) <PageViewTrackable>
-@property (nonatomic, readonly, copy) NSString * _Nonnull pageViewName;
-@property (nonatomic, readonly, copy) NSString * _Nonnull pageViewTitle;
 @end
 
 
@@ -1359,10 +1375,20 @@ SWIFT_CLASS("_TtC9VNOrderUI26OrderHistoryViewController")
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+@interface OrderHistoryViewController (SWIFT_EXTENSION(VNOrderUI)) <UITableViewDelegate>
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+@interface OrderHistoryViewController (SWIFT_EXTENSION(VNOrderUI)) <PageViewTrackable>
+@property (nonatomic, readonly, copy) NSString * _Nonnull pageViewName;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pageViewTitle;
 @end
 
 
@@ -1458,10 +1484,10 @@ SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
 
+@class UIScrollView;
 
 @interface StandMenuTableViewController (SWIFT_EXTENSION(VNOrderUI))
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
-- (void)scrollViewDidEndDecelerating:(UIScrollView * _Nonnull)scrollView;
 @end
 
 
@@ -1486,18 +1512,12 @@ SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
+
+
 @class UICollectionView;
 
 @interface StandMenuViewController (SWIFT_EXTENSION(VNOrderUI)) <UICollectionViewDelegate>
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-@end
-
-
-
-@class UICollectionViewLayout;
-
-@interface StandMenuViewController (SWIFT_EXTENSION(VNOrderUI)) <UICollectionViewDelegateFlowLayout>
-- (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView layout:(UICollectionViewLayout * _Nonnull)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
 
 @class UICollectionViewCell;
@@ -1590,6 +1610,9 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 
 
 
+@interface UINavigationController (SWIFT_EXTENSION(VNOrderUI))
+@property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
+@end
 
 
 
@@ -1598,6 +1621,19 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 
 
 
+
+
+
+
+
+
+
+
+
+
+@interface UIViewController (SWIFT_EXTENSION(VNOrderUI))
+- (void)dismissKeyboard;
+@end
 
 
 

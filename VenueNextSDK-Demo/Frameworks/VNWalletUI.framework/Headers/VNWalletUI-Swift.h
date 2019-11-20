@@ -195,12 +195,30 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 
 
+@interface UINavigationController (SWIFT_EXTENSION(VNWalletUI))
+@property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
+@end
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+@interface UIViewController (SWIFT_EXTENSION(VNWalletUI))
+- (void)dismissKeyboard;
+@end
 
 
 
@@ -228,7 +246,10 @@ SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @protocol VNWalletDelegate
 - (UIViewController * _Nonnull)loginControllerWithCompletion:(void (^ _Nonnull)(VNWalletUser * _Nullable, NSError * _Nullable))completion SWIFT_WARN_UNUSED_RESULT;
 - (VNWalletUser * _Nullable)walletUser SWIFT_WARN_UNUSED_RESULT;
+@optional
 - (NSString * _Nonnull)walletTitle SWIFT_WARN_UNUSED_RESULT;
+@required
+- (NSString * _Nonnull)virtualCurrencyName SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nonnull)walletVirtualCurrencyPaymentType SWIFT_WARN_UNUSED_RESULT;
 - (WalletModeConfig * _Nonnull)walletModeConfig SWIFT_WARN_UNUSED_RESULT;
 @end
@@ -244,7 +265,6 @@ SWIFT_CLASS("_TtC10VNWalletUI12VNWalletUser")
 
 
 
-@class UINavigationController;
 
 SWIFT_CLASS("_TtC10VNWalletUI17WalletCoordinator")
 @interface WalletCoordinator : NSObject
@@ -270,7 +290,7 @@ SWIFT_CLASS("_TtC10VNWalletUI17WalletCoordinator")
 
 @interface WalletCoordinator (SWIFT_EXTENSION(VNWalletUI)) <CheckoutTableViewControllerDelegate>
 - (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
-- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
 
@@ -308,7 +328,6 @@ SWIFT_CLASS("_TtC10VNWalletUI20WalletViewController")
 
 
 
-@class UITableView;
 @class UITableViewCell;
 
 @interface WalletViewController (SWIFT_EXTENSION(VNWalletUI)) <UITableViewDelegate>
@@ -526,12 +545,30 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 
 
+@interface UINavigationController (SWIFT_EXTENSION(VNWalletUI))
+@property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
+@end
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+@interface UIViewController (SWIFT_EXTENSION(VNWalletUI))
+- (void)dismissKeyboard;
+@end
 
 
 
@@ -559,7 +596,10 @@ SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @protocol VNWalletDelegate
 - (UIViewController * _Nonnull)loginControllerWithCompletion:(void (^ _Nonnull)(VNWalletUser * _Nullable, NSError * _Nullable))completion SWIFT_WARN_UNUSED_RESULT;
 - (VNWalletUser * _Nullable)walletUser SWIFT_WARN_UNUSED_RESULT;
+@optional
 - (NSString * _Nonnull)walletTitle SWIFT_WARN_UNUSED_RESULT;
+@required
+- (NSString * _Nonnull)virtualCurrencyName SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nonnull)walletVirtualCurrencyPaymentType SWIFT_WARN_UNUSED_RESULT;
 - (WalletModeConfig * _Nonnull)walletModeConfig SWIFT_WARN_UNUSED_RESULT;
 @end
@@ -575,7 +615,6 @@ SWIFT_CLASS("_TtC10VNWalletUI12VNWalletUser")
 
 
 
-@class UINavigationController;
 
 SWIFT_CLASS("_TtC10VNWalletUI17WalletCoordinator")
 @interface WalletCoordinator : NSObject
@@ -601,7 +640,7 @@ SWIFT_CLASS("_TtC10VNWalletUI17WalletCoordinator")
 
 @interface WalletCoordinator (SWIFT_EXTENSION(VNWalletUI)) <CheckoutTableViewControllerDelegate>
 - (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
-- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
 
@@ -639,7 +678,6 @@ SWIFT_CLASS("_TtC10VNWalletUI20WalletViewController")
 
 
 
-@class UITableView;
 @class UITableViewCell;
 
 @interface WalletViewController (SWIFT_EXTENSION(VNWalletUI)) <UITableViewDelegate>

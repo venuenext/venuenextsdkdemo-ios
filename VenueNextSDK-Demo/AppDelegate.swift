@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         intializeSDK(for: isSwift)
         
         //Setup PresenceSDK
-        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "NCA8hpkFiPJsDp03oX0sTXZri1jYLvhY", displayName: "Demo App", useNewAccountsManager: true)
+        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "", displayName: "Demo App", useNewAccountsManager: true)
         PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
         
         //Configure Payment processor (place this above modules that will need it)
@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         switch isSwift {
         case true:
             // use the following code in your application:didFinishLaunchingWithOptions:
-            VenueNext.shared.initialize(sdkKey: "vn:venuenext:dev:ios-sdk-WVtWMWcBZSItKf7lbEtxP9GsEgW0XqCmI1Y=", sdkSecret: "MrE9ZvCaW/8wWdba5iB5+uG/AEzQKM0pS605CDL5GcyI5537jcbCvJ6FU9yPxW8C4iC/EKnZi7QwduZw+3s/JQ==")
+            VenueNext.shared.initialize(sdkKey: "", sdkSecret: "")
             Analytics.initialize(with: CustomAnalytics())
         case false:
             ObjCConfiguration.start()
@@ -85,6 +85,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: VNWalletDelegate {
+    func virtualCurrencyName() -> String {
+        return "Virtual Currency"
+    }
+    
     func walletModeConfig() -> WalletModeConfig {
         return WalletModeConfig() // modes: [.qrCode, .qrScanner, .virtualCurrencyToggle]
     }
