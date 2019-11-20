@@ -170,6 +170,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import CoreLocation;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
@@ -207,15 +208,29 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) Environment * _Nonnull
 @property (nonatomic, readonly, copy) NSString * _Nullable venueHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable userHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable stadiumHost;
+@property (nonatomic, readonly, copy) NSString * _Nullable stubsHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable paymentHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable notifyHost;
+@property (nonatomic, readonly, copy) NSString * _Nullable loyaltyHost;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+@interface NSObject (SWIFT_EXTENSION(VNCore))
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull classStringName;)
++ (NSString * _Nonnull)classStringName SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull domain;)
++ (NSString * _Nonnull)domain SWIFT_WARN_UNUSED_RESULT;
 @end
 
 /// The method that was used to pay, either Credit Card or Apple Pay
 typedef SWIFT_ENUM(NSInteger, PaymentMethodInstrument, closed) {
   PaymentMethodInstrumentCreditCard = 0,
   PaymentMethodInstrumentApplePay = 1,
+  PaymentMethodInstrumentMagicMoney = 2,
+  PaymentMethodInstrumentVnBank = 3,
 };
 
 
@@ -230,16 +245,95 @@ SWIFT_PROTOCOL("_TtP6VNCore26PaymentMethodRepresentable_")
 @end
 
 @class UIViewController;
-@class NSError;
+enum ProductType : NSInteger;
 
 /// An object conforming to PaymentProcessable will be responsible for processing payments.
 SWIFT_PROTOCOL("_TtP6VNCore18PaymentProcessable_")
 @protocol PaymentProcessable
-- (void)processPaymentFrom:(UIViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethodWithPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
+- (void)defaultPaymentMethodWithCompletion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable))completion;
+@end
+
+typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
+  ProductTypeFood = 0,
+  ProductTypeExperience = 1,
+  ProductTypeMerchandise = 2,
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
+@protocol VNCoreThemable
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDark;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryExtraLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDarkGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryError;
 @end
 
 
+SWIFT_CLASS("_TtC6VNCore15VNCoreBaseTheme")
+@interface VNCoreBaseTheme : NSObject <VNCoreThemable>
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDark;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryExtraLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDarkGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryError;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+SWIFT_CLASS("_TtC6VNCore17VNLocationManager")
+@interface VNLocationManager : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+@class CLLocationManager;
+@class CLLocation;
+
+@interface VNLocationManager (SWIFT_EXTENSION(VNCore)) <CLLocationManagerDelegate>
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didUpdateLocations:(NSArray<CLLocation *> * _Nonnull)locations;
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status;
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didFailWithError:(NSError * _Nonnull)error;
+@end
+
+
+SWIFT_PROTOCOL("_TtP6VNCore15VNOrderProtocol_")
+@protocol VNOrderProtocol
+- (void)enableWalletWithWallet:(id _Nonnull)wallet;
+@end
 
 
 /// An object to hold onto a shared PaymentProcessable. VenueNext frameworks will use this processor if set.
@@ -252,18 +346,45 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id <PaymentProcessable
 @end
 
 
+SWIFT_PROTOCOL("_TtP6VNCore16VNWalletThemable_")
+@protocol VNWalletThemable
+@property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+@end
+
+
+SWIFT_CLASS("_TtC6VNCore17VNWalletBaseTheme")
+@interface VNWalletBaseTheme : NSObject <VNWalletThemable>
+@property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
 SWIFT_CLASS("_TtC6VNCore9VenueNext")
 @interface VenueNext : NSObject
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) VenueNext * _Nonnull shared;)
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * _Nonnull shared;)
 + (VenueNext * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
-+ (void)setShared:(VenueNext * _Nonnull)value;
 /// Configures the app for VenueNext frameworks. Raises an exception if the Keys.plist is not found. This method is thread safe and contains synchronous file I/O (reading Keys-Info.plist from disk). If you do not have a Keys.plist, then use <code>VenueNext.shared.initialize(sdkKey:sdkSecret:) instead.</code>
 /// This method should be called after the app is launched and before using VenueNext services such as in application(_:didFinishLaunchingWithOptions:).
 + (void)configureWithCompletion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// Configures the app for VenueNext frameworks.
 /// This method should be called after the app is launched and before using VenueNext services such as in application(_:didFinishLaunchingWithOptions:).
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
++ (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+@interface VenueNext (SWIFT_EXTENSION(VNCore))
+- (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
+- (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
 @end
 
 #if __has_attribute(external_source_symbol)
@@ -440,6 +561,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import CoreLocation;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
@@ -477,15 +599,29 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) Environment * _Nonnull
 @property (nonatomic, readonly, copy) NSString * _Nullable venueHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable userHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable stadiumHost;
+@property (nonatomic, readonly, copy) NSString * _Nullable stubsHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable paymentHost;
 @property (nonatomic, readonly, copy) NSString * _Nullable notifyHost;
+@property (nonatomic, readonly, copy) NSString * _Nullable loyaltyHost;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+@interface NSObject (SWIFT_EXTENSION(VNCore))
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull classStringName;)
++ (NSString * _Nonnull)classStringName SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull domain;)
++ (NSString * _Nonnull)domain SWIFT_WARN_UNUSED_RESULT;
 @end
 
 /// The method that was used to pay, either Credit Card or Apple Pay
 typedef SWIFT_ENUM(NSInteger, PaymentMethodInstrument, closed) {
   PaymentMethodInstrumentCreditCard = 0,
   PaymentMethodInstrumentApplePay = 1,
+  PaymentMethodInstrumentMagicMoney = 2,
+  PaymentMethodInstrumentVnBank = 3,
 };
 
 
@@ -500,16 +636,95 @@ SWIFT_PROTOCOL("_TtP6VNCore26PaymentMethodRepresentable_")
 @end
 
 @class UIViewController;
-@class NSError;
+enum ProductType : NSInteger;
 
 /// An object conforming to PaymentProcessable will be responsible for processing payments.
 SWIFT_PROTOCOL("_TtP6VNCore18PaymentProcessable_")
 @protocol PaymentProcessable
-- (void)processPaymentFrom:(UIViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethodWithPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
+- (void)defaultPaymentMethodWithCompletion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable))completion;
+@end
+
+typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
+  ProductTypeFood = 0,
+  ProductTypeExperience = 1,
+  ProductTypeMerchandise = 2,
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
+@protocol VNCoreThemable
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDark;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryExtraLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDarkGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryError;
 @end
 
 
+SWIFT_CLASS("_TtC6VNCore15VNCoreBaseTheme")
+@interface VNCoreBaseTheme : NSObject <VNCoreThemable>
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDark;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryExtraLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDarkGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryError;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+SWIFT_CLASS("_TtC6VNCore17VNLocationManager")
+@interface VNLocationManager : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+@class CLLocationManager;
+@class CLLocation;
+
+@interface VNLocationManager (SWIFT_EXTENSION(VNCore)) <CLLocationManagerDelegate>
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didUpdateLocations:(NSArray<CLLocation *> * _Nonnull)locations;
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status;
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didFailWithError:(NSError * _Nonnull)error;
+@end
+
+
+SWIFT_PROTOCOL("_TtP6VNCore15VNOrderProtocol_")
+@protocol VNOrderProtocol
+- (void)enableWalletWithWallet:(id _Nonnull)wallet;
+@end
 
 
 /// An object to hold onto a shared PaymentProcessable. VenueNext frameworks will use this processor if set.
@@ -522,18 +737,45 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id <PaymentProcessable
 @end
 
 
+SWIFT_PROTOCOL("_TtP6VNCore16VNWalletThemable_")
+@protocol VNWalletThemable
+@property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+@end
+
+
+SWIFT_CLASS("_TtC6VNCore17VNWalletBaseTheme")
+@interface VNWalletBaseTheme : NSObject <VNWalletThemable>
+@property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
 SWIFT_CLASS("_TtC6VNCore9VenueNext")
 @interface VenueNext : NSObject
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) VenueNext * _Nonnull shared;)
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * _Nonnull shared;)
 + (VenueNext * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
-+ (void)setShared:(VenueNext * _Nonnull)value;
 /// Configures the app for VenueNext frameworks. Raises an exception if the Keys.plist is not found. This method is thread safe and contains synchronous file I/O (reading Keys-Info.plist from disk). If you do not have a Keys.plist, then use <code>VenueNext.shared.initialize(sdkKey:sdkSecret:) instead.</code>
 /// This method should be called after the app is launched and before using VenueNext services such as in application(_:didFinishLaunchingWithOptions:).
 + (void)configureWithCompletion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// Configures the app for VenueNext frameworks.
 /// This method should be called after the app is launched and before using VenueNext services such as in application(_:didFinishLaunchingWithOptions:).
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
++ (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+@interface VenueNext (SWIFT_EXTENSION(VNCore))
+- (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
+- (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
 @end
 
 #if __has_attribute(external_source_symbol)

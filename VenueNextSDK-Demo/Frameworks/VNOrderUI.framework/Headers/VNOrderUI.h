@@ -4,8 +4,8 @@
 #import <VNCore/VNCore.h>
 #import <VNCoreUI/VNCoreUI.h>
 #import <VNOrderData/VNOrderData.h>
-#import <VNOrder/VNOrder.h>
 #import <VNPayment/VNPayment.h>
+
 //! Project version number for VNOrderUI.
 FOUNDATION_EXPORT double VNOrderUIVersionNumber;
 
@@ -13,5 +13,3 @@ FOUNDATION_EXPORT double VNOrderUIVersionNumber;
 FOUNDATION_EXPORT const unsigned char VNOrderUIVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <VNOrderUI/PublicHeader.h>
-
-

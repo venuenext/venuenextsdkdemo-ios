@@ -22,7 +22,7 @@ class TabBarController: UITabBarController {
         orderCoordinator.start()
         orderCoordinator.navigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
 
-        orderHistoryCoordinator = OrderHistoryCoordinator()
+        orderHistoryCoordinator = OrderHistoryCoordinator(navigationController: navigationController)
         orderHistoryCoordinator.start()
         orderHistoryCoordinator.navigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 1)
 

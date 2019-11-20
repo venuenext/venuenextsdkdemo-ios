@@ -224,10 +224,6 @@ SWIFT_CLASS("_TtC16VNNetworkService16NetworkOperation")
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 @end
 
-
-
-
-
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
 #endif
@@ -455,10 +451,6 @@ SWIFT_CLASS("_TtC16VNNetworkService16NetworkOperation")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 @end
-
-
-
-
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop

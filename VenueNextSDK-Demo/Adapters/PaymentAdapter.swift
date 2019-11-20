@@ -4,7 +4,9 @@
 import Foundation
 import os.log
 import VNPayment
+import VNOrderData
 import BraintreeDropIn
+import BraintreeApplePay
 import BraintreePaymentFlow
 
 @objc class PaymentProcessor: NSObject, PaymentProcessable, PaymentMethodRepresentable {

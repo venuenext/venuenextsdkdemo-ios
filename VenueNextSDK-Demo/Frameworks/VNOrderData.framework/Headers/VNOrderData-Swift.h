@@ -190,6 +190,16 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+
+SWIFT_CLASS("_TtC11VNOrderData14AsyncOperation")
+@interface AsyncOperation : NSOperation
+@property (nonatomic, readonly, getter=isAsynchronous) BOOL asynchronous;
+@property (nonatomic, getter=isFinished) BOOL finished;
+@property (nonatomic, getter=isExecuting) BOOL executing;
+- (void)start;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class NSEntityDescription;
 @class NSManagedObjectContext;
 
@@ -197,8 +207,6 @@ SWIFT_CLASS_NAMED("Cart")
 @interface Cart : NSManagedObject
 - (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
 @end
-
-
 
 
 
@@ -222,6 +230,10 @@ SWIFT_CLASS_NAMED("Cart")
 
 
 
+
+
+
+
 @class Menu;
 @class Stand;
 
@@ -229,9 +241,15 @@ SWIFT_CLASS_NAMED("Cart")
 @property (nonatomic) int64_t deliveryFeeInCents;
 @property (nonatomic) int64_t discountAmountInCents;
 @property (nonatomic, copy) NSString * _Nullable identifier;
+@property (nonatomic, copy) NSArray<NSDictionary<NSString *, id> *> * _Nullable lineItemsRaw;
+@property (nonatomic, copy) NSString * _Nullable orderNumber;
 @property (nonatomic, copy) NSString * _Nullable promoCode;
+@property (nonatomic) int64_t serviceChargeInCents;
+@property (nonatomic, copy) NSString * _Nullable sourceDeviceID;
 @property (nonatomic) int64_t taxInCents;
 @property (nonatomic) int64_t totalAmountInCents;
+@property (nonatomic, copy) NSString * _Nullable userEmail;
+@property (nonatomic, copy) NSString * _Nullable userFullName;
 @property (nonatomic, strong) NSSet * _Nullable cartEntries;
 @property (nonatomic, strong) Menu * _Nullable menu;
 @property (nonatomic, strong) Stand * _Nullable stand;
@@ -258,25 +276,38 @@ SWIFT_CLASS_NAMED("CartEntry")
 - (void)removeModifierCartEntries:(NSSet * _Nonnull)values;
 @end
 
+@class ExperienceEvent;
 @class Item;
 
 @interface CartEntry (SWIFT_EXTENSION(VNOrderData))
+@property (nonatomic, copy) NSArray<NSDictionary<NSString *, id> *> * _Nullable metadata;
 @property (nonatomic) int64_t quantity;
 @property (nonatomic, strong) Cart * _Nullable cart;
+@property (nonatomic, strong) ExperienceEvent * _Nullable event;
 @property (nonatomic, strong) Item * _Nullable item;
 @property (nonatomic, strong) NSSet * _Nullable modifierCartEntries;
 @end
 
 
-SWIFT_CLASS_NAMED("Event")
-@interface Event : NSManagedObject
+SWIFT_CLASS_NAMED("ExperienceEvent")
+@interface ExperienceEvent : NSManagedObject
 - (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
 
 
-@interface Event (SWIFT_EXTENSION(VNOrderData))
+
+
+@interface ExperienceEvent (SWIFT_EXTENSION(VNOrderData))
+- (void)addCartEntriesObject:(CartEntry * _Nonnull)value;
+- (void)removeCartEntriesObject:(CartEntry * _Nonnull)value;
+- (void)addCartEntries:(NSSet * _Nonnull)values;
+- (void)removeCartEntries:(NSSet * _Nonnull)values;
+@end
+
+
+@interface ExperienceEvent (SWIFT_EXTENSION(VNOrderData))
 @property (nonatomic, copy) NSDate * _Nullable date;
 @property (nonatomic, copy) NSString * _Nullable dateText;
 @property (nonatomic, copy) NSString * _Nullable descriptionText;
@@ -294,7 +325,74 @@ SWIFT_CLASS_NAMED("Event")
 @property (nonatomic, copy) NSString * _Nullable visitingAbbreviation;
 @property (nonatomic, copy) NSString * _Nullable visitingCity;
 @property (nonatomic, copy) NSString * _Nullable visitingName;
+@property (nonatomic, strong) NSSet * _Nullable cartEntries;
 @property (nonatomic, strong) Menu * _Nullable menu;
+@end
+
+
+SWIFT_CLASS_NAMED("ExperienceItem")
+@interface ExperienceItem : NSManagedObject
+- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+@class Metadata;
+@class NSIndexSet;
+@class NSOrderedSet;
+
+@interface ExperienceItem (SWIFT_EXTENSION(VNOrderData))
+- (void)insertObject:(Metadata * _Nonnull)value inMetadataAtIndex:(NSInteger)idx;
+- (void)removeObjectFromMetadataAtIndex:(NSInteger)idx;
+- (void)insertMetadata:(NSArray<Metadata *> * _Nonnull)values atIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)removeMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)replaceObjectInMetadataAtIndex:(NSInteger)idx withObject:(Metadata * _Nonnull)value;
+- (void)replaceMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes withMetadata:(NSArray<Metadata *> * _Nonnull)values;
+- (void)addMetadataObject:(Metadata * _Nonnull)value;
+- (void)removeMetadataObject:(Metadata * _Nonnull)value;
+- (void)addMetadata:(NSOrderedSet * _Nonnull)values;
+- (void)removeMetadata:(NSOrderedSet * _Nonnull)values;
+@end
+
+
+
+@class OrderSummary;
+
+@interface ExperienceItem (SWIFT_EXTENSION(VNOrderData))
+@property (nonatomic, copy) NSString * _Nullable activeTransferUUID;
+@property (nonatomic, copy) NSDate * _Nullable availableAt;
+@property (nonatomic) int64_t countdownSeconds;
+@property (nonatomic, copy) NSDate * _Nullable createdAt;
+@property (nonatomic, copy) NSString * _Nullable descriptionText;
+@property (nonatomic, copy) NSDate * _Nullable eventDate;
+@property (nonatomic, copy) NSString * _Nullable eventUUID;
+@property (nonatomic, copy) NSDate * _Nullable expiresAt;
+@property (nonatomic, copy) NSString * _Nullable globalItemUUID;
+@property (nonatomic, copy) NSDate * _Nullable hiddenAt;
+@property (nonatomic, copy) NSString * _Nullable identifier;
+@property (nonatomic, copy) NSString * _Nullable imageURL;
+@property (nonatomic, copy) NSString * _Nullable instructionText;
+@property (nonatomic) BOOL isRedeemable;
+@property (nonatomic) BOOL isRefundable;
+@property (nonatomic) BOOL isTransferable;
+@property (nonatomic, copy) NSString * _Nullable itemUUID;
+@property (nonatomic, copy) NSString * _Nullable name;
+@property (nonatomic, copy) NSString * _Nullable recipientEmail;
+@property (nonatomic, copy) NSDate * _Nullable redeemedAt;
+@property (nonatomic, copy) NSString * _Nullable redemptionCode;
+@property (nonatomic, copy) NSDate * _Nullable redemptionStartsAt;
+@property (nonatomic, copy) NSString * _Nullable redemptionType;
+@property (nonatomic, copy) NSString * _Nullable state;
+@property (nonatomic, copy) NSDate * _Nullable usedAt;
+@property (nonatomic) double value;
+@property (nonatomic, strong) NSOrderedSet * _Nullable metadata;
+@property (nonatomic, strong) OrderSummary * _Nullable orderSummary;
+@end
+
+
+SWIFT_CLASS("_TtC11VNOrderData23GetExperienceItemParser")
+@interface GetExperienceItemParser : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -317,6 +415,14 @@ SWIFT_CLASS_NAMED("Item")
 
 
 
+
+@interface Item (SWIFT_EXTENSION(VNOrderData))
+- (void)addCartEntryObject:(CartEntry * _Nonnull)value;
+- (void)removeCartEntryObject:(CartEntry * _Nonnull)value;
+- (void)addCartEntry:(NSSet * _Nonnull)values;
+- (void)removeCartEntry:(NSSet * _Nonnull)values;
+@end
+
 @class Variant;
 
 @interface Item (SWIFT_EXTENSION(VNOrderData))
@@ -327,18 +433,10 @@ SWIFT_CLASS_NAMED("Item")
 @end
 
 
-@interface Item (SWIFT_EXTENSION(VNOrderData))
-- (void)addCartEntryObject:(CartEntry * _Nonnull)value;
-- (void)removeCartEntryObject:(CartEntry * _Nonnull)value;
-- (void)addCartEntry:(NSSet * _Nonnull)values;
-- (void)removeCartEntry:(NSSet * _Nonnull)values;
-@end
 
 
 
 @class ModifierGroup;
-@class NSIndexSet;
-@class NSOrderedSet;
 
 @interface Item (SWIFT_EXTENSION(VNOrderData))
 - (void)insertObject:(ModifierGroup * _Nonnull)value inModifierGroupsAtIndex:(NSInteger)idx;
@@ -351,6 +449,20 @@ SWIFT_CLASS_NAMED("Item")
 - (void)removeModifierGroupsObject:(ModifierGroup * _Nonnull)value;
 - (void)addModifierGroups:(NSOrderedSet * _Nonnull)values;
 - (void)removeModifierGroups:(NSOrderedSet * _Nonnull)values;
+@end
+
+
+@interface Item (SWIFT_EXTENSION(VNOrderData))
+- (void)insertObject:(Metadata * _Nonnull)value inMetadataAtIndex:(NSInteger)idx;
+- (void)removeObjectFromMetadataAtIndex:(NSInteger)idx;
+- (void)insertMetadata:(NSArray<Metadata *> * _Nonnull)values atIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)removeMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)replaceObjectInMetadataAtIndex:(NSInteger)idx withObject:(Metadata * _Nonnull)value;
+- (void)replaceMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes withMetadata:(NSArray<Metadata *> * _Nonnull)values;
+- (void)addMetadataObject:(Metadata * _Nonnull)value;
+- (void)removeMetadataObject:(Metadata * _Nonnull)value;
+- (void)addMetadata:(NSOrderedSet * _Nonnull)values;
+- (void)removeMetadata:(NSOrderedSet * _Nonnull)values;
 @end
 
 @class ItemCategory;
@@ -374,6 +486,7 @@ SWIFT_CLASS_NAMED("Item")
 @property (nonatomic, strong) NSSet * _Nullable cartEntry;
 @property (nonatomic, strong) ItemCategory * _Nullable itemCategory;
 @property (nonatomic, strong) Menu * _Nullable menu;
+@property (nonatomic, strong) NSOrderedSet * _Nullable metadata;
 @property (nonatomic, strong) NSOrderedSet * _Nullable modifierGroups;
 @property (nonatomic, strong) NSSet * _Nullable variants;
 @end
@@ -385,14 +498,14 @@ SWIFT_CLASS_NAMED("ItemCategory")
 @end
 
 
-
-
 @interface ItemCategory (SWIFT_EXTENSION(VNOrderData))
 - (void)addItemsObject:(Item * _Nonnull)value;
 - (void)removeItemsObject:(Item * _Nonnull)value;
 - (void)addItems:(NSSet * _Nonnull)values;
 - (void)removeItems:(NSSet * _Nonnull)values;
 @end
+
+
 
 
 @interface ItemCategory (SWIFT_EXTENSION(VNOrderData))
@@ -425,19 +538,22 @@ SWIFT_CLASS_NAMED("LineItem")
 - (void)removeModifiers:(NSSet * _Nonnull)values;
 @end
 
-@class OrderSummary;
 
 @interface LineItem (SWIFT_EXTENSION(VNOrderData))
+@property (nonatomic, copy) NSString * _Nullable eventUUID;
 @property (nonatomic, copy) NSString * _Nullable identifier;
 @property (nonatomic) BOOL isAlcohol;
+@property (nonatomic, copy) NSString * _Nullable itemUUID;
 @property (nonatomic, copy) NSString * _Nullable menuItemUUID;
 @property (nonatomic, copy) NSString * _Nullable name;
 @property (nonatomic, copy) NSString * _Nullable parentLineItemUUID;
 @property (nonatomic, copy) NSString * _Nullable paymentType;
+@property (nonatomic) double price;
 @property (nonatomic, copy) NSString * _Nullable productSKU;
 @property (nonatomic) int64_t quantity;
 @property (nonatomic, copy) NSString * _Nullable specialType;
 @property (nonatomic) int64_t taxAmountInCents;
+@property (nonatomic) double total;
 @property (nonatomic) int64_t totalAmountInCents;
 @property (nonatomic, copy) NSString * _Nullable type;
 @property (nonatomic, strong) NSSet * _Nullable modifiers;
@@ -453,16 +569,6 @@ SWIFT_CLASS_NAMED("Menu")
 
 
 
-
-
-@interface Menu (SWIFT_EXTENSION(VNOrderData))
-- (void)addEventsObject:(Event * _Nonnull)value;
-- (void)removeEventsObject:(Event * _Nonnull)value;
-- (void)addEvents:(NSSet * _Nonnull)values;
-- (void)removeEvents:(NSSet * _Nonnull)values;
-@end
-
-
 @interface Menu (SWIFT_EXTENSION(VNOrderData))
 - (void)addItemsObject:(Item * _Nonnull)value;
 - (void)removeItemsObject:(Item * _Nonnull)value;
@@ -472,11 +578,21 @@ SWIFT_CLASS_NAMED("Menu")
 
 
 @interface Menu (SWIFT_EXTENSION(VNOrderData))
+- (void)addEventsObject:(ExperienceEvent * _Nonnull)value;
+- (void)removeEventsObject:(ExperienceEvent * _Nonnull)value;
+- (void)addEvents:(NSSet * _Nonnull)values;
+- (void)removeEvents:(NSSet * _Nonnull)values;
+@end
+
+
+@interface Menu (SWIFT_EXTENSION(VNOrderData))
 - (void)addCategoriesObject:(ItemCategory * _Nonnull)value;
 - (void)removeCategoriesObject:(ItemCategory * _Nonnull)value;
 - (void)addCategories:(NSSet * _Nonnull)values;
 - (void)removeCategories:(NSSet * _Nonnull)values;
 @end
+
+
 
 
 @interface Menu (SWIFT_EXTENSION(VNOrderData))
@@ -502,6 +618,30 @@ SWIFT_CLASS_NAMED("Menu")
 @property (nonatomic, strong) NSSet * _Nullable events;
 @property (nonatomic, strong) NSSet * _Nullable items;
 @property (nonatomic, strong) Stand * _Nullable stand;
+@end
+
+
+SWIFT_CLASS_NAMED("Metadata")
+@interface Metadata : NSManagedObject
+- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+@interface Metadata (SWIFT_EXTENSION(VNOrderData))
+@property (nonatomic, copy) NSString * _Nullable dataType;
+@property (nonatomic, copy) NSString * _Nullable descriptionText;
+@property (nonatomic, copy) NSString * _Nullable errorMessage;
+@property (nonatomic) BOOL hasRestriction;
+@property (nonatomic, copy) NSString * _Nullable identifier;
+@property (nonatomic) int64_t maxValue;
+@property (nonatomic) int64_t minValue;
+@property (nonatomic, copy) NSString * _Nullable name;
+@property (nonatomic, copy) NSString * _Nullable operatorText;
+@property (nonatomic) int64_t value;
+@property (nonatomic, strong) ExperienceItem * _Nullable experienceItem;
+@property (nonatomic, strong) Item * _Nullable item;
 @end
 
 
@@ -547,18 +687,18 @@ SWIFT_CLASS_NAMED("ModifierGroup")
 
 
 @interface ModifierGroup (SWIFT_EXTENSION(VNOrderData))
-- (void)addItemsObject:(Item * _Nonnull)value;
-- (void)removeItemsObject:(Item * _Nonnull)value;
-- (void)addItems:(NSSet * _Nonnull)values;
-- (void)removeItems:(NSSet * _Nonnull)values;
-@end
-
-
-@interface ModifierGroup (SWIFT_EXTENSION(VNOrderData))
 - (void)addModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
 - (void)removeModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
 - (void)addModifierCartEntries:(NSSet * _Nonnull)values;
 - (void)removeModifierCartEntries:(NSSet * _Nonnull)values;
+@end
+
+
+@interface ModifierGroup (SWIFT_EXTENSION(VNOrderData))
+- (void)addItemsObject:(Item * _Nonnull)value;
+- (void)removeItemsObject:(Item * _Nonnull)value;
+- (void)addItems:(NSSet * _Nonnull)values;
+- (void)removeItems:(NSSet * _Nonnull)values;
 @end
 
 
@@ -603,18 +743,18 @@ SWIFT_CLASS_NAMED("ModifierItem")
 
 
 @interface ModifierItem (SWIFT_EXTENSION(VNOrderData))
-- (void)addVariantsObject:(Variant * _Nonnull)value;
-- (void)removeVariantsObject:(Variant * _Nonnull)value;
-- (void)addVariants:(NSSet * _Nonnull)values;
-- (void)removeVariants:(NSSet * _Nonnull)values;
-@end
-
-
-@interface ModifierItem (SWIFT_EXTENSION(VNOrderData))
 - (void)addModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
 - (void)removeModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
 - (void)addModifierCartEntries:(NSSet * _Nonnull)values;
 - (void)removeModifierCartEntries:(NSSet * _Nonnull)values;
+@end
+
+
+@interface ModifierItem (SWIFT_EXTENSION(VNOrderData))
+- (void)addVariantsObject:(Variant * _Nonnull)value;
+- (void)removeVariantsObject:(Variant * _Nonnull)value;
+- (void)addVariants:(NSSet * _Nonnull)values;
+- (void)removeVariants:(NSSet * _Nonnull)values;
 @end
 
 
@@ -670,11 +810,11 @@ SWIFT_CLASS_NAMED("ModifierLineItem")
 
 
 
-
-
 @interface NSFetchedResultsController<ResultType> (SWIFT_EXTENSION(VNOrderData))
 - (NSManagedObject * _Nonnull)objectForKeyedSubscript:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
@@ -690,20 +830,18 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSString * _
 
 
 
-@interface NSObject (SWIFT_EXTENSION(VNOrderData))
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull classStringName;)
-+ (NSString * _Nonnull)classStringName SWIFT_WARN_UNUSED_RESULT;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull domain;)
-+ (NSString * _Nonnull)domain SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
 SWIFT_CLASS_NAMED("OrderSummary")
 @interface OrderSummary : NSManagedObject
 - (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+@interface OrderSummary (SWIFT_EXTENSION(VNOrderData))
+- (void)addExperienceItemsObject:(ExperienceItem * _Nonnull)value;
+- (void)removeExperienceItemsObject:(ExperienceItem * _Nonnull)value;
+- (void)addExperienceItems:(NSSet * _Nonnull)values;
+- (void)removeExperienceItems:(NSSet * _Nonnull)values;
+@end
 
 
 @interface OrderSummary (SWIFT_EXTENSION(VNOrderData))
@@ -716,17 +854,24 @@ SWIFT_CLASS_NAMED("OrderSummary")
 
 
 
+
+
 @interface OrderSummary (SWIFT_EXTENSION(VNOrderData))
-@property (nonatomic) BOOL cancellable;
+@property (nonatomic, copy) NSDate * _Nullable canceledAt;
 @property (nonatomic, copy) NSDate * _Nullable createdAt;
 @property (nonatomic, copy) NSString * _Nullable creditCardType;
 @property (nonatomic) double deliveryFee;
 @property (nonatomic) double discountAmountInCents;
 @property (nonatomic, copy) NSString * _Nullable email;
+@property (nonatomic, copy) NSString * _Nullable eventUUID;
 @property (nonatomic, copy) NSString * _Nullable fulfillmentDate;
 @property (nonatomic, copy) NSString * _Nullable fulfillmentSlot;
 @property (nonatomic) BOOL hasQRCode;
 @property (nonatomic, copy) NSString * _Nullable identifier;
+@property (nonatomic, copy) NSString * _Nullable instructionsText;
+@property (nonatomic) BOOL isCancellable;
+@property (nonatomic) BOOL isUserRefundable;
+@property (nonatomic, copy) NSArray<NSString *> * _Nullable itemNames;
 @property (nonatomic, copy) NSString * _Nullable lastFour;
 @property (nonatomic) int64_t lineItemCount;
 @property (nonatomic, copy) NSString * _Nullable orderLocation;
@@ -735,9 +880,15 @@ SWIFT_CLASS_NAMED("OrderSummary")
 @property (nonatomic, copy) NSDate * _Nullable paymentRefundedAt;
 @property (nonatomic, copy) NSDate * _Nullable paymentSettledAt;
 @property (nonatomic, copy) NSDate * _Nullable paymentVoidedAt;
+@property (nonatomic, copy) NSString * _Nullable productType;
+@property (nonatomic) int64_t quantity;
+@property (nonatomic, copy) NSDate * _Nullable refundedAt;
 @property (nonatomic, copy) NSString * _Nullable revenueCenterMenuUUID;
 @property (nonatomic, copy) NSString * _Nullable revenueCenterName;
 @property (nonatomic, copy) NSString * _Nullable revenueCenterUUID;
+@property (nonatomic, copy) NSString * _Nullable row;
+@property (nonatomic, copy) NSString * _Nullable seat;
+@property (nonatomic, copy) NSString * _Nullable section;
 @property (nonatomic) double serviceCharge;
 @property (nonatomic, copy) NSString * _Nullable state;
 @property (nonatomic, copy) NSString * _Nullable stateDescription;
@@ -753,6 +904,8 @@ SWIFT_CLASS_NAMED("OrderSummary")
 @property (nonatomic, copy) NSDate * _Nullable updatedAt;
 @property (nonatomic, copy) NSString * _Nullable usageType;
 @property (nonatomic, copy) NSString * _Nullable userNotes;
+@property (nonatomic, copy) NSString * _Nullable userUUID;
+@property (nonatomic, strong) NSSet * _Nullable experienceItems;
 @property (nonatomic, strong) NSSet * _Nullable lineItems;
 @end
 
@@ -769,11 +922,11 @@ SWIFT_CLASS_NAMED("Payment")
 @property (nonatomic, copy) NSString * _Nullable type;
 @end
 
-typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
-  ProductTypeFood = 0,
-  ProductTypeExperience = 1,
-  ProductTypeMerchandise = 2,
-};
+
+SWIFT_CLASS("_TtC11VNOrderData24PostExperienceItemParser")
+@interface PostExperienceItemParser : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 /// Used for the <code>line_items</code> array in the reorder response
@@ -789,6 +942,58 @@ SWIFT_CLASS("_TtC11VNOrderData28RemoteOrderAheadAvailability")
 @interface RemoteOrderAheadAvailability : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("Sale")
+@interface Sale : NSManagedObject
+- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+
+
+@interface Sale (SWIFT_EXTENSION(VNOrderData))
+@property (nonatomic) int32_t distance_threshold;
+@property (nonatomic, copy) NSDate * _Nullable ends_at;
+@property (nonatomic, copy) NSString * _Nullable group;
+@property (nonatomic, copy) NSString * _Nullable identifier;
+@property (nonatomic, copy) NSString * _Nullable item_identifier;
+@property (nonatomic, copy) NSString * _Nullable label;
+@property (nonatomic) double lat;
+@property (nonatomic, getter=long, setter=setLong:) double long_;
+@property (nonatomic) double price;
+@property (nonatomic, copy) NSDate * _Nullable starts_at;
+@property (nonatomic, strong) Variant * _Nullable variant;
+@end
+
+
+SWIFT_CLASS_NAMED("Seat")
+@interface Seat : NSManagedObject
+- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+@interface Seat (SWIFT_EXTENSION(VNOrderData))
+@property (nonatomic, readonly, copy) NSString * _Nonnull description;
+@end
+
+
+
+
+@interface Seat (SWIFT_EXTENSION(VNOrderData))
+@property (nonatomic, copy) NSArray<NSNumber *> * _Nullable aisleIdentifiers;
+@property (nonatomic, copy) NSDate * _Nullable created;
+@property (nonatomic, copy) NSString * _Nullable identifier;
+@property (nonatomic) BOOL isSuite;
+@property (nonatomic, copy) NSString * _Nullable revenueCenterIdentifier;
+@property (nonatomic, copy) NSString * _Nullable row;
+@property (nonatomic, copy) NSString * _Nullable seat;
+@property (nonatomic, copy) NSString * _Nullable section;
 @end
 
 
@@ -878,6 +1083,16 @@ SWIFT_CLASS_NAMED("Variant")
 
 
 @interface Variant (SWIFT_EXTENSION(VNOrderData))
+- (void)addSalesObject:(Sale * _Nonnull)value;
+- (void)removeSalesObject:(Sale * _Nonnull)value;
+- (void)addSales:(NSSet * _Nonnull)values;
+- (void)removeSales:(NSSet * _Nonnull)values;
+@end
+
+
+
+
+@interface Variant (SWIFT_EXTENSION(VNOrderData))
 @property (nonatomic, copy) NSString * _Nullable availableAt;
 @property (nonatomic, copy) NSString * _Nullable categoryName;
 @property (nonatomic) int64_t defaultQuantity;
@@ -899,9 +1114,10 @@ SWIFT_CLASS_NAMED("Variant")
 @property (nonatomic) int64_t purchaseLimit;
 @property (nonatomic, copy) NSString * _Nullable redemptionStartsAt;
 @property (nonatomic, copy) NSString * _Nullable saleId;
-@property (nonatomic, strong) NSObject * _Nullable saleIds;
+@property (nonatomic, copy) NSArray<NSString *> * _Nullable saleIds;
 @property (nonatomic, strong) Item * _Nullable item;
 @property (nonatomic, strong) ModifierItem * _Nullable modifierItem;
+@property (nonatomic, strong) NSSet * _Nullable sales;
 @end
 
 
@@ -1110,6 +1326,16 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+
+SWIFT_CLASS("_TtC11VNOrderData14AsyncOperation")
+@interface AsyncOperation : NSOperation
+@property (nonatomic, readonly, getter=isAsynchronous) BOOL asynchronous;
+@property (nonatomic, getter=isFinished) BOOL finished;
+@property (nonatomic, getter=isExecuting) BOOL executing;
+- (void)start;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class NSEntityDescription;
 @class NSManagedObjectContext;
 
@@ -1117,8 +1343,6 @@ SWIFT_CLASS_NAMED("Cart")
 @interface Cart : NSManagedObject
 - (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
 @end
-
-
 
 
 
@@ -1142,6 +1366,10 @@ SWIFT_CLASS_NAMED("Cart")
 
 
 
+
+
+
+
 @class Menu;
 @class Stand;
 
@@ -1149,9 +1377,15 @@ SWIFT_CLASS_NAMED("Cart")
 @property (nonatomic) int64_t deliveryFeeInCents;
 @property (nonatomic) int64_t discountAmountInCents;
 @property (nonatomic, copy) NSString * _Nullable identifier;
+@property (nonatomic, copy) NSArray<NSDictionary<NSString *, id> *> * _Nullable lineItemsRaw;
+@property (nonatomic, copy) NSString * _Nullable orderNumber;
 @property (nonatomic, copy) NSString * _Nullable promoCode;
+@property (nonatomic) int64_t serviceChargeInCents;
+@property (nonatomic, copy) NSString * _Nullable sourceDeviceID;
 @property (nonatomic) int64_t taxInCents;
 @property (nonatomic) int64_t totalAmountInCents;
+@property (nonatomic, copy) NSString * _Nullable userEmail;
+@property (nonatomic, copy) NSString * _Nullable userFullName;
 @property (nonatomic, strong) NSSet * _Nullable cartEntries;
 @property (nonatomic, strong) Menu * _Nullable menu;
 @property (nonatomic, strong) Stand * _Nullable stand;
@@ -1178,25 +1412,38 @@ SWIFT_CLASS_NAMED("CartEntry")
 - (void)removeModifierCartEntries:(NSSet * _Nonnull)values;
 @end
 
+@class ExperienceEvent;
 @class Item;
 
 @interface CartEntry (SWIFT_EXTENSION(VNOrderData))
+@property (nonatomic, copy) NSArray<NSDictionary<NSString *, id> *> * _Nullable metadata;
 @property (nonatomic) int64_t quantity;
 @property (nonatomic, strong) Cart * _Nullable cart;
+@property (nonatomic, strong) ExperienceEvent * _Nullable event;
 @property (nonatomic, strong) Item * _Nullable item;
 @property (nonatomic, strong) NSSet * _Nullable modifierCartEntries;
 @end
 
 
-SWIFT_CLASS_NAMED("Event")
-@interface Event : NSManagedObject
+SWIFT_CLASS_NAMED("ExperienceEvent")
+@interface ExperienceEvent : NSManagedObject
 - (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
 
 
-@interface Event (SWIFT_EXTENSION(VNOrderData))
+
+
+@interface ExperienceEvent (SWIFT_EXTENSION(VNOrderData))
+- (void)addCartEntriesObject:(CartEntry * _Nonnull)value;
+- (void)removeCartEntriesObject:(CartEntry * _Nonnull)value;
+- (void)addCartEntries:(NSSet * _Nonnull)values;
+- (void)removeCartEntries:(NSSet * _Nonnull)values;
+@end
+
+
+@interface ExperienceEvent (SWIFT_EXTENSION(VNOrderData))
 @property (nonatomic, copy) NSDate * _Nullable date;
 @property (nonatomic, copy) NSString * _Nullable dateText;
 @property (nonatomic, copy) NSString * _Nullable descriptionText;
@@ -1214,7 +1461,74 @@ SWIFT_CLASS_NAMED("Event")
 @property (nonatomic, copy) NSString * _Nullable visitingAbbreviation;
 @property (nonatomic, copy) NSString * _Nullable visitingCity;
 @property (nonatomic, copy) NSString * _Nullable visitingName;
+@property (nonatomic, strong) NSSet * _Nullable cartEntries;
 @property (nonatomic, strong) Menu * _Nullable menu;
+@end
+
+
+SWIFT_CLASS_NAMED("ExperienceItem")
+@interface ExperienceItem : NSManagedObject
+- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+@class Metadata;
+@class NSIndexSet;
+@class NSOrderedSet;
+
+@interface ExperienceItem (SWIFT_EXTENSION(VNOrderData))
+- (void)insertObject:(Metadata * _Nonnull)value inMetadataAtIndex:(NSInteger)idx;
+- (void)removeObjectFromMetadataAtIndex:(NSInteger)idx;
+- (void)insertMetadata:(NSArray<Metadata *> * _Nonnull)values atIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)removeMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)replaceObjectInMetadataAtIndex:(NSInteger)idx withObject:(Metadata * _Nonnull)value;
+- (void)replaceMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes withMetadata:(NSArray<Metadata *> * _Nonnull)values;
+- (void)addMetadataObject:(Metadata * _Nonnull)value;
+- (void)removeMetadataObject:(Metadata * _Nonnull)value;
+- (void)addMetadata:(NSOrderedSet * _Nonnull)values;
+- (void)removeMetadata:(NSOrderedSet * _Nonnull)values;
+@end
+
+
+
+@class OrderSummary;
+
+@interface ExperienceItem (SWIFT_EXTENSION(VNOrderData))
+@property (nonatomic, copy) NSString * _Nullable activeTransferUUID;
+@property (nonatomic, copy) NSDate * _Nullable availableAt;
+@property (nonatomic) int64_t countdownSeconds;
+@property (nonatomic, copy) NSDate * _Nullable createdAt;
+@property (nonatomic, copy) NSString * _Nullable descriptionText;
+@property (nonatomic, copy) NSDate * _Nullable eventDate;
+@property (nonatomic, copy) NSString * _Nullable eventUUID;
+@property (nonatomic, copy) NSDate * _Nullable expiresAt;
+@property (nonatomic, copy) NSString * _Nullable globalItemUUID;
+@property (nonatomic, copy) NSDate * _Nullable hiddenAt;
+@property (nonatomic, copy) NSString * _Nullable identifier;
+@property (nonatomic, copy) NSString * _Nullable imageURL;
+@property (nonatomic, copy) NSString * _Nullable instructionText;
+@property (nonatomic) BOOL isRedeemable;
+@property (nonatomic) BOOL isRefundable;
+@property (nonatomic) BOOL isTransferable;
+@property (nonatomic, copy) NSString * _Nullable itemUUID;
+@property (nonatomic, copy) NSString * _Nullable name;
+@property (nonatomic, copy) NSString * _Nullable recipientEmail;
+@property (nonatomic, copy) NSDate * _Nullable redeemedAt;
+@property (nonatomic, copy) NSString * _Nullable redemptionCode;
+@property (nonatomic, copy) NSDate * _Nullable redemptionStartsAt;
+@property (nonatomic, copy) NSString * _Nullable redemptionType;
+@property (nonatomic, copy) NSString * _Nullable state;
+@property (nonatomic, copy) NSDate * _Nullable usedAt;
+@property (nonatomic) double value;
+@property (nonatomic, strong) NSOrderedSet * _Nullable metadata;
+@property (nonatomic, strong) OrderSummary * _Nullable orderSummary;
+@end
+
+
+SWIFT_CLASS("_TtC11VNOrderData23GetExperienceItemParser")
+@interface GetExperienceItemParser : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -1237,6 +1551,14 @@ SWIFT_CLASS_NAMED("Item")
 
 
 
+
+@interface Item (SWIFT_EXTENSION(VNOrderData))
+- (void)addCartEntryObject:(CartEntry * _Nonnull)value;
+- (void)removeCartEntryObject:(CartEntry * _Nonnull)value;
+- (void)addCartEntry:(NSSet * _Nonnull)values;
+- (void)removeCartEntry:(NSSet * _Nonnull)values;
+@end
+
 @class Variant;
 
 @interface Item (SWIFT_EXTENSION(VNOrderData))
@@ -1247,18 +1569,10 @@ SWIFT_CLASS_NAMED("Item")
 @end
 
 
-@interface Item (SWIFT_EXTENSION(VNOrderData))
-- (void)addCartEntryObject:(CartEntry * _Nonnull)value;
-- (void)removeCartEntryObject:(CartEntry * _Nonnull)value;
-- (void)addCartEntry:(NSSet * _Nonnull)values;
-- (void)removeCartEntry:(NSSet * _Nonnull)values;
-@end
 
 
 
 @class ModifierGroup;
-@class NSIndexSet;
-@class NSOrderedSet;
 
 @interface Item (SWIFT_EXTENSION(VNOrderData))
 - (void)insertObject:(ModifierGroup * _Nonnull)value inModifierGroupsAtIndex:(NSInteger)idx;
@@ -1271,6 +1585,20 @@ SWIFT_CLASS_NAMED("Item")
 - (void)removeModifierGroupsObject:(ModifierGroup * _Nonnull)value;
 - (void)addModifierGroups:(NSOrderedSet * _Nonnull)values;
 - (void)removeModifierGroups:(NSOrderedSet * _Nonnull)values;
+@end
+
+
+@interface Item (SWIFT_EXTENSION(VNOrderData))
+- (void)insertObject:(Metadata * _Nonnull)value inMetadataAtIndex:(NSInteger)idx;
+- (void)removeObjectFromMetadataAtIndex:(NSInteger)idx;
+- (void)insertMetadata:(NSArray<Metadata *> * _Nonnull)values atIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)removeMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)replaceObjectInMetadataAtIndex:(NSInteger)idx withObject:(Metadata * _Nonnull)value;
+- (void)replaceMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes withMetadata:(NSArray<Metadata *> * _Nonnull)values;
+- (void)addMetadataObject:(Metadata * _Nonnull)value;
+- (void)removeMetadataObject:(Metadata * _Nonnull)value;
+- (void)addMetadata:(NSOrderedSet * _Nonnull)values;
+- (void)removeMetadata:(NSOrderedSet * _Nonnull)values;
 @end
 
 @class ItemCategory;
@@ -1294,6 +1622,7 @@ SWIFT_CLASS_NAMED("Item")
 @property (nonatomic, strong) NSSet * _Nullable cartEntry;
 @property (nonatomic, strong) ItemCategory * _Nullable itemCategory;
 @property (nonatomic, strong) Menu * _Nullable menu;
+@property (nonatomic, strong) NSOrderedSet * _Nullable metadata;
 @property (nonatomic, strong) NSOrderedSet * _Nullable modifierGroups;
 @property (nonatomic, strong) NSSet * _Nullable variants;
 @end
@@ -1305,14 +1634,14 @@ SWIFT_CLASS_NAMED("ItemCategory")
 @end
 
 
-
-
 @interface ItemCategory (SWIFT_EXTENSION(VNOrderData))
 - (void)addItemsObject:(Item * _Nonnull)value;
 - (void)removeItemsObject:(Item * _Nonnull)value;
 - (void)addItems:(NSSet * _Nonnull)values;
 - (void)removeItems:(NSSet * _Nonnull)values;
 @end
+
+
 
 
 @interface ItemCategory (SWIFT_EXTENSION(VNOrderData))
@@ -1345,19 +1674,22 @@ SWIFT_CLASS_NAMED("LineItem")
 - (void)removeModifiers:(NSSet * _Nonnull)values;
 @end
 
-@class OrderSummary;
 
 @interface LineItem (SWIFT_EXTENSION(VNOrderData))
+@property (nonatomic, copy) NSString * _Nullable eventUUID;
 @property (nonatomic, copy) NSString * _Nullable identifier;
 @property (nonatomic) BOOL isAlcohol;
+@property (nonatomic, copy) NSString * _Nullable itemUUID;
 @property (nonatomic, copy) NSString * _Nullable menuItemUUID;
 @property (nonatomic, copy) NSString * _Nullable name;
 @property (nonatomic, copy) NSString * _Nullable parentLineItemUUID;
 @property (nonatomic, copy) NSString * _Nullable paymentType;
+@property (nonatomic) double price;
 @property (nonatomic, copy) NSString * _Nullable productSKU;
 @property (nonatomic) int64_t quantity;
 @property (nonatomic, copy) NSString * _Nullable specialType;
 @property (nonatomic) int64_t taxAmountInCents;
+@property (nonatomic) double total;
 @property (nonatomic) int64_t totalAmountInCents;
 @property (nonatomic, copy) NSString * _Nullable type;
 @property (nonatomic, strong) NSSet * _Nullable modifiers;
@@ -1373,16 +1705,6 @@ SWIFT_CLASS_NAMED("Menu")
 
 
 
-
-
-@interface Menu (SWIFT_EXTENSION(VNOrderData))
-- (void)addEventsObject:(Event * _Nonnull)value;
-- (void)removeEventsObject:(Event * _Nonnull)value;
-- (void)addEvents:(NSSet * _Nonnull)values;
-- (void)removeEvents:(NSSet * _Nonnull)values;
-@end
-
-
 @interface Menu (SWIFT_EXTENSION(VNOrderData))
 - (void)addItemsObject:(Item * _Nonnull)value;
 - (void)removeItemsObject:(Item * _Nonnull)value;
@@ -1392,11 +1714,21 @@ SWIFT_CLASS_NAMED("Menu")
 
 
 @interface Menu (SWIFT_EXTENSION(VNOrderData))
+- (void)addEventsObject:(ExperienceEvent * _Nonnull)value;
+- (void)removeEventsObject:(ExperienceEvent * _Nonnull)value;
+- (void)addEvents:(NSSet * _Nonnull)values;
+- (void)removeEvents:(NSSet * _Nonnull)values;
+@end
+
+
+@interface Menu (SWIFT_EXTENSION(VNOrderData))
 - (void)addCategoriesObject:(ItemCategory * _Nonnull)value;
 - (void)removeCategoriesObject:(ItemCategory * _Nonnull)value;
 - (void)addCategories:(NSSet * _Nonnull)values;
 - (void)removeCategories:(NSSet * _Nonnull)values;
 @end
+
+
 
 
 @interface Menu (SWIFT_EXTENSION(VNOrderData))
@@ -1422,6 +1754,30 @@ SWIFT_CLASS_NAMED("Menu")
 @property (nonatomic, strong) NSSet * _Nullable events;
 @property (nonatomic, strong) NSSet * _Nullable items;
 @property (nonatomic, strong) Stand * _Nullable stand;
+@end
+
+
+SWIFT_CLASS_NAMED("Metadata")
+@interface Metadata : NSManagedObject
+- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+@interface Metadata (SWIFT_EXTENSION(VNOrderData))
+@property (nonatomic, copy) NSString * _Nullable dataType;
+@property (nonatomic, copy) NSString * _Nullable descriptionText;
+@property (nonatomic, copy) NSString * _Nullable errorMessage;
+@property (nonatomic) BOOL hasRestriction;
+@property (nonatomic, copy) NSString * _Nullable identifier;
+@property (nonatomic) int64_t maxValue;
+@property (nonatomic) int64_t minValue;
+@property (nonatomic, copy) NSString * _Nullable name;
+@property (nonatomic, copy) NSString * _Nullable operatorText;
+@property (nonatomic) int64_t value;
+@property (nonatomic, strong) ExperienceItem * _Nullable experienceItem;
+@property (nonatomic, strong) Item * _Nullable item;
 @end
 
 
@@ -1467,18 +1823,18 @@ SWIFT_CLASS_NAMED("ModifierGroup")
 
 
 @interface ModifierGroup (SWIFT_EXTENSION(VNOrderData))
-- (void)addItemsObject:(Item * _Nonnull)value;
-- (void)removeItemsObject:(Item * _Nonnull)value;
-- (void)addItems:(NSSet * _Nonnull)values;
-- (void)removeItems:(NSSet * _Nonnull)values;
-@end
-
-
-@interface ModifierGroup (SWIFT_EXTENSION(VNOrderData))
 - (void)addModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
 - (void)removeModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
 - (void)addModifierCartEntries:(NSSet * _Nonnull)values;
 - (void)removeModifierCartEntries:(NSSet * _Nonnull)values;
+@end
+
+
+@interface ModifierGroup (SWIFT_EXTENSION(VNOrderData))
+- (void)addItemsObject:(Item * _Nonnull)value;
+- (void)removeItemsObject:(Item * _Nonnull)value;
+- (void)addItems:(NSSet * _Nonnull)values;
+- (void)removeItems:(NSSet * _Nonnull)values;
 @end
 
 
@@ -1523,18 +1879,18 @@ SWIFT_CLASS_NAMED("ModifierItem")
 
 
 @interface ModifierItem (SWIFT_EXTENSION(VNOrderData))
-- (void)addVariantsObject:(Variant * _Nonnull)value;
-- (void)removeVariantsObject:(Variant * _Nonnull)value;
-- (void)addVariants:(NSSet * _Nonnull)values;
-- (void)removeVariants:(NSSet * _Nonnull)values;
-@end
-
-
-@interface ModifierItem (SWIFT_EXTENSION(VNOrderData))
 - (void)addModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
 - (void)removeModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
 - (void)addModifierCartEntries:(NSSet * _Nonnull)values;
 - (void)removeModifierCartEntries:(NSSet * _Nonnull)values;
+@end
+
+
+@interface ModifierItem (SWIFT_EXTENSION(VNOrderData))
+- (void)addVariantsObject:(Variant * _Nonnull)value;
+- (void)removeVariantsObject:(Variant * _Nonnull)value;
+- (void)addVariants:(NSSet * _Nonnull)values;
+- (void)removeVariants:(NSSet * _Nonnull)values;
 @end
 
 
@@ -1590,11 +1946,11 @@ SWIFT_CLASS_NAMED("ModifierLineItem")
 
 
 
-
-
 @interface NSFetchedResultsController<ResultType> (SWIFT_EXTENSION(VNOrderData))
 - (NSManagedObject * _Nonnull)objectForKeyedSubscript:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
@@ -1610,20 +1966,18 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSString * _
 
 
 
-@interface NSObject (SWIFT_EXTENSION(VNOrderData))
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull classStringName;)
-+ (NSString * _Nonnull)classStringName SWIFT_WARN_UNUSED_RESULT;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull domain;)
-+ (NSString * _Nonnull)domain SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
 SWIFT_CLASS_NAMED("OrderSummary")
 @interface OrderSummary : NSManagedObject
 - (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+@interface OrderSummary (SWIFT_EXTENSION(VNOrderData))
+- (void)addExperienceItemsObject:(ExperienceItem * _Nonnull)value;
+- (void)removeExperienceItemsObject:(ExperienceItem * _Nonnull)value;
+- (void)addExperienceItems:(NSSet * _Nonnull)values;
+- (void)removeExperienceItems:(NSSet * _Nonnull)values;
+@end
 
 
 @interface OrderSummary (SWIFT_EXTENSION(VNOrderData))
@@ -1636,17 +1990,24 @@ SWIFT_CLASS_NAMED("OrderSummary")
 
 
 
+
+
 @interface OrderSummary (SWIFT_EXTENSION(VNOrderData))
-@property (nonatomic) BOOL cancellable;
+@property (nonatomic, copy) NSDate * _Nullable canceledAt;
 @property (nonatomic, copy) NSDate * _Nullable createdAt;
 @property (nonatomic, copy) NSString * _Nullable creditCardType;
 @property (nonatomic) double deliveryFee;
 @property (nonatomic) double discountAmountInCents;
 @property (nonatomic, copy) NSString * _Nullable email;
+@property (nonatomic, copy) NSString * _Nullable eventUUID;
 @property (nonatomic, copy) NSString * _Nullable fulfillmentDate;
 @property (nonatomic, copy) NSString * _Nullable fulfillmentSlot;
 @property (nonatomic) BOOL hasQRCode;
 @property (nonatomic, copy) NSString * _Nullable identifier;
+@property (nonatomic, copy) NSString * _Nullable instructionsText;
+@property (nonatomic) BOOL isCancellable;
+@property (nonatomic) BOOL isUserRefundable;
+@property (nonatomic, copy) NSArray<NSString *> * _Nullable itemNames;
 @property (nonatomic, copy) NSString * _Nullable lastFour;
 @property (nonatomic) int64_t lineItemCount;
 @property (nonatomic, copy) NSString * _Nullable orderLocation;
@@ -1655,9 +2016,15 @@ SWIFT_CLASS_NAMED("OrderSummary")
 @property (nonatomic, copy) NSDate * _Nullable paymentRefundedAt;
 @property (nonatomic, copy) NSDate * _Nullable paymentSettledAt;
 @property (nonatomic, copy) NSDate * _Nullable paymentVoidedAt;
+@property (nonatomic, copy) NSString * _Nullable productType;
+@property (nonatomic) int64_t quantity;
+@property (nonatomic, copy) NSDate * _Nullable refundedAt;
 @property (nonatomic, copy) NSString * _Nullable revenueCenterMenuUUID;
 @property (nonatomic, copy) NSString * _Nullable revenueCenterName;
 @property (nonatomic, copy) NSString * _Nullable revenueCenterUUID;
+@property (nonatomic, copy) NSString * _Nullable row;
+@property (nonatomic, copy) NSString * _Nullable seat;
+@property (nonatomic, copy) NSString * _Nullable section;
 @property (nonatomic) double serviceCharge;
 @property (nonatomic, copy) NSString * _Nullable state;
 @property (nonatomic, copy) NSString * _Nullable stateDescription;
@@ -1673,6 +2040,8 @@ SWIFT_CLASS_NAMED("OrderSummary")
 @property (nonatomic, copy) NSDate * _Nullable updatedAt;
 @property (nonatomic, copy) NSString * _Nullable usageType;
 @property (nonatomic, copy) NSString * _Nullable userNotes;
+@property (nonatomic, copy) NSString * _Nullable userUUID;
+@property (nonatomic, strong) NSSet * _Nullable experienceItems;
 @property (nonatomic, strong) NSSet * _Nullable lineItems;
 @end
 
@@ -1689,11 +2058,11 @@ SWIFT_CLASS_NAMED("Payment")
 @property (nonatomic, copy) NSString * _Nullable type;
 @end
 
-typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
-  ProductTypeFood = 0,
-  ProductTypeExperience = 1,
-  ProductTypeMerchandise = 2,
-};
+
+SWIFT_CLASS("_TtC11VNOrderData24PostExperienceItemParser")
+@interface PostExperienceItemParser : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 /// Used for the <code>line_items</code> array in the reorder response
@@ -1709,6 +2078,58 @@ SWIFT_CLASS("_TtC11VNOrderData28RemoteOrderAheadAvailability")
 @interface RemoteOrderAheadAvailability : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("Sale")
+@interface Sale : NSManagedObject
+- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+
+
+@interface Sale (SWIFT_EXTENSION(VNOrderData))
+@property (nonatomic) int32_t distance_threshold;
+@property (nonatomic, copy) NSDate * _Nullable ends_at;
+@property (nonatomic, copy) NSString * _Nullable group;
+@property (nonatomic, copy) NSString * _Nullable identifier;
+@property (nonatomic, copy) NSString * _Nullable item_identifier;
+@property (nonatomic, copy) NSString * _Nullable label;
+@property (nonatomic) double lat;
+@property (nonatomic, getter=long, setter=setLong:) double long_;
+@property (nonatomic) double price;
+@property (nonatomic, copy) NSDate * _Nullable starts_at;
+@property (nonatomic, strong) Variant * _Nullable variant;
+@end
+
+
+SWIFT_CLASS_NAMED("Seat")
+@interface Seat : NSManagedObject
+- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+@interface Seat (SWIFT_EXTENSION(VNOrderData))
+@property (nonatomic, readonly, copy) NSString * _Nonnull description;
+@end
+
+
+
+
+@interface Seat (SWIFT_EXTENSION(VNOrderData))
+@property (nonatomic, copy) NSArray<NSNumber *> * _Nullable aisleIdentifiers;
+@property (nonatomic, copy) NSDate * _Nullable created;
+@property (nonatomic, copy) NSString * _Nullable identifier;
+@property (nonatomic) BOOL isSuite;
+@property (nonatomic, copy) NSString * _Nullable revenueCenterIdentifier;
+@property (nonatomic, copy) NSString * _Nullable row;
+@property (nonatomic, copy) NSString * _Nullable seat;
+@property (nonatomic, copy) NSString * _Nullable section;
 @end
 
 
@@ -1798,6 +2219,16 @@ SWIFT_CLASS_NAMED("Variant")
 
 
 @interface Variant (SWIFT_EXTENSION(VNOrderData))
+- (void)addSalesObject:(Sale * _Nonnull)value;
+- (void)removeSalesObject:(Sale * _Nonnull)value;
+- (void)addSales:(NSSet * _Nonnull)values;
+- (void)removeSales:(NSSet * _Nonnull)values;
+@end
+
+
+
+
+@interface Variant (SWIFT_EXTENSION(VNOrderData))
 @property (nonatomic, copy) NSString * _Nullable availableAt;
 @property (nonatomic, copy) NSString * _Nullable categoryName;
 @property (nonatomic) int64_t defaultQuantity;
@@ -1819,9 +2250,10 @@ SWIFT_CLASS_NAMED("Variant")
 @property (nonatomic) int64_t purchaseLimit;
 @property (nonatomic, copy) NSString * _Nullable redemptionStartsAt;
 @property (nonatomic, copy) NSString * _Nullable saleId;
-@property (nonatomic, strong) NSObject * _Nullable saleIds;
+@property (nonatomic, copy) NSArray<NSString *> * _Nullable saleIds;
 @property (nonatomic, strong) Item * _Nullable item;
 @property (nonatomic, strong) ModifierItem * _Nullable modifierItem;
+@property (nonatomic, strong) NSSet * _Nullable sales;
 @end
 
 
