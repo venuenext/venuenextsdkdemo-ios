@@ -85,6 +85,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: VNWalletDelegate {
+    func virtualCurrencyName() -> String {
+        return "Virtual Currency"
+    }
+    
     func walletModeConfig() -> WalletModeConfig {
         return WalletModeConfig() // modes: [.qrCode, .qrScanner, .virtualCurrencyToggle]
     }

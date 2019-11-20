@@ -242,11 +242,12 @@ SWIFT_PROTOCOL("_TtP6VNCore26PaymentMethodRepresentable_")
 @end
 
 @class UIViewController;
+enum ProductType : NSInteger;
 
 /// An object conforming to PaymentProcessable will be responsible for processing payments.
 SWIFT_PROTOCOL("_TtP6VNCore18PaymentProcessable_")
 @protocol PaymentProcessable
-- (void)processPaymentFrom:(UIViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethodWithPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 - (void)defaultPaymentMethodWithCompletion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable))completion;
 @end
@@ -276,8 +277,6 @@ typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
 
 
 
-
-
 SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
 @protocol VNCoreThemable
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
@@ -287,7 +286,9 @@ SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryExtraLightGray;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDarkGray;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryError;
 @end
 
@@ -296,8 +297,10 @@ SWIFT_CLASS("_TtC6VNCore15VNCoreBaseTheme")
 @interface VNCoreBaseTheme : NSObject <VNCoreThemable>
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDark;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryExtraLightGray;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDarkGray;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarBackground;
@@ -627,11 +630,12 @@ SWIFT_PROTOCOL("_TtP6VNCore26PaymentMethodRepresentable_")
 @end
 
 @class UIViewController;
+enum ProductType : NSInteger;
 
 /// An object conforming to PaymentProcessable will be responsible for processing payments.
 SWIFT_PROTOCOL("_TtP6VNCore18PaymentProcessable_")
 @protocol PaymentProcessable
-- (void)processPaymentFrom:(UIViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethodWithPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 - (void)defaultPaymentMethodWithCompletion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable))completion;
 @end
@@ -661,8 +665,6 @@ typedef SWIFT_ENUM(NSInteger, ProductType, closed) {
 
 
 
-
-
 SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
 @protocol VNCoreThemable
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
@@ -672,7 +674,9 @@ SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryExtraLightGray;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDarkGray;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryError;
 @end
 
@@ -681,8 +685,10 @@ SWIFT_CLASS("_TtC6VNCore15VNCoreBaseTheme")
 @interface VNCoreBaseTheme : NSObject <VNCoreThemable>
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDark;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryExtraLightGray;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDarkGray;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarBackground;
