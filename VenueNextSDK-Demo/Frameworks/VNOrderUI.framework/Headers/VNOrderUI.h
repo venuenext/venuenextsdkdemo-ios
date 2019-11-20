@@ -4,8 +4,8 @@
 #import <VNCore/VNCore.h>
 #import <VNCoreUI/VNCoreUI.h>
 #import <VNOrderData/VNOrderData.h>
+#import <VNOrder/VNOrder.h>
 #import <VNPayment/VNPayment.h>
-
 //! Project version number for VNOrderUI.
 FOUNDATION_EXPORT double VNOrderUIVersionNumber;
 
