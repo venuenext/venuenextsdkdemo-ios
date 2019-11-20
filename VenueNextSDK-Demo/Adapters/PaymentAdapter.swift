@@ -10,9 +10,6 @@ import VNOrderData  // Import
 import BraintreePaymentFlow
 
 @objc class PaymentAdapter: NSObject, PaymentProcessable, PaymentMethodRepresentable {
-    func processPayment(from viewController: UIViewController?, completion: @escaping (PaymentMethodRepresentable?, NSError?) -> Void) {
-        
-    }
     
     var cardType: String = ""
     var lastFour: String = ""
