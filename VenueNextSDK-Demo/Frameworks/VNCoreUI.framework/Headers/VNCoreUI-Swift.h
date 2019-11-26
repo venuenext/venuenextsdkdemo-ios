@@ -427,6 +427,7 @@ SWIFT_CLASS("_TtC8VNCoreUI16RoundedTextField")
 
 SWIFT_CLASS("_TtC8VNCoreUI20RoundedTextFieldView")
 @interface RoundedTextFieldView : UIView
+@property (nonatomic) NSInteger tag;
 @property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified textLabel;
 @property (nonatomic, weak) IBOutlet RoundedTextField * _Null_unspecified textField;
 @property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified errorLabel;
@@ -450,7 +451,8 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI28RoundedTextFieldViewDelegate_")
 @protocol RoundedTextFieldViewDelegate
 @optional
 - (void)didTapViewWithView:(UIView * _Nonnull)view;
-- (void)didFinishEditingWithText:(NSString * _Nonnull)text;
+- (void)didFinishEditingWithText:(NSString * _Nonnull)text textField:(UITextField * _Nonnull)textField;
+- (void)didChangeTextWithText:(NSString * _Nonnull)text textField:(UITextField * _Nonnull)textField;
 @end
 
 @class NSTextContainer;
@@ -543,7 +545,7 @@ SWIFT_CLASS("_TtC8VNCoreUI22TextInputTableViewCell")
 
 
 @interface TextInputTableViewCell (SWIFT_EXTENSION(VNCoreUI)) <RoundedTextFieldViewDelegate>
-- (void)didFinishEditingWithText:(NSString * _Nonnull)text;
+- (void)didFinishEditingWithText:(NSString * _Nonnull)text textField:(UITextField * _Nonnull)textField;
 @end
 
 
@@ -611,11 +613,11 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 
 
 
-
-
 @interface UIViewController (SWIFT_EXTENSION(VNCoreUI))
 - (void)dismissKeyboard;
 @end
+
+
 
 
 SWIFT_CLASS("_TtC8VNCoreUI18VNSegmentedControl")
@@ -1063,6 +1065,7 @@ SWIFT_CLASS("_TtC8VNCoreUI16RoundedTextField")
 
 SWIFT_CLASS("_TtC8VNCoreUI20RoundedTextFieldView")
 @interface RoundedTextFieldView : UIView
+@property (nonatomic) NSInteger tag;
 @property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified textLabel;
 @property (nonatomic, weak) IBOutlet RoundedTextField * _Null_unspecified textField;
 @property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified errorLabel;
@@ -1086,7 +1089,8 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI28RoundedTextFieldViewDelegate_")
 @protocol RoundedTextFieldViewDelegate
 @optional
 - (void)didTapViewWithView:(UIView * _Nonnull)view;
-- (void)didFinishEditingWithText:(NSString * _Nonnull)text;
+- (void)didFinishEditingWithText:(NSString * _Nonnull)text textField:(UITextField * _Nonnull)textField;
+- (void)didChangeTextWithText:(NSString * _Nonnull)text textField:(UITextField * _Nonnull)textField;
 @end
 
 @class NSTextContainer;
@@ -1179,7 +1183,7 @@ SWIFT_CLASS("_TtC8VNCoreUI22TextInputTableViewCell")
 
 
 @interface TextInputTableViewCell (SWIFT_EXTENSION(VNCoreUI)) <RoundedTextFieldViewDelegate>
-- (void)didFinishEditingWithText:(NSString * _Nonnull)text;
+- (void)didFinishEditingWithText:(NSString * _Nonnull)text textField:(UITextField * _Nonnull)textField;
 @end
 
 
@@ -1247,11 +1251,11 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 
 
 
-
-
 @interface UIViewController (SWIFT_EXTENSION(VNCoreUI))
 - (void)dismissKeyboard;
 @end
+
+
 
 
 SWIFT_CLASS("_TtC8VNCoreUI18VNSegmentedControl")
