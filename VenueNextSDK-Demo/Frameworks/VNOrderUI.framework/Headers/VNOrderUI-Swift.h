@@ -633,11 +633,12 @@ SWIFT_CLASS("_TtC9VNOrderUI18ReceiptCoordinator")
 @end
 
 
-SWIFT_CLASS("_TtC9VNOrderUI31SlimCheckoutTableViewController")
-@interface SlimCheckoutTableViewController : CheckoutTableViewController
+SWIFT_CLASS("_TtC9VNOrderUI31RichCheckoutTableViewController")
+@interface RichCheckoutTableViewController : CheckoutTableViewController
 - (void)viewDidLoad;
 - (void)onDismiss;
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
 
@@ -1470,11 +1471,12 @@ SWIFT_CLASS("_TtC9VNOrderUI18ReceiptCoordinator")
 @end
 
 
-SWIFT_CLASS("_TtC9VNOrderUI31SlimCheckoutTableViewController")
-@interface SlimCheckoutTableViewController : CheckoutTableViewController
+SWIFT_CLASS("_TtC9VNOrderUI31RichCheckoutTableViewController")
+@interface RichCheckoutTableViewController : CheckoutTableViewController
 - (void)viewDidLoad;
 - (void)onDismiss;
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
 

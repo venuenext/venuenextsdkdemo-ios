@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         intializeSDK(for: isSwift)
         
         //Setup PresenceSDK
-        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "", displayName: "Demo App", useNewAccountsManager: true)
+        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "NCA8hpkFiPJsDp03oX0sTXZri1jYLvhY", displayName: "Demo App", useNewAccountsManager: true)
         PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
         
         //Configure Payment processor (place this above modules that will need it)
@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         switch isSwift {
         case true:
             // use the following code in your application:didFinishLaunchingWithOptions:
-            VenueNext.shared.initialize(sdkKey: "", sdkSecret: "")
+            VenueNext.shared.initialize(sdkKey: "vn:venuenext:dev:ios-sdk-WVtWMWcBZSItKf7lbEtxP9GsEgW0XqCmI1Y=", sdkSecret: "vn:venuenext:dev:ios-sdk-WVtWMWcBZSItKf7lbEtxP9GsEgW0XqCmI1Y=")
             Analytics.initialize(with: CustomAnalytics())
         case false:
             ObjCConfiguration.start()
