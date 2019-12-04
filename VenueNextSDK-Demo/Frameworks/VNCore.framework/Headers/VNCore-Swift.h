@@ -348,6 +348,7 @@ SWIFT_PROTOCOL("_TtP6VNCore16VNWalletThemable_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull secondaryAccent;
 @end
 
 
@@ -356,6 +357,7 @@ SWIFT_CLASS("_TtC6VNCore17VNWalletBaseTheme")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull secondaryAccent;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -736,6 +738,7 @@ SWIFT_PROTOCOL("_TtP6VNCore16VNWalletThemable_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull secondaryAccent;
 @end
 
 
@@ -744,6 +747,7 @@ SWIFT_CLASS("_TtC6VNCore17VNWalletBaseTheme")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull secondaryAccent;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

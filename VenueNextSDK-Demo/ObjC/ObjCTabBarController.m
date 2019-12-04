@@ -79,5 +79,10 @@
     
 }
 
+- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id<PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion { 
+    
+}
+
+
 
 @end

@@ -214,11 +214,11 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 
 
-
-
 @interface UIViewController (SWIFT_EXTENSION(VNWalletUI))
 - (void)dismissKeyboard;
 @end
+
+
 
 
 
@@ -252,12 +252,14 @@ SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 - (NSString * _Nonnull)virtualCurrencyName SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nonnull)walletVirtualCurrencyPaymentType SWIFT_WARN_UNUSED_RESULT;
 - (WalletModeConfig * _Nonnull)walletModeConfig SWIFT_WARN_UNUSED_RESULT;
+@optional
+- (NSString * _Nonnull)walletProgramName SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
 SWIFT_CLASS("_TtC10VNWalletUI12VNWalletUser")
 @interface VNWalletUser : NSObject
-- (nonnull instancetype)initWithFirstName:(NSString * _Nonnull)firstName lastName:(NSString * _Nonnull)lastName email:(NSString * _Nonnull)email externalID:(NSString * _Nonnull)externalID accountNumber:(NSString * _Nullable)accountNumber OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithFirstName:(NSString * _Nonnull)firstName lastName:(NSString * _Nonnull)lastName email:(NSString * _Nonnull)email externalID:(NSString * _Nonnull)externalID OBJC_DESIGNATED_INITIALIZER;
 + (void)logout;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
@@ -564,11 +566,11 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 
 
-
-
 @interface UIViewController (SWIFT_EXTENSION(VNWalletUI))
 - (void)dismissKeyboard;
 @end
+
+
 
 
 
@@ -602,12 +604,14 @@ SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 - (NSString * _Nonnull)virtualCurrencyName SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nonnull)walletVirtualCurrencyPaymentType SWIFT_WARN_UNUSED_RESULT;
 - (WalletModeConfig * _Nonnull)walletModeConfig SWIFT_WARN_UNUSED_RESULT;
+@optional
+- (NSString * _Nonnull)walletProgramName SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
 SWIFT_CLASS("_TtC10VNWalletUI12VNWalletUser")
 @interface VNWalletUser : NSObject
-- (nonnull instancetype)initWithFirstName:(NSString * _Nonnull)firstName lastName:(NSString * _Nonnull)lastName email:(NSString * _Nonnull)email externalID:(NSString * _Nonnull)externalID accountNumber:(NSString * _Nullable)accountNumber OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithFirstName:(NSString * _Nonnull)firstName lastName:(NSString * _Nonnull)lastName email:(NSString * _Nonnull)email externalID:(NSString * _Nonnull)externalID OBJC_DESIGNATED_INITIALIZER;
 + (void)logout;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
