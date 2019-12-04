@@ -18,12 +18,100 @@
 		AB5987CA22B43CAC003E159A /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5987C922B43CAC003E159A /* Analytics.swift */; };
 		AB6E2355228DCB4800EDD290 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E2354228DCB4800EDD290 /* TabBarController.swift */; };
 		AB6E2357228DCD1800EDD290 /* PaymentAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E2356228DCD1800EDD290 /* PaymentAdapter.swift */; };
+		AB85917E23985429006D3175 /* VNAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 328C976D238EE60700667535 /* VNAnalytics.framework */; };
+		AB85917F23985429006D3175 /* VNAnalytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 328C976D238EE60700667535 /* VNAnalytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85918023985429006D3175 /* VNCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 328C9769238EE60600667535 /* VNCore.framework */; };
+		AB85918123985429006D3175 /* VNCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 328C9769238EE60600667535 /* VNCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85918223985429006D3175 /* VNCoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 328C9768238EE60600667535 /* VNCoreUI.framework */; };
+		AB85918323985429006D3175 /* VNCoreUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 328C9768238EE60600667535 /* VNCoreUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85918423985429006D3175 /* VNLegacy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 328C976B238EE60600667535 /* VNLegacy.framework */; };
+		AB85918523985429006D3175 /* VNLegacy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 328C976B238EE60600667535 /* VNLegacy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85918623985429006D3175 /* VNNetworkService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 328C976C238EE60600667535 /* VNNetworkService.framework */; };
+		AB85918723985429006D3175 /* VNNetworkService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 328C976C238EE60600667535 /* VNNetworkService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85918823985429006D3175 /* VNOrderData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 328C976A238EE60600667535 /* VNOrderData.framework */; };
+		AB85918923985429006D3175 /* VNOrderData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 328C976A238EE60600667535 /* VNOrderData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85918A23985429006D3175 /* VNOrderService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 328C9767238EE60600667535 /* VNOrderService.framework */; };
+		AB85918B23985429006D3175 /* VNOrderService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 328C9767238EE60600667535 /* VNOrderService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85918C23985429006D3175 /* VNOrderUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 328C9765238EE60500667535 /* VNOrderUI.framework */; };
+		AB85918D23985429006D3175 /* VNOrderUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 328C9765238EE60500667535 /* VNOrderUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85918E23985429006D3175 /* VNPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 328C9766238EE60600667535 /* VNPayment.framework */; };
+		AB85918F23985429006D3175 /* VNPayment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 328C9766238EE60600667535 /* VNPayment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85919023985429006D3175 /* VNWalletData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 328C976E238EE60700667535 /* VNWalletData.framework */; };
+		AB85919123985429006D3175 /* VNWalletData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 328C976E238EE60700667535 /* VNWalletData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85919223985429006D3175 /* VNWalletService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 328C9763238EE60500667535 /* VNWalletService.framework */; };
+		AB85919323985429006D3175 /* VNWalletService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 328C9763238EE60500667535 /* VNWalletService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85919423985429006D3175 /* VNWalletUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 328C9764238EE60500667535 /* VNWalletUI.framework */; };
+		AB85919523985429006D3175 /* VNWalletUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 328C9764238EE60500667535 /* VNWalletUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85919623985429006D3175 /* BraintreeApplePay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C4235EBDE400800A38 /* BraintreeApplePay.framework */; };
+		AB85919723985429006D3175 /* BraintreeApplePay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C4235EBDE400800A38 /* BraintreeApplePay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85919823985429006D3175 /* BraintreeCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C7235EBDE400800A38 /* BraintreeCard.framework */; };
+		AB85919923985429006D3175 /* BraintreeCard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C7235EBDE400800A38 /* BraintreeCard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85919A23985429006D3175 /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C2235EBDE400800A38 /* BraintreeCore.framework */; };
+		AB85919B23985429006D3175 /* BraintreeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C2235EBDE400800A38 /* BraintreeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85919C23985429006D3175 /* BraintreeDropIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C1235EBDE400800A38 /* BraintreeDropIn.framework */; };
+		AB85919D23985429006D3175 /* BraintreeDropIn.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C1235EBDE400800A38 /* BraintreeDropIn.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB85919E23985429006D3175 /* BraintreePaymentFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7CA235EBDE400800A38 /* BraintreePaymentFlow.framework */; };
+		AB85919F23985429006D3175 /* BraintreePaymentFlow.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7CA235EBDE400800A38 /* BraintreePaymentFlow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB8591A023985429006D3175 /* BraintreePayPal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C6235EBDE400800A38 /* BraintreePayPal.framework */; };
+		AB8591A123985429006D3175 /* BraintreePayPal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C6235EBDE400800A38 /* BraintreePayPal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB8591A223985429006D3175 /* BraintreeUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C9235EBDE400800A38 /* BraintreeUIKit.framework */; };
+		AB8591A323985429006D3175 /* BraintreeUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C9235EBDE400800A38 /* BraintreeUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB8591A423985429006D3175 /* PayPalDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C8235EBDE400800A38 /* PayPalDataCollector.framework */; };
+		AB8591A523985429006D3175 /* PayPalDataCollector.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C8235EBDE400800A38 /* PayPalDataCollector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB8591A623985429006D3175 /* PayPalOneTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C3235EBDE400800A38 /* PayPalOneTouch.framework */; };
+		AB8591A723985429006D3175 /* PayPalOneTouch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C3235EBDE400800A38 /* PayPalOneTouch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB8591A823985429006D3175 /* PayPalUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C5235EBDE400800A38 /* PayPalUtils.framework */; };
+		AB8591A923985429006D3175 /* PayPalUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6580C7C5235EBDE400800A38 /* PayPalUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB8591AA23985429006D3175 /* iosExperienceSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61F23397F7B0071A6E4 /* iosExperienceSDK.framework */; };
+		AB8591AB23985429006D3175 /* iosExperienceSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61F23397F7B0071A6E4 /* iosExperienceSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB8591AC23985429006D3175 /* Presence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61723397F3D0071A6E4 /* Presence.framework */; };
+		AB8591AD23985429006D3175 /* Presence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61723397F3D0071A6E4 /* Presence.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB8591AE23985429006D3175 /* PresenceSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61823397F3E0071A6E4 /* PresenceSDK.framework */; };
+		AB8591AF23985429006D3175 /* PresenceSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A14B61823397F3E0071A6E4 /* PresenceSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ABC68E7B230EF7F500F41B01 /* ObjCTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC68E72230EF7F500F41B01 /* ObjCTabBarController.m */; };
 		ABC68E7C230EF7F500F41B01 /* ObjCConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC68E73230EF7F500F41B01 /* ObjCConfiguration.m */; };
 		ABC68E7D230EF7F500F41B01 /* DemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC68E77230EF7F500F41B01 /* DemoViewController.xib */; };
 		ABC68E7E230EF7F500F41B01 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC68E78230EF7F500F41B01 /* DemoViewController.m */; };
 		ABC68E81230EF97F00F41B01 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC68E80230EF97F00F41B01 /* Appearance.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AB8591B02398542A006D3175 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AB85918323985429006D3175 /* VNCoreUI.framework in Embed Frameworks */,
+				AB8591A523985429006D3175 /* PayPalDataCollector.framework in Embed Frameworks */,
+				AB85918B23985429006D3175 /* VNOrderService.framework in Embed Frameworks */,
+				AB8591AB23985429006D3175 /* iosExperienceSDK.framework in Embed Frameworks */,
+				AB85918F23985429006D3175 /* VNPayment.framework in Embed Frameworks */,
+				AB85919323985429006D3175 /* VNWalletService.framework in Embed Frameworks */,
+				AB8591A323985429006D3175 /* BraintreeUIKit.framework in Embed Frameworks */,
+				AB85917F23985429006D3175 /* VNAnalytics.framework in Embed Frameworks */,
+				AB85918123985429006D3175 /* VNCore.framework in Embed Frameworks */,
+				AB8591A723985429006D3175 /* PayPalOneTouch.framework in Embed Frameworks */,
+				AB8591A923985429006D3175 /* PayPalUtils.framework in Embed Frameworks */,
+				AB85919723985429006D3175 /* BraintreeApplePay.framework in Embed Frameworks */,
+				AB85918523985429006D3175 /* VNLegacy.framework in Embed Frameworks */,
+				AB8591AF23985429006D3175 /* PresenceSDK.framework in Embed Frameworks */,
+				AB85919523985429006D3175 /* VNWalletUI.framework in Embed Frameworks */,
+				AB85918D23985429006D3175 /* VNOrderUI.framework in Embed Frameworks */,
+				AB85918723985429006D3175 /* VNNetworkService.framework in Embed Frameworks */,
+				AB85918923985429006D3175 /* VNOrderData.framework in Embed Frameworks */,
+				AB85919F23985429006D3175 /* BraintreePaymentFlow.framework in Embed Frameworks */,
+				AB85919123985429006D3175 /* VNWalletData.framework in Embed Frameworks */,
+				AB8591AD23985429006D3175 /* Presence.framework in Embed Frameworks */,
+				AB85919D23985429006D3175 /* BraintreeDropIn.framework in Embed Frameworks */,
+				AB85919923985429006D3175 /* BraintreeCard.framework in Embed Frameworks */,
+				AB8591A123985429006D3175 /* BraintreePayPal.framework in Embed Frameworks */,
+				AB85919B23985429006D3175 /* BraintreeCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1A14B61523397F150071A6E4 /* PresenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenceController.swift; sourceTree = "<group>"; };
@@ -80,6 +168,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB85918223985429006D3175 /* VNCoreUI.framework in Frameworks */,
+				AB8591A423985429006D3175 /* PayPalDataCollector.framework in Frameworks */,
+				AB85918A23985429006D3175 /* VNOrderService.framework in Frameworks */,
+				AB8591AA23985429006D3175 /* iosExperienceSDK.framework in Frameworks */,
+				AB85918E23985429006D3175 /* VNPayment.framework in Frameworks */,
+				AB85919223985429006D3175 /* VNWalletService.framework in Frameworks */,
+				AB8591A223985429006D3175 /* BraintreeUIKit.framework in Frameworks */,
+				AB85917E23985429006D3175 /* VNAnalytics.framework in Frameworks */,
+				AB85918023985429006D3175 /* VNCore.framework in Frameworks */,
+				AB8591A623985429006D3175 /* PayPalOneTouch.framework in Frameworks */,
+				AB8591A823985429006D3175 /* PayPalUtils.framework in Frameworks */,
+				AB85919623985429006D3175 /* BraintreeApplePay.framework in Frameworks */,
+				AB85918423985429006D3175 /* VNLegacy.framework in Frameworks */,
+				AB8591AE23985429006D3175 /* PresenceSDK.framework in Frameworks */,
+				AB85919423985429006D3175 /* VNWalletUI.framework in Frameworks */,
+				AB85918C23985429006D3175 /* VNOrderUI.framework in Frameworks */,
+				AB85918623985429006D3175 /* VNNetworkService.framework in Frameworks */,
+				AB85918823985429006D3175 /* VNOrderData.framework in Frameworks */,
+				AB85919E23985429006D3175 /* BraintreePaymentFlow.framework in Frameworks */,
+				AB85919023985429006D3175 /* VNWalletData.framework in Frameworks */,
+				AB8591AC23985429006D3175 /* Presence.framework in Frameworks */,
+				AB85919C23985429006D3175 /* BraintreeDropIn.framework in Frameworks */,
+				AB85919823985429006D3175 /* BraintreeCard.framework in Frameworks */,
+				AB8591A023985429006D3175 /* BraintreePayPal.framework in Frameworks */,
+				AB85919A23985429006D3175 /* BraintreeCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +334,7 @@
 				AB2BCA86228DB66400194A7A /* Sources */,
 				AB2BCA87228DB66400194A7A /* Frameworks */,
 				AB2BCA88228DB66400194A7A /* Resources */,
+				AB8591B02398542A006D3175 /* Embed Frameworks */,
 				AB44592F23830E180037E216 /* ShellScript */,
 			);
 			buildRules = (
@@ -454,6 +568,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4DL8PZB55U;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -467,8 +582,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.venuenext.VenueNextSDK-Demo";
+				PRODUCT_BUNDLE_IDENTIFIER = com.venuenext.demoapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
@@ -480,6 +596,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4DL8PZB55U;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -493,8 +610,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.venuenext.VenueNextSDK-Demo";
+				PRODUCT_BUNDLE_IDENTIFIER = com.venuenext.demoapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;

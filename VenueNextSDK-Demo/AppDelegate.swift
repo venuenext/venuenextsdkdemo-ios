@@ -11,6 +11,10 @@ class CustomWalletTheme: VNWalletBaseTheme {
     override var accent: UIColor {
         return navigationBarBackground
     }
+
+    override var secondaryAccent: UIColor {
+        return UIColor(hexString: "FF0000")
+    }
 }
 
 @UIApplicationMain
@@ -42,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Uncomment if you want to pass in a custom theme
         //VenueNext.configure(theme: <Custom Theme>)
 
-        VNPaymentProcessor.shared = PaymentProcessor()
+        VNPaymentProcessor.shared = PaymentAdapter()
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController(for: isSwift)
@@ -98,6 +102,10 @@ extension AppDelegate: VNWalletDelegate {
 
     func walletUser() -> VNWalletUser? {
         return nil
+    }
+
+    func walletProgramName() -> String {
+        return "Member"
     }
 
     func loginController(completion: @escaping (VNWalletUser?, NSError?) -> Void) -> UIViewController {
