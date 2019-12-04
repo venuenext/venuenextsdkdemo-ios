@@ -1,0 +1,13 @@
+
+framework module Presence {
+	
+	umbrella header "SecureEntryView.h"
+	
+	export *
+	module * {export *}
+}
+
+module Presence.Swift {
+    header "Presence-Swift.h"
+    requires objc
+}
