@@ -174,7 +174,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
-@import VNCoreUI;
+@import VNCore;
+@import VNOrderUI;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -191,6 +192,34 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma clang attribute push(__attribute__((external_source_symbol(language="Swift", defined_in="VNWalletUI",generated_declaration))), apply_to=any(function,enum,objc_interface,objc_category,objc_protocol))
 # pragma pop_macro("any")
 #endif
+
+
+
+
+
+
+@interface UINavigationController (SWIFT_EXTENSION(VNWalletUI))
+@property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
+@end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@interface UIViewController (SWIFT_EXTENSION(VNWalletUI))
+- (void)dismissKeyboard;
+@end
 
 
 
@@ -226,17 +255,20 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWallet * _
 
 @class VNWalletUser;
 @class NSError;
+@class WalletModeConfig;
 
 SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @protocol VNWalletDelegate
 - (UIViewController * _Nonnull)loginControllerWithCompletion:(void (^ _Nonnull)(VNWalletUser * _Nullable, NSError * _Nullable))completion SWIFT_WARN_UNUSED_RESULT;
-@optional
 - (VNWalletUser * _Nullable)walletUser SWIFT_WARN_UNUSED_RESULT;
-@required
-- (NSString * _Nonnull)walletTitle SWIFT_WARN_UNUSED_RESULT;
-- (NSString * _Nonnull)walletVirtualCurrencyPaymentType SWIFT_WARN_UNUSED_RESULT;
 @optional
-- (BOOL)shouldShowVirtualCurrencyToggle SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)walletTitle SWIFT_WARN_UNUSED_RESULT;
+@required
+- (NSString * _Nonnull)virtualCurrencyName SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)walletVirtualCurrencyPaymentType SWIFT_WARN_UNUSED_RESULT;
+- (WalletModeConfig * _Nonnull)walletModeConfig SWIFT_WARN_UNUSED_RESULT;
+@optional
+- (NSString * _Nonnull)walletProgramName SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -250,7 +282,6 @@ SWIFT_CLASS("_TtC10VNWalletUI12VNWalletUser")
 
 
 
-@class UINavigationController;
 
 SWIFT_CLASS("_TtC10VNWalletUI17WalletCoordinator")
 @interface WalletCoordinator : NSObject
@@ -270,7 +301,30 @@ SWIFT_CLASS("_TtC10VNWalletUI17WalletCoordinator")
 - (void)presentFrom:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(void))completion;
 @end
 
+@class OrderSummary;
+@class CheckoutTableViewController;
+@protocol PaymentMethodRepresentable;
 
+@interface WalletCoordinator (SWIFT_EXTENSION(VNWalletUI)) <CheckoutTableViewControllerDelegate>
+- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
+- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
+@end
+
+
+
+typedef SWIFT_ENUM(NSInteger, WalletMode, closed) {
+  WalletModeQrCode = 0,
+  WalletModeQrScanner = 1,
+  WalletModeVirtualCurrencyToggle = 2,
+};
+
+
+SWIFT_CLASS("_TtC10VNWalletUI16WalletModeConfig")
+@interface WalletModeConfig : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
 
 @class NSCoder;
 @class NSBundle;
@@ -291,7 +345,8 @@ SWIFT_CLASS("_TtC10VNWalletUI20WalletViewController")
 
 
 
-@class UITableView;
+
+
 @class UITableViewCell;
 
 @interface WalletViewController (SWIFT_EXTENSION(VNWalletUI)) <UITableViewDelegate>
@@ -488,7 +543,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
-@import VNCoreUI;
+@import VNCore;
+@import VNOrderUI;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -505,6 +561,34 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma clang attribute push(__attribute__((external_source_symbol(language="Swift", defined_in="VNWalletUI",generated_declaration))), apply_to=any(function,enum,objc_interface,objc_category,objc_protocol))
 # pragma pop_macro("any")
 #endif
+
+
+
+
+
+
+@interface UINavigationController (SWIFT_EXTENSION(VNWalletUI))
+@property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
+@end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@interface UIViewController (SWIFT_EXTENSION(VNWalletUI))
+- (void)dismissKeyboard;
+@end
 
 
 
@@ -540,17 +624,20 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWallet * _
 
 @class VNWalletUser;
 @class NSError;
+@class WalletModeConfig;
 
 SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @protocol VNWalletDelegate
 - (UIViewController * _Nonnull)loginControllerWithCompletion:(void (^ _Nonnull)(VNWalletUser * _Nullable, NSError * _Nullable))completion SWIFT_WARN_UNUSED_RESULT;
-@optional
 - (VNWalletUser * _Nullable)walletUser SWIFT_WARN_UNUSED_RESULT;
-@required
-- (NSString * _Nonnull)walletTitle SWIFT_WARN_UNUSED_RESULT;
-- (NSString * _Nonnull)walletVirtualCurrencyPaymentType SWIFT_WARN_UNUSED_RESULT;
 @optional
-- (BOOL)shouldShowVirtualCurrencyToggle SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)walletTitle SWIFT_WARN_UNUSED_RESULT;
+@required
+- (NSString * _Nonnull)virtualCurrencyName SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)walletVirtualCurrencyPaymentType SWIFT_WARN_UNUSED_RESULT;
+- (WalletModeConfig * _Nonnull)walletModeConfig SWIFT_WARN_UNUSED_RESULT;
+@optional
+- (NSString * _Nonnull)walletProgramName SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -564,7 +651,6 @@ SWIFT_CLASS("_TtC10VNWalletUI12VNWalletUser")
 
 
 
-@class UINavigationController;
 
 SWIFT_CLASS("_TtC10VNWalletUI17WalletCoordinator")
 @interface WalletCoordinator : NSObject
@@ -584,7 +670,30 @@ SWIFT_CLASS("_TtC10VNWalletUI17WalletCoordinator")
 - (void)presentFrom:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(void))completion;
 @end
 
+@class OrderSummary;
+@class CheckoutTableViewController;
+@protocol PaymentMethodRepresentable;
 
+@interface WalletCoordinator (SWIFT_EXTENSION(VNWalletUI)) <CheckoutTableViewControllerDelegate>
+- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
+- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
+@end
+
+
+
+typedef SWIFT_ENUM(NSInteger, WalletMode, closed) {
+  WalletModeQrCode = 0,
+  WalletModeQrScanner = 1,
+  WalletModeVirtualCurrencyToggle = 2,
+};
+
+
+SWIFT_CLASS("_TtC10VNWalletUI16WalletModeConfig")
+@interface WalletModeConfig : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
 
 @class NSCoder;
 @class NSBundle;
@@ -605,7 +714,8 @@ SWIFT_CLASS("_TtC10VNWalletUI20WalletViewController")
 
 
 
-@class UITableView;
+
+
 @class UITableViewCell;
 
 @interface WalletViewController (SWIFT_EXTENSION(VNWalletUI)) <UITableViewDelegate>

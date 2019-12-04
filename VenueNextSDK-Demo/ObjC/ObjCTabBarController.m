@@ -38,7 +38,7 @@
         _demoViewContoller = [[DemoViewController alloc] initWithNibName:@"DemoViewController" bundle:NSBundle.mainBundle];
         [_demoViewContoller setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:0]];
         
-        self.orderHistoryCoordinator = [OrderHistoryCoordinator new];
+        self.orderHistoryCoordinator = [[OrderHistoryCoordinator alloc] initWithNavigationController:self.navigationController paymentProcessor: [VNPaymentProcessor shared]];
         [self.orderHistoryCoordinator start];
         [[self.orderHistoryCoordinator navigationController] setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:2]];
         
@@ -74,5 +74,15 @@
 - (void)processPaymentFrom:(UIViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id<PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion {
     completion(self, nil);
 }
+
+- (void)defaultPaymentMethodWithCompletion:(void (^ _Nonnull)(id<PaymentMethodRepresentable> _Nullable))completion {
+    
+}
+
+- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id<PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion { 
+    
+}
+
+
 
 @end
