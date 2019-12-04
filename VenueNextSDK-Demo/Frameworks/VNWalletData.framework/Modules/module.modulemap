@@ -1,0 +1,11 @@
+framework module VNWalletData {
+  umbrella header "VNWalletData.h"
+
+  export *
+  module * { export * }
+}
+
+module VNWalletData.Swift {
+    header "VNWalletData-Swift.h"
+    requires objc
+}

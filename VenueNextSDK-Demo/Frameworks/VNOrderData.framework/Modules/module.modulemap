@@ -1,0 +1,11 @@
+framework module VNOrderData {
+  umbrella header "VNOrderData.h"
+
+  export *
+  module * { export * }
+}
+
+module VNOrderData.Swift {
+    header "VNOrderData-Swift.h"
+    requires objc
+}

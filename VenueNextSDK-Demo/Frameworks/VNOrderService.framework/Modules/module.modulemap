@@ -1,0 +1,4 @@
+framework module VNOrderService {
+  header "VNOrderService-Swift.h"
+  requires objc
+}

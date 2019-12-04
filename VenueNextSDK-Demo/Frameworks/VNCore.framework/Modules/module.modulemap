@@ -1,0 +1,11 @@
+framework module VNCore {
+  umbrella header "VNCore.h"
+
+  export *
+  module * { export * }
+}
+
+module VNCore.Swift {
+    header "VNCore-Swift.h"
+    requires objc
+}
