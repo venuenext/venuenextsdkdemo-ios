@@ -7,42 +7,29 @@ import VNOrderData
 import VNWalletUI
 
 class TabBarController: UITabBarController {
-    var orderCoordinator: OrderCoordinator!
-    var orderHistoryCoordinator: OrderHistoryCoordinator!
+    
     var deepLinkTableViewController: DeepLinkTableViewController!
-    var walletCoordinator: WalletCoordinator!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Assign a payment Processor
-        VNPaymentProcessor.shared = PaymentProcessor()
         
-        orderCoordinator = OrderCoordinator()
-        orderCoordinator.start()
-        orderCoordinator.navigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-
-        orderHistoryCoordinator = OrderHistoryCoordinator()
-        orderHistoryCoordinator.start()
-        orderHistoryCoordinator.navigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 1)
-
-        walletCoordinator = WalletCoordinator()
-        walletCoordinator.start()
-        let imageIcon = UIImage(named: "wallet_icon", in: nil, compatibleWith: nil)
-        walletCoordinator.navigationController.tabBarItem = UITabBarItem(title: "Wallet", image: imageIcon, tag: 3)
+        tabBar.tintColor = VN.theme.primaryNavigationBarTint
+        tabBar.barTintColor = VN.theme.primaryNavigationBarBackground
+        tabBar.unselectedItemTintColor = VN.theme.primaryNavigationBarTint
+        tabBar.shadowImage = UIImage()
+        tabBar.backgroundImage = UIImage()
         
+        VNPaymentProcessor.shared = PaymentAdapter()
         deepLinkTableViewController = DeepLinkTableViewController()
-        let deepLinkNavigationController = UINavigationController(rootViewController: deepLinkTableViewController)
-        deepLinkNavigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 2)
         
-        let tabBarList = [orderCoordinator.navigationController!, orderHistoryCoordinator.navigationController!, walletCoordinator.navigationController!, deepLinkNavigationController]
+        let deepLinkNavigationController = UINavigationController(rootViewController: deepLinkTableViewController)
+        deepLinkNavigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
+        let tabBarList = [
+            deepLinkNavigationController,
+        ]
+        
         viewControllers = tabBarList
-
+        
         tabBar.isTranslucent = false
-
     }
 }
-
-
-
-

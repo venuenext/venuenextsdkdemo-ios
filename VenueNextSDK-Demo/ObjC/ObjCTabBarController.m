@@ -21,7 +21,6 @@
 @property (copy, nonatomic) NSString * _Nullable cardholderName;
 @property (copy, nonatomic) NSString *nonce;
 
-
 @end
 
 @implementation ObjCTabBarController
@@ -38,13 +37,13 @@
         _demoViewContoller = [[DemoViewController alloc] initWithNibName:@"DemoViewController" bundle:NSBundle.mainBundle];
         [_demoViewContoller setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:0]];
         
-        self.orderHistoryCoordinator = [OrderHistoryCoordinator new];
+        self.orderHistoryCoordinator = [[OrderHistoryCoordinator alloc] initWithNavigationController:self.navigationController paymentProcessor: [VNPaymentProcessor shared]];
         [self.orderHistoryCoordinator start];
         [[self.orderHistoryCoordinator navigationController] setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:2]];
         
         UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:_demoViewContoller];
-    
-    
+        
+        
         [self setViewControllers:@[navController,self.orderHistoryCoordinator.navigationController, self.orderHistoryCoordinator.navigationController]];
     }
     
@@ -63,7 +62,7 @@
     if (self = [super init]) {
         [self setInstrument:PaymentMethodInstrumentCreditCard];
     }
-
+    
     return self;
 }
 
@@ -73,6 +72,14 @@
 
 - (void)processPaymentFrom:(UIViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id<PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion {
     completion(self, nil);
+}
+
+- (void)defaultPaymentMethodWithCompletion:(void (^ _Nonnull)(id<PaymentMethodRepresentable> _Nullable))completion {
+    
+}
+
+- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id<PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion {
+    
 }
 
 @end

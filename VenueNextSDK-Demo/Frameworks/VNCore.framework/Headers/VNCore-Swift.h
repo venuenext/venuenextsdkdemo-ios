@@ -170,6 +170,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import CoreLocation;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
@@ -229,6 +230,7 @@ typedef SWIFT_ENUM(NSInteger, PaymentMethodInstrument, closed) {
   PaymentMethodInstrumentCreditCard = 0,
   PaymentMethodInstrumentApplePay = 1,
   PaymentMethodInstrumentMagicMoney = 2,
+  PaymentMethodInstrumentVnBank = 3,
 };
 
 
@@ -243,11 +245,12 @@ SWIFT_PROTOCOL("_TtP6VNCore26PaymentMethodRepresentable_")
 @end
 
 @class UIViewController;
+enum ProductType : NSInteger;
 
 /// An object conforming to PaymentProcessable will be responsible for processing payments.
 SWIFT_PROTOCOL("_TtP6VNCore18PaymentProcessable_")
 @protocol PaymentProcessable
-- (void)processPaymentFrom:(UIViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethodWithPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 - (void)defaultPaymentMethodWithCompletion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable))completion;
 @end
@@ -285,6 +288,11 @@ SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryExtraLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDarkGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryError;
 @end
 
 
@@ -292,13 +300,34 @@ SWIFT_CLASS("_TtC6VNCore15VNCoreBaseTheme")
 @interface VNCoreBaseTheme : NSObject <VNCoreThemable>
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDark;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryExtraLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDarkGray;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarBackground;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryError;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+
+
+SWIFT_CLASS("_TtC6VNCore17VNLocationManager")
+@interface VNLocationManager : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class CLLocationManager;
+@class CLLocation;
+
+@interface VNLocationManager (SWIFT_EXTENSION(VNCore)) <CLLocationManagerDelegate>
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didUpdateLocations:(NSArray<CLLocation *> * _Nonnull)locations;
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status;
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didFailWithError:(NSError * _Nonnull)error;
+@end
 
 
 SWIFT_PROTOCOL("_TtP6VNCore15VNOrderProtocol_")
@@ -322,6 +351,7 @@ SWIFT_PROTOCOL("_TtP6VNCore16VNWalletThemable_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull secondaryAccent;
 @end
 
 
@@ -330,6 +360,7 @@ SWIFT_CLASS("_TtC6VNCore17VNWalletBaseTheme")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull secondaryAccent;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -532,6 +563,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import CoreLocation;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
@@ -591,6 +623,7 @@ typedef SWIFT_ENUM(NSInteger, PaymentMethodInstrument, closed) {
   PaymentMethodInstrumentCreditCard = 0,
   PaymentMethodInstrumentApplePay = 1,
   PaymentMethodInstrumentMagicMoney = 2,
+  PaymentMethodInstrumentVnBank = 3,
 };
 
 
@@ -605,11 +638,12 @@ SWIFT_PROTOCOL("_TtP6VNCore26PaymentMethodRepresentable_")
 @end
 
 @class UIViewController;
+enum ProductType : NSInteger;
 
 /// An object conforming to PaymentProcessable will be responsible for processing payments.
 SWIFT_PROTOCOL("_TtP6VNCore18PaymentProcessable_")
 @protocol PaymentProcessable
-- (void)processPaymentFrom:(UIViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethodWithPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 - (void)defaultPaymentMethodWithCompletion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable))completion;
 @end
@@ -647,6 +681,11 @@ SWIFT_PROTOCOL("_TtP6VNCore14VNCoreThemable_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryExtraLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDarkGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryError;
 @end
 
 
@@ -654,13 +693,34 @@ SWIFT_CLASS("_TtC6VNCore15VNCoreBaseTheme")
 @interface VNCoreBaseTheme : NSObject <VNCoreThemable>
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLight;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDark;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryExtraLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryLightGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryGray;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryDarkGray;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarTint;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryAccent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primaryNavigationBarBackground;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull primarySeparator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull primaryError;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+
+
+SWIFT_CLASS("_TtC6VNCore17VNLocationManager")
+@interface VNLocationManager : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class CLLocationManager;
+@class CLLocation;
+
+@interface VNLocationManager (SWIFT_EXTENSION(VNCore)) <CLLocationManagerDelegate>
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didUpdateLocations:(NSArray<CLLocation *> * _Nonnull)locations;
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status;
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didFailWithError:(NSError * _Nonnull)error;
+@end
 
 
 SWIFT_PROTOCOL("_TtP6VNCore15VNOrderProtocol_")
@@ -684,6 +744,7 @@ SWIFT_PROTOCOL("_TtP6VNCore16VNWalletThemable_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull secondaryAccent;
 @end
 
 
@@ -692,6 +753,7 @@ SWIFT_CLASS("_TtC6VNCore17VNWalletBaseTheme")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull navigationBarBackground;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull accent;
 @property (nonatomic, readonly, strong) UIColor * _Nonnull separator;
+@property (nonatomic, readonly, strong) UIColor * _Nonnull secondaryAccent;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

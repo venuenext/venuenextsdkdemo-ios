@@ -271,6 +271,20 @@ SWIFT_CLASS("_TtC8VNCoreUI17GradientImageView")
 - (nonnull instancetype)initWithImage:(UIImage * _Nullable)image highlightedImage:(UIImage * _Nullable)highlightedImage SWIFT_UNAVAILABLE;
 @end
 
+
+SWIFT_CLASS("_TtC8VNCoreUI23HeaderTextTableViewCell")
+@interface HeaderTextTableViewCell : UITableViewCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI31HeaderTextTableViewCellDelegate_")
+@protocol HeaderTextTableViewCellDelegate
+@optional
+- (NSString * _Nonnull)titleFor:(HeaderTextTableViewCell * _Nonnull)cell SWIFT_WARN_UNUSED_RESULT;
+@end
+
 @class UIPanGestureRecognizer;
 @class UITapGestureRecognizer;
 
@@ -381,6 +395,23 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI20PresenceControllable_")
 @end
 
 
+SWIFT_CLASS("_TtC8VNCoreUI26PrimaryActionTableViewCell")
+@interface PrimaryActionTableViewCell : UITableViewCell
+@property (nonatomic, weak) IBOutlet RoundedGradientButton * _Null_unspecified actionButton;
+- (void)awakeFromNib;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI34PrimaryActionTableViewCellDelegate_")
+@protocol PrimaryActionTableViewCellDelegate
+@optional
+- (NSString * _Nonnull)actionButtonTitle SWIFT_WARN_UNUSED_RESULT;
+- (void)didPressAction;
+@end
+
+
 
 
 
@@ -395,20 +426,11 @@ SWIFT_CLASS("_TtC8VNCoreUI16RoundedTextField")
 - (CGRect)rightViewRectForBounds:(CGRect)bounds SWIFT_WARN_UNUSED_RESULT;
 @end
 
-@class NSTextContainer;
-
-SWIFT_CLASS("_TtC8VNCoreUI15RoundedTextView")
-@interface RoundedTextView : UITextView
-- (nonnull instancetype)initWithFrame:(CGRect)frame textContainer:(NSTextContainer * _Nullable)textContainer OBJC_DESIGNATED_INITIALIZER;
-- (BOOL)becomeFirstResponder;
-- (BOOL)resignFirstResponder;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
-@end
-
 @class NSLayoutConstraint;
 
-SWIFT_CLASS("_TtC8VNCoreUI26SendReceiptTableFooterView")
-@interface SendReceiptTableFooterView : UIView
+SWIFT_CLASS("_TtC8VNCoreUI20RoundedTextFieldView")
+@interface RoundedTextFieldView : UIView
+@property (nonatomic) NSInteger tag;
 @property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified textLabel;
 @property (nonatomic, weak) IBOutlet RoundedTextField * _Null_unspecified textField;
 @property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified errorLabel;
@@ -421,10 +443,37 @@ SWIFT_CLASS("_TtC8VNCoreUI26SendReceiptTableFooterView")
 @end
 
 
-@interface SendReceiptTableFooterView (SWIFT_EXTENSION(VNCoreUI)) <UITextFieldDelegate>
+@interface RoundedTextFieldView (SWIFT_EXTENSION(VNCoreUI)) <UITextFieldDelegate>
 - (void)textFieldDidBeginEditing:(UITextField * _Nonnull)textField;
 - (void)textFieldDidEndEditing:(UITextField * _Nonnull)textField reason:(UITextFieldDidEndEditingReason)reason;
 - (BOOL)textFieldShouldReturn:(UITextField * _Nonnull)textField SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI28RoundedTextFieldViewDelegate_")
+@protocol RoundedTextFieldViewDelegate
+@optional
+- (void)didTapViewWithView:(UIView * _Nonnull)view;
+- (void)didFinishEditingWithText:(NSString * _Nonnull)text textField:(UITextField * _Nonnull)textField;
+- (void)didChangeTextWithText:(NSString * _Nonnull)text textField:(UITextField * _Nonnull)textField;
+@end
+
+@class NSTextContainer;
+
+SWIFT_CLASS("_TtC8VNCoreUI15RoundedTextView")
+@interface RoundedTextView : UITextView
+- (nonnull instancetype)initWithFrame:(CGRect)frame textContainer:(NSTextContainer * _Nullable)textContainer OBJC_DESIGNATED_INITIALIZER;
+- (BOOL)becomeFirstResponder;
+- (BOOL)resignFirstResponder;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI29SegmentedControlTableViewCell")
+@interface SegmentedControlTableViewCell : UITableViewCell
+- (void)awakeFromNib;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -446,6 +495,75 @@ SWIFT_CLASS("_TtC8VNCoreUI11ShimmerView")
 @end
 
 
+SWIFT_CLASS("_TtC8VNCoreUI33SinglePickerSelectorTableViewCell")
+@interface SinglePickerSelectorTableViewCell : UITableViewCell
+@property (nonatomic, readonly, weak) IBOutlet UIPickerView * _Null_unspecified picker;
+- (void)awakeFromNib;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface SinglePickerSelectorTableViewCell (SWIFT_EXTENSION(VNCoreUI)) <UIPickerViewDataSource>
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView * _Nonnull)pickerView SWIFT_WARN_UNUSED_RESULT;
+- (NSInteger)pickerView:(UIPickerView * _Nonnull)pickerView numberOfRowsInComponent:(NSInteger)component SWIFT_WARN_UNUSED_RESULT;
+@end
+
+@class NSAttributedString;
+
+@interface SinglePickerSelectorTableViewCell (SWIFT_EXTENSION(VNCoreUI)) <UIPickerViewDelegate>
+- (NSAttributedString * _Nullable)pickerView:(UIPickerView * _Nonnull)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component SWIFT_WARN_UNUSED_RESULT;
+- (void)pickerView:(UIPickerView * _Nonnull)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI41SinglePickerSelectorTableViewCellDelegate_")
+@protocol SinglePickerSelectorTableViewCellDelegate
+@optional
+- (NSArray<NSString *> * _Nonnull)pickerViewRows SWIFT_WARN_UNUSED_RESULT;
+- (void)pickerViewDidSelectRowWithPicker:(UIPickerView * _Nonnull)picker row:(NSInteger)row component:(NSInteger)component;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI21SubtitleTableViewCell")
+@interface SubtitleTableViewCell : UITableViewCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI29SubtitleTableViewCellDelegate_")
+@protocol SubtitleTableViewCellDelegate
+@optional
+- (NSString * _Nonnull)subTitleFor:(SubtitleTableViewCell * _Nonnull)cell SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI22TextInputTableViewCell")
+@interface TextInputTableViewCell : UITableViewCell
+- (void)awakeFromNib;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface TextInputTableViewCell (SWIFT_EXTENSION(VNCoreUI)) <RoundedTextFieldViewDelegate>
+- (void)didFinishEditingWithText:(NSString * _Nonnull)text textField:(UITextField * _Nonnull)textField;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI21TextViewTableViewCell")
+@interface TextViewTableViewCell : UITableViewCell
+- (void)awakeFromNib;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface TextViewTableViewCell (SWIFT_EXTENSION(VNCoreUI)) <UITextViewDelegate>
+- (void)textViewDidBeginEditing:(UITextView * _Nonnull)textView;
+- (void)textViewDidEndEditing:(UITextView * _Nonnull)textView;
+@end
 
 
 
@@ -482,12 +600,8 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 @end
 
 
-@interface UITabBarController (SWIFT_EXTENSION(VNCoreUI)) <UITabBarAppearance>
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTabBarTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredUnSelectedTintColor;
-- (void)setTabBarAppearance;
-@end
+
+
 
 
 
@@ -507,52 +621,12 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 @end
 
 
-@interface UIViewController (SWIFT_EXTENSION(VNCoreUI))
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
-- (void)setNavigationBarAppearance;
-@end
 
 
-
-
-SWIFT_PROTOCOL("_TtP8VNCoreUI26UIViewControllerAppearance_")
-@protocol UIViewControllerAppearance
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
-- (void)setNavigationBarAppearance;
-@end
-
-
-SWIFT_CLASS("_TtC8VNCoreUI26VNCollectionViewController")
-@interface VNCollectionViewController : UICollectionViewController
-- (nonnull instancetype)initWithCollectionViewLayout:(UICollectionViewLayout * _Nonnull)layout OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC8VNCoreUI18VNTabBarController")
-@interface VNTabBarController : UITabBarController
-- (void)viewDidLoad;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC8VNCoreUI21VNTableViewController")
-@interface VNTableViewController : UITableViewController
-- (void)viewDidLoad;
-- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC8VNCoreUI16VNViewController")
-@interface VNViewController : UIViewController
-- (void)viewDidLoad;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+SWIFT_CLASS("_TtC8VNCoreUI18VNSegmentedControl")
+@interface VNSegmentedControl : UISegmentedControl
+- (nonnull instancetype)initWithItems:(NSArray * _Nullable)items OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -838,6 +912,20 @@ SWIFT_CLASS("_TtC8VNCoreUI17GradientImageView")
 - (nonnull instancetype)initWithImage:(UIImage * _Nullable)image highlightedImage:(UIImage * _Nullable)highlightedImage SWIFT_UNAVAILABLE;
 @end
 
+
+SWIFT_CLASS("_TtC8VNCoreUI23HeaderTextTableViewCell")
+@interface HeaderTextTableViewCell : UITableViewCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI31HeaderTextTableViewCellDelegate_")
+@protocol HeaderTextTableViewCellDelegate
+@optional
+- (NSString * _Nonnull)titleFor:(HeaderTextTableViewCell * _Nonnull)cell SWIFT_WARN_UNUSED_RESULT;
+@end
+
 @class UIPanGestureRecognizer;
 @class UITapGestureRecognizer;
 
@@ -948,6 +1036,23 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI20PresenceControllable_")
 @end
 
 
+SWIFT_CLASS("_TtC8VNCoreUI26PrimaryActionTableViewCell")
+@interface PrimaryActionTableViewCell : UITableViewCell
+@property (nonatomic, weak) IBOutlet RoundedGradientButton * _Null_unspecified actionButton;
+- (void)awakeFromNib;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI34PrimaryActionTableViewCellDelegate_")
+@protocol PrimaryActionTableViewCellDelegate
+@optional
+- (NSString * _Nonnull)actionButtonTitle SWIFT_WARN_UNUSED_RESULT;
+- (void)didPressAction;
+@end
+
+
 
 
 
@@ -962,20 +1067,11 @@ SWIFT_CLASS("_TtC8VNCoreUI16RoundedTextField")
 - (CGRect)rightViewRectForBounds:(CGRect)bounds SWIFT_WARN_UNUSED_RESULT;
 @end
 
-@class NSTextContainer;
-
-SWIFT_CLASS("_TtC8VNCoreUI15RoundedTextView")
-@interface RoundedTextView : UITextView
-- (nonnull instancetype)initWithFrame:(CGRect)frame textContainer:(NSTextContainer * _Nullable)textContainer OBJC_DESIGNATED_INITIALIZER;
-- (BOOL)becomeFirstResponder;
-- (BOOL)resignFirstResponder;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
-@end
-
 @class NSLayoutConstraint;
 
-SWIFT_CLASS("_TtC8VNCoreUI26SendReceiptTableFooterView")
-@interface SendReceiptTableFooterView : UIView
+SWIFT_CLASS("_TtC8VNCoreUI20RoundedTextFieldView")
+@interface RoundedTextFieldView : UIView
+@property (nonatomic) NSInteger tag;
 @property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified textLabel;
 @property (nonatomic, weak) IBOutlet RoundedTextField * _Null_unspecified textField;
 @property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified errorLabel;
@@ -988,10 +1084,37 @@ SWIFT_CLASS("_TtC8VNCoreUI26SendReceiptTableFooterView")
 @end
 
 
-@interface SendReceiptTableFooterView (SWIFT_EXTENSION(VNCoreUI)) <UITextFieldDelegate>
+@interface RoundedTextFieldView (SWIFT_EXTENSION(VNCoreUI)) <UITextFieldDelegate>
 - (void)textFieldDidBeginEditing:(UITextField * _Nonnull)textField;
 - (void)textFieldDidEndEditing:(UITextField * _Nonnull)textField reason:(UITextFieldDidEndEditingReason)reason;
 - (BOOL)textFieldShouldReturn:(UITextField * _Nonnull)textField SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI28RoundedTextFieldViewDelegate_")
+@protocol RoundedTextFieldViewDelegate
+@optional
+- (void)didTapViewWithView:(UIView * _Nonnull)view;
+- (void)didFinishEditingWithText:(NSString * _Nonnull)text textField:(UITextField * _Nonnull)textField;
+- (void)didChangeTextWithText:(NSString * _Nonnull)text textField:(UITextField * _Nonnull)textField;
+@end
+
+@class NSTextContainer;
+
+SWIFT_CLASS("_TtC8VNCoreUI15RoundedTextView")
+@interface RoundedTextView : UITextView
+- (nonnull instancetype)initWithFrame:(CGRect)frame textContainer:(NSTextContainer * _Nullable)textContainer OBJC_DESIGNATED_INITIALIZER;
+- (BOOL)becomeFirstResponder;
+- (BOOL)resignFirstResponder;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI29SegmentedControlTableViewCell")
+@interface SegmentedControlTableViewCell : UITableViewCell
+- (void)awakeFromNib;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -1013,6 +1136,75 @@ SWIFT_CLASS("_TtC8VNCoreUI11ShimmerView")
 @end
 
 
+SWIFT_CLASS("_TtC8VNCoreUI33SinglePickerSelectorTableViewCell")
+@interface SinglePickerSelectorTableViewCell : UITableViewCell
+@property (nonatomic, readonly, weak) IBOutlet UIPickerView * _Null_unspecified picker;
+- (void)awakeFromNib;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface SinglePickerSelectorTableViewCell (SWIFT_EXTENSION(VNCoreUI)) <UIPickerViewDataSource>
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView * _Nonnull)pickerView SWIFT_WARN_UNUSED_RESULT;
+- (NSInteger)pickerView:(UIPickerView * _Nonnull)pickerView numberOfRowsInComponent:(NSInteger)component SWIFT_WARN_UNUSED_RESULT;
+@end
+
+@class NSAttributedString;
+
+@interface SinglePickerSelectorTableViewCell (SWIFT_EXTENSION(VNCoreUI)) <UIPickerViewDelegate>
+- (NSAttributedString * _Nullable)pickerView:(UIPickerView * _Nonnull)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component SWIFT_WARN_UNUSED_RESULT;
+- (void)pickerView:(UIPickerView * _Nonnull)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI41SinglePickerSelectorTableViewCellDelegate_")
+@protocol SinglePickerSelectorTableViewCellDelegate
+@optional
+- (NSArray<NSString *> * _Nonnull)pickerViewRows SWIFT_WARN_UNUSED_RESULT;
+- (void)pickerViewDidSelectRowWithPicker:(UIPickerView * _Nonnull)picker row:(NSInteger)row component:(NSInteger)component;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI21SubtitleTableViewCell")
+@interface SubtitleTableViewCell : UITableViewCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI29SubtitleTableViewCellDelegate_")
+@protocol SubtitleTableViewCellDelegate
+@optional
+- (NSString * _Nonnull)subTitleFor:(SubtitleTableViewCell * _Nonnull)cell SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI22TextInputTableViewCell")
+@interface TextInputTableViewCell : UITableViewCell
+- (void)awakeFromNib;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface TextInputTableViewCell (SWIFT_EXTENSION(VNCoreUI)) <RoundedTextFieldViewDelegate>
+- (void)didFinishEditingWithText:(NSString * _Nonnull)text textField:(UITextField * _Nonnull)textField;
+@end
+
+
+SWIFT_CLASS("_TtC8VNCoreUI21TextViewTableViewCell")
+@interface TextViewTableViewCell : UITableViewCell
+- (void)awakeFromNib;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface TextViewTableViewCell (SWIFT_EXTENSION(VNCoreUI)) <UITextViewDelegate>
+- (void)textViewDidBeginEditing:(UITextView * _Nonnull)textView;
+- (void)textViewDidEndEditing:(UITextView * _Nonnull)textView;
+@end
 
 
 
@@ -1049,12 +1241,8 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 @end
 
 
-@interface UITabBarController (SWIFT_EXTENSION(VNCoreUI)) <UITabBarAppearance>
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTabBarTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredUnSelectedTintColor;
-- (void)setTabBarAppearance;
-@end
+
+
 
 
 
@@ -1074,52 +1262,12 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 @end
 
 
-@interface UIViewController (SWIFT_EXTENSION(VNCoreUI))
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
-- (void)setNavigationBarAppearance;
-@end
 
 
-
-
-SWIFT_PROTOCOL("_TtP8VNCoreUI26UIViewControllerAppearance_")
-@protocol UIViewControllerAppearance
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationBarTintColor;
-@property (nonatomic, readonly, strong) UIColor * _Nonnull preferredNavigationTintColor;
-- (void)setNavigationBarAppearance;
-@end
-
-
-SWIFT_CLASS("_TtC8VNCoreUI26VNCollectionViewController")
-@interface VNCollectionViewController : UICollectionViewController
-- (nonnull instancetype)initWithCollectionViewLayout:(UICollectionViewLayout * _Nonnull)layout OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC8VNCoreUI18VNTabBarController")
-@interface VNTabBarController : UITabBarController
-- (void)viewDidLoad;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC8VNCoreUI21VNTableViewController")
-@interface VNTableViewController : UITableViewController
-- (void)viewDidLoad;
-- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC8VNCoreUI16VNViewController")
-@interface VNViewController : UIViewController
-- (void)viewDidLoad;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+SWIFT_CLASS("_TtC8VNCoreUI18VNSegmentedControl")
+@interface VNSegmentedControl : UISegmentedControl
+- (nonnull instancetype)initWithItems:(NSArray * _Nullable)items OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
