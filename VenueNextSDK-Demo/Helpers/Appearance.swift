@@ -1,15 +1,15 @@
 // Copyright © 2019 VenueNext. All rights reserved.
 
 import UIKit
-import VNCoreUI
+import VNCore
 
 struct Appearance {
     static func start() {
-        UITabBar.appearance().tintColor = VN.theme.primaryAccent
-        UITabBar.appearance().barTintColor = VN.theme.primaryDark
+        UITabBar.appearance().tintColor = VN.theme.primaryLight
+        UITabBar.appearance().barTintColor = VN.theme.primaryAccent
         UITabBar.appearance().unselectedItemTintColor = VN.theme.primaryLight
-        UINavigationBar.appearance().barTintColor = VN.theme.primaryNavigationBarBackground
-        UINavigationBar.appearance().tintColor = VN.theme.primaryNavigationBarTint
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: VN.theme.primaryNavigationBarTint]
+        UINavigationBar.appearance().barTintColor = VN.theme.primaryDark
+        UINavigationBar.appearance().tintColor = VN.theme.primaryAccent
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: VN.theme.primaryAccent]
     }
 }

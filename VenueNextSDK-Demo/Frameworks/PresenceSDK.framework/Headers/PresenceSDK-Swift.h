@@ -493,7 +493,7 @@ typedef SWIFT_ENUM_NAMED(NSInteger, PresenceSDKIdType, "IdType", closed) {
 /// The version number for PresenceSDK.
 - (NSString * _Nonnull)getVersionNumber SWIFT_WARN_UNUSED_RESULT;
 /// Method to get the logged in user’s information.
-/// \param backendname The specified backend name where the SDK will retrive member information from.
+/// \param backendName The specified backend name where the SDK will retrive member information frombackendName
 ///
 /// \param completion Completion block to be called containing possible member and error imformation.
 ///

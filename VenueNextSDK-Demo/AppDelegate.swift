@@ -7,42 +7,69 @@ import VNOrderUI
 import VNWalletUI
 import PresenceSDK
 
+class CustomWalletTheme: VNWalletBaseTheme {
+    override var accent: UIColor {
+        return navigationBarBackground
+    }
+
+    override var secondaryAccent: UIColor {
+        return UIColor(hexString: "FF0000")
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
         // VenueNext SDKs can be configured from Swift or ObjC
         // To run the ObjC app set isSwiftDemoApp to false
-    
+
         let isSwift = true
-        
         Appearance.start()
-        
+
         //Initialize VenueNext SDK
         intializeSDK(for: isSwift)
-        
-       
+
+
         //Setup PresenceSDK
-        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "A3G23g9aG7oeAmAghjmGfTftODa7tSTS", displayName: "Demo App", useNewAccountsManager: true)
+        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "", displayName: "Demo App", useNewAccountsManager: true)
         PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
-        
+
+        //Configure Payment processor (place this above modules that will need it)
+        VenueNext.configure(paymentProcessor: PaymentAdapter())
         //configure wallet
-        VenueNext.configure(wallet: VNWallet.shared, walletDelegate: self, theme: nil
-        )
+        VenueNext.configure(wallet: VNWallet.shared, walletDelegate: self, theme: CustomWalletTheme())
         //turn on wallet for VNOrder
         VenueNext.enableWallet(for: VNOrder.shared)
-       
-        VNPaymentProcessor.shared = PaymentProcessor()
-        
+        //Uncomment if you want to pass in a custom theme
+        //VenueNext.configure(theme: <Custom Theme>)
+
+        VNPaymentProcessor.shared = PaymentAdapter()
+
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController(for: isSwift)
         window?.makeKeyAndVisible()
 
         return true
     }
-    
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        guard let presenter = window?.rootViewController else {
+            return false
+        }
+
+        let canHandle = VenueNext.canHandle(url: url)
+
+        if canHandle {
+            //must pass a valid presenter for this to work properly
+            VenueNext.handle(url: url, presenter: presenter, completion: nil)
+        }
+
+        return canHandle
+    }
+
     func tabBarController(for isSwift: Bool) -> UIViewController {
         switch isSwift {
         case true:
@@ -51,12 +78,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return ObjCTabBarController()
         }
     }
-    
+
     func intializeSDK(for isSwift: Bool) {
         switch isSwift {
         case true:
             // use the following code in your application:didFinishLaunchingWithOptions:
-            VenueNext.shared.initialize(sdkKey: "vn:usw2a:production:ios-sdk-utahjazz-01DE40398MS2SKPX95E7GTA5HZ", sdkSecret: "SDK_SECRET")
+            VenueNext.shared.initialize(sdkKey: "", sdkSecret: "")
             Analytics.initialize(with: CustomAnalytics())
         case false:
             ObjCConfiguration.start()
@@ -65,11 +92,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: VNWalletDelegate {
-    
+    func virtualCurrencyName() -> String {
+        return "Virtual Currency"
+    }
+
+    func walletModeConfig() -> WalletModeConfig {
+        return WalletModeConfig() // modes: [.qrCode, .qrScanner, .virtualCurrencyToggle]
+    }
+
     func walletUser() -> VNWalletUser? {
         return nil
     }
-    
+
+    func walletProgramName() -> String {
+        return "Member"
+    }
+
     func loginController(completion: @escaping (VNWalletUser?, NSError?) -> Void) -> UIViewController {
         let presenceController = PresenceController()
         presenceController.logout()
@@ -87,12 +125,12 @@ extension AppDelegate: VNWalletDelegate {
         }
         return presenceController
     }
-    
+
     func walletTitle() -> String {
         return "Magic Money"
     }
-    
+
     func walletVirtualCurrencyPaymentType() -> String {
-        return "magic_money"
+        return "magic_money" //or "vn_bank"
     }
 }

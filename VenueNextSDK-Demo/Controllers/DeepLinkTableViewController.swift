@@ -5,52 +5,59 @@ import VNOrderUI
 import VNOrderData
 import VNWalletUI
 
-class DeepLinkTableViewController: VNTableViewController {
+class DeepLinkTableViewController: UITableViewController {
+
     lazy var orderHistoryCoordinator: OrderHistoryCoordinator = {
-        let orderHistoryCoordinator = OrderHistoryCoordinator(navigationController: navigationController!)
+        let orderHistoryCoordinator = OrderHistoryCoordinator(navigationController: navigationController)
         orderHistoryCoordinator.start()
         return orderHistoryCoordinator
     }()
-    
+
+    lazy var orderHistoryCoordinatorModal: OrderHistoryCoordinator = {
+        let orderHistoryCoordinator = OrderHistoryCoordinator(navigationController: nil)
+        orderHistoryCoordinator.start()
+        return orderHistoryCoordinator
+    }()
+
     lazy var orderCoordinator: OrderCoordinator = {
         let orderCoordinator = OrderCoordinator(navigationController: navigationController)
         orderCoordinator.start()
         return orderCoordinator
     }()
-    
+
     lazy var orderFoodCoordinator: OrderCoordinator = {
         let orderCoordinator = OrderCoordinator(navigationController: navigationController)
         orderCoordinator.productTypes = [.food]
         orderCoordinator.start()
         return orderCoordinator
     }()
-    
+
     lazy var orderMerchCoordinator: OrderCoordinator = {
         let orderCoordinator = OrderCoordinator(navigationController: navigationController)
         orderCoordinator.productTypes = [.merchandise]
         orderCoordinator.start()
         return orderCoordinator
     }()
-    
+
     lazy var orderExperienceCoordinator: OrderCoordinator = {
         let orderCoordinator = OrderCoordinator(navigationController: navigationController)
         orderCoordinator.productTypes = [.experience]
         orderCoordinator.start()
         return orderCoordinator
     }()
-    
+
     lazy var walletCoordinator: WalletCoordinator = {
         let walletCoordinator = WalletCoordinator(navigationController: navigationController)
         walletCoordinator.start()
         return walletCoordinator
     }()
-    
+
     var receiptCoordinator: ReceiptCoordinator?
-    
+
     enum Section: CaseIterable {
         case push
         case modal
-        
+
         var displayName: String {
             switch self {
             case .push:
@@ -59,7 +66,7 @@ class DeepLinkTableViewController: VNTableViewController {
                 return "Modal Presentation"
             }
         }
-        
+
         var rows: [LinkType] {
             switch self {
             case .push:
@@ -69,7 +76,7 @@ class DeepLinkTableViewController: VNTableViewController {
             }
         }
     }
-    
+
     enum LinkType: CaseIterable {
         case rvcFoodModal
         case rvcMerchModal
@@ -84,7 +91,7 @@ class DeepLinkTableViewController: VNTableViewController {
         case presentWallet
         case pushWallet
         case presentDisclosureView
-        
+
         var name: String {
             switch self {
             case .rvcFoodModal:
@@ -113,65 +120,68 @@ class DeepLinkTableViewController: VNTableViewController {
                 return "Push Wallet"
             case .presentDisclosureView:
                 return "Show an award disclosure"
-                
+
             }
         }
     }
-    
+
     public init() {
         super.init(nibName: String(describing: DeepLinkTableViewController.self), bundle: Bundle(for: type(of: self)))
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
+
+
     private func configureNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barTintColor = VN.theme.primaryNavigationBarBackground
+        navigationController?.navigationBar.tintColor = VN.theme.primaryNavigationBarTint
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : VN.theme.primaryLight]
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Debug"
         LinkTableViewCell.register(tableView: tableView)
         configureNavigationBar()
     }
-    
-    
+
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
     }
-    
-    
+
+
     // MARK: - Table view data source
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return Section.allCases.count
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Section.allCases[section].rows.count
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LinkTableViewCell.classStringName, for: indexPath) as! LinkTableViewCell
-        
+
         let section = Section.allCases[indexPath.section]
         let linkType = section.rows[indexPath.row]
         cell.textLabel?.text = linkType.name
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+
         let section = Section.allCases[indexPath.section]
-        
+
         let linkType = section.rows[indexPath.row]
-        
+
         switch linkType {
         case .rvcFoodModal:
             let menus = try? Menu.fetchAll(productTypes: [.food], context: VNOrderData.shared.managedObjectContext)
@@ -195,7 +205,7 @@ class DeepLinkTableViewController: VNTableViewController {
         case .rvcPushExperience:
             orderExperienceCoordinator.pushRvCList()
         case .orderHistoryModal:
-            orderHistoryCoordinator.present(from: navigationController!)
+            orderHistoryCoordinatorModal.present(from: navigationController!)
         case .orderHistoryPush:
             orderHistoryCoordinator.pushViewController()
         case .receiptModal:
@@ -203,13 +213,13 @@ class DeepLinkTableViewController: VNTableViewController {
                 guard success else {
                     let alert = UIAlertController(title: "Sorry", message: "Unable to find order", preferredStyle: .alert)
                     let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    
+
                     alert.addAction(ok)
-                    
+
                     self?.present(alert, animated: true, completion: nil)
                     return
                 }
-                
+
                 self?.receiptCoordinator?.start()
             }
         case .pushExperienceMenu:
@@ -226,27 +236,25 @@ class DeepLinkTableViewController: VNTableViewController {
                     return
                 }
                 let vc = DetailDisclosureController(title: "Earn 5.00 back on the next 20 spent!", description: "Spend $20 to get back 5.00 in Virtual Bucks")
-                
+
                 let action = VNAlertAction(title: "Testing title", handler: { (action) in
                     print("Did press \(action.title)")
                 })
-                
+
                 vc.addAction(action: action)
-                
+
                 vc.modalPresentationStyle = .overCurrentContext
                 weakSelf.present(vc, animated: false, completion: nil)
             }
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let section = Section.allCases[section]
         return section.displayName.uppercased()
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
 }
-
-
