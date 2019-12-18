@@ -11,6 +11,10 @@ class CustomWalletTheme: VNWalletBaseTheme {
     override var accent: UIColor {
         return navigationBarBackground
     }
+
+    override var secondaryAccent: UIColor {
+        return UIColor.red
+    }
 }
 
 @UIApplicationMain
@@ -121,5 +125,9 @@ extension AppDelegate: VNWalletDelegate {
     
     func walletVirtualCurrencyPaymentType() -> String {
         return "magic_money" //or "vn_bank"
+    }
+
+    func walletProgramName() -> String {
+        return "VIP User"
     }
 }
