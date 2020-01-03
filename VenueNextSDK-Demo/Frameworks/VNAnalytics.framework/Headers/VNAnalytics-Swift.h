@@ -197,6 +197,7 @@ SWIFT_PROTOCOL("_TtP11VNAnalytics16AnalyticsAdapter_")
 @protocol AnalyticsAdapter
 - (void)trackWithEvent:(id <EventTrackable> _Nonnull)event;
 - (void)trackWithName:(NSString * _Nonnull)name metadata:(NSDictionary<NSString *, id> * _Nullable)metadata;
+- (void)registerWithUserID:(NSString * _Nullable)userID;
 @end
 
 
@@ -454,6 +455,7 @@ SWIFT_PROTOCOL("_TtP11VNAnalytics16AnalyticsAdapter_")
 @protocol AnalyticsAdapter
 - (void)trackWithEvent:(id <EventTrackable> _Nonnull)event;
 - (void)trackWithName:(NSString * _Nonnull)name metadata:(NSDictionary<NSString *, id> * _Nullable)metadata;
+- (void)registerWithUserID:(NSString * _Nullable)userID;
 @end
 
 

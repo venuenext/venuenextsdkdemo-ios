@@ -1,0 +1,11 @@
+framework module DynamiContent {
+  umbrella header "DynamiContent.h"
+
+  export *
+  module * { export * }
+}
+
+module DynamiContent.Swift {
+    header "DynamiContent-Swift.h"
+    requires objc
+}

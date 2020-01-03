@@ -3,6 +3,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import <VNCore/VNCore.h>
+#import <VNPayment/VNPayment.h>
+
 
 //! Project version number for VNOrderData.
 FOUNDATION_EXPORT double VNOrderDataVersionNumber;

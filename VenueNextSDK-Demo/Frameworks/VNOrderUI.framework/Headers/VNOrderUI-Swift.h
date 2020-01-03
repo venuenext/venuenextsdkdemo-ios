@@ -668,6 +668,7 @@ SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 
 @interface StandMenuTableViewController (SWIFT_EXTENSION(VNOrderUI))
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView * _Nonnull)scrollView SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -692,13 +693,13 @@ SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
-
-
 @class UICollectionView;
 
 @interface StandMenuViewController (SWIFT_EXTENSION(VNOrderUI)) <UICollectionViewDelegate>
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
+
+
 
 @class UICollectionViewCell;
 
@@ -1506,6 +1507,7 @@ SWIFT_CLASS("_TtC9VNOrderUI28StandMenuTableViewController")
 
 @interface StandMenuTableViewController (SWIFT_EXTENSION(VNOrderUI))
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView * _Nonnull)scrollView SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -1530,13 +1532,13 @@ SWIFT_CLASS("_TtC9VNOrderUI23StandMenuViewController")
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
-
-
 @class UICollectionView;
 
 @interface StandMenuViewController (SWIFT_EXTENSION(VNOrderUI)) <UICollectionViewDelegate>
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
+
+
 
 @class UICollectionViewCell;
 
