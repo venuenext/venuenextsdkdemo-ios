@@ -81,8 +81,6 @@
 		CE52A4BA23BFB9DE0019B1F5 /* VNNetworkService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE52A4A323BFB9DE0019B1F5 /* VNNetworkService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE52A4BB23BFB9DF0019B1F5 /* VNCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE52A4A423BFB9DE0019B1F5 /* VNCore.framework */; };
 		CE52A4BC23BFB9DF0019B1F5 /* VNCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE52A4A423BFB9DE0019B1F5 /* VNCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CE52A4BD23BFB9DF0019B1F5 /* DynamiContent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE52A4A523BFB9DE0019B1F5 /* DynamiContent.framework */; };
-		CE52A4BE23BFB9DF0019B1F5 /* DynamiContent.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE52A4A523BFB9DE0019B1F5 /* DynamiContent.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE52A4BF23BFB9DF0019B1F5 /* VNLegacy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE52A4A623BFB9DE0019B1F5 /* VNLegacy.framework */; };
 		CE52A4C023BFB9DF0019B1F5 /* VNLegacy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE52A4A623BFB9DE0019B1F5 /* VNLegacy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -117,7 +115,6 @@
 				CE52A4B823BFB9DE0019B1F5 /* VNPayment.framework in Embed Frameworks */,
 				6580C7E0235EBDF200800A38 /* BraintreePayPal.framework in Embed Frameworks */,
 				6580C7E8235EBDF200800A38 /* PayPalUtils.framework in Embed Frameworks */,
-				CE52A4BE23BFB9DF0019B1F5 /* DynamiContent.framework in Embed Frameworks */,
 				6580C7DA235EBDF100800A38 /* BraintreeCore.framework in Embed Frameworks */,
 				6580C7D6235EBDF100800A38 /* BraintreeApplePay.framework in Embed Frameworks */,
 			);
@@ -173,7 +170,6 @@
 		CE52A4A223BFB9DE0019B1F5 /* VNPayment.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNPayment.framework; sourceTree = "<group>"; };
 		CE52A4A323BFB9DE0019B1F5 /* VNNetworkService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNNetworkService.framework; sourceTree = "<group>"; };
 		CE52A4A423BFB9DE0019B1F5 /* VNCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNCore.framework; sourceTree = "<group>"; };
-		CE52A4A523BFB9DE0019B1F5 /* DynamiContent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DynamiContent.framework; sourceTree = "<group>"; };
 		CE52A4A623BFB9DE0019B1F5 /* VNLegacy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNLegacy.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -215,7 +211,6 @@
 				6580C7CD235EBDE400800A38 /* PayPalOneTouch.framework in Frameworks */,
 				6580C7CC235EBDE400800A38 /* BraintreeCore.framework in Frameworks */,
 				CE52A4BB23BFB9DF0019B1F5 /* VNCore.framework in Frameworks */,
-				CE52A4BD23BFB9DF0019B1F5 /* DynamiContent.framework in Frameworks */,
 				6580C7D3235EBDE400800A38 /* BraintreeUIKit.framework in Frameworks */,
 				6580C7DB235EBDF100800A38 /* BraintreeDropIn.framework in Frameworks */,
 			);
@@ -298,7 +293,6 @@
 		AB6E2342228DCA2D00EDD290 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CE52A4A523BFB9DE0019B1F5 /* DynamiContent.framework */,
 				CE52A4A023BFB9DD0019B1F5 /* VNAnalytics.framework */,
 				CE52A4A423BFB9DE0019B1F5 /* VNCore.framework */,
 				CE52A49A23BFB9DC0019B1F5 /* VNCoreUI.framework */,
