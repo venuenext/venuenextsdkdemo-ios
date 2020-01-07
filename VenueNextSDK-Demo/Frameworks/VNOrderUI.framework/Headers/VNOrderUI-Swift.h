@@ -254,6 +254,11 @@ SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
 
 
 
+@interface CheckoutTableViewController (SWIFT_EXTENSION(VNOrderUI)) <NSFetchedResultsControllerDelegate>
+- (void)controllerDidChangeContent:(NSFetchedResultsController<id <NSFetchRequestResult>> * _Nonnull)controller;
+@end
+
+
 
 @class UITextField;
 
@@ -1103,6 +1108,11 @@ SWIFT_CLASS("_TtC9VNOrderUI27CheckoutTableViewController")
 
 
 
+
+
+@interface CheckoutTableViewController (SWIFT_EXTENSION(VNOrderUI)) <NSFetchedResultsControllerDelegate>
+- (void)controllerDidChangeContent:(NSFetchedResultsController<id <NSFetchRequestResult>> * _Nonnull)controller;
+@end
 
 
 
