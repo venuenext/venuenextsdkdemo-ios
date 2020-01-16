@@ -8,9 +8,34 @@ platform :ios do
     setup_circle_ci
   end
 
+  lane :forceMatch do |options|
+    match(type: "enterprise", git_branch: "enterprise", app_identifier: "com.venuenext.demoapp", team_id: "4DL8PZB55U", username: "build@venuenext.com", force: true)
+  end
+
+
+  desc "Create an enterprise build of the VNSDK demo app"
+  lane :enterprise do |options|
+    update_info_plist(
+      plist_path: 'VenueNextSDK-Demo/Info.plist', # Path to info plist file
+      app_identifier: "com.venuenext.demoapp" # The App Identifier
+    )
+    # match(type: "enterprise", git_branch: "enterprise", app_identifier: "com.venuenext.demoapp", team_id: "4DL8PZB55U", username: "build@venuenext.com")
+    version_number = prompt(text: "Version # (eg. 2.2)")
+    build_number = prompt(text: "Build # (eg. 150)")
+    app_name = "VenueNextSDK-Demo"
+    ipa_name = "#{app_name}-#{version_number}.#{build_number}.ipa"
+    gym(
+      scheme: "VenueNextSDK-Demo",
+      output_directory: "./build",
+      output_name: ipa_name,
+      export_method: "enterprise"
+    )
+    demo_appcenter
+  end
+
   lane :demo_appcenter do |options|
     token = ENV["APPCENTER_API_TOKEN"],
-    ipa_path = "/Users/rashaad/Desktop/VenueNextSDK-Demo-2.2-148/VenueNextSDK-Demo-2.2-148.ipa"
+    ipa_path = lane_context[SharedValues::IPA_OUTPUT_PATH]
     appcenter_upload(
       api_token: ENV["APPCENTER_API_TOKEN"],
       owner_name: "IOS-Demo",
@@ -18,7 +43,7 @@ platform :ios do
       ipa: ipa_path,
       destinations: ("Internal" if ENV["DESTINATION_GROUP"].to_s.empty? || ENV["DESTINATION_GROUP"].nil?),
       destination_type: "group",
-      release_notes: "Build for T3580, T3649, T3688, also fixes missing deep link URI. VC disabled for all product types. Camera + QR code enabled.",
+      release_notes: prompt(text: "Release Notes: ", multi_line_end_keyword: "END"),
       notify_testers: false,
       version: options[:version],
       build_number: options[:build]

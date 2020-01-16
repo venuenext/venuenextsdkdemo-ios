@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         VenueNext.enableWallet(for: VNOrder.shared)
         
         //Enable all product types to use VC
-        VenueNext.enableVirtualCurrency(for: .none)
+        VenueNext.enableVirtualCurrency(for: ProductType.allCases)
         //Uncomment if you want to pass in a custom theme
         //VenueNext.configure(theme: <Custom Theme>)
 

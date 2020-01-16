@@ -16,6 +16,16 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
+### ios forceMatch
+```
+fastlane ios forceMatch
+```
+
+### ios enterprise
+```
+fastlane ios enterprise
+```
+Create an enterprise build of the VNSDK demo app
 ### ios demo_appcenter
 ```
 fastlane ios demo_appcenter
