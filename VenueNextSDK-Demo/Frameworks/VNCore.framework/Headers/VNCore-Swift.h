@@ -373,9 +373,10 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * 
 /// Configures the app for VenueNext frameworks. Raises an exception if the Keys.plist is not found. This method is thread safe and contains synchronous file I/O (reading Keys-Info.plist from disk). If you do not have a Keys.plist, then use <code>VenueNext.shared.initialize(sdkKey:sdkSecret:) instead.</code>
 /// This method should be called after the app is launched and before using VenueNext services such as in application(_:didFinishLaunchingWithOptions:).
 + (void)configureWithCompletion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
-/// Configures the app for VenueNext frameworks.
-/// This method should be called after the app is launched and before using VenueNext services such as in application(_:didFinishLaunchingWithOptions:).
-- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)enableVirtualCurrency:(NSArray<NSNumber *> * _Nonnull)productTypes;
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
+- (void)deinitializeWithCompletion:(void (^ _Nullable)(void))completion;
 + (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
 + (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -766,9 +767,10 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * 
 /// Configures the app for VenueNext frameworks. Raises an exception if the Keys.plist is not found. This method is thread safe and contains synchronous file I/O (reading Keys-Info.plist from disk). If you do not have a Keys.plist, then use <code>VenueNext.shared.initialize(sdkKey:sdkSecret:) instead.</code>
 /// This method should be called after the app is launched and before using VenueNext services such as in application(_:didFinishLaunchingWithOptions:).
 + (void)configureWithCompletion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
-/// Configures the app for VenueNext frameworks.
-/// This method should be called after the app is launched and before using VenueNext services such as in application(_:didFinishLaunchingWithOptions:).
-- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)enableVirtualCurrency:(NSArray<NSNumber *> * _Nonnull)productTypes;
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
+- (void)deinitializeWithCompletion:(void (^ _Nullable)(void))completion;
 + (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
 + (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;

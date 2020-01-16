@@ -791,7 +791,7 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)awakeFromNib;
-/// Calls the <code>onDimiss</code> closure.
+/// Calls the <code>onDismiss</code> closure.
 - (void)dismiss;
 @end
 
@@ -1647,7 +1647,7 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)awakeFromNib;
-/// Calls the <code>onDimiss</code> closure.
+/// Calls the <code>onDismiss</code> closure.
 - (void)dismiss;
 @end
 

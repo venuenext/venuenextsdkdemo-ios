@@ -333,8 +333,8 @@ SWIFT_CLASS("_TtC8VNCoreUI28NotificationBannerController")
 @end
 
 
-SWIFT_CLASS("_TtC8VNCoreUI26PaymentMethodTableViewCell")
-@interface PaymentMethodTableViewCell : UITableViewCell
+SWIFT_CLASS("_TtC8VNCoreUI24PaymentInfoTableViewCell")
+@interface PaymentInfoTableViewCell : UITableViewCell
 - (void)awakeFromNib;
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
@@ -974,8 +974,8 @@ SWIFT_CLASS("_TtC8VNCoreUI28NotificationBannerController")
 @end
 
 
-SWIFT_CLASS("_TtC8VNCoreUI26PaymentMethodTableViewCell")
-@interface PaymentMethodTableViewCell : UITableViewCell
+SWIFT_CLASS("_TtC8VNCoreUI24PaymentInfoTableViewCell")
+@interface PaymentInfoTableViewCell : UITableViewCell
 - (void)awakeFromNib;
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;

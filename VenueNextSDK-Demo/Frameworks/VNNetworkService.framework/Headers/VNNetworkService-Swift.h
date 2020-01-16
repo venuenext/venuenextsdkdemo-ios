@@ -199,6 +199,7 @@ SWIFT_CLASS("_TtC16VNNetworkService14NetworkMonitor")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) NetworkMonitor * _Nonnull shared;)
 + (NetworkMonitor * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 + (void)setShared:(NetworkMonitor * _Nonnull)value;
+@property (nonatomic) BOOL isMonitoring;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -427,6 +428,7 @@ SWIFT_CLASS("_TtC16VNNetworkService14NetworkMonitor")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) NetworkMonitor * _Nonnull shared;)
 + (NetworkMonitor * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 + (void)setShared:(NetworkMonitor * _Nonnull)value;
+@property (nonatomic) BOOL isMonitoring;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

@@ -13,7 +13,7 @@ class CustomWalletTheme: VNWalletBaseTheme {
     }
 
     override var secondaryAccent: UIColor {
-        return UIColor(hexString: "FF0000")
+        return UIColor(red: 121/255.0, green: 188/255.0, blue: 67/255.0, alpha: 1)
     }
 }
 
@@ -36,13 +36,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Setup PresenceSDK
         PresenceSDK.getPresenceSDK().setConfig(consumerKey: "", displayName: "Demo App", useNewAccountsManager: true)
         PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
-
+        
+        //Enable all wallet modes
+        VNWallet.enableModes(walletModes: WalletMode.allCases)
         //Configure Payment processor (place this above modules that will need it)
         VenueNext.configure(paymentProcessor: PaymentAdapter())
         //configure wallet
         VenueNext.configure(wallet: VNWallet.shared, walletDelegate: self, theme: CustomWalletTheme())
         //turn on wallet for VNOrder
         VenueNext.enableWallet(for: VNOrder.shared)
+        
+        //Enable all product types to use VC
+        VenueNext.enableVirtualCurrency(for: .none)
         //Uncomment if you want to pass in a custom theme
         //VenueNext.configure(theme: <Custom Theme>)
 
@@ -94,10 +99,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: VNWalletDelegate {
     func virtualCurrencyName() -> String {
         return "Virtual Currency"
-    }
-
-    func walletModeConfig() -> WalletModeConfig {
-        return WalletModeConfig() // modes: [.qrCode, .qrScanner, .virtualCurrencyToggle]
     }
 
     func walletUser() -> VNWalletUser? {

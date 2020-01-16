@@ -6,6 +6,10 @@ import Foundation
 import VNCore
 
 class CustomAnalytics: AnalyticsAdapter {
+    func register(userID: String?) {
+        
+    }
+    
 
     func track(event: EventTrackable) {
         track(name: event.eventName, metadata: event.metadata)

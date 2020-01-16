@@ -1,0 +1,35 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+
+default_platform(:ios)
+
+platform :ios do
+  before_all do
+    setup_circle_ci
+  end
+
+  lane :demo_appcenter do |options|
+    token = ENV["APPCENTER_API_TOKEN"],
+    ipa_path = "/Users/rashaad/Desktop/VenueNextSDK-Demo-2.2-148/VenueNextSDK-Demo-2.2-148.ipa"
+    appcenter_upload(
+      api_token: ENV["APPCENTER_API_TOKEN"],
+      owner_name: "IOS-Demo",
+      app_name: "VenueNextSDK-DemoApp",
+      ipa: ipa_path,
+      destinations: ("Internal" if ENV["DESTINATION_GROUP"].to_s.empty? || ENV["DESTINATION_GROUP"].nil?),
+      destination_type: "group",
+      release_notes: "Build for T3580, T3649, T3688, also fixes missing deep link URI. VC disabled for all product types. Camera + QR code enabled.",
+      notify_testers: false,
+      version: options[:version],
+      build_number: options[:build]
+    )
+    clean
+  end
+
+  lane :clean do
+    Dir.chdir("..") do
+      sh "rm -r ./build"
+    end
+  end
+end
+

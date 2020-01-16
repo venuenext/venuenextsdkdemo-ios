@@ -11,6 +11,6 @@
 
 @implementation ObjCConfiguration
 + (void)start {
-     [[VenueNext shared] initializeWithSdkKey:@"SDK_KEY" sdkSecret:@"SDK_SECRET" completion:nil];
+    [[VenueNext shared] initializeWithSdkKey:@"" sdkSecret:@"" jwt:@"" completion:nil];
 }
 @end

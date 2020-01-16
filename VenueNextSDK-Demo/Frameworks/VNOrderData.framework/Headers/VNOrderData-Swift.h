@@ -416,12 +416,6 @@ SWIFT_CLASS_NAMED("Item")
 
 
 
-@interface Item (SWIFT_EXTENSION(VNOrderData))
-- (void)addCartEntryObject:(CartEntry * _Nonnull)value;
-- (void)removeCartEntryObject:(CartEntry * _Nonnull)value;
-- (void)addCartEntry:(NSSet * _Nonnull)values;
-- (void)removeCartEntry:(NSSet * _Nonnull)values;
-@end
 
 @class Variant;
 
@@ -433,8 +427,28 @@ SWIFT_CLASS_NAMED("Item")
 @end
 
 
+@interface Item (SWIFT_EXTENSION(VNOrderData))
+- (void)addCartEntryObject:(CartEntry * _Nonnull)value;
+- (void)removeCartEntryObject:(CartEntry * _Nonnull)value;
+- (void)addCartEntry:(NSSet * _Nonnull)values;
+- (void)removeCartEntry:(NSSet * _Nonnull)values;
+@end
 
 
+
+
+@interface Item (SWIFT_EXTENSION(VNOrderData))
+- (void)insertObject:(Metadata * _Nonnull)value inMetadataAtIndex:(NSInteger)idx;
+- (void)removeObjectFromMetadataAtIndex:(NSInteger)idx;
+- (void)insertMetadata:(NSArray<Metadata *> * _Nonnull)values atIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)removeMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)replaceObjectInMetadataAtIndex:(NSInteger)idx withObject:(Metadata * _Nonnull)value;
+- (void)replaceMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes withMetadata:(NSArray<Metadata *> * _Nonnull)values;
+- (void)addMetadataObject:(Metadata * _Nonnull)value;
+- (void)removeMetadataObject:(Metadata * _Nonnull)value;
+- (void)addMetadata:(NSOrderedSet * _Nonnull)values;
+- (void)removeMetadata:(NSOrderedSet * _Nonnull)values;
+@end
 
 @class ModifierGroup;
 
@@ -449,20 +463,6 @@ SWIFT_CLASS_NAMED("Item")
 - (void)removeModifierGroupsObject:(ModifierGroup * _Nonnull)value;
 - (void)addModifierGroups:(NSOrderedSet * _Nonnull)values;
 - (void)removeModifierGroups:(NSOrderedSet * _Nonnull)values;
-@end
-
-
-@interface Item (SWIFT_EXTENSION(VNOrderData))
-- (void)insertObject:(Metadata * _Nonnull)value inMetadataAtIndex:(NSInteger)idx;
-- (void)removeObjectFromMetadataAtIndex:(NSInteger)idx;
-- (void)insertMetadata:(NSArray<Metadata *> * _Nonnull)values atIndexes:(NSIndexSet * _Nonnull)indexes;
-- (void)removeMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes;
-- (void)replaceObjectInMetadataAtIndex:(NSInteger)idx withObject:(Metadata * _Nonnull)value;
-- (void)replaceMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes withMetadata:(NSArray<Metadata *> * _Nonnull)values;
-- (void)addMetadataObject:(Metadata * _Nonnull)value;
-- (void)removeMetadataObject:(Metadata * _Nonnull)value;
-- (void)addMetadata:(NSOrderedSet * _Nonnull)values;
-- (void)removeMetadata:(NSOrderedSet * _Nonnull)values;
 @end
 
 @class ItemCategory;
@@ -585,14 +585,14 @@ SWIFT_CLASS_NAMED("Menu")
 @end
 
 
+
+
 @interface Menu (SWIFT_EXTENSION(VNOrderData))
 - (void)addCategoriesObject:(ItemCategory * _Nonnull)value;
 - (void)removeCategoriesObject:(ItemCategory * _Nonnull)value;
 - (void)addCategories:(NSSet * _Nonnull)values;
 - (void)removeCategories:(NSSet * _Nonnull)values;
 @end
-
-
 
 
 @interface Menu (SWIFT_EXTENSION(VNOrderData))
@@ -687,18 +687,18 @@ SWIFT_CLASS_NAMED("ModifierGroup")
 
 
 @interface ModifierGroup (SWIFT_EXTENSION(VNOrderData))
-- (void)addModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
-- (void)removeModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
-- (void)addModifierCartEntries:(NSSet * _Nonnull)values;
-- (void)removeModifierCartEntries:(NSSet * _Nonnull)values;
-@end
-
-
-@interface ModifierGroup (SWIFT_EXTENSION(VNOrderData))
 - (void)addItemsObject:(Item * _Nonnull)value;
 - (void)removeItemsObject:(Item * _Nonnull)value;
 - (void)addItems:(NSSet * _Nonnull)values;
 - (void)removeItems:(NSSet * _Nonnull)values;
+@end
+
+
+@interface ModifierGroup (SWIFT_EXTENSION(VNOrderData))
+- (void)addModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
+- (void)removeModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
+- (void)addModifierCartEntries:(NSSet * _Nonnull)values;
+- (void)removeModifierCartEntries:(NSSet * _Nonnull)values;
 @end
 
 
@@ -929,6 +929,12 @@ SWIFT_CLASS("_TtC11VNOrderData24PostExperienceItemParser")
 @end
 
 
+SWIFT_CLASS("_TtC11VNOrderData21ReloadStandsOperation")
+@interface ReloadStandsOperation : AsyncOperation
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 /// Used for the <code>line_items</code> array in the reorder response
 SWIFT_CLASS("_TtC11VNOrderData14RemoteLineItem")
 @interface RemoteLineItem : NSObject
@@ -1059,12 +1065,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNOrderData 
 @end
 
 
-
-
 @interface VNOrderData (SWIFT_EXTENSION(VNOrderData))
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull classStringName;)
 + (NSString * _Nonnull)classStringName SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
@@ -1552,12 +1558,6 @@ SWIFT_CLASS_NAMED("Item")
 
 
 
-@interface Item (SWIFT_EXTENSION(VNOrderData))
-- (void)addCartEntryObject:(CartEntry * _Nonnull)value;
-- (void)removeCartEntryObject:(CartEntry * _Nonnull)value;
-- (void)addCartEntry:(NSSet * _Nonnull)values;
-- (void)removeCartEntry:(NSSet * _Nonnull)values;
-@end
 
 @class Variant;
 
@@ -1569,8 +1569,28 @@ SWIFT_CLASS_NAMED("Item")
 @end
 
 
+@interface Item (SWIFT_EXTENSION(VNOrderData))
+- (void)addCartEntryObject:(CartEntry * _Nonnull)value;
+- (void)removeCartEntryObject:(CartEntry * _Nonnull)value;
+- (void)addCartEntry:(NSSet * _Nonnull)values;
+- (void)removeCartEntry:(NSSet * _Nonnull)values;
+@end
 
 
+
+
+@interface Item (SWIFT_EXTENSION(VNOrderData))
+- (void)insertObject:(Metadata * _Nonnull)value inMetadataAtIndex:(NSInteger)idx;
+- (void)removeObjectFromMetadataAtIndex:(NSInteger)idx;
+- (void)insertMetadata:(NSArray<Metadata *> * _Nonnull)values atIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)removeMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)replaceObjectInMetadataAtIndex:(NSInteger)idx withObject:(Metadata * _Nonnull)value;
+- (void)replaceMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes withMetadata:(NSArray<Metadata *> * _Nonnull)values;
+- (void)addMetadataObject:(Metadata * _Nonnull)value;
+- (void)removeMetadataObject:(Metadata * _Nonnull)value;
+- (void)addMetadata:(NSOrderedSet * _Nonnull)values;
+- (void)removeMetadata:(NSOrderedSet * _Nonnull)values;
+@end
 
 @class ModifierGroup;
 
@@ -1585,20 +1605,6 @@ SWIFT_CLASS_NAMED("Item")
 - (void)removeModifierGroupsObject:(ModifierGroup * _Nonnull)value;
 - (void)addModifierGroups:(NSOrderedSet * _Nonnull)values;
 - (void)removeModifierGroups:(NSOrderedSet * _Nonnull)values;
-@end
-
-
-@interface Item (SWIFT_EXTENSION(VNOrderData))
-- (void)insertObject:(Metadata * _Nonnull)value inMetadataAtIndex:(NSInteger)idx;
-- (void)removeObjectFromMetadataAtIndex:(NSInteger)idx;
-- (void)insertMetadata:(NSArray<Metadata *> * _Nonnull)values atIndexes:(NSIndexSet * _Nonnull)indexes;
-- (void)removeMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes;
-- (void)replaceObjectInMetadataAtIndex:(NSInteger)idx withObject:(Metadata * _Nonnull)value;
-- (void)replaceMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes withMetadata:(NSArray<Metadata *> * _Nonnull)values;
-- (void)addMetadataObject:(Metadata * _Nonnull)value;
-- (void)removeMetadataObject:(Metadata * _Nonnull)value;
-- (void)addMetadata:(NSOrderedSet * _Nonnull)values;
-- (void)removeMetadata:(NSOrderedSet * _Nonnull)values;
 @end
 
 @class ItemCategory;
@@ -1721,14 +1727,14 @@ SWIFT_CLASS_NAMED("Menu")
 @end
 
 
+
+
 @interface Menu (SWIFT_EXTENSION(VNOrderData))
 - (void)addCategoriesObject:(ItemCategory * _Nonnull)value;
 - (void)removeCategoriesObject:(ItemCategory * _Nonnull)value;
 - (void)addCategories:(NSSet * _Nonnull)values;
 - (void)removeCategories:(NSSet * _Nonnull)values;
 @end
-
-
 
 
 @interface Menu (SWIFT_EXTENSION(VNOrderData))
@@ -1823,18 +1829,18 @@ SWIFT_CLASS_NAMED("ModifierGroup")
 
 
 @interface ModifierGroup (SWIFT_EXTENSION(VNOrderData))
-- (void)addModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
-- (void)removeModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
-- (void)addModifierCartEntries:(NSSet * _Nonnull)values;
-- (void)removeModifierCartEntries:(NSSet * _Nonnull)values;
-@end
-
-
-@interface ModifierGroup (SWIFT_EXTENSION(VNOrderData))
 - (void)addItemsObject:(Item * _Nonnull)value;
 - (void)removeItemsObject:(Item * _Nonnull)value;
 - (void)addItems:(NSSet * _Nonnull)values;
 - (void)removeItems:(NSSet * _Nonnull)values;
+@end
+
+
+@interface ModifierGroup (SWIFT_EXTENSION(VNOrderData))
+- (void)addModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
+- (void)removeModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
+- (void)addModifierCartEntries:(NSSet * _Nonnull)values;
+- (void)removeModifierCartEntries:(NSSet * _Nonnull)values;
 @end
 
 
@@ -2065,6 +2071,12 @@ SWIFT_CLASS("_TtC11VNOrderData24PostExperienceItemParser")
 @end
 
 
+SWIFT_CLASS("_TtC11VNOrderData21ReloadStandsOperation")
+@interface ReloadStandsOperation : AsyncOperation
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 /// Used for the <code>line_items</code> array in the reorder response
 SWIFT_CLASS("_TtC11VNOrderData14RemoteLineItem")
 @interface RemoteLineItem : NSObject
@@ -2195,12 +2207,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNOrderData 
 @end
 
 
-
-
 @interface VNOrderData (SWIFT_EXTENSION(VNOrderData))
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull classStringName;)
 + (NSString * _Nonnull)classStringName SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 

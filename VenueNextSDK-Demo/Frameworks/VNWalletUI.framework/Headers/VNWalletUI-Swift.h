@@ -234,6 +234,7 @@ SWIFT_CLASS("_TtC10VNWalletUI8VNWallet")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWallet * _Nonnull shared;)
 + (VNWallet * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 @property (nonatomic, readonly, strong) id <VNWalletDelegate> _Null_unspecified delegate;
++ (void)enableModes:(NSArray<NSNumber *> * _Nonnull)walletModes;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -243,7 +244,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWallet * _
 
 @class VNWalletUser;
 @class NSError;
-@class WalletModeConfig;
 
 SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @protocol VNWalletDelegate
@@ -254,7 +254,6 @@ SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @required
 - (NSString * _Nonnull)virtualCurrencyName SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nonnull)walletVirtualCurrencyPaymentType SWIFT_WARN_UNUSED_RESULT;
-- (WalletModeConfig * _Nonnull)walletModeConfig SWIFT_WARN_UNUSED_RESULT;
 @optional
 - (NSString * _Nonnull)walletProgramName SWIFT_WARN_UNUSED_RESULT;
 @end
@@ -306,13 +305,6 @@ typedef SWIFT_ENUM(NSInteger, WalletMode, closed) {
   WalletModeQrScanner = 1,
   WalletModeVirtualCurrencyToggle = 2,
 };
-
-
-SWIFT_CLASS("_TtC10VNWalletUI16WalletModeConfig")
-@interface WalletModeConfig : NSObject
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
 
 @class NSCoder;
 @class NSBundle;
@@ -589,6 +581,7 @@ SWIFT_CLASS("_TtC10VNWalletUI8VNWallet")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWallet * _Nonnull shared;)
 + (VNWallet * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 @property (nonatomic, readonly, strong) id <VNWalletDelegate> _Null_unspecified delegate;
++ (void)enableModes:(NSArray<NSNumber *> * _Nonnull)walletModes;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -598,7 +591,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWallet * _
 
 @class VNWalletUser;
 @class NSError;
-@class WalletModeConfig;
 
 SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @protocol VNWalletDelegate
@@ -609,7 +601,6 @@ SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @required
 - (NSString * _Nonnull)virtualCurrencyName SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nonnull)walletVirtualCurrencyPaymentType SWIFT_WARN_UNUSED_RESULT;
-- (WalletModeConfig * _Nonnull)walletModeConfig SWIFT_WARN_UNUSED_RESULT;
 @optional
 - (NSString * _Nonnull)walletProgramName SWIFT_WARN_UNUSED_RESULT;
 @end
@@ -661,13 +652,6 @@ typedef SWIFT_ENUM(NSInteger, WalletMode, closed) {
   WalletModeQrScanner = 1,
   WalletModeVirtualCurrencyToggle = 2,
 };
-
-
-SWIFT_CLASS("_TtC10VNWalletUI16WalletModeConfig")
-@interface WalletModeConfig : NSObject
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
 
 @class NSCoder;
 @class NSBundle;
