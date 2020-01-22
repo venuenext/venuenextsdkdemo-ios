@@ -4,6 +4,7 @@
 
 import Foundation
 import VNCore
+import VNAnalytics
 
 class CustomAnalytics: AnalyticsAdapter {
     func register(userID: String?) {

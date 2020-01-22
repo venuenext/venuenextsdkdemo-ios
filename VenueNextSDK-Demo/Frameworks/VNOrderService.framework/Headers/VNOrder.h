@@ -1,8 +1,6 @@
 //  Copyright © 2019 VenueNext. All rights reserved.
 
 #import <UIKit/UIKit.h>
-#import <VNNetworkService/VNNetworkService.h>
-#import <VNCore/VNCore.h>
 
 //! Project version number for VNOrder.
 FOUNDATION_EXPORT double VNOrderVersionNumber;

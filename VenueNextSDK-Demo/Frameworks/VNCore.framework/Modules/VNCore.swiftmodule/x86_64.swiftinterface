@@ -1,0 +1,739 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+// swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name VNCore
+import CoreData
+import CoreLocation
+import Foundation
+import Swift
+import UIKit
+@_exported import VNCore
+import VNLegacy
+import VNNetworkService
+import os.log
+import os
+extension Collection {
+  public subscript(safe index: Self.Index) -> Self.Element? {
+    get
+  }
+}
+extension Request {
+  public var signature: Swift.String? {
+    get
+  }
+}
+public protocol VNRule : AnyObject {
+  var errorMessage: Swift.String { get set }
+  func isValid<T>(data: T) -> Swift.Bool
+}
+public class VNValidator {
+  public init()
+  @discardableResult
+  public func addRules(rules: [VNCore.VNRule]) -> VNCore.VNValidator
+  public func validate<DataType>(data: DataType) -> Swift.Bool
+  @objc deinit
+}
+public class VNEmailValidationRule : VNCore.VNRule {
+  public var errorMessage: Swift.String
+  public init(errorMessage: Swift.String)
+  public func isValid<T>(data: T) -> Swift.Bool
+  @objc deinit
+}
+public class VNMinLengthValidationRule : VNCore.VNRule {
+  public var errorMessage: Swift.String
+  public init(minLength: Swift.Int, errorMessage: Swift.String)
+  public func isValid<T>(data: T) -> Swift.Bool
+  @objc deinit
+}
+public class VNAlphaValidationRule : VNCore.VNRule {
+  public var errorMessage: Swift.String
+  public init(errorMessage: Swift.String)
+  public func isValid<T>(data: T) -> Swift.Bool
+  @objc deinit
+}
+extension Comparable {
+  public func clamped(to limits: Swift.ClosedRange<Self>) -> Self
+}
+public protocol VNModule {
+  func reset()
+  func resetIfNeeded()
+}
+@objc public class VNWalletUser : ObjectiveC.NSObject {
+  public var firstName: Swift.String
+  public var lastName: Swift.String
+  public var email: Swift.String
+  public var externalID: Swift.String
+  public var balance: Swift.Int64?
+  public var qrCode: Swift.String?
+  public var fullName: Swift.String {
+    get
+  }
+  public var balanceString: Swift.String? {
+    get
+  }
+  public var isValid: Swift.Bool {
+    get
+  }
+  @objc public init(firstName: Swift.String, lastName: Swift.String, email: Swift.String, externalID: Swift.String)
+  public static func restoreFromKeyChain() -> VNCore.VNWalletUser?
+  public func saveToKeychain()
+  @objc public static func logout()
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension VNWalletUser {
+  public static func formatBalanceInDollars(balance: Swift.Double) -> Swift.String
+}
+public typealias DefaultsCoreKeys = VNCore.VNDefaults.CoreKeys
+public typealias DefaultsWalletKeys = VNCore.VNDefaults.WalletKeys
+open class VNDefaults {
+  public enum CoreKeys {
+    public enum User : Swift.String, Swift.CaseIterable {
+      case lastRetrieved
+      case externalID
+      case email
+      case name
+      case isSeasonTicketHolder
+      case isPreferredCardHolder
+      case accountNumber
+      public typealias RawValue = Swift.String
+      public init?(rawValue: Swift.String)
+      public var rawValue: Swift.String {
+        get
+      }
+      public typealias AllCases = [VNCore.VNDefaults.CoreKeys.User]
+      public static var allCases: [VNCore.VNDefaults.CoreKeys.User] {
+        get
+      }
+    }
+    public enum General : Swift.String, Swift.CaseIterable {
+      case reinstall
+      public typealias RawValue = Swift.String
+      public init?(rawValue: Swift.String)
+      public var rawValue: Swift.String {
+        get
+      }
+      public typealias AllCases = [VNCore.VNDefaults.CoreKeys.General]
+      public static var allCases: [VNCore.VNDefaults.CoreKeys.General] {
+        get
+      }
+    }
+  }
+  public enum WalletKeys : Swift.String {
+    case walletUserCurrencyPreference
+    case walletUserHasSetPreference
+    case reinstall
+    public typealias RawValue = Swift.String
+    public init?(rawValue: Swift.String)
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  @objc deinit
+}
+extension UITableView {
+  public func registerNib<T>(_ obj: T.Type) where T : VNCore.Identifiable
+  public func dequeue<T>(_ obj: T.Type, for indexPath: Foundation.IndexPath) -> T where T : VNCore.Identifiable
+  public func dequeue<T>(_ obj: T.Type) -> T where T : VNCore.Identifiable
+  public func registerHeaderFooterNib<T>(_ obj: T.Type) where T : VNCore.Identifiable
+  public func dequeueReusableHeaderFooter<T>(_ obj: T.Type) -> T where T : VNCore.Identifiable
+}
+public struct Venue : Swift.Codable, Swift.Hashable {
+  public var uuid: Swift.String?
+  public var name: Swift.String?
+  public var displayName: Swift.String?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: VNCore.Venue, b: VNCore.Venue) -> Swift.Bool
+}
+extension Venue {
+  public init(uuid: Swift.String)
+  public init(uuid: Swift.String, name: Swift.String, displayName: Swift.String)
+}
+public protocol MenuRepresentable {
+}
+public protocol Notifiable {
+  associatedtype SocketNotificationType : VNCore.SocketNotification
+  var notifier: VNCore.NotifyService<Self.SocketNotificationType> { get set }
+}
+public class NotifyService<T> : ObjectiveC.NSObject, VNLegacy.SRWebSocket2Delegate where T : VNCore.SocketNotification {
+  public var didRecieveMessage: ((Swift.Result<T, VNNetworkService.VNAnyError>) -> Swift.Void)?
+  public func start()
+  public func stop()
+  public func resume()
+  @objc public func webSocket(_ webSocket: VNLegacy.SRWebSocket2!, didReceiveMessage message: Any!)
+  @objc public func webSocketDidOpen(_ webSocket: VNLegacy.SRWebSocket2!)
+  @objc public func webSocket(_ webSocket: VNLegacy.SRWebSocket2!, didFailWithError error: Swift.Error!)
+  @objc public func webSocket(_ webSocket: VNLegacy.SRWebSocket2!, didCloseWithCode code: Swift.Int, reason: Swift.String!, wasClean: Swift.Bool)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public class GetUserProfileParser {
+  public static func parse(data: Foundation.Data) throws
+  @objc deinit
+}
+@objc public protocol VNOrderProtocol : AnyObject {
+  @objc func enableWallet(wallet: Any)
+}
+public typealias WalletKeys = VNCore.Keychain.WalletKeys
+extension Keychain {
+  public enum WalletKeys {
+    public enum User : Swift.String, Swift.CaseIterable {
+      case userFirstName
+      case userLastName
+      case userEmail
+      case userExternalId
+      case userAccountNumber
+      public typealias RawValue = Swift.String
+      public typealias AllCases = [VNCore.Keychain.WalletKeys.User]
+      public static var allCases: [VNCore.Keychain.WalletKeys.User] {
+        get
+      }
+      public init?(rawValue: Swift.String)
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+  }
+}
+public protocol VNDeepLinkable {
+  func canHandle(url: Foundation.URL) -> Swift.Bool
+  func handle(url: Foundation.URL, presenter: UIKit.UIViewController, completion: ((Swift.Bool) -> Swift.Void)?)
+  func route<T>(for url: Foundation.URL) -> T? where T : Swift.RawRepresentable, T.RawValue == Swift.String
+}
+public protocol ItemRepresentable {
+  var identifier: Swift.String? { get set }
+  var name: Swift.String? { get set }
+  var category: Swift.String? { get set }
+  var categoryUUID: Swift.String? { get set }
+  var comboMeal: Swift.Bool { get set }
+  var defaultPriceInCents: Swift.Int64 { get set }
+  var descriptionText: Swift.String? { get set }
+  var imageURL: Foundation.URL? { get set }
+  var ingredients: Swift.String? { get set }
+  var isAlcohol: Swift.Bool { get set }
+  var isModifier: Swift.Bool { get set }
+  var marketingDescriptionText: Swift.String? { get set }
+  var orderMaxAmount: Swift.Int64 { get set }
+  var qrCode: Swift.String? { get set }
+  var menu: VNCore.MenuRepresentable? { get set }
+}
+@objc public protocol VNWalletThemable {
+  @objc var navigationBarBackground: UIKit.UIColor { get }
+  @objc var accent: UIKit.UIColor { get }
+  @objc var separator: UIKit.UIColor { get }
+  @objc var secondaryAccent: UIKit.UIColor { get }
+}
+@objc public protocol VNCoreThemable {
+  @objc var primaryLight: UIKit.UIColor { get }
+  @objc var primaryDark: UIKit.UIColor { get }
+  @objc var primaryNavigationBarBackground: UIKit.UIColor { get }
+  @objc var primaryNavigationBarTint: UIKit.UIColor { get }
+  @objc var primaryAccent: UIKit.UIColor { get }
+  @objc var primarySeparator: UIKit.UIColor { get }
+  @objc var primaryGray: UIKit.UIColor { get }
+  @objc var primaryExtraLightGray: UIKit.UIColor { get }
+  @objc var primaryLightGray: UIKit.UIColor { get }
+  @objc var primaryDarkGray: UIKit.UIColor { get }
+  @objc var primaryError: UIKit.UIColor { get }
+}
+@objc open class VNCoreBaseTheme : ObjectiveC.NSObject, VNCore.VNCoreThemable {
+  public static let shared: VNCore.VNCoreBaseTheme
+  @objc open var primaryLight: UIKit.UIColor {
+    @objc get
+  }
+  @objc open var primaryDark: UIKit.UIColor {
+    @objc get
+  }
+  @objc open var primaryExtraLightGray: UIKit.UIColor {
+    @objc get
+  }
+  @objc open var primaryLightGray: UIKit.UIColor {
+    @objc get
+  }
+  @objc open var primaryGray: UIKit.UIColor {
+    @objc get
+  }
+  @objc open var primaryDarkGray: UIKit.UIColor {
+    @objc get
+  }
+  @objc open var primaryNavigationBarTint: UIKit.UIColor {
+    @objc get
+  }
+  @objc open var primaryAccent: UIKit.UIColor {
+    @objc get
+  }
+  @objc open var primaryNavigationBarBackground: UIKit.UIColor {
+    @objc get
+  }
+  @objc open var primarySeparator: UIKit.UIColor {
+    @objc get
+  }
+  @objc open var primaryError: UIKit.UIColor {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc open class VNWalletBaseTheme : ObjectiveC.NSObject, VNCore.VNWalletThemable {
+  public static let shared: VNCore.VNWalletBaseTheme
+  @objc open var navigationBarBackground: UIKit.UIColor {
+    @objc get
+  }
+  @objc open var accent: UIKit.UIColor {
+    @objc get
+  }
+  @objc open var separator: UIKit.UIColor {
+    @objc get
+  }
+  @objc open var secondaryAccent: UIKit.UIColor {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class VNPaymentProcessor : ObjectiveC.NSObject {
+  @objc public static var shared: VNCore.PaymentProcessable?
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol PaymentProcessable {
+  @objc func processPayment(from viewController: UIKit.UIViewController?, productType: VNCore.ProductType, completion: @escaping (VNCore.PaymentMethodRepresentable?, Foundation.NSError?) -> Swift.Void)
+  @objc func postPaymentMethod(paymentMethod: VNCore.PaymentMethodRepresentable, completion: @escaping ((Foundation.NSError?) -> Swift.Void))
+  @objc func defaultPaymentMethod(completion: @escaping ((VNCore.PaymentMethodRepresentable?) -> Swift.Void))
+}
+@objc public protocol PaymentMethodRepresentable {
+  @objc var nonce: Swift.String { get set }
+  @objc var cardType: Swift.String { get set }
+  @objc var lastFour: Swift.String { get set }
+  @objc var instrument: VNCore.PaymentMethodInstrument { get set }
+  @objc var cardholderName: Swift.String? { get set }
+}
+@objc public enum PaymentMethodInstrument : Swift.Int {
+  case creditCard
+  case applePay
+  case magicMoney
+  case vnBank
+  public var stringValue: Swift.String {
+    get
+  }
+  public static func value(for paymentMethod: Swift.String) -> VNCore.PaymentMethodInstrument
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol VNWalletProtocol : AnyObject {
+  var isLoggedIn: Swift.Bool { get }
+  var currencyName: Swift.String { get }
+  func configure(walletDelegate: Any, theme: VNCore.VNWalletThemable?)
+  func enableVirtualCurrency(for productTypes: [VNCore.ProductType])
+  func isVirtualCurrencyEnabled(for productType: VNCore.ProductType?) -> Swift.Bool
+  func getBalance(completion: @escaping (Foundation.NSNumber?, Swift.Error?) -> Swift.Void)
+  func formatBalanceInDollars(balance: Swift.Double) -> Swift.String
+  func showLogin(on controller: UIKit.UINavigationController, finish: @escaping (Swift.Bool, Swift.Error?) -> Swift.Void)
+  func virtualCurrencyPaymentType() -> Swift.String
+  func isWalletEnvironmentAvailable() -> Swift.Bool
+  func logout()
+  func resetIfNeeded()
+}
+public protocol Identifiable {
+  static var classStringName: Swift.String { get }
+  static var domain: Swift.String { get }
+}
+extension NSObject : VNCore.Identifiable {
+  @objc dynamic open class var classStringName: Swift.String {
+    @objc get
+  }
+  @objc dynamic open class var domain: Swift.String {
+    @objc get
+  }
+}
+extension NSError {
+  convenience public init<Domain>(sourceClass: Domain.Type, code: Swift.Int, userInfo: [Swift.String : Any]?) where Domain : VNCore.Identifiable
+  convenience public init(source: VNCore.Identifiable, code: Swift.Int, userInfo: [Swift.String : Any]?)
+  convenience public init<Domain>(sourceClass: Domain.Type, code: Swift.Int, localizableMessage: Swift.String) where Domain : VNCore.Identifiable
+}
+extension KeychainWrapper {
+  public func string<E>(forKey key: E, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.String? where E : Swift.RawRepresentable, E.RawValue == Swift.String
+  public func integer<E>(forKey key: E, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Int? where E : Swift.RawRepresentable, E.RawValue == Swift.String
+  public func float<E>(forKey key: E, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Float? where E : Swift.RawRepresentable, E.RawValue == Swift.String
+  public func double<E>(forKey key: E, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Double? where E : Swift.RawRepresentable, E.RawValue == Swift.String
+  public func bool<E>(forKey key: E, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool? where E : Swift.RawRepresentable, E.RawValue == Swift.String
+  public func data<E>(forKey key: E, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Foundation.Data? where E : Swift.RawRepresentable, E.RawValue == Swift.String
+  @discardableResult
+  public func set<E>(_ value: Swift.String, forKey key: E, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool where E : Swift.RawRepresentable, E.RawValue == Swift.String
+  @discardableResult
+  public func set<E>(_ value: Swift.Int, forKey key: E, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool where E : Swift.RawRepresentable, E.RawValue == Swift.String
+  @discardableResult
+  public func set<E>(_ value: Swift.Double, forKey key: E, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool where E : Swift.RawRepresentable, E.RawValue == Swift.String
+  @discardableResult
+  public func set<E>(_ value: Swift.Float, forKey key: E, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool where E : Swift.RawRepresentable, E.RawValue == Swift.String
+  @discardableResult
+  public func set<E>(_ value: Swift.Bool, forKey key: E, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool where E : Swift.RawRepresentable, E.RawValue == Swift.String
+  @discardableResult
+  public func set<E>(_ value: Foundation.Data, forKey key: E, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool where E : Swift.RawRepresentable, E.RawValue == Swift.String
+  @discardableResult
+  public func removeObject<E>(forKey key: E, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool where E : Swift.RawRepresentable, E.RawValue == Swift.String
+}
+public enum UserLoginParamType {
+  case externalID(Swift.String)
+  case jwt(Swift.String)
+  case none
+}
+final public class User {
+  public static let shared: VNCore.User
+  final public var userDevice: VNCore.Device?
+  final public var isLoggedIn: Swift.Bool {
+    get
+  }
+  final public var identifier: Swift.String? {
+    get
+  }
+  final public var userID: Swift.String? {
+    get
+  }
+  final public var externalID: Swift.String? {
+    get
+  }
+  final public var email: Swift.String? {
+    get
+  }
+  final public var name: Swift.String? {
+    get
+  }
+  final public var lastRetrieved: Swift.String? {
+    get
+  }
+  final public var isSeasonTicketHolder: Swift.Bool {
+    get
+  }
+  final public var isPreferredCardHolder: Swift.Bool {
+    get
+  }
+  final public var accountNumber: Swift.String? {
+    get
+  }
+  final public func login(paramType: VNCore.UserLoginParamType = .none, completion: @escaping (Swift.Bool, Swift.Error?) -> Swift.Void)
+  final public func logout()
+  final public func clearCredentials()
+  public static func retrieveTicketingAccount(token: Swift.String? = nil)
+  @objc deinit
+}
+public protocol StandRepresentable {
+  var identifier: Swift.String? { get set }
+  var name: Swift.String? { get set }
+  var productType: Swift.String? { get set }
+  var alcoholLimitMessage: Swift.String? { get set }
+  var imageURL: Foundation.URL? { get set }
+  var menus: Foundation.NSSet? { get set }
+}
+public struct AccountRepresentable : Swift.Decodable {
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct ProviderID : Swift.Decodable {
+  public init(from decoder: Swift.Decoder) throws
+}
+@objc public enum ProductType : Swift.Int, Swift.CaseIterable {
+  case food
+  case experience
+  case merchandise
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+  public typealias AllCases = [VNCore.ProductType]
+  public static var allCases: [VNCore.ProductType] {
+    get
+  }
+}
+extension ProductType {
+  public var stringValue: Swift.String {
+    get
+  }
+  public static func type(for string: Swift.String?) -> VNCore.ProductType?
+}
+@objc final public class Environment : ObjectiveC.NSObject {
+  @objc public static var shared: VNCore.Environment
+  @objc final public var organizationName: Swift.String? {
+    get
+    }
+  @objc final public var currentVenueUUID: Swift.String? {
+    get
+    }
+  @objc final public var venueHost: Swift.String? {
+    get
+    }
+  @objc final public var userHost: Swift.String? {
+    get
+    }
+  @objc final public var stadiumHost: Swift.String? {
+    get
+    }
+  @objc final public var stubsHost: Swift.String? {
+    get
+    }
+  @objc final public var paymentHost: Swift.String? {
+    get
+    }
+  @objc final public var notifyHost: Swift.String? {
+    get
+    }
+  @objc final public var loyaltyHost: Swift.String? {
+    get
+    }
+  final public var authProvider: VNNetworkService.Oauth.Credentials? {
+    get
+    }
+  final public func generateUserAgent() -> Swift.String
+  @objc override dynamic public init()
+  @objc deinit
+}
+public typealias VN = VNCore.VenueNext
+@objc final public class VenueNext : ObjectiveC.NSObject {
+  @objc public static let shared: VNCore.VenueNext
+  final public var currentVenueUUID: Swift.String?
+  final public var wallet: VNCore.VNWalletProtocol? {
+    get
+    }
+  final public var order: VNCore.VNOrderProtocol? {
+    get
+    }
+  public static var theme: VNCore.VNCoreThemable {
+    get
+    }
+  public static var paymentProcessor: VNCore.PaymentProcessable? {
+    get
+    }
+  @objc public static func configure(completion: ((Swift.Bool, Swift.Error?) -> Swift.Void)? = nil)
+  @objc public static func configure(paymentProcessor: VNCore.PaymentProcessable)
+  @objc public static func enableWallet(for order: VNCore.VNOrderProtocol)
+  public static func enableVirtualCurrency(for productTypes: [VNCore.ProductType]?)
+  @objc(enableVirtualCurrency:) public static func objc_enableVirtualCurrency(for productTypes: Swift.Array<Swift.Int>)
+  public static func configure(wallet: VNCore.VNWalletProtocol, walletDelegate: Any, theme: VNCore.VNWalletThemable?)
+  @objc public static func configure(theme: VNCore.VNCoreThemable)
+  @objc final public func initialize(sdkKey: Swift.String, sdkSecret: Swift.String, jwt value: Swift.String, completion: ((Swift.Bool, Swift.Error?) -> Swift.Void)? = nil)
+  @objc final public func initialize(sdkKey: Swift.String, sdkSecret: Swift.String, externalID: Swift.String? = nil, completion: ((Swift.Bool, Swift.Error?) -> Swift.Void)? = nil)
+  @objc final public func deinitialize(completion: (() -> Swift.Void)? = nil)
+  @objc public static func canHandle(url: Foundation.URL) -> Swift.Bool
+  @objc public static func handle(url: Foundation.URL, presenter: UIKit.UIViewController, completion: ((Swift.Bool) -> Swift.Void)?)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension VenueNext {
+  final public func registerTicketingAccount(email: Swift.String, externalId: Swift.String, flow: Swift.String = "sdk", token: Swift.String? = nil, completion: @escaping (VNCore.AccountRepresentable?, Swift.Error?) -> Swift.Void)
+  final public func logoutTicketingAccount()
+  final public func getTicketingAccount(token: Swift.String? = nil)
+}
+extension VenueNext : VNCore.VNDeepLinkable {
+  final public func route<T>(for url: Foundation.URL) -> T? where T : Swift.RawRepresentable, T.RawValue == Swift.String
+  @objc final public func canHandle(url: Foundation.URL) -> Swift.Bool
+  @objc final public func handle(url: Foundation.URL, presenter: UIKit.UIViewController, completion: ((Swift.Bool) -> Swift.Void)?)
+}
+extension VenueNext : VNCore.VNModule {
+  final public func resetIfNeeded()
+  final public func reset()
+}
+public class GetStubsLoginParser {
+  public static func parse(data: Foundation.Data) throws -> VNCore.AccountRepresentable?
+  @objc deinit
+}
+public struct Device : Swift.Codable {
+  public var guid: Swift.String?
+  public var token: Swift.String?
+  public enum CodingKeys : Swift.String, Swift.CodingKey {
+    case guid
+    case token
+    public var stringValue: Swift.String {
+      get
+    }
+    public init?(stringValue: Swift.String)
+    public var intValue: Swift.Int? {
+      get
+    }
+    public init?(intValue: Swift.Int)
+    public typealias RawValue = Swift.String
+    public init?(rawValue: Swift.String)
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public typealias CoreKeys = VNCore.Keychain.CoreKeys
+open class Keychain {
+  public enum CoreKeys : Swift.String {
+    case userID
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.String)
+  }
+  @objc deinit
+}
+open class KeychainWrapper {
+  public static let standard: VNCore.KeychainWrapper
+  public var serviceName: Swift.String {
+    get
+    }
+  public var accessGroup: Swift.String? {
+    get
+    }
+  public init(serviceName: Swift.String, accessGroup: Swift.String? = nil)
+  open func hasValue(forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool
+  open func accessibilityOfKey(_ key: Swift.String) -> VNCore.KeychainItemAccessibility?
+  open func allKeys() -> Swift.Set<Swift.String>
+  open func integer(forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Int?
+  open func float(forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Float?
+  open func double(forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Double?
+  open func bool(forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool?
+  open func string(forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.String?
+  open func object(forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Foundation.NSCoding?
+  open func data(forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Foundation.Data?
+  open func dataRef(forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Foundation.Data?
+  @discardableResult
+  open func set(_ value: Swift.Int, forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool
+  @discardableResult
+  open func set(_ value: Swift.Float, forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool
+  @discardableResult
+  open func set(_ value: Swift.Double, forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool
+  @discardableResult
+  open func set(_ value: Swift.Bool, forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool
+  @discardableResult
+  open func set(_ value: Swift.String, forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool
+  @discardableResult
+  open func set(_ value: Foundation.NSCoding, forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool
+  @discardableResult
+  open func set(_ value: Foundation.Data, forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool
+  @discardableResult
+  open func removeObject(forKey key: Swift.String, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.Bool
+  @discardableResult
+  open func removeAllKeys() -> Swift.Bool
+  open class func wipeKeychain()
+  @objc deinit
+}
+public protocol VNLocationManagerDelegate {
+  func didUpdateLocation(location: CoreLocation.CLLocation)
+  func didRequestLocationPermission(for authorizationStatus: CoreLocation.CLAuthorizationStatus)
+  func didFailWithError(error: Swift.Error)
+}
+@objc public class VNLocationManager : ObjectiveC.NSObject {
+  public init(delegate: VNCore.VNLocationManagerDelegate, accuracy: CoreLocation.CLLocationAccuracy = kCLLocationAccuracyBest, desiredAuthorization: CoreLocation.CLAuthorizationStatus = .authorizedWhenInUse)
+  public var authorizationStatus: CoreLocation.CLAuthorizationStatus {
+    get
+  }
+  public func requestAuthorization()
+  public func startUpdatingLocation()
+  public func stopUpdatingLocation()
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension VNLocationManager : CoreLocation.CLLocationManagerDelegate {
+  @objc dynamic public func locationManager(_ manager: CoreLocation.CLLocationManager, didUpdateLocations locations: [CoreLocation.CLLocation])
+  @objc dynamic public func locationManager(_ manager: CoreLocation.CLLocationManager, didChangeAuthorization status: CoreLocation.CLAuthorizationStatus)
+  @objc dynamic public func locationManager(_ manager: CoreLocation.CLLocationManager, didFailWithError error: Swift.Error)
+}
+open class DeepLinkRoute {
+  @objc deinit
+}
+public protocol SocketNotification {
+  static func parse(json: [Swift.String : Any]) -> Self?
+}
+extension Bundle {
+  public var displayName: Swift.String {
+    get
+  }
+  public var versionNumber: Swift.String {
+    get
+  }
+}
+extension Bundle {
+  public static var relevantBundles: [Foundation.Bundle] {
+    get
+  }
+  public static func keysPlistPath(in bundles: [Foundation.Bundle]) -> Swift.String?
+}
+public protocol Validatable {
+  var isValid: () -> Swift.Bool { get set }
+}
+public struct Organization {
+  public var name: Swift.String
+  public var currentVenueUUID: Swift.String?
+}
+public class VNAlertAction {
+  public var handler: ((VNCore.VNAlertAction) -> Swift.Void)? {
+    get
+    }
+  public var title: Swift.String {
+    get
+    }
+  public init(title: Swift.String, handler: ((VNCore.VNAlertAction) -> Swift.Void)? = nil)
+  @objc deinit
+}
+extension UIColor {
+  public func image(_ size: CoreGraphics.CGSize = CGSize(width: 1, height: 1)) -> UIKit.UIImage
+}
+extension UIColor {
+  public func toColor(_ color: UIKit.UIColor, percentage: CoreGraphics.CGFloat) -> UIKit.UIColor
+}
+public protocol PickerRowTitleRepresentable {
+  var title: Swift.String { get }
+}
+extension UICollectionView {
+  public func registerNib<T>(_ obj: T.Type) where T : VNCore.Identifiable
+  public func dequeue<T>(_ obj: T.Type, for indexPath: Foundation.IndexPath) -> T where T : VNCore.Identifiable
+}
+public enum KeychainItemAccessibility {
+  @available(iOS 4, *)
+  case afterFirstUnlock
+  @available(iOS 4, *)
+  case afterFirstUnlockThisDeviceOnly
+  @available(iOS 4, *)
+  case always
+  @available(iOS 8, *)
+  case whenPasscodeSetThisDeviceOnly
+  @available(iOS 4, *)
+  case alwaysThisDeviceOnly
+  @available(iOS 4, *)
+  case whenUnlocked
+  @available(iOS 4, *)
+  case whenUnlockedThisDeviceOnly
+  public static func == (a: VNCore.KeychainItemAccessibility, b: VNCore.KeychainItemAccessibility) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+extension VNCore.VNDefaults.CoreKeys.User : Swift.Equatable {}
+extension VNCore.VNDefaults.CoreKeys.User : Swift.Hashable {}
+extension VNCore.VNDefaults.CoreKeys.User : Swift.RawRepresentable {}
+extension VNCore.VNDefaults.CoreKeys.General : Swift.Equatable {}
+extension VNCore.VNDefaults.CoreKeys.General : Swift.Hashable {}
+extension VNCore.VNDefaults.CoreKeys.General : Swift.RawRepresentable {}
+extension VNCore.VNDefaults.WalletKeys : Swift.Equatable {}
+extension VNCore.VNDefaults.WalletKeys : Swift.Hashable {}
+extension VNCore.VNDefaults.WalletKeys : Swift.RawRepresentable {}
+extension VNCore.Keychain.WalletKeys.User : Swift.Equatable {}
+extension VNCore.Keychain.WalletKeys.User : Swift.Hashable {}
+extension VNCore.Keychain.WalletKeys.User : Swift.RawRepresentable {}
+extension VNCore.PaymentMethodInstrument : Swift.Equatable {}
+extension VNCore.PaymentMethodInstrument : Swift.Hashable {}
+extension VNCore.PaymentMethodInstrument : Swift.RawRepresentable {}
+extension VNCore.ProductType : Swift.Equatable {}
+extension VNCore.ProductType : Swift.Hashable {}
+extension VNCore.ProductType : Swift.RawRepresentable {}
+extension VNCore.Device.CodingKeys : Swift.Equatable {}
+extension VNCore.Device.CodingKeys : Swift.Hashable {}
+extension VNCore.Device.CodingKeys : Swift.RawRepresentable {}
+extension VNCore.Keychain.CoreKeys : Swift.Equatable {}
+extension VNCore.Keychain.CoreKeys : Swift.Hashable {}
+extension VNCore.Keychain.CoreKeys : Swift.RawRepresentable {}
+extension VNCore.KeychainItemAccessibility : Swift.Equatable {}
+extension VNCore.KeychainItemAccessibility : Swift.Hashable {}

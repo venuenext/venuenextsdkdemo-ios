@@ -3,8 +3,6 @@
 #import <UIKit/UIKit.h>
 #import "UIImage+WebP.h"
 #import "VNQRCode.h"
-#import <VNNetworkService/VNNetworkService.h>
-#import <VNCore/VNCore.h>
 
 //! Project version number for VNCoreUI.
 FOUNDATION_EXPORT double VNCoreUIVersionNumber;

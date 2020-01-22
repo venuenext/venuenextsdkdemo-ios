@@ -1,0 +1,699 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name VNCoreUI
+import Foundation
+import Swift
+import UIKit
+import VNCore
+@_exported import VNCoreUI
+import VNNetworkService
+@objc public class VNSegmentedControl : UIKit.UISegmentedControl {
+  @objc override dynamic public init(items: [Any]?)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc public class TextViewTableViewCell : UIKit.UITableViewCell {
+  public var didUpdateText: ((Swift.String) -> Swift.Void)?
+  @objc override dynamic public func awakeFromNib()
+  public func configure(placeHolderText: Swift.String)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension TextViewTableViewCell : UIKit.UITextViewDelegate {
+  @objc dynamic public func textViewDidBeginEditing(_ textView: UIKit.UITextView)
+  @objc dynamic public func textViewDidEndEditing(_ textView: UIKit.UITextView)
+}
+public enum ImageCacheMode : Swift.Int {
+  case downloadAndCache
+  case cacheOnly
+  case downloadOnly
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public class ImageCache {
+  public static func imageFrom(url: Foundation.URL?, defaultImage: UIKit.UIImage? = nil, cacheMode: VNCoreUI.ImageCacheMode = .downloadAndCache, completion: @escaping (UIKit.UIImage?, Foundation.URL) -> Swift.Void) throws
+  public static func clearCache()
+  public static func retrieveImage(for key: Swift.String) -> UIKit.UIImage?
+  @objc deinit
+}
+extension UIImageView {
+  public func imageFrom(url: Foundation.URL?, defaultImage: UIKit.UIImage? = nil, cacheMode: VNCoreUI.ImageCacheMode = .downloadAndCache)
+}
+@objc public protocol PrimaryActionTableViewCellDelegate : AnyObject {
+  @objc optional func actionButtonTitle() -> Swift.String
+  @objc optional func didPressAction()
+}
+@objc public class PrimaryActionTableViewCell : UIKit.UITableViewCell, VNCoreUI.CellIdentifiable, VNCoreUI.Registerable {
+  public var onActionCallBack: ((VNCoreUI.PrimaryActionTableViewCell) -> Swift.Void)?
+  @objc @IBOutlet weak public var actionButton: VNCoreUI.RoundedGradientButton!
+  @objc override dynamic public func awakeFromNib()
+  public func configure(title: Swift.String, cornerRadius: CoreGraphics.CGFloat? = nil)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension UIApplication {
+  public var visibleViewController: UIKit.UIViewController? {
+    get
+  }
+}
+extension UIImage {
+  convenience public init<E, T>(icon: E, _ bundle: T.Type) where E : Swift.RawRepresentable, E.RawValue == Swift.String
+}
+@objc final public class InteractiveSegmentedControl : UIKit.UIControl {
+  public enum Style {
+    case pill
+    case flat
+    public static func == (a: VNCoreUI.InteractiveSegmentedControl.Style, b: VNCoreUI.InteractiveSegmentedControl.Style) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  final public var didSelectSegment: (Swift.Int) -> Swift.Void
+  final public var selectedIndex: Swift.Int
+  final public var style: VNCoreUI.InteractiveSegmentedControl.Style {
+    get
+    }
+  final public var numberOfSegments: Swift.Int {
+    get
+  }
+  final public var segments: [Swift.String] {
+    get
+    }
+  public init(style: VNCoreUI.InteractiveSegmentedControl.Style, frame: CoreGraphics.CGRect = .zero)
+  @objc override final public func layoutSubviews()
+  final public func add(_ title: Swift.String)
+  final public func removeSegments()
+  final public func selectSegment(_ index: Swift.Int, animated: Swift.Bool = true)
+  @objc override final public func touchesBegan(_ touches: Swift.Set<UIKit.UITouch>, with event: UIKit.UIEvent?)
+  @objc override final public func touchesMoved(_ touches: Swift.Set<UIKit.UITouch>, with event: UIKit.UIEvent?)
+  @objc override final public func touchesEnded(_ touches: Swift.Set<UIKit.UITouch>, with event: UIKit.UIEvent?)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+@objc public class DetailDisclosureController : UIKit.UIViewController {
+  public init(title: Swift.String, description: Swift.String? = nil, icon: UIKit.UIImage? = nil)
+  public func addAction(action: VNCore.VNAlertAction)
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc deinit
+}
+@objc public class SegmentedControlTableViewCell : UIKit.UITableViewCell {
+  public var didSelect: ((Swift.Int) -> Swift.Void)?
+  @objc override dynamic public func awakeFromNib()
+  public func configure(items: [Swift.String], defaultIndex: Swift.Int, tintColor: UIKit.UIColor)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc public class PaymentInfoTableViewCell : UIKit.UITableViewCell {
+  @objc override dynamic public func awakeFromNib()
+  public func configure(title: Swift.String, textColor: UIKit.UIColor)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public protocol CustomNavigable : AnyObject {
+  var navigationController: UIKit.UINavigationController! { get set }
+}
+extension UICollectionView {
+  public func configureForPeekingDelegate(scrollDirection: UIKit.UICollectionView.ScrollDirection = .horizontal)
+}
+@objc public class BorderedLabel : UIKit.UILabel {
+  public var topInset: CoreGraphics.CGFloat
+  public var bottomInset: CoreGraphics.CGFloat
+  public var leftInset: CoreGraphics.CGFloat
+  public var rightInset: CoreGraphics.CGFloat
+  public var borderColor: UIKit.UIColor {
+    get
+    set
+  }
+  public var borderWidth: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  public var cornerRadius: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  @objc override dynamic public func drawText(in rect: CoreGraphics.CGRect)
+  @objc override dynamic public var intrinsicContentSize: CoreGraphics.CGSize {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public class RoundedGradientButton : UIKit.UIButton {
+  @objc override dynamic public func awakeFromNib()
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+extension RoundedGradientButton {
+  public func configure(selectedButtonColor: UIKit.UIColor, deselectedButtonColor: UIKit.UIColor? = nil)
+  public func setBackgroundColor(_ color: UIKit.UIColor, for state: UIKit.UIControl.State)
+}
+public protocol HeightRecommendable {
+  var recommendedHeight: CoreGraphics.CGFloat { get }
+  var recommendedHeightChanged: (CoreGraphics.CGFloat) -> Swift.Void { get set }
+}
+extension HeightRecommendable {
+  public var recommendedHeightChanged: (CoreGraphics.CGFloat) -> Swift.Void {
+    get
+  }
+}
+public protocol CellIdentifiable {
+  static var identifier: Swift.String { get }
+}
+@objc public protocol HeaderTextTableViewCellDelegate : AnyObject {
+  @objc optional func title(for cell: VNCoreUI.HeaderTextTableViewCell) -> Swift.String
+}
+@objc public class HeaderTextTableViewCell : UIKit.UITableViewCell {
+  public var didPressAction: (() -> Swift.Void)?
+  public func configure(title: Swift.String)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc public protocol UITabBarAppearance {
+  @objc var preferredTabBarTintColor: UIKit.UIColor { get }
+  @objc var preferredTintColor: UIKit.UIColor { get }
+  @objc var preferredUnSelectedTintColor: UIKit.UIColor { get }
+  @objc func setTabBarAppearance()
+}
+extension UICollectionView.ScrollDirection {
+  public func length(for view: UIKit.UIView) -> CoreGraphics.CGFloat
+  public func value(for point: CoreGraphics.CGPoint) -> CoreGraphics.CGFloat
+  public func value(for size: CoreGraphics.CGSize) -> CoreGraphics.CGFloat
+  public func point(for value: CoreGraphics.CGFloat, defaultPoint: CoreGraphics.CGPoint) -> CoreGraphics.CGPoint
+  public func size(for value: CoreGraphics.CGFloat, defaultSize: CoreGraphics.CGSize) -> CoreGraphics.CGSize
+  public func edgeInsets(for value: CoreGraphics.CGFloat) -> UIKit.UIEdgeInsets
+}
+@objc public protocol PeekImplementationDelegate : AnyObject {
+  @objc optional func peekImplementation(_ peekImplementation: VNCoreUI.PeekCollectionViewDelegateImplementation, didChangeActiveIndexTo activeIndex: Swift.Int)
+  @objc optional func peekImplementation(_ peekImplementation: VNCoreUI.PeekCollectionViewDelegateImplementation, didSelectItemAt indexPath: Foundation.IndexPath)
+}
+@objc open class PeekCollectionViewDelegateImplementation : ObjectiveC.NSObject {
+  final public let cellPeekWidth: CoreGraphics.CGFloat
+  final public let cellSpacing: CoreGraphics.CGFloat
+  final public let scrollThreshold: CoreGraphics.CGFloat
+  final public let minimumItemsToScroll: Swift.Int
+  final public let maximumItemsToScroll: Swift.Int
+  final public let numberOfItemsToShow: Swift.Int
+  final public let scrollDirection: UIKit.UICollectionView.ScrollDirection
+  weak public var delegate: VNCoreUI.PeekImplementationDelegate?
+  public init(cellSpacing: CoreGraphics.CGFloat = 20, cellPeekWidth: CoreGraphics.CGFloat = 20, scrollThreshold: CoreGraphics.CGFloat = 50, minimumItemsToScroll: Swift.Int = 1, maximumItemsToScroll: Swift.Int = 1, numberOfItemsToShow: Swift.Int = 1, scrollDirection: UIKit.UICollectionView.ScrollDirection = .horizontal)
+  open func scrollView(_ scrollView: UIKit.UIScrollView, indexForItemAtContentOffset contentOffset: CoreGraphics.CGPoint) -> Swift.Int
+  open func scrollView(_ scrollView: UIKit.UIScrollView, contentOffsetForItemAtIndex index: Swift.Int) -> CoreGraphics.CGFloat
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension PeekCollectionViewDelegateImplementation : UIKit.UICollectionViewDelegateFlowLayout {
+  @objc dynamic public func scrollViewWillEndDragging(_ scrollView: UIKit.UIScrollView, withVelocity velocity: CoreGraphics.CGPoint, targetContentOffset: Swift.UnsafeMutablePointer<CoreGraphics.CGPoint>)
+  @objc dynamic public func scrollViewWillBeginDragging(_ scrollView: UIKit.UIScrollView)
+  @objc dynamic open func collectionView(_ collectionView: UIKit.UICollectionView, layout collectionViewLayout: UIKit.UICollectionViewLayout, sizeForItemAt indexPath: Foundation.IndexPath) -> CoreGraphics.CGSize
+  @objc dynamic open func collectionView(_ collectionView: UIKit.UICollectionView, layout collectionViewLayout: UIKit.UICollectionViewLayout, insetForSectionAt section: Swift.Int) -> UIKit.UIEdgeInsets
+  @objc dynamic open func collectionView(_ collectionView: UIKit.UICollectionView, layout collectionViewLayout: UIKit.UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Swift.Int) -> CoreGraphics.CGFloat
+  @objc dynamic open func collectionView(_ collectionView: UIKit.UICollectionView, layout collectionViewLayout: UIKit.UICollectionViewLayout, minimumLineSpacingForSectionAt section: Swift.Int) -> CoreGraphics.CGFloat
+  @objc dynamic public func collectionView(_ collectionView: UIKit.UICollectionView, didSelectItemAt indexPath: Foundation.IndexPath)
+}
+extension String {
+  public func localized(bundle: Foundation.Bundle = .main, tableName: Swift.String = "Localizable") -> Swift.String
+}
+@objc final public class InteractiveModalTransitioningDelegate : ObjectiveC.NSObject, UIKit.UIViewControllerTransitioningDelegate {
+  final public var interactiveDismiss: Swift.Bool
+  final public var adjustForKeyboard: Swift.Bool
+  public init(from presented: UIKit.UIViewController, to presenting: UIKit.UIViewController)
+  @objc final public func animationController(forDismissed dismissed: UIKit.UIViewController) -> UIKit.UIViewControllerAnimatedTransitioning?
+  @objc final public func presentationController(forPresented presented: UIKit.UIViewController, presenting: UIKit.UIViewController?, source: UIKit.UIViewController) -> UIKit.UIPresentationController?
+  @objc final public func interactionControllerForDismissal(using animator: UIKit.UIViewControllerAnimatedTransitioning) -> UIKit.UIViewControllerInteractiveTransitioning?
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension UITabBarAppearance {
+  public var preferredTabBarTintColor: UIKit.UIColor {
+    get
+  }
+  public var preferredTintColor: UIKit.UIColor {
+    get
+  }
+  public var preferredUnSelectedTintColor: UIKit.UIColor {
+    get
+  }
+  public func setTabBarAppearance(tabBar: UIKit.UITabBar)
+}
+@objc open class NotificationBannerController : UIKit.UIViewController, VNCoreUI.HeightRecommendable {
+  public var recommendedHeight: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  public var recommendedHeightChanged: (CoreGraphics.CGFloat) -> Swift.Void
+  public init(title: Swift.String, rightAccessoryView: UIKit.UIView? = nil)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic open func viewDidLoad()
+  public static func show(message: Swift.String, in viewController: UIKit.UIViewController?)
+  public func setBackgroundColor(_ color: UIKit.UIColor)
+  public func setFontColor(_ color: UIKit.UIColor)
+  public static func hide()
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc deinit
+}
+extension UINavigationController {
+  public func subscribeToNetworkConnectionObserver()
+}
+@objc public class CartButton : VNCoreUI.RoundedGradientButton {
+  public var detailFont: UIKit.UIFont
+  public var countLabel: UIKit.UILabel {
+    get
+    set
+  }
+  public var totalLabel: UIKit.UILabel {
+    get
+    set
+  }
+  @objc override dynamic public var isEnabled: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public func awakeFromNib()
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+@objc public protocol SinglePickerSelectorTableViewCellDelegate : AnyObject {
+  @objc optional func pickerViewRows() -> [Swift.String]
+  @objc optional func pickerViewDidSelectRow(picker: UIKit.UIPickerView, row: Swift.Int, component: Swift.Int)
+}
+@objc public class SinglePickerSelectorTableViewCell : UIKit.UITableViewCell {
+  @objc @IBOutlet weak public var picker: UIKit.UIPickerView! {
+    get
+    }
+  public var didSelectRow: ((UIKit.UIPickerView, Swift.Int, Swift.Int) -> Swift.Void)?
+  @objc override dynamic public func awakeFromNib()
+  public func configure(rows: [Swift.String], height: CoreGraphics.CGFloat)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension SinglePickerSelectorTableViewCell : UIKit.UIPickerViewDataSource {
+  @objc dynamic public func numberOfComponents(in pickerView: UIKit.UIPickerView) -> Swift.Int
+  @objc dynamic public func pickerView(_ pickerView: UIKit.UIPickerView, numberOfRowsInComponent component: Swift.Int) -> Swift.Int
+}
+extension SinglePickerSelectorTableViewCell : UIKit.UIPickerViewDelegate {
+  @objc dynamic public func pickerView(_ pickerView: UIKit.UIPickerView, attributedTitleForRow row: Swift.Int, forComponent component: Swift.Int) -> Foundation.NSAttributedString?
+  @objc dynamic public func pickerView(_ pickerView: UIKit.UIPickerView, didSelectRow row: Swift.Int, inComponent component: Swift.Int)
+}
+@objc public class RoundedTextField : UIKit.UITextField {
+  public var leftInset: CoreGraphics.CGFloat
+  public var rightInset: CoreGraphics.CGFloat
+  public var shouldUpdateBorderColorWhenFirstResponder: Swift.Bool
+  public var firstResponderBorderColor: UIKit.UIColor
+  public var nonFirstResponderborderColor: UIKit.UIColor
+  public var borderColor: UIKit.UIColor {
+    get
+    set
+  }
+  public var borderWidth: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  public var cornerRadius: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @discardableResult
+  @objc override dynamic public func becomeFirstResponder() -> Swift.Bool
+  @discardableResult
+  @objc override dynamic public func resignFirstResponder() -> Swift.Bool
+  @objc override dynamic public func textRect(forBounds bounds: CoreGraphics.CGRect) -> CoreGraphics.CGRect
+  @objc override dynamic public func editingRect(forBounds bounds: CoreGraphics.CGRect) -> CoreGraphics.CGRect
+  @objc override dynamic public func rightViewRect(forBounds bounds: CoreGraphics.CGRect) -> CoreGraphics.CGRect
+  @objc deinit
+}
+@objc public protocol RoundedTextFieldViewDelegate : AnyObject {
+  @objc optional func didTapView(view: UIKit.UIView)
+  @objc optional func didFinishEditing(text: Swift.String, textField: UIKit.UITextField)
+  @objc optional func didChangeText(text: Swift.String, textField: UIKit.UITextField)
+}
+@objc public class RoundedTextFieldView : UIKit.UIView {
+  weak public var delegate: VNCoreUI.RoundedTextFieldViewDelegate?
+  @objc override dynamic public var tag: Swift.Int {
+    @objc get
+    @objc set
+  }
+  public static let recommendedHeight: CoreGraphics.CGFloat
+  public var inputFieldDidReturn: (Swift.String) -> Swift.Void
+  public var shouldShowSuccessCheckmarkForEmailField: Swift.Bool {
+    get
+    set
+  }
+  @objc @IBOutlet weak public var textLabel: UIKit.UILabel!
+  @objc @IBOutlet weak public var textField: VNCoreUI.RoundedTextField!
+  @objc @IBOutlet weak public var errorLabel: UIKit.UILabel!
+  @objc @IBOutlet weak public var topConstraint: UIKit.NSLayoutConstraint!
+  @objc @IBOutlet weak public var centerConstraint: UIKit.NSLayoutConstraint!
+  public var isEnabled: Swift.Bool {
+    get
+    set
+  }
+  public var isHighlighted: Swift.Bool {
+    get
+    set
+  }
+  public var placeHolder: Swift.String? {
+    get
+    set
+  }
+  public var text: Swift.String {
+    get
+    set
+  }
+  public var labelText: Swift.String {
+    get
+    set
+  }
+  public var error: Swift.String {
+    get
+    set
+  }
+  @objc override dynamic public func awakeFromNib()
+  @objc public func didTapTextField(sender: UIKit.UIView)
+  public func reset()
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension RoundedTextFieldView : UIKit.UITextFieldDelegate {
+  @objc dynamic public func textFieldDidBeginEditing(_ textField: UIKit.UITextField)
+  @objc dynamic public func textFieldDidEndEditing(_ textField: UIKit.UITextField, reason: UIKit.UITextField.DidEndEditingReason)
+  @objc dynamic public func textFieldShouldReturn(_ textField: UIKit.UITextField) -> Swift.Bool
+}
+@objc final public class DetailDisclosureView : UIKit.UIView {
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc public class RoundedTextView : UIKit.UITextView {
+  public var shouldUpdateBorderColorWhenFirstResponder: Swift.Bool
+  public var firstResponderBorderColor: UIKit.UIColor
+  public var nonFirstResponderborderColor: UIKit.UIColor
+  public var borderColor: UIKit.UIColor {
+    get
+    set
+  }
+  public var borderWidth: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  public var cornerRadius: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect, textContainer: UIKit.NSTextContainer?)
+  @discardableResult
+  @objc override dynamic public func becomeFirstResponder() -> Swift.Bool
+  @discardableResult
+  @objc override dynamic public func resignFirstResponder() -> Swift.Bool
+  @objc deinit
+}
+public protocol ShimmerContainer {
+  func animate()
+}
+extension ShimmerContainer where Self : UIKit.UIView {
+  public func animate()
+}
+@objc final public class EmptySetViewController : UIKit.UIViewController {
+  @objc @IBOutlet weak final public var imageView: UIKit.UIImageView!
+  @objc @IBOutlet weak final public var label: UIKit.UILabel!
+  public init(image: UIKit.UIImage, text: Swift.String = "")
+  @objc override final public func viewDidLoad()
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc deinit
+}
+public protocol Coordinator : AnyObject {
+  var childCoordinators: [VNCoreUI.Coordinator] { get set }
+  func start()
+}
+extension Coordinator {
+  public func childDidFinish(_ child: VNCoreUI.Coordinator?)
+}
+@objc final public class CircularProgressView : UIKit.UIView {
+  final public func configure(progress: Swift.Double)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+open class Icons {
+  @objc deinit
+}
+extension UIColor {
+  convenience public init(hexString: Swift.String, alpha: CoreGraphics.CGFloat = 1.0)
+  public func toHexString() -> Swift.String
+}
+@objc public protocol PresenceControllable : AnyObject {
+  @objc var isForWalletLogIn: Swift.Bool { get set }
+}
+@objc public class GradientImageView : UIKit.UIImageView {
+  public var startColor: CoreGraphics.CGColor {
+    get
+    set
+  }
+  public var endColor: CoreGraphics.CGColor? {
+    get
+    set
+  }
+  public var startPoint: CoreGraphics.CGPoint {
+    get
+    set
+  }
+  public var endPoint: CoreGraphics.CGPoint {
+    get
+    set
+  }
+  @objc override dynamic public func layoutSubviews()
+  @objc override dynamic public init(image: UIKit.UIImage?)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(image: UIKit.UIImage?, highlightedImage: UIKit.UIImage?)
+  @objc deinit
+}
+@objc public class PickerTypedCell : UIKit.UITableViewCell, VNCoreUI.Registerable {
+  @objc @IBOutlet weak public var textField: VNCoreUI.RoundedTextField! {
+    get
+    }
+  public var titleForSelectedElement: (VNCore.PickerRowTitleRepresentable) -> Swift.String
+  public var shouldAutoSelectFirstElement: Swift.Bool
+  public var didSelectElement: (VNCore.PickerRowTitleRepresentable) -> Swift.Void
+  public var selectedElement: VNCore.PickerRowTitleRepresentable? {
+    get
+  }
+  @objc override dynamic public func awakeFromNib()
+  public func configure(elements: [VNCore.PickerRowTitleRepresentable], titleWhenEmpty: Swift.String = "None Available", pickerToolbarTitle: Swift.String = "", shouldAutoSelectFirstElement: Swift.Bool = false)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension PickerTypedCell : UIKit.UIPickerViewDelegate, UIKit.UIPickerViewDataSource {
+  @objc dynamic public func numberOfComponents(in pickerView: UIKit.UIPickerView) -> Swift.Int
+  @objc dynamic public func pickerView(_ pickerView: UIKit.UIPickerView, numberOfRowsInComponent component: Swift.Int) -> Swift.Int
+  @objc dynamic public func pickerView(_ pickerView: UIKit.UIPickerView, titleForRow row: Swift.Int, forComponent component: Swift.Int) -> Swift.String?
+  @objc dynamic public func pickerView(_ pickerView: UIKit.UIPickerView, didSelectRow row: Swift.Int, inComponent component: Swift.Int)
+}
+extension UINavigationController {
+  @objc override dynamic open var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
+    @objc get
+  }
+}
+extension UIColor {
+  public func image(_ size: CoreGraphics.CGSize = CGSize(width: 1, height: 1)) -> UIKit.UIImage
+}
+extension UIColor {
+  public func toColor(_ color: UIKit.UIColor, percentage: CoreGraphics.CGFloat) -> UIKit.UIColor
+}
+@objc final public class SheetModalController : UIKit.UIViewController, VNCoreUI.HeightRecommendable {
+  final public var actionHidden: Swift.Bool {
+    get
+    set
+  }
+  final public var actionTitle: Swift.String {
+    get
+    set
+  }
+  final public var cancelTitle: Swift.String {
+    get
+    set
+  }
+  final public var dismissImage: UIKit.UIImage? {
+    get
+    set
+  }
+  final public var recommendedHeight: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  final public var recommendedHeightChanged: (CoreGraphics.CGFloat) -> Swift.Void
+  public enum ActionCompletionStatus {
+    case successful
+    case failure
+    public static func == (a: VNCoreUI.SheetModalController.ActionCompletionStatus, b: VNCoreUI.SheetModalController.ActionCompletionStatus) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  final public var actionHandler: (@escaping (VNCoreUI.SheetModalController.ActionCompletionStatus) -> Swift.Void) -> Swift.Void
+  public init(title: Swift.String, subTitle: Swift.String? = nil, description: Swift.String? = nil)
+  public init(title: Foundation.NSAttributedString, subTitle: Foundation.NSAttributedString? = nil, description: Foundation.NSAttributedString? = nil)
+  @objc override final public func viewDidLoad()
+  @objc override final public func viewDidAppear(_ animated: Swift.Bool)
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc deinit
+}
+@objc public protocol SubtitleTableViewCellDelegate : AnyObject {
+  @objc optional func subTitle(for cell: VNCoreUI.SubtitleTableViewCell) -> Swift.String
+}
+@objc public class SubtitleTableViewCell : UIKit.UITableViewCell {
+  public func configure(subtitle: Swift.String)
+  public func configure(with attributedSubtitle: Foundation.NSAttributedString)
+  public func configure(edgeInsets: UIKit.UIEdgeInsets)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc public class ShimmerView : UIKit.UIView {
+  @objc override dynamic public func awakeFromNib()
+  @objc override dynamic public func layoutSubviews()
+  public func setupGradient()
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc public class ActionTableViewCell : UIKit.UITableViewCell {
+  public var didPressAction: (() -> Swift.Void)?
+  @objc override dynamic public func awakeFromNib()
+  public func configure(title: Swift.String, subtitle: Swift.String? = nil, textColor: UIKit.UIColor, actionString: Swift.String? = nil)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc public class TextInputTableViewCell : UIKit.UITableViewCell {
+  public var didUpdateText: ((Swift.String) -> Swift.Void)?
+  @objc override dynamic public func awakeFromNib()
+  public func configure(placeHolder: Swift.String, error: Swift.String?)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension TextInputTableViewCell : VNCoreUI.RoundedTextFieldViewDelegate {
+  @objc dynamic public func didFinishEditing(text: Swift.String, textField: UIKit.UITextField)
+}
+public protocol DynamicWidthSizable {
+  func sizeWithDynameWidth(for height: CoreGraphics.CGFloat, fontSize: CoreGraphics.CGFloat) -> CoreGraphics.CGSize
+}
+public enum ModalScaleState {
+  case presentation
+  case interaction
+  public static func == (a: VNCoreUI.ModalScaleState, b: VNCoreUI.ModalScaleState) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+@objc final public class InteractiveModalPresentationController : UIKit.UIPresentationController {
+  @objc override dynamic public init(presentedViewController: UIKit.UIViewController, presenting presentingViewController: UIKit.UIViewController?)
+  @objc final public func didPan(pan: UIKit.UIPanGestureRecognizer)
+  @objc final public func didTap(tap: UIKit.UITapGestureRecognizer)
+  final public func changeScale(to state: VNCoreUI.ModalScaleState)
+  @objc override final public var frameOfPresentedViewInContainerView: CoreGraphics.CGRect {
+    @objc get
+  }
+  @objc override final public func presentationTransitionWillBegin()
+  @objc override final public func dismissalTransitionWillBegin()
+  @objc override final public func dismissalTransitionDidEnd(_ completed: Swift.Bool)
+  @objc deinit
+}
+public protocol Alerting {
+  func showAlert(withTitle title: Swift.String, description: Swift.String)
+  func showAlert(withTitle title: Swift.String, description: Swift.String, completion: @escaping () -> Swift.Void)
+  func showAlert(withTitle title: Swift.String, description: Swift.String, completion: @escaping (Swift.Bool) -> Swift.Void)
+  func showModal(with title: Swift.String, description: Swift.String?, image: UIKit.UIImage?)
+  func showModal(with title: Swift.String, description: Swift.String?, image: UIKit.UIImage?, actions: [VNCore.VNAlertAction]?)
+}
+public protocol Registerable : AnyObject {
+  static var identifier: Swift.String { get }
+  static var nib: UIKit.UINib { get }
+  static var bundle: Foundation.Bundle { get }
+}
+extension Registerable {
+  public static var identifier: Swift.String {
+    get
+  }
+  public static var nib: UIKit.UINib {
+    get
+  }
+  public static var bundle: Foundation.Bundle {
+    get
+  }
+}
+extension Registerable where Self : UIKit.UITableViewCell {
+  public static func register(tableView: UIKit.UITableView)
+  public static func cell(forTable table: UIKit.UITableView) -> Self
+  public static func cell(forTable table: UIKit.UITableView, indexPath: Foundation.IndexPath) -> Self
+}
+extension Registerable where Self : UIKit.UICollectionViewCell {
+  public static func register(collectionView: UIKit.UICollectionView)
+  public static func cell(forCollection collectionView: UIKit.UICollectionView, indexPath: Foundation.IndexPath) -> Self
+}
+@objc open class XIBView : UIKit.UIView {
+  public func setup<T>(_ classType: T.Type) where T : VNCore.Identifiable
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension UIView {
+  public func loadNib<T>(_ classType: T.Type) -> UIKit.UIView where T : VNCore.Identifiable
+}
+extension Alerting where Self : UIKit.UIViewController {
+  public func showAlert(withTitle title: Swift.String, description: Swift.String)
+  public func showAlert(withTitle title: Swift.String, description: Swift.String, completion: @escaping () -> Swift.Void)
+  public func showAlert(withTitle title: Swift.String, description: Swift.String, completion: @escaping (Swift.Bool) -> Swift.Void)
+  public func showModal(with title: Swift.String, description: Swift.String?, image: UIKit.UIImage?)
+  public func showModal(with title: Swift.String, description: Swift.String? = nil, image: UIKit.UIImage? = nil, actions: [VNCore.VNAlertAction]?)
+  public func showError(withTitle title: Swift.String = "Sorry!", withDescription description: Swift.String)
+  public func showError(_ error: Foundation.NSError)
+  public func showError(_ error: Swift.Error)
+}
+extension UIViewController {
+  public struct AssociatedKeys {
+  }
+  public var preferredNavigationBarBackground: UIKit.UIColor? {
+    get
+    set
+  }
+  public var preferredNavigationBarTintColor: UIKit.UIColor? {
+    get
+    set
+  }
+  public func setNavigationBarAppearance(navigationController: UIKit.UINavigationController?)
+}
+extension VNCoreUI.ImageCacheMode : Swift.Equatable {}
+extension VNCoreUI.ImageCacheMode : Swift.Hashable {}
+extension VNCoreUI.ImageCacheMode : Swift.RawRepresentable {}
+extension VNCoreUI.InteractiveSegmentedControl.Style : Swift.Equatable {}
+extension VNCoreUI.InteractiveSegmentedControl.Style : Swift.Hashable {}
+extension VNCoreUI.SheetModalController.ActionCompletionStatus : Swift.Equatable {}
+extension VNCoreUI.SheetModalController.ActionCompletionStatus : Swift.Hashable {}
+extension VNCoreUI.ModalScaleState : Swift.Equatable {}
+extension VNCoreUI.ModalScaleState : Swift.Hashable {}

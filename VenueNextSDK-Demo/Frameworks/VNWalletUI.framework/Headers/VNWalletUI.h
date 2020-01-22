@@ -1,7 +1,6 @@
 // Copyright © 2019 VenueNext. All rights reserved.
 
 #import <UIKit/UIKit.h>
-#import <VNCoreUI/VNCoreUI.h>
 
 //! Project version number for VNWalletUI.
 FOUNDATION_EXPORT double VNWalletUIVersionNumber;

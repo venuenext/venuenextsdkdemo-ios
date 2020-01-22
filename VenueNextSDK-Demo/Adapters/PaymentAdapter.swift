@@ -3,6 +3,7 @@
 
 import Foundation
 import os.log
+import VNCore
 import VNPayment
 import BraintreeDropIn
 import BraintreeApplePay // Import

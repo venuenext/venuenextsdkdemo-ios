@@ -14,6 +14,4 @@
 + (NSString*)urlSafebase64FromString:(NSString*)string;
 + (NSString*)urlSafebase64encode:(const uint8_t*)input length:(NSUInteger)length;
 
-- (NSString*)percentEscape;
-- (NSString*)OAuthPercentEscape;
 @end

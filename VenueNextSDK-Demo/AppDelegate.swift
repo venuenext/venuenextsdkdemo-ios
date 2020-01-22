@@ -5,6 +5,8 @@ import VNCore
 import VNOrderData
 import VNOrderUI
 import VNWalletUI
+import VNPayment
+import VNAnalytics
 import PresenceSDK
 
 class CustomWalletTheme: VNWalletBaseTheme {

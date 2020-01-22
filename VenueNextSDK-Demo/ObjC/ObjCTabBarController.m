@@ -5,6 +5,7 @@
 @import UIKit;
 @import VNOrderUI;
 @import VNOrderData;
+@import VNCore;
 
 @interface ObjCTabBarController ()
 @property (strong, nonatomic) OrderCoordinator *orderCoordinator;

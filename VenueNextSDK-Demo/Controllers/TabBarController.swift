@@ -2,6 +2,8 @@
 //
 
 import UIKit
+import VNCore
+import VNPayment
 import VNOrderUI
 import VNOrderData
 import VNWalletUI

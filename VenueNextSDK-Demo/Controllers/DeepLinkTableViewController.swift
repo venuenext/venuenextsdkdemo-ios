@@ -4,6 +4,8 @@ import UIKit
 import VNOrderUI
 import VNOrderData
 import VNWalletUI
+import VNCoreUI
+import VNCore
 
 class DeepLinkTableViewController: UITableViewController {
 
