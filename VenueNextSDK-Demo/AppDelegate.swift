@@ -99,6 +99,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: VNWalletDelegate {
+    func loginController(completion: @escaping (VNWalletUser?, String?, NSError?) -> Void) -> UIViewController {
+        let presenceController = PresenceController(isForWalletLogin: true)
+        presenceController.logout()
+        presenceController.loginCompletion = { (member, error) in
+            guard let firstName = member?.firstName,
+                let lastName = member?.lastName,
+                let email = member?.email,
+                let externalID = member?.id else {
+                    let error = NSError(domain: "com.venuenext.VNWallet", code: 404, userInfo: [NSLocalizedDescriptionKey: "Failed to retrieve member information"])
+                    completion(nil, nil, error)
+                    return
+            }
+            
+            //TODO: This needs to be documented. accountNumber is no longer an optional value that can be passed in here.
+            let walletUser = VNWalletUser(firstName: firstName, lastName: lastName, email: email, externalID: externalID)
+            completion(walletUser, nil, nil)
+        }
+        return presenceController
+    }
+    
     func virtualCurrencyName() -> String {
         return "Virtual Currency"
     }
@@ -109,24 +129,6 @@ extension AppDelegate: VNWalletDelegate {
 
     func walletProgramName() -> String {
         return "Member"
-    }
-
-    func loginController(completion: @escaping (VNWalletUser?, NSError?) -> Void) -> UIViewController {
-        let presenceController = PresenceController()
-        presenceController.logout()
-        presenceController.loginCompletion = { (member, error) in
-            guard let firstName = member?.firstName,
-                let lastName = member?.lastName,
-                let email = member?.email,
-                let externalID = member?.id else {
-                    let error = NSError(domain: "com.venuenext.VNWallet", code: 404, userInfo: [NSLocalizedDescriptionKey: "Failed to retrieve member information"])
-                    completion(nil, error)
-                    return
-            }
-            let walletUser = VNWalletUser(firstName: firstName, lastName: lastName, email: email, externalID: externalID)
-            completion(walletUser, nil)
-        }
-        return presenceController
     }
 
     func walletTitle() -> String {

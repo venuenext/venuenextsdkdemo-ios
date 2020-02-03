@@ -7,7 +7,6 @@ import Swift
 import UIKit
 import VNCore
 import VNCoreUI
-import VNOrderData
 import VNOrderService
 import VNOrderUI
 import VNPayment
@@ -19,6 +18,9 @@ import os
 public struct LoyaltyUpdateNotification : VNCore.SocketNotification, Swift.Decodable {
   public static func parse(json: [Swift.String : Any]) -> VNWalletUI.LoyaltyUpdateNotification?
   public init(from decoder: Swift.Decoder) throws
+}
+extension UINavigationController {
+  @objc dynamic public func pushVNWalletViewController(animated: Swift.Bool)
 }
 @objc public class VNWallet : ObjectiveC.NSObject {
   @objc public static let shared: VNWalletUI.VNWallet
@@ -83,12 +85,28 @@ extension DeepLinkRoute {
   }
 }
 @objc public protocol VNWalletDelegate {
-  @objc func loginController(completion: @escaping (VNCore.VNWalletUser?, Foundation.NSError?) -> Swift.Void) -> UIKit.UIViewController
+  @objc func loginController(completion: @escaping (VNCore.VNWalletUser?, Swift.String?, Foundation.NSError?) -> Swift.Void) -> UIKit.UIViewController
   @objc func walletUser() -> VNCore.VNWalletUser?
   @objc optional func walletTitle() -> Swift.String
   @objc func virtualCurrencyName() -> Swift.String
   @objc func walletVirtualCurrencyPaymentType() -> Swift.String
   @objc optional func walletProgramName() -> Swift.String
+}
+@objc public class VNWalletNavigation : ObjectiveC.NSObject {
+  @objc public static func walletNavigationController(dismissDelegate: VNCoreUI.DismissDelegate?) -> UIKit.UINavigationController
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc open class PresentableNavigationController : UIKit.UINavigationController, VNCoreUI.Presentable {
+  weak public var dismissDelegate: VNCoreUI.DismissDelegate?
+  @objc public init(rootViewController: UIKit.UIViewController, dismissDelegate: VNCoreUI.DismissDelegate?)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic open func viewWillAppear(_ animated: Swift.Bool)
+  @available(iOS 5.0, *)
+  @objc override dynamic public init(navigationBarClass: Swift.AnyClass?, toolbarClass: Swift.AnyClass?)
+  @objc override dynamic public init(rootViewController: UIKit.UIViewController)
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc deinit
 }
 @objc public enum WalletMode : Swift.Int, Swift.CaseIterable {
   case qrCode
@@ -104,76 +122,13 @@ extension DeepLinkRoute {
     get
   }
 }
-@objc public class WalletViewController : UIKit.UIViewController, VNCoreUI.Alerting {
-  @objc override dynamic public var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
-    @objc get
-  }
-  public var sthAccentColor: UIKit.UIColor {
-    get
-  }
-  public var notifier: VNCore.NotifyService<VNWalletUI.LoyaltyUpdateNotification>
-  @objc override dynamic public func viewDidLoad()
-  @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
-  @objc override dynamic public func viewWillDisappear(_ animated: Swift.Bool)
-  @objc deinit
-  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
-}
-extension WalletViewController : UIKit.UITableViewDataSource {
-  @objc dynamic public func numberOfSections(in tableView: UIKit.UITableView) -> Swift.Int
-  @objc dynamic public func tableView(_ tableView: UIKit.UITableView, numberOfRowsInSection section: Swift.Int) -> Swift.Int
-  @objc dynamic public func tableView(_ tableView: UIKit.UITableView, viewForHeaderInSection section: Swift.Int) -> UIKit.UIView?
-  @objc dynamic public func tableView(_ tableView: UIKit.UITableView, cellForRowAt indexPath: Foundation.IndexPath) -> UIKit.UITableViewCell
-  @objc dynamic public func tableView(_ tableView: UIKit.UITableView, viewForFooterInSection section: Swift.Int) -> UIKit.UIView?
-  @objc dynamic public func tableView(_ tableView: UIKit.UITableView, heightForHeaderInSection section: Swift.Int) -> CoreGraphics.CGFloat
-  @objc dynamic public func tableView(_ tableView: UIKit.UITableView, heightForFooterInSection section: Swift.Int) -> CoreGraphics.CGFloat
-}
-extension WalletViewController : UIKit.UITableViewDelegate {
-  @objc dynamic public func tableView(_ tableView: UIKit.UITableView, willDisplay cell: UIKit.UITableViewCell, forRowAt indexPath: Foundation.IndexPath)
-  @objc dynamic public func tableView(_ tableView: UIKit.UITableView, didSelectRowAt indexPath: Foundation.IndexPath)
-}
-extension WalletViewController : VNCore.Notifiable {
-  public typealias SocketNotificationType = VNWalletUI.LoyaltyUpdateNotification
-}
 extension UINavigationController {
   @objc override dynamic open var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
     @objc get
   }
 }
-@objc public class WalletCoordinator : ObjectiveC.NSObject, VNCoreUI.Coordinator, VNCoreUI.CustomNavigable {
-  @objc public var navigationController: UIKit.UINavigationController!
-  @objc public var wasStarted: Swift.Bool {
-    get
-    }
-  public var childCoordinators: [VNCoreUI.Coordinator]
-  @objc public var rootViewController: UIKit.UIViewController!
-  @objc public init(navigationController: UIKit.UINavigationController? = nil)
-  @objc public func start()
-  @objc deinit
-  @objc override dynamic public init()
-}
-extension WalletCoordinator {
-  @objc dynamic public func present(from presenter: UIKit.UIViewController, completion: (() -> Swift.Void)? = nil)
-}
-extension WalletCoordinator : VNOrderUI.CheckoutTableViewControllerDelegate {
-  @objc dynamic public func onPaymentCompletion(orderSummary: VNOrderData.OrderSummary?, productType: VNCore.ProductType, error: Swift.Error?)
-  @objc dynamic public func onPayNow(_ viewController: VNOrderUI.CheckoutTableViewController?, productType: VNCore.ProductType, completion: @escaping (VNCore.PaymentMethodRepresentable?, Swift.Error?) -> Swift.Void)
-  @objc dynamic public func postPaymentMethod(_ paymentMethod: VNCore.PaymentMethodRepresentable, completion: @escaping ((Foundation.NSError?) -> Swift.Void))
-}
 extension UIImage {
   convenience public init<E, T>(icon: E, _ bundle: T.Type) where E : Swift.RawRepresentable, E.RawValue == Swift.String
-}
-extension UIViewController {
-  public struct AssociatedKeys {
-  }
-  public var preferredNavigationBarBackground: UIKit.UIColor? {
-    get
-    set
-  }
-  public var preferredNavigationBarTintColor: UIKit.UIColor? {
-    get
-    set
-  }
-  public func setNavigationBarAppearance(navigationController: UIKit.UINavigationController?)
 }
 extension VNCore.DeepLinkRoute.WalletRoutes : Swift.Equatable {}
 extension VNCore.DeepLinkRoute.WalletRoutes : Swift.Hashable {}

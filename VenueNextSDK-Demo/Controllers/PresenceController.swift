@@ -8,32 +8,24 @@
 
 import PresenceSDK
 import VNCore
+import VNCoreUI
 
-class SpinnerView: UIView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        let spinner = UIActivityIndicatorView(style: .gray)
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .white
-        addSubview(spinner)
+@objc public class PresenceController: UIViewController, PresenceControllable {
+    public var isForWalletLogIn: Bool {
+        get {
+            return _isForWalletLogin
+        }
         
-        spinner.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0).isActive = true
-        spinner.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0).isActive = true
-        
-        spinner.startAnimating()
+        set {
+            _isForWalletLogin = newValue
+        }
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-@objc public class PresenceController: UIViewController {
     
     override public var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     
-    @objc public var loginCompletion: ((PresenceMember?, Error?) -> Void)!
+    @objc public var loginCompletion: ((PresenceMember?, Error?) -> Void)?
+    
+    private var _isForWalletLogin: Bool = false
     
     lazy var emptyStateView: UIView = {
         let emptyStateView = SpinnerView(frame: CGRect.zero)
@@ -48,7 +40,7 @@ class SpinnerView: UIView {
         presenceView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         presenceView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         presenceView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        presenceView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true 
+        presenceView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         return presenceView
     }()
     
@@ -61,7 +53,15 @@ class SpinnerView: UIView {
         super.viewDidLoad()
         
         title = "Login"
+        navigationController?.navigationBar.barTintColor = VN.theme.primaryNavigationBarBackground
+        navigationController?.navigationBar.tintColor = VN.theme.primaryNavigationBarTint
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : VN.theme.primaryNavigationBarTint]
         presence.start(presenceSDKView: presenceSDKView, loginDelegate: self)
+    }
+    
+    convenience init(isForWalletLogin: Bool = false) {
+        self.init(nibName: nil, bundle: nil)
+        self.isForWalletLogIn = isForWalletLogin
     }
     
     @objc func logout() {
@@ -100,19 +100,21 @@ extension PresenceController: PresenceLoginDelegate {
     ///- parameter accessToken: access token returned from the specified backend.
     public func onLoginSuccessful(backendName: PresenceLogin.BackendName, accessToken: String) {
         
-        DispatchQueue.main.async { [weak self] in
-            self?.showEmptyState()
-            self?.presenceSDKView.removeFromSuperview()
+        if _isForWalletLogin {
+            DispatchQueue.main.async { [weak self] in
+                self?.showEmptyState()
+                self?.presenceSDKView.removeFromSuperview()
+            }
         }
         
         presence.getMemberInfo(backendName: backendName) { [weak self] (member, error) in
             
             guard member != nil else {
-                self?.loginCompletion(nil, error)
+                self?.loginCompletion?(nil, error)
                 return
             }
             
-            self?.loginCompletion(member, nil)
+            self?.loginCompletion?(member, nil)
         }
     }
     
@@ -123,4 +125,3 @@ extension PresenceController: PresenceLoginDelegate {
         VenueNext.shared.logoutTicketingAccount()
     }
 }
-

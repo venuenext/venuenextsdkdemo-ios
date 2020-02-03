@@ -38,6 +38,7 @@ extension Item {
   public func experiencePrice(for groupType: VNOrderData.Sale.GroupType) -> Swift.Double?
   public func earliestEvent() -> VNOrderData.ExperienceEvent?
   public func variant(for event: VNOrderData.ExperienceEvent) -> VNOrderData.Variant?
+  public func inventory(for event: VNOrderData.ExperienceEvent? = nil) -> Swift.Int64?
 }
 extension Variant {
   public static func fetch(with identifier: Swift.String, createIfNecessary: Swift.Bool = true, in context: CoreData.NSManagedObjectContext) throws -> VNOrderData.Variant
@@ -58,7 +59,7 @@ public class GetRevenueCentersParser {
   public static func parse(jsonArray: [[Swift.String : Any]], menusJsonArray: [[Swift.String : Any]]? = nil, into persistentContainer: CoreData.NSPersistentContainer)
   @objc deinit
 }
-extension GetRevenueCentersParser : VNCore.Identifiable {
+extension GetRevenueCentersParser : VNCore.VNIdentifiable {
   public static var classStringName: Swift.String {
     get
   }
@@ -315,7 +316,7 @@ extension CartEntry {
 }
 extension Item {
   public static func fetch(with identifier: Swift.String, createIfNecessary: Swift.Bool = true, in context: CoreData.NSManagedObjectContext) throws -> VNOrderData.Item
-  public static func makeFetchedResultsController(for menu: VNOrderData.Menu, in context: CoreData.NSManagedObjectContext) throws -> CoreData.NSFetchedResultsController<VNOrderData.Item>
+  public static func makeFetchedResultsController(for menuUUID: Swift.String, in context: CoreData.NSManagedObjectContext) throws -> CoreData.NSFetchedResultsController<VNOrderData.Item>
   public static func makeExperienceFetchedResultsController(for menu: VNOrderData.Menu, with additionalPredicates: [Foundation.NSPredicate]? = nil, in context: CoreData.NSManagedObjectContext) throws -> CoreData.NSFetchedResultsController<VNOrderData.Item>
   public static func fetchItems(for menu: VNOrderData.Menu, in context: CoreData.NSManagedObjectContext) throws -> [VNOrderData.Item]
   public static func fetchItems(for menu: VNOrderData.Menu, isServiceFeeType: Swift.Bool = false, in context: CoreData.NSManagedObjectContext) throws -> [VNOrderData.Item]

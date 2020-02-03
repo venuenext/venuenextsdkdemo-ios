@@ -450,8 +450,6 @@ SWIFT_CLASS_NAMED("Item")
 
 
 
-
-
 @interface Item (SWIFT_EXTENSION(VNOrderData))
 - (void)addCartEntryObject:(CartEntry * _Nonnull)value;
 - (void)removeCartEntryObject:(CartEntry * _Nonnull)value;
@@ -467,6 +465,8 @@ SWIFT_CLASS_NAMED("Item")
 - (void)addVariants:(NSSet * _Nonnull)values;
 - (void)removeVariants:(NSSet * _Nonnull)values;
 @end
+
+
 
 
 
@@ -1641,8 +1641,6 @@ SWIFT_CLASS_NAMED("Item")
 
 
 
-
-
 @interface Item (SWIFT_EXTENSION(VNOrderData))
 - (void)addCartEntryObject:(CartEntry * _Nonnull)value;
 - (void)removeCartEntryObject:(CartEntry * _Nonnull)value;
@@ -1658,6 +1656,8 @@ SWIFT_CLASS_NAMED("Item")
 - (void)addVariants:(NSSet * _Nonnull)values;
 - (void)removeVariants:(NSSet * _Nonnull)values;
 @end
+
+
 
 
 

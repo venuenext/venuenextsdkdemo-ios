@@ -185,12 +185,9 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
-@import CoreGraphics;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
-@import VNCore;
-@import VNOrderUI;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -208,7 +205,31 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+@class UIViewController;
+@protocol DismissDelegate;
+@class NSCoder;
+@class NSBundle;
 
+SWIFT_CLASS("_TtC10VNWalletUI31PresentableNavigationController")
+@interface PresentableNavigationController : UINavigationController
+- (nonnull instancetype)initWithRootViewController:(UIViewController * _Nonnull)rootViewController dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)viewWillAppear:(BOOL)animated;
+- (nonnull instancetype)initWithNavigationBarClass:(Class _Nullable)navigationBarClass toolbarClass:(Class _Nullable)toolbarClass SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithRootViewController:(UIViewController * _Nonnull)rootViewController SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+
+
+
+
+
+
+
+@interface UINavigationController (SWIFT_EXTENSION(VNWalletUI))
+- (void)pushVNWalletViewControllerWithAnimated:(BOOL)animated;
+@end
 
 
 
@@ -257,7 +278,13 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWallet * _
 
 SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @protocol VNWalletDelegate
-- (UIViewController * _Nonnull)loginControllerWithCompletion:(void (^ _Nonnull)(VNWalletUser * _Nullable, NSError * _Nullable))completion SWIFT_WARN_UNUSED_RESULT;
+/// Provide a login controller that will be handling the login process
+/// Be sure to call <code>completion</code> when you have successfully authenticated the user.
+/// \param completion 
+/// Passing an error in the completion will restart the login process (i.e. loginController will get called again).
+/// If you require an access token please pass it in the completion.
+///
+- (UIViewController * _Nonnull)loginControllerWithCompletion:(void (^ _Nonnull)(VNWalletUser * _Nullable, NSString * _Nullable, NSError * _Nullable))completion SWIFT_WARN_UNUSED_RESULT;
 - (VNWalletUser * _Nullable)walletUser SWIFT_WARN_UNUSED_RESULT;
 @optional
 - (NSString * _Nonnull)walletTitle SWIFT_WARN_UNUSED_RESULT;
@@ -269,79 +296,17 @@ SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @end
 
 
-SWIFT_CLASS("_TtC10VNWalletUI17WalletCoordinator")
-@interface WalletCoordinator : NSObject
-@property (nonatomic, strong) UINavigationController * _Null_unspecified navigationController;
-@property (nonatomic, readonly) BOOL wasStarted;
-@property (nonatomic, strong) UIViewController * _Null_unspecified rootViewController;
-- (nonnull instancetype)initWithNavigationController:(UINavigationController * _Nullable)navigationController OBJC_DESIGNATED_INITIALIZER;
-/// Starts the coordinator. Ensure to call <code>start()</code> after initialization.
-/// Not calling <code>start()</code> is a programmer error and will fatalError. Calling <code>start()</code> multiple times will also fatalError.
-- (void)start;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+SWIFT_CLASS("_TtC10VNWalletUI18VNWalletNavigation")
+@interface VNWalletNavigation : NSObject
++ (UINavigationController * _Nonnull)walletNavigationControllerWithDismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
-
-
-@interface WalletCoordinator (SWIFT_EXTENSION(VNWalletUI))
-- (void)presentFrom:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(void))completion;
-@end
-
-@class OrderSummary;
-@class CheckoutTableViewController;
-@protocol PaymentMethodRepresentable;
-
-@interface WalletCoordinator (SWIFT_EXTENSION(VNWalletUI)) <CheckoutTableViewControllerDelegate>
-- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
-- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
-- (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-@end
-
-
 
 typedef SWIFT_ENUM(NSInteger, WalletMode, open) {
   WalletModeQrCode = 0,
   WalletModeQrScanner = 1,
   WalletModeVirtualCurrencyToggle = 2,
 };
-
-@class NSCoder;
-@class NSBundle;
-
-SWIFT_CLASS("_TtC10VNWalletUI20WalletViewController")
-@interface WalletViewController : UIViewController
-@property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
-- (void)viewDidLoad;
-- (void)viewWillAppear:(BOOL)animated;
-- (void)viewWillDisappear:(BOOL)animated;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
-@end
-
-
-
-
-
-
-
-@class UITableView;
-@class UITableViewCell;
-
-@interface WalletViewController (SWIFT_EXTENSION(VNWalletUI)) <UITableViewDelegate>
-- (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(UITableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-@end
-
-
-@interface WalletViewController (SWIFT_EXTENSION(VNWalletUI)) <UITableViewDataSource>
-- (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
-- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
-- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -532,12 +497,9 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
-@import CoreGraphics;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
-@import VNCore;
-@import VNOrderUI;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -555,7 +517,31 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+@class UIViewController;
+@protocol DismissDelegate;
+@class NSCoder;
+@class NSBundle;
 
+SWIFT_CLASS("_TtC10VNWalletUI31PresentableNavigationController")
+@interface PresentableNavigationController : UINavigationController
+- (nonnull instancetype)initWithRootViewController:(UIViewController * _Nonnull)rootViewController dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)viewWillAppear:(BOOL)animated;
+- (nonnull instancetype)initWithNavigationBarClass:(Class _Nullable)navigationBarClass toolbarClass:(Class _Nullable)toolbarClass SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithRootViewController:(UIViewController * _Nonnull)rootViewController SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+
+
+
+
+
+
+
+@interface UINavigationController (SWIFT_EXTENSION(VNWalletUI))
+- (void)pushVNWalletViewControllerWithAnimated:(BOOL)animated;
+@end
 
 
 
@@ -604,7 +590,13 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWallet * _
 
 SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @protocol VNWalletDelegate
-- (UIViewController * _Nonnull)loginControllerWithCompletion:(void (^ _Nonnull)(VNWalletUser * _Nullable, NSError * _Nullable))completion SWIFT_WARN_UNUSED_RESULT;
+/// Provide a login controller that will be handling the login process
+/// Be sure to call <code>completion</code> when you have successfully authenticated the user.
+/// \param completion 
+/// Passing an error in the completion will restart the login process (i.e. loginController will get called again).
+/// If you require an access token please pass it in the completion.
+///
+- (UIViewController * _Nonnull)loginControllerWithCompletion:(void (^ _Nonnull)(VNWalletUser * _Nullable, NSString * _Nullable, NSError * _Nullable))completion SWIFT_WARN_UNUSED_RESULT;
 - (VNWalletUser * _Nullable)walletUser SWIFT_WARN_UNUSED_RESULT;
 @optional
 - (NSString * _Nonnull)walletTitle SWIFT_WARN_UNUSED_RESULT;
@@ -616,79 +608,17 @@ SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @end
 
 
-SWIFT_CLASS("_TtC10VNWalletUI17WalletCoordinator")
-@interface WalletCoordinator : NSObject
-@property (nonatomic, strong) UINavigationController * _Null_unspecified navigationController;
-@property (nonatomic, readonly) BOOL wasStarted;
-@property (nonatomic, strong) UIViewController * _Null_unspecified rootViewController;
-- (nonnull instancetype)initWithNavigationController:(UINavigationController * _Nullable)navigationController OBJC_DESIGNATED_INITIALIZER;
-/// Starts the coordinator. Ensure to call <code>start()</code> after initialization.
-/// Not calling <code>start()</code> is a programmer error and will fatalError. Calling <code>start()</code> multiple times will also fatalError.
-- (void)start;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+SWIFT_CLASS("_TtC10VNWalletUI18VNWalletNavigation")
+@interface VNWalletNavigation : NSObject
++ (UINavigationController * _Nonnull)walletNavigationControllerWithDismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
-
-
-@interface WalletCoordinator (SWIFT_EXTENSION(VNWalletUI))
-- (void)presentFrom:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(void))completion;
-@end
-
-@class OrderSummary;
-@class CheckoutTableViewController;
-@protocol PaymentMethodRepresentable;
-
-@interface WalletCoordinator (SWIFT_EXTENSION(VNWalletUI)) <CheckoutTableViewControllerDelegate>
-- (void)onPaymentCompletionWithOrderSummary:(OrderSummary * _Nullable)orderSummary productType:(enum ProductType)productType error:(NSError * _Nullable)error;
-- (void)onPayNow:(CheckoutTableViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
-- (void)postPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-@end
-
-
 
 typedef SWIFT_ENUM(NSInteger, WalletMode, open) {
   WalletModeQrCode = 0,
   WalletModeQrScanner = 1,
   WalletModeVirtualCurrencyToggle = 2,
 };
-
-@class NSCoder;
-@class NSBundle;
-
-SWIFT_CLASS("_TtC10VNWalletUI20WalletViewController")
-@interface WalletViewController : UIViewController
-@property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
-- (void)viewDidLoad;
-- (void)viewWillAppear:(BOOL)animated;
-- (void)viewWillDisappear:(BOOL)animated;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
-@end
-
-
-
-
-
-
-
-@class UITableView;
-@class UITableViewCell;
-
-@interface WalletViewController (SWIFT_EXTENSION(VNWalletUI)) <UITableViewDelegate>
-- (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(UITableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-@end
-
-
-@interface WalletViewController (SWIFT_EXTENSION(VNWalletUI)) <UITableViewDataSource>
-- (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
-- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
-- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop

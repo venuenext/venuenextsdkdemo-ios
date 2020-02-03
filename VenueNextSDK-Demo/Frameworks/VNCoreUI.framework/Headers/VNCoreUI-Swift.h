@@ -264,6 +264,12 @@ SWIFT_CLASS("_TtC8VNCoreUI20DetailDisclosureView")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI15DismissDelegate_")
+@protocol DismissDelegate
+- (void)shouldDismissWithViewController:(UIViewController * _Nonnull)viewController;
+@end
+
 @class UIImageView;
 
 SWIFT_CLASS("_TtC8VNCoreUI22EmptySetViewController")
@@ -613,10 +619,6 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredUnSelectedTintColor;
 - (void)setTabBarAppearance;
 @end
-
-
-
-
 
 
 
@@ -913,6 +915,12 @@ SWIFT_CLASS("_TtC8VNCoreUI20DetailDisclosureView")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+
+SWIFT_PROTOCOL("_TtP8VNCoreUI15DismissDelegate_")
+@protocol DismissDelegate
+- (void)shouldDismissWithViewController:(UIViewController * _Nonnull)viewController;
+@end
+
 @class UIImageView;
 
 SWIFT_CLASS("_TtC8VNCoreUI22EmptySetViewController")
@@ -1262,10 +1270,6 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredUnSelectedTintColor;
 - (void)setTabBarAppearance;
 @end
-
-
-
-
 
 
 

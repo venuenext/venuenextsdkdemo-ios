@@ -130,13 +130,6 @@ open class VNDefaults {
   }
   @objc deinit
 }
-extension UITableView {
-  public func registerNib<T>(_ obj: T.Type) where T : VNCore.Identifiable
-  public func dequeue<T>(_ obj: T.Type, for indexPath: Foundation.IndexPath) -> T where T : VNCore.Identifiable
-  public func dequeue<T>(_ obj: T.Type) -> T where T : VNCore.Identifiable
-  public func registerHeaderFooterNib<T>(_ obj: T.Type) where T : VNCore.Identifiable
-  public func dequeueReusableHeaderFooter<T>(_ obj: T.Type) -> T where T : VNCore.Identifiable
-}
 public struct Venue : Swift.Codable, Swift.Hashable {
   public var uuid: Swift.String?
   public var name: Swift.String?
@@ -341,11 +334,11 @@ public protocol VNWalletProtocol : AnyObject {
   func logout()
   func resetIfNeeded()
 }
-public protocol Identifiable {
+public protocol VNIdentifiable {
   static var classStringName: Swift.String { get }
   static var domain: Swift.String { get }
 }
-extension NSObject : VNCore.Identifiable {
+extension NSObject : VNCore.VNIdentifiable {
   @objc dynamic open class var classStringName: Swift.String {
     @objc get
   }
@@ -354,9 +347,9 @@ extension NSObject : VNCore.Identifiable {
   }
 }
 extension NSError {
-  convenience public init<Domain>(sourceClass: Domain.Type, code: Swift.Int, userInfo: [Swift.String : Any]?) where Domain : VNCore.Identifiable
-  convenience public init(source: VNCore.Identifiable, code: Swift.Int, userInfo: [Swift.String : Any]?)
-  convenience public init<Domain>(sourceClass: Domain.Type, code: Swift.Int, localizableMessage: Swift.String) where Domain : VNCore.Identifiable
+  convenience public init<Domain>(sourceClass: Domain.Type, code: Swift.Int, userInfo: [Swift.String : Any]?) where Domain : VNCore.VNIdentifiable
+  convenience public init(source: VNCore.VNIdentifiable, code: Swift.Int, userInfo: [Swift.String : Any]?)
+  convenience public init<Domain>(sourceClass: Domain.Type, code: Swift.Int, localizableMessage: Swift.String) where Domain : VNCore.VNIdentifiable
 }
 extension KeychainWrapper {
   public func string<E>(forKey key: E, withAccessibility accessibility: VNCore.KeychainItemAccessibility? = nil) -> Swift.String? where E : Swift.RawRepresentable, E.RawValue == Swift.String
@@ -685,10 +678,6 @@ extension UIColor {
 }
 public protocol PickerRowTitleRepresentable {
   var title: Swift.String { get }
-}
-extension UICollectionView {
-  public func registerNib<T>(_ obj: T.Type) where T : VNCore.Identifiable
-  public func dequeue<T>(_ obj: T.Type, for indexPath: Foundation.IndexPath) -> T where T : VNCore.Identifiable
 }
 public enum KeychainItemAccessibility {
   @available(iOS 4, *)
