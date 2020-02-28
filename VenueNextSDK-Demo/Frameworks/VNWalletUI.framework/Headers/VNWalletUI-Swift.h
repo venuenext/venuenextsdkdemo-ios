@@ -232,11 +232,11 @@ SWIFT_CLASS("_TtC10VNWalletUI31PresentableNavigationController")
 @end
 
 
-
-
 @interface UINavigationController (SWIFT_EXTENSION(VNWalletUI))
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 @end
+
+
 
 
 
@@ -263,7 +263,6 @@ SWIFT_CLASS("_TtC10VNWalletUI8VNWallet")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWallet * _Nonnull shared;)
 + (VNWallet * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 @property (nonatomic, readonly, strong) id <VNWalletDelegate> _Null_unspecified delegate;
-+ (void)enableModes:(NSArray<NSNumber *> * _Nonnull)walletModes;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -286,13 +285,6 @@ SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 ///
 - (UIViewController * _Nonnull)loginControllerWithCompletion:(void (^ _Nonnull)(VNWalletUser * _Nullable, NSString * _Nullable, NSError * _Nullable))completion SWIFT_WARN_UNUSED_RESULT;
 - (VNWalletUser * _Nullable)walletUser SWIFT_WARN_UNUSED_RESULT;
-@optional
-- (NSString * _Nonnull)walletTitle SWIFT_WARN_UNUSED_RESULT;
-@required
-- (NSString * _Nonnull)virtualCurrencyName SWIFT_WARN_UNUSED_RESULT;
-- (NSString * _Nonnull)walletVirtualCurrencyPaymentType SWIFT_WARN_UNUSED_RESULT;
-@optional
-- (NSString * _Nonnull)walletProgramName SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -544,11 +536,11 @@ SWIFT_CLASS("_TtC10VNWalletUI31PresentableNavigationController")
 @end
 
 
-
-
 @interface UINavigationController (SWIFT_EXTENSION(VNWalletUI))
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 @end
+
+
 
 
 
@@ -575,7 +567,6 @@ SWIFT_CLASS("_TtC10VNWalletUI8VNWallet")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWallet * _Nonnull shared;)
 + (VNWallet * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 @property (nonatomic, readonly, strong) id <VNWalletDelegate> _Null_unspecified delegate;
-+ (void)enableModes:(NSArray<NSNumber *> * _Nonnull)walletModes;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -598,13 +589,6 @@ SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 ///
 - (UIViewController * _Nonnull)loginControllerWithCompletion:(void (^ _Nonnull)(VNWalletUser * _Nullable, NSString * _Nullable, NSError * _Nullable))completion SWIFT_WARN_UNUSED_RESULT;
 - (VNWalletUser * _Nullable)walletUser SWIFT_WARN_UNUSED_RESULT;
-@optional
-- (NSString * _Nonnull)walletTitle SWIFT_WARN_UNUSED_RESULT;
-@required
-- (NSString * _Nonnull)virtualCurrencyName SWIFT_WARN_UNUSED_RESULT;
-- (NSString * _Nonnull)walletVirtualCurrencyPaymentType SWIFT_WARN_UNUSED_RESULT;
-@optional
-- (NSString * _Nonnull)walletProgramName SWIFT_WARN_UNUSED_RESULT;
 @end
 
 

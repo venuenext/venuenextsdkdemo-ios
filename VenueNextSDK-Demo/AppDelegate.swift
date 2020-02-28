@@ -5,7 +5,6 @@ import VNCore
 import VNOrderData
 import VNOrderUI
 import VNWalletUI
-import VNPayment
 import VNAnalytics
 import PresenceSDK
 
@@ -28,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // VenueNext SDKs can be configured from Swift or ObjC
         // To run the ObjC app set isSwiftDemoApp to false
 
-        let isSwift = true
+        let isSwift = false
         Appearance.start()
 
         //Initialize VenueNext SDK
@@ -38,9 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Setup PresenceSDK
         PresenceSDK.getPresenceSDK().setConfig(consumerKey: "", displayName: "Demo App", useNewAccountsManager: true)
         PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
-        
-        //Enable all wallet modes
-        VNWallet.enableModes(walletModes: WalletMode.allCases)
         //Configure Payment processor (place this above modules that will need it)
         VenueNext.configure(paymentProcessor: PaymentAdapter())
         //configure wallet
@@ -48,12 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //turn on wallet for VNOrder
         VenueNext.enableWallet(for: VNOrder.shared)
         
-        //Enable all product types to use VC
-        VenueNext.enableVirtualCurrency(for: ProductType.allCases)
         //Uncomment if you want to pass in a custom theme
         //VenueNext.configure(theme: <Custom Theme>)
 
-        VNPaymentProcessor.shared = PaymentAdapter()
+        VenueNext.configure(paymentProcessor: PaymentAdapter())
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController(for: isSwift)
@@ -87,13 +81,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func intializeSDK(for isSwift: Bool) {
+        guard let configURLString = Bundle.main.path(forResource: "vn-sdk-config-dev", ofType: "json"), let configURL = URL(string: configURLString) else {
+            fatalError("Failed to find config file at provided path")
+        }
         switch isSwift {
         case true:
-            // use the following code in your application:didFinishLaunchingWithOptions:
-            VenueNext.shared.initialize(sdkKey: "", sdkSecret: "")
+            VenueNext.shared.initialize(sdkKey: "", sdkSecret: "", configURL: configURL) { success, error in
+                
+            }
             Analytics.initialize(with: CustomAnalytics())
         case false:
-            ObjCConfiguration.start()
+            ObjCConfiguration.start(with: configURL)
         }
     }
 }

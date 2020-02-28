@@ -229,8 +229,6 @@ SWIFT_CLASS_NAMED("Cart")
 
 
 
-
-
 @class CartEntry;
 @class NSSet;
 
@@ -265,6 +263,8 @@ SWIFT_CLASS_NAMED("Cart")
 - (void)addTips:(NSOrderedSet * _Nonnull)values;
 - (void)removeTips:(NSOrderedSet * _Nonnull)values;
 @end
+
+
 
 
 
@@ -470,6 +470,20 @@ SWIFT_CLASS_NAMED("Item")
 
 
 
+
+@interface Item (SWIFT_EXTENSION(VNOrderData))
+- (void)insertObject:(Metadata * _Nonnull)value inMetadataAtIndex:(NSInteger)idx;
+- (void)removeObjectFromMetadataAtIndex:(NSInteger)idx;
+- (void)insertMetadata:(NSArray<Metadata *> * _Nonnull)values atIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)removeMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)replaceObjectInMetadataAtIndex:(NSInteger)idx withObject:(Metadata * _Nonnull)value;
+- (void)replaceMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes withMetadata:(NSArray<Metadata *> * _Nonnull)values;
+- (void)addMetadataObject:(Metadata * _Nonnull)value;
+- (void)removeMetadataObject:(Metadata * _Nonnull)value;
+- (void)addMetadata:(NSOrderedSet * _Nonnull)values;
+- (void)removeMetadata:(NSOrderedSet * _Nonnull)values;
+@end
+
 @class ModifierGroup;
 
 @interface Item (SWIFT_EXTENSION(VNOrderData))
@@ -483,20 +497,6 @@ SWIFT_CLASS_NAMED("Item")
 - (void)removeModifierGroupsObject:(ModifierGroup * _Nonnull)value;
 - (void)addModifierGroups:(NSOrderedSet * _Nonnull)values;
 - (void)removeModifierGroups:(NSOrderedSet * _Nonnull)values;
-@end
-
-
-@interface Item (SWIFT_EXTENSION(VNOrderData))
-- (void)insertObject:(Metadata * _Nonnull)value inMetadataAtIndex:(NSInteger)idx;
-- (void)removeObjectFromMetadataAtIndex:(NSInteger)idx;
-- (void)insertMetadata:(NSArray<Metadata *> * _Nonnull)values atIndexes:(NSIndexSet * _Nonnull)indexes;
-- (void)removeMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes;
-- (void)replaceObjectInMetadataAtIndex:(NSInteger)idx withObject:(Metadata * _Nonnull)value;
-- (void)replaceMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes withMetadata:(NSArray<Metadata *> * _Nonnull)values;
-- (void)addMetadataObject:(Metadata * _Nonnull)value;
-- (void)removeMetadataObject:(Metadata * _Nonnull)value;
-- (void)addMetadata:(NSOrderedSet * _Nonnull)values;
-- (void)removeMetadata:(NSOrderedSet * _Nonnull)values;
 @end
 
 @class ItemCategory;
@@ -532,14 +532,14 @@ SWIFT_CLASS_NAMED("ItemCategory")
 @end
 
 
-
-
 @interface ItemCategory (SWIFT_EXTENSION(VNOrderData))
 - (void)addItemsObject:(Item * _Nonnull)value;
 - (void)removeItemsObject:(Item * _Nonnull)value;
 - (void)addItems:(NSSet * _Nonnull)values;
 - (void)removeItems:(NSSet * _Nonnull)values;
 @end
+
+
 
 
 @interface ItemCategory (SWIFT_EXTENSION(VNOrderData))
@@ -575,6 +575,7 @@ SWIFT_CLASS_NAMED("LineItem")
 
 @interface LineItem (SWIFT_EXTENSION(VNOrderData))
 @property (nonatomic, copy) NSString * _Nullable eventUUID;
+@property (nonatomic, copy) NSDate * _Nullable expiresAt;
 @property (nonatomic, copy) NSString * _Nullable identifier;
 @property (nonatomic) BOOL isAlcohol;
 @property (nonatomic, copy) NSString * _Nullable itemUUID;
@@ -777,18 +778,18 @@ SWIFT_CLASS_NAMED("ModifierItem")
 
 
 @interface ModifierItem (SWIFT_EXTENSION(VNOrderData))
-- (void)addModifierGroupsObject:(ModifierGroup * _Nonnull)value;
-- (void)removeModifierGroupsObject:(ModifierGroup * _Nonnull)value;
-- (void)addModifierGroups:(NSSet * _Nonnull)values;
-- (void)removeModifierGroups:(NSSet * _Nonnull)values;
-@end
-
-
-@interface ModifierItem (SWIFT_EXTENSION(VNOrderData))
 - (void)addModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
 - (void)removeModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
 - (void)addModifierCartEntries:(NSSet * _Nonnull)values;
 - (void)removeModifierCartEntries:(NSSet * _Nonnull)values;
+@end
+
+
+@interface ModifierItem (SWIFT_EXTENSION(VNOrderData))
+- (void)addModifierGroupsObject:(ModifierGroup * _Nonnull)value;
+- (void)removeModifierGroupsObject:(ModifierGroup * _Nonnull)value;
+- (void)addModifierGroups:(NSSet * _Nonnull)values;
+- (void)removeModifierGroups:(NSSet * _Nonnull)values;
 @end
 
 
@@ -871,18 +872,18 @@ SWIFT_CLASS_NAMED("OrderSummary")
 
 
 @interface OrderSummary (SWIFT_EXTENSION(VNOrderData))
-- (void)addLineItemsObject:(LineItem * _Nonnull)value;
-- (void)removeLineItemsObject:(LineItem * _Nonnull)value;
-- (void)addLineItems:(NSSet * _Nonnull)values;
-- (void)removeLineItems:(NSSet * _Nonnull)values;
-@end
-
-
-@interface OrderSummary (SWIFT_EXTENSION(VNOrderData))
 - (void)addExperienceItemsObject:(ExperienceItem * _Nonnull)value;
 - (void)removeExperienceItemsObject:(ExperienceItem * _Nonnull)value;
 - (void)addExperienceItems:(NSSet * _Nonnull)values;
 - (void)removeExperienceItems:(NSSet * _Nonnull)values;
+@end
+
+
+@interface OrderSummary (SWIFT_EXTENSION(VNOrderData))
+- (void)addLineItemsObject:(LineItem * _Nonnull)value;
+- (void)removeLineItemsObject:(LineItem * _Nonnull)value;
+- (void)addLineItems:(NSSet * _Nonnull)values;
+- (void)removeLineItems:(NSSet * _Nonnull)values;
 @end
 
 
@@ -1114,12 +1115,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNOrderData 
 @end
 
 
-
-
 @interface VNOrderData (SWIFT_EXTENSION(VNOrderData))
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull classStringName;)
 + (NSString * _Nonnull)classStringName SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
@@ -1420,8 +1421,6 @@ SWIFT_CLASS_NAMED("Cart")
 
 
 
-
-
 @class CartEntry;
 @class NSSet;
 
@@ -1456,6 +1455,8 @@ SWIFT_CLASS_NAMED("Cart")
 - (void)addTips:(NSOrderedSet * _Nonnull)values;
 - (void)removeTips:(NSOrderedSet * _Nonnull)values;
 @end
+
+
 
 
 
@@ -1661,6 +1662,20 @@ SWIFT_CLASS_NAMED("Item")
 
 
 
+
+@interface Item (SWIFT_EXTENSION(VNOrderData))
+- (void)insertObject:(Metadata * _Nonnull)value inMetadataAtIndex:(NSInteger)idx;
+- (void)removeObjectFromMetadataAtIndex:(NSInteger)idx;
+- (void)insertMetadata:(NSArray<Metadata *> * _Nonnull)values atIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)removeMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes;
+- (void)replaceObjectInMetadataAtIndex:(NSInteger)idx withObject:(Metadata * _Nonnull)value;
+- (void)replaceMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes withMetadata:(NSArray<Metadata *> * _Nonnull)values;
+- (void)addMetadataObject:(Metadata * _Nonnull)value;
+- (void)removeMetadataObject:(Metadata * _Nonnull)value;
+- (void)addMetadata:(NSOrderedSet * _Nonnull)values;
+- (void)removeMetadata:(NSOrderedSet * _Nonnull)values;
+@end
+
 @class ModifierGroup;
 
 @interface Item (SWIFT_EXTENSION(VNOrderData))
@@ -1674,20 +1689,6 @@ SWIFT_CLASS_NAMED("Item")
 - (void)removeModifierGroupsObject:(ModifierGroup * _Nonnull)value;
 - (void)addModifierGroups:(NSOrderedSet * _Nonnull)values;
 - (void)removeModifierGroups:(NSOrderedSet * _Nonnull)values;
-@end
-
-
-@interface Item (SWIFT_EXTENSION(VNOrderData))
-- (void)insertObject:(Metadata * _Nonnull)value inMetadataAtIndex:(NSInteger)idx;
-- (void)removeObjectFromMetadataAtIndex:(NSInteger)idx;
-- (void)insertMetadata:(NSArray<Metadata *> * _Nonnull)values atIndexes:(NSIndexSet * _Nonnull)indexes;
-- (void)removeMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes;
-- (void)replaceObjectInMetadataAtIndex:(NSInteger)idx withObject:(Metadata * _Nonnull)value;
-- (void)replaceMetadataAtIndexes:(NSIndexSet * _Nonnull)indexes withMetadata:(NSArray<Metadata *> * _Nonnull)values;
-- (void)addMetadataObject:(Metadata * _Nonnull)value;
-- (void)removeMetadataObject:(Metadata * _Nonnull)value;
-- (void)addMetadata:(NSOrderedSet * _Nonnull)values;
-- (void)removeMetadata:(NSOrderedSet * _Nonnull)values;
 @end
 
 @class ItemCategory;
@@ -1723,14 +1724,14 @@ SWIFT_CLASS_NAMED("ItemCategory")
 @end
 
 
-
-
 @interface ItemCategory (SWIFT_EXTENSION(VNOrderData))
 - (void)addItemsObject:(Item * _Nonnull)value;
 - (void)removeItemsObject:(Item * _Nonnull)value;
 - (void)addItems:(NSSet * _Nonnull)values;
 - (void)removeItems:(NSSet * _Nonnull)values;
 @end
+
+
 
 
 @interface ItemCategory (SWIFT_EXTENSION(VNOrderData))
@@ -1766,6 +1767,7 @@ SWIFT_CLASS_NAMED("LineItem")
 
 @interface LineItem (SWIFT_EXTENSION(VNOrderData))
 @property (nonatomic, copy) NSString * _Nullable eventUUID;
+@property (nonatomic, copy) NSDate * _Nullable expiresAt;
 @property (nonatomic, copy) NSString * _Nullable identifier;
 @property (nonatomic) BOOL isAlcohol;
 @property (nonatomic, copy) NSString * _Nullable itemUUID;
@@ -1968,18 +1970,18 @@ SWIFT_CLASS_NAMED("ModifierItem")
 
 
 @interface ModifierItem (SWIFT_EXTENSION(VNOrderData))
-- (void)addModifierGroupsObject:(ModifierGroup * _Nonnull)value;
-- (void)removeModifierGroupsObject:(ModifierGroup * _Nonnull)value;
-- (void)addModifierGroups:(NSSet * _Nonnull)values;
-- (void)removeModifierGroups:(NSSet * _Nonnull)values;
-@end
-
-
-@interface ModifierItem (SWIFT_EXTENSION(VNOrderData))
 - (void)addModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
 - (void)removeModifierCartEntriesObject:(ModifierCartEntry * _Nonnull)value;
 - (void)addModifierCartEntries:(NSSet * _Nonnull)values;
 - (void)removeModifierCartEntries:(NSSet * _Nonnull)values;
+@end
+
+
+@interface ModifierItem (SWIFT_EXTENSION(VNOrderData))
+- (void)addModifierGroupsObject:(ModifierGroup * _Nonnull)value;
+- (void)removeModifierGroupsObject:(ModifierGroup * _Nonnull)value;
+- (void)addModifierGroups:(NSSet * _Nonnull)values;
+- (void)removeModifierGroups:(NSSet * _Nonnull)values;
 @end
 
 
@@ -2062,18 +2064,18 @@ SWIFT_CLASS_NAMED("OrderSummary")
 
 
 @interface OrderSummary (SWIFT_EXTENSION(VNOrderData))
-- (void)addLineItemsObject:(LineItem * _Nonnull)value;
-- (void)removeLineItemsObject:(LineItem * _Nonnull)value;
-- (void)addLineItems:(NSSet * _Nonnull)values;
-- (void)removeLineItems:(NSSet * _Nonnull)values;
-@end
-
-
-@interface OrderSummary (SWIFT_EXTENSION(VNOrderData))
 - (void)addExperienceItemsObject:(ExperienceItem * _Nonnull)value;
 - (void)removeExperienceItemsObject:(ExperienceItem * _Nonnull)value;
 - (void)addExperienceItems:(NSSet * _Nonnull)values;
 - (void)removeExperienceItems:(NSSet * _Nonnull)values;
+@end
+
+
+@interface OrderSummary (SWIFT_EXTENSION(VNOrderData))
+- (void)addLineItemsObject:(LineItem * _Nonnull)value;
+- (void)removeLineItemsObject:(LineItem * _Nonnull)value;
+- (void)addLineItems:(NSSet * _Nonnull)values;
+- (void)removeLineItems:(NSSet * _Nonnull)values;
 @end
 
 
@@ -2305,12 +2307,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNOrderData 
 @end
 
 
-
-
 @interface VNOrderData (SWIFT_EXTENSION(VNOrderData))
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull classStringName;)
 + (NSString * _Nonnull)classStringName SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 

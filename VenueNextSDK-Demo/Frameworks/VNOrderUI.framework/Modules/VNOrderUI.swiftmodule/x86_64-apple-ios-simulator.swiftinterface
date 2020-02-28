@@ -54,7 +54,7 @@ extension DeepLinkRoute {
   @objc override dynamic public func numberOfSections(in tableView: UIKit.UITableView) -> Swift.Int
   @objc override dynamic public func tableView(_ tableView: UIKit.UITableView, numberOfRowsInSection section: Swift.Int) -> Swift.Int
   @objc override dynamic public func tableView(_ tableView: UIKit.UITableView, cellForRowAt indexPath: Foundation.IndexPath) -> UIKit.UITableViewCell
-  override public init(cart: VNOrderData.Cart, productType: VNCore.ProductType)
+  override public init(productType: VNCore.ProductType)
   @objc deinit
 }
 @objc open class PresentableNavigationController : UIKit.UINavigationController, VNCoreUI.Presentable {
@@ -105,6 +105,12 @@ extension ExperiencesViewController : UIKit.UITableViewDataSource, UIKit.UITable
   @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
   @objc deinit
 }
+extension VNOrder : VNCore.VNModule {
+  public var moduleName: Swift.String {
+    get
+  }
+  @objc dynamic public func reset(completion: @escaping (Swift.Bool, Swift.Error?) -> Swift.Void)
+}
 extension UINavigationController {
   @objc override dynamic open var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
     @objc get
@@ -114,15 +120,15 @@ extension UINavigationController {
   @objc dynamic public func pushVNMenu(for menuUUID: Swift.String, productType: VNCore.ProductType, animated: Swift.Bool)
   public func pushVNRvCList(for productTypes: [VNCore.ProductType], title: Swift.String? = nil, animated: Swift.Bool)
   @objc(pushVNRvCList:title:animated:) dynamic public func objc_pushVNRvCList(for productTypes: Swift.Array<Swift.Int>, title: Swift.String? = nil, animated: Swift.Bool)
+  @objc dynamic public func pushVNExperienceDetails(for menuUUID: Swift.String, eventUUID: Swift.String, variantUUID: Swift.String, animated: Swift.Bool)
   @objc dynamic public func pushVNOrderHistory(animated: Swift.Bool)
 }
 @objc public class VNOrderNavigation : ObjectiveC.NSObject {
   @objc public static func receiptNavigationController(orderSummaryUUID: Swift.String, productType: VNCore.ProductType, dismissDelegate: VNCoreUI.DismissDelegate?) -> UIKit.UINavigationController
-  @objc public static func experienceDetailNavigationController(menuID: Swift.String, eventID: Swift.String, variantID: Swift.String, dismissDelegate: VNCoreUI.DismissDelegate?) -> UIKit.UINavigationController
-  @objc public static func experienceDetailNavigationController(with experience: VNOrderData.Item, event: VNOrderData.ExperienceEvent? = nil, dismissDelegate: VNCoreUI.DismissDelegate?) -> UIKit.UINavigationController
+  @objc public static func experienceDetailNavigationController(menuUUID: Swift.String, eventUUID: Swift.String, variantUUID: Swift.String, dismissDelegate: VNCoreUI.DismissDelegate?) -> UIKit.UINavigationController
   public static func rvcNavigationController(productTypes: [VNCore.ProductType], title: Swift.String? = nil, dismissDelegate: VNCoreUI.DismissDelegate?) -> UIKit.UINavigationController
-  @objc(rvcNavigationControllerWithProductTypes:title:dismissDelegate:) public static func rvCNavigationController(productTypes: Swift.Array<Swift.Int>, title: Swift.String? = nil, dismissDelegate: VNCoreUI.DismissDelegate?) -> UIKit.UINavigationController
-  @objc public static func standMenuNavigationController(menuUUID: Swift.String, dismissDelegate: VNCoreUI.DismissDelegate?) -> UIKit.UINavigationController
+  @objc(rvcNavigationControllerWithProductTypes:title:dismissDelegate:) public static func objc_rvcNavigationController(productTypes: Swift.Array<Swift.Int>, title: Swift.String? = nil, dismissDelegate: VNCoreUI.DismissDelegate?) -> UIKit.UINavigationController
+  @objc public static func menuNavigationController(menuUUID: Swift.String, productType: VNCore.ProductType, dismissDelegate: VNCoreUI.DismissDelegate?) -> UIKit.UINavigationController
   @objc public static func orderHistoryNavigationController(dismissDelegate: VNCoreUI.DismissDelegate?) -> UIKit.UINavigationController
   @objc override dynamic public init()
   @objc deinit
@@ -244,12 +250,13 @@ extension UIColor {
 }
 extension VNOrder : VNCore.VNOrderProtocol {
   @objc dynamic public func enableWallet(wallet: Any)
+  @objc dynamic public func disableWallet()
 }
 @objc public class CheckoutTableViewController : UIKit.UITableViewController, VNCoreUI.Alerting {
   @objc override dynamic public var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
     @objc get
   }
-  public init(cart: VNOrderData.Cart, productType: VNCore.ProductType)
+  public init(productType: VNCore.ProductType)
   @objc override dynamic public func viewDidLoad()
   @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
   @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
@@ -298,7 +305,7 @@ extension MetadataViewController : UIKit.UIPageViewControllerDelegate, UIKit.UIP
   @objc dynamic public func pageViewController(_ pageViewController: UIKit.UIPageViewController, didFinishAnimating finished: Swift.Bool, previousViewControllers: [UIKit.UIViewController], transitionCompleted completed: Swift.Bool)
 }
 public class MenuItemDetailViewModel {
-  public init(for item: VNOrderData.Item, cart: VNOrderData.Cart)
+  public init(for item: VNOrderData.Item)
   @objc deinit
 }
 @objc public class ExperienceCard : UIKit.UIView {

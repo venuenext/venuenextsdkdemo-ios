@@ -428,8 +428,11 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 @interface UINavigationController (SWIFT_EXTENSION(VNOrderUI))
 - (void)pushVNMenuFor:(NSString * _Nonnull)menuUUID productType:(enum ProductType)productType animated:(BOOL)animated;
 - (void)pushVNRvCList:(NSArray<NSNumber *> * _Nonnull)productTypes title:(NSString * _Nullable)title animated:(BOOL)animated;
+- (void)pushVNExperienceDetailsFor:(NSString * _Nonnull)menuUUID eventUUID:(NSString * _Nonnull)eventUUID variantUUID:(NSString * _Nonnull)variantUUID animated:(BOOL)animated;
 - (void)pushVNOrderHistoryWithAnimated:(BOOL)animated;
 @end
+
+
 
 
 
@@ -462,20 +465,23 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNOrder * _N
 
 @interface VNOrder (SWIFT_EXTENSION(VNOrderUI)) <VNOrderProtocol>
 - (void)enableWalletWithWallet:(id _Nonnull)wallet;
+- (void)disableWallet;
 @end
 
 
 
-@class Item;
-@class ExperienceEvent;
+
+@interface VNOrder (SWIFT_EXTENSION(VNOrderUI))
+- (void)resetWithCompletion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+@end
+
 
 SWIFT_CLASS("_TtC9VNOrderUI17VNOrderNavigation")
 @interface VNOrderNavigation : NSObject
 + (UINavigationController * _Nonnull)receiptNavigationControllerWithOrderSummaryUUID:(NSString * _Nonnull)orderSummaryUUID productType:(enum ProductType)productType dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
-+ (UINavigationController * _Nonnull)experienceDetailNavigationControllerWithMenuID:(NSString * _Nonnull)menuID eventID:(NSString * _Nonnull)eventID variantID:(NSString * _Nonnull)variantID dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
-+ (UINavigationController * _Nonnull)experienceDetailNavigationControllerWith:(Item * _Nonnull)experience event:(ExperienceEvent * _Nullable)event dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
++ (UINavigationController * _Nonnull)experienceDetailNavigationControllerWithMenuUUID:(NSString * _Nonnull)menuUUID eventUUID:(NSString * _Nonnull)eventUUID variantUUID:(NSString * _Nonnull)variantUUID dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
 + (UINavigationController * _Nonnull)rvcNavigationControllerWithProductTypes:(NSArray<NSNumber *> * _Nonnull)productTypes title:(NSString * _Nullable)title dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
-+ (UINavigationController * _Nonnull)standMenuNavigationControllerWithMenuUUID:(NSString * _Nonnull)menuUUID dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
++ (UINavigationController * _Nonnull)menuNavigationControllerWithMenuUUID:(NSString * _Nonnull)menuUUID productType:(enum ProductType)productType dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
 + (UINavigationController * _Nonnull)orderHistoryNavigationControllerWithDismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -914,8 +920,11 @@ SWIFT_CLASS("_TtC9VNOrderUI9TimerCard")
 @interface UINavigationController (SWIFT_EXTENSION(VNOrderUI))
 - (void)pushVNMenuFor:(NSString * _Nonnull)menuUUID productType:(enum ProductType)productType animated:(BOOL)animated;
 - (void)pushVNRvCList:(NSArray<NSNumber *> * _Nonnull)productTypes title:(NSString * _Nullable)title animated:(BOOL)animated;
+- (void)pushVNExperienceDetailsFor:(NSString * _Nonnull)menuUUID eventUUID:(NSString * _Nonnull)eventUUID variantUUID:(NSString * _Nonnull)variantUUID animated:(BOOL)animated;
 - (void)pushVNOrderHistoryWithAnimated:(BOOL)animated;
 @end
+
+
 
 
 
@@ -948,20 +957,23 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNOrder * _N
 
 @interface VNOrder (SWIFT_EXTENSION(VNOrderUI)) <VNOrderProtocol>
 - (void)enableWalletWithWallet:(id _Nonnull)wallet;
+- (void)disableWallet;
 @end
 
 
 
-@class Item;
-@class ExperienceEvent;
+
+@interface VNOrder (SWIFT_EXTENSION(VNOrderUI))
+- (void)resetWithCompletion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+@end
+
 
 SWIFT_CLASS("_TtC9VNOrderUI17VNOrderNavigation")
 @interface VNOrderNavigation : NSObject
 + (UINavigationController * _Nonnull)receiptNavigationControllerWithOrderSummaryUUID:(NSString * _Nonnull)orderSummaryUUID productType:(enum ProductType)productType dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
-+ (UINavigationController * _Nonnull)experienceDetailNavigationControllerWithMenuID:(NSString * _Nonnull)menuID eventID:(NSString * _Nonnull)eventID variantID:(NSString * _Nonnull)variantID dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
-+ (UINavigationController * _Nonnull)experienceDetailNavigationControllerWith:(Item * _Nonnull)experience event:(ExperienceEvent * _Nullable)event dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
++ (UINavigationController * _Nonnull)experienceDetailNavigationControllerWithMenuUUID:(NSString * _Nonnull)menuUUID eventUUID:(NSString * _Nonnull)eventUUID variantUUID:(NSString * _Nonnull)variantUUID dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
 + (UINavigationController * _Nonnull)rvcNavigationControllerWithProductTypes:(NSArray<NSNumber *> * _Nonnull)productTypes title:(NSString * _Nullable)title dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
-+ (UINavigationController * _Nonnull)standMenuNavigationControllerWithMenuUUID:(NSString * _Nonnull)menuUUID dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
++ (UINavigationController * _Nonnull)menuNavigationControllerWithMenuUUID:(NSString * _Nonnull)menuUUID productType:(enum ProductType)productType dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
 + (UINavigationController * _Nonnull)orderHistoryNavigationControllerWithDismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end

@@ -633,6 +633,8 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 
 
 
+
+
 SWIFT_CLASS("_TtC8VNCoreUI18VNSegmentedControl")
 @interface VNSegmentedControl : UISegmentedControl
 - (nonnull instancetype)initWithItems:(NSArray * _Nullable)items OBJC_DESIGNATED_INITIALIZER;
@@ -1270,6 +1272,8 @@ SWIFT_PROTOCOL("_TtP8VNCoreUI18UITabBarAppearance_")
 @property (nonatomic, readonly, strong) UIColor * _Nonnull preferredUnSelectedTintColor;
 - (void)setTabBarAppearance;
 @end
+
+
 
 
 

@@ -67,6 +67,15 @@ extension GetRevenueCentersParser : VNCore.VNIdentifiable {
     get
   }
 }
+extension VNOrderData : VNCore.VNModule {
+  public var moduleName: Swift.String {
+    get
+  }
+  public func reset(completion: @escaping (Swift.Bool, Swift.Error?) -> Swift.Void)
+}
+extension Cart {
+  public static func fetch(with standIdentifier: Swift.String, createIfNecessary: Swift.Bool = true, in context: CoreData.NSManagedObjectContext) throws -> VNOrderData.Cart
+}
 public struct OrderUpdateNotification : VNCore.SocketNotification {
   public var orderID: Swift.String
   public static func parse(json: [Swift.String : Any]) -> VNOrderData.OrderUpdateNotification?
@@ -239,21 +248,15 @@ public typealias ItemAndModifiersCollection = [(item: VNOrderData.Item, quantity
   @objc public static let shared: VNOrderData.VNOrderData
   public var persistentContainer: CoreData.NSPersistentContainer {
     get
-    set
   }
   public var managedObjectContext: CoreData.NSManagedObjectContext {
     get
-    set
   }
   public var managedObjectContextForTests: CoreData.NSManagedObjectContext {
     get
     set
   }
-  public func saveContext() throws
-  public var cart: VNOrderData.Cart {
-    get
-    set
-  }
+  public var cart: VNOrderData.Cart
   public var notifier: VNCore.NotifyService<VNOrderData.OrderUpdateNotification>
   @objc deinit
 }
@@ -267,7 +270,7 @@ extension VNOrderData : VNCore.Notifiable {
 }
 extension VNOrderData {
   @objc dynamic public func reloadStands(completion: ((Swift.Bool, Swift.Error?) -> Swift.Void)? = nil)
-  public func requestOrder(with uuid: Swift.String, for productType: VNCore.ProductType, completion: @escaping (Swift.Result<Swift.Bool, VNNetworkService.VNAnyError>) -> Swift.Void)
+  public func requestOrder(with uuid: Swift.String, for productType: VNCore.ProductType, completion: @escaping (Swift.Result<Swift.String?, VNNetworkService.VNAnyError>) -> Swift.Void)
   public func requestOrderHistory(productType: VNCore.ProductType, completion: ((Swift.Result<Swift.Bool, VNNetworkService.VNAnyError>) -> Swift.Void)? = nil)
   public func requestOrderAheadAvailability(for menu: VNOrderData.Menu, in context: CoreData.NSManagedObjectContext, completion: @escaping ([VNOrderData.RemoteOrderAheadAvailability]) -> Swift.Void)
   public func requestMenuItems(for menu: VNOrderData.Menu, in context: CoreData.NSManagedObjectContext, completion: (() -> Swift.Void)? = nil)
@@ -287,10 +290,6 @@ extension VNOrderData {
   @objc override dynamic public class var classStringName: Swift.String {
     @objc get
   }
-}
-extension VNOrderData {
-  public func deleteAllData(for entityName: Swift.String)
-  public func destroy()
 }
 @objc public class ReloadStandsOperation : VNOrderData.AsyncOperation {
   @objc override dynamic public init()
@@ -1049,6 +1048,10 @@ extension ItemCategory {
 extension LineItem {
   @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<VNOrderData.LineItem>
   @objc @NSManaged dynamic public var eventUUID: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var expiresAt: Foundation.Date? {
     @objc get
     @objc set
   }

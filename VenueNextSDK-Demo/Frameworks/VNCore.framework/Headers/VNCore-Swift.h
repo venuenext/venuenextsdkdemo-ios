@@ -218,15 +218,13 @@ SWIFT_CLASS("_TtC6VNCore11Environment")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) Environment * _Nonnull shared;)
 + (Environment * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 + (void)setShared:(Environment * _Nonnull)value;
-@property (nonatomic, readonly, copy) NSString * _Nullable organizationName;
-@property (nonatomic, readonly, copy) NSString * _Nullable currentVenueUUID;
-@property (nonatomic, readonly, copy) NSString * _Nullable venueHost;
-@property (nonatomic, readonly, copy) NSString * _Nullable userHost;
-@property (nonatomic, readonly, copy) NSString * _Nullable stadiumHost;
-@property (nonatomic, readonly, copy) NSString * _Nullable stubsHost;
-@property (nonatomic, readonly, copy) NSString * _Nullable paymentHost;
-@property (nonatomic, readonly, copy) NSString * _Nullable notifyHost;
-@property (nonatomic, readonly, copy) NSString * _Nullable loyaltyHost;
+@property (nonatomic, readonly, copy) NSString * _Nullable venueHost SWIFT_DEPRECATED_MSG("Please use Environment.config directly");
+@property (nonatomic, readonly, copy) NSString * _Nullable userHost SWIFT_DEPRECATED_MSG("Please use Environment.config directly");
+@property (nonatomic, readonly, copy) NSString * _Nullable stadiumHost SWIFT_DEPRECATED_MSG("Please use Environment.config directly");
+@property (nonatomic, readonly, copy) NSString * _Nullable stubsHost SWIFT_DEPRECATED_MSG("Please use Environment.config directly");
+@property (nonatomic, readonly, copy) NSString * _Nullable paymentHost SWIFT_DEPRECATED_MSG("Please use Environment.config directly");
+@property (nonatomic, readonly, copy) NSString * _Nullable notifyHost SWIFT_DEPRECATED_MSG("Please use Environment.config directly");
+@property (nonatomic, readonly, copy) NSString * _Nullable loyaltyHost SWIFT_DEPRECATED_MSG("Please use Environment.config directly");
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -344,6 +342,8 @@ SWIFT_CLASS("_TtC6VNCore17VNLocationManager")
 SWIFT_PROTOCOL("_TtP6VNCore15VNOrderProtocol_")
 @protocol VNOrderProtocol
 - (void)enableWalletWithWallet:(id _Nonnull)wallet;
+- (void)disableWallet;
+- (void)resetWithCompletion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
 @end
 
 
@@ -392,22 +392,21 @@ SWIFT_CLASS("_TtC6VNCore9VenueNext")
 @interface VenueNext : NSObject
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * _Nonnull shared;)
 + (VenueNext * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
-/// Configures the app for VenueNext frameworks. Raises an exception if the Keys.plist is not found. This method is thread safe and contains synchronous file I/O (reading Keys-Info.plist from disk). If you do not have a Keys.plist, then use <code>VenueNext.shared.initialize(sdkKey:sdkSecret:) instead.</code>
-/// This method should be called after the app is launched and before using VenueNext services such as in application(_:didFinishLaunchingWithOptions:).
-+ (void)configureWithCompletion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 + (void)configureWithPaymentProcessor:(id <PaymentProcessable> _Nonnull)paymentProcessor;
 + (void)enableWalletFor:(id <VNOrderProtocol> _Nonnull)order;
-+ (void)enableVirtualCurrency:(NSArray<NSNumber *> * _Nonnull)productTypes;
 + (void)configureWithTheme:(id <VNCoreThemable> _Nonnull)theme;
-- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
-- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
-- (void)deinitializeWithCompletion:(void (^ _Nullable)(void))completion;
-+ (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
-+ (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configURL:(NSURL * _Nonnull)configURL completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID configURL:(NSURL * _Nonnull)configURL completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configData:(NSData * _Nonnull)configData completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID configData:(NSData * _Nonnull)configData completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+@interface VenueNext (SWIFT_EXTENSION(VNCore))
++ (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
++ (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
+@end
 
 
 
@@ -416,6 +415,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * 
 - (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
 - (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
 @end
+
+
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -639,15 +640,13 @@ SWIFT_CLASS("_TtC6VNCore11Environment")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) Environment * _Nonnull shared;)
 + (Environment * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 + (void)setShared:(Environment * _Nonnull)value;
-@property (nonatomic, readonly, copy) NSString * _Nullable organizationName;
-@property (nonatomic, readonly, copy) NSString * _Nullable currentVenueUUID;
-@property (nonatomic, readonly, copy) NSString * _Nullable venueHost;
-@property (nonatomic, readonly, copy) NSString * _Nullable userHost;
-@property (nonatomic, readonly, copy) NSString * _Nullable stadiumHost;
-@property (nonatomic, readonly, copy) NSString * _Nullable stubsHost;
-@property (nonatomic, readonly, copy) NSString * _Nullable paymentHost;
-@property (nonatomic, readonly, copy) NSString * _Nullable notifyHost;
-@property (nonatomic, readonly, copy) NSString * _Nullable loyaltyHost;
+@property (nonatomic, readonly, copy) NSString * _Nullable venueHost SWIFT_DEPRECATED_MSG("Please use Environment.config directly");
+@property (nonatomic, readonly, copy) NSString * _Nullable userHost SWIFT_DEPRECATED_MSG("Please use Environment.config directly");
+@property (nonatomic, readonly, copy) NSString * _Nullable stadiumHost SWIFT_DEPRECATED_MSG("Please use Environment.config directly");
+@property (nonatomic, readonly, copy) NSString * _Nullable stubsHost SWIFT_DEPRECATED_MSG("Please use Environment.config directly");
+@property (nonatomic, readonly, copy) NSString * _Nullable paymentHost SWIFT_DEPRECATED_MSG("Please use Environment.config directly");
+@property (nonatomic, readonly, copy) NSString * _Nullable notifyHost SWIFT_DEPRECATED_MSG("Please use Environment.config directly");
+@property (nonatomic, readonly, copy) NSString * _Nullable loyaltyHost SWIFT_DEPRECATED_MSG("Please use Environment.config directly");
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -765,6 +764,8 @@ SWIFT_CLASS("_TtC6VNCore17VNLocationManager")
 SWIFT_PROTOCOL("_TtP6VNCore15VNOrderProtocol_")
 @protocol VNOrderProtocol
 - (void)enableWalletWithWallet:(id _Nonnull)wallet;
+- (void)disableWallet;
+- (void)resetWithCompletion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
 @end
 
 
@@ -813,22 +814,21 @@ SWIFT_CLASS("_TtC6VNCore9VenueNext")
 @interface VenueNext : NSObject
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * _Nonnull shared;)
 + (VenueNext * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
-/// Configures the app for VenueNext frameworks. Raises an exception if the Keys.plist is not found. This method is thread safe and contains synchronous file I/O (reading Keys-Info.plist from disk). If you do not have a Keys.plist, then use <code>VenueNext.shared.initialize(sdkKey:sdkSecret:) instead.</code>
-/// This method should be called after the app is launched and before using VenueNext services such as in application(_:didFinishLaunchingWithOptions:).
-+ (void)configureWithCompletion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 + (void)configureWithPaymentProcessor:(id <PaymentProcessable> _Nonnull)paymentProcessor;
 + (void)enableWalletFor:(id <VNOrderProtocol> _Nonnull)order;
-+ (void)enableVirtualCurrency:(NSArray<NSNumber *> * _Nonnull)productTypes;
 + (void)configureWithTheme:(id <VNCoreThemable> _Nonnull)theme;
-- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
-- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
-- (void)deinitializeWithCompletion:(void (^ _Nullable)(void))completion;
-+ (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
-+ (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configURL:(NSURL * _Nonnull)configURL completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID configURL:(NSURL * _Nonnull)configURL completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configData:(NSData * _Nonnull)configData completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID configData:(NSData * _Nonnull)configData completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+@interface VenueNext (SWIFT_EXTENSION(VNCore))
++ (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
++ (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
+@end
 
 
 
@@ -837,6 +837,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * 
 - (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
 - (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
 @end
+
+
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop

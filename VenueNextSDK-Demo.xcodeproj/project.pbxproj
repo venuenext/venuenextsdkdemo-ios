@@ -49,6 +49,7 @@
 		CE0CC72923D8C1DF00BEEFD3 /* Presence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE0CC72023D8C1D900BEEFD3 /* Presence.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE0CC72A23D8C1DF00BEEFD3 /* PresenceSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE0CC72123D8C1D900BEEFD3 /* PresenceSDK.framework */; };
 		CE0CC72B23D8C1DF00BEEFD3 /* PresenceSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE0CC72123D8C1D900BEEFD3 /* PresenceSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CE68218A2409A07300DED6CA /* vn-sdk-config-dev.json in Resources */ = {isa = PBXBuildFile; fileRef = CE6821892409A07300DED6CA /* vn-sdk-config-dev.json */; };
 		CEDE0F6323FDE76700098B02 /* VNAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDE0F4C23FDE75C00098B02 /* VNAnalytics.framework */; };
 		CEDE0F6423FDE76700098B02 /* VNAnalytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEDE0F4C23FDE75C00098B02 /* VNAnalytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CEDE0F6523FDE76700098B02 /* VNCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEDE0F4B23FDE75C00098B02 /* VNCore.framework */; };
@@ -150,6 +151,7 @@
 		CE0CC72023D8C1D900BEEFD3 /* Presence.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presence.framework; sourceTree = "<group>"; };
 		CE0CC72123D8C1D900BEEFD3 /* PresenceSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PresenceSDK.framework; sourceTree = "<group>"; };
 		CE0CC72223D8C1D900BEEFD3 /* iosExperienceSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iosExperienceSDK.framework; sourceTree = "<group>"; };
+		CE6821892409A07300DED6CA /* vn-sdk-config-dev.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "vn-sdk-config-dev.json"; sourceTree = "<group>"; };
 		CEDE0F4B23FDE75C00098B02 /* VNCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNCore.framework; sourceTree = "<group>"; };
 		CEDE0F4C23FDE75C00098B02 /* VNAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNAnalytics.framework; sourceTree = "<group>"; };
 		CEDE0F4D23FDE75C00098B02 /* VNCoreUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VNCoreUI.framework; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 		AB2BCA8C228DB66400194A7A /* VenueNextSDK-Demo */ = {
 			isa = PBXGroup;
 			children = (
+				CE6821892409A07300DED6CA /* vn-sdk-config-dev.json */,
 				AB2BCA8D228DB66400194A7A /* AppDelegate.swift */,
 				65E2C6E72340463F0096C1F9 /* Helpers */,
 				65E2C6E4233EDEFF0096C1F9 /* Controllers */,
@@ -388,6 +391,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE68218A2409A07300DED6CA /* vn-sdk-config-dev.json in Resources */,
 				6594257C22C2BD2200BCA348 /* LinkTableViewCell.xib in Resources */,
 				ABC68E7D230EF7F500F41B01 /* DemoViewController.xib in Resources */,
 				AB2BCA98228DB66700194A7A /* LaunchScreen.storyboard in Resources */,
