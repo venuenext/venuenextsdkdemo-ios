@@ -1,0 +1,26 @@
+{
+  "service_base_urls" : {
+    "notify" : "https://venuenext-dev-nbaserver.venuenext.net/",
+    "venue" : "https://venuenext-dev-portico.venuenext.net/",
+    "payment" : "https://venuenext-dev-paulie.venuenext.net/",
+    "stubs" : "https://venuenext-dev-stubs.venuenext.net/",
+    "stadium" : "https://venuenext-dev-stadium.venuenext.net/",
+    "loyalty" : "https://venuenext-dev-loyalty.venuenext.net/",
+    "user" : "https://venuenext-dev-user.venuenext.net/"
+  },
+  "organization_name" : "orlando_magic",
+  "venues" : [
+    {
+      "venue_display_name" : "Amway Center",
+      "venue_uuid" : "6a23420c-0181-401b-c016-e7a242d42930"
+    }
+  ],
+  "wallet" : {
+      "wallet_modes": ["qrCode", "qrScanner", "virtualCurrencyToggle"],
+      "product_type_restrictions": ["food", "merchandise", "experience"],
+      "vc_bank_name" : "magic_money",
+      "wallet_title" : "Money Vault",
+      "program_name" : "Magic VIP Member",
+      "virtual_currency_name" : "Magic Money"
+  }
+}
