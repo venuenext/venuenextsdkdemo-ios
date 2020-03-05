@@ -277,13 +277,21 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWallet * _
 
 SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @protocol VNWalletDelegate
-/// Provide a login controller that will be handling the login process
-/// Be sure to call <code>completion</code> when you have successfully authenticated the user.
-/// \param completion 
-/// Passing an error in the completion will restart the login process (i.e. loginController will get called again).
-/// If you require an access token please pass it in the completion.
+/// Provide a login controller that will be handling the login process. Be sure to call <code>completion</code> when you have successfully authenticated the user.
+/// \param completion Return a valid VNWalletUser, API Token (if the third party uses one) and the Error if login failed
 ///
+///
+/// returns:
+/// Valid UIViewController displaying login screen
 - (UIViewController * _Nonnull)loginControllerWithCompletion:(void (^ _Nonnull)(VNWalletUser * _Nullable, NSString * _Nullable, NSError * _Nullable))completion SWIFT_WARN_UNUSED_RESULT;
+/// If user object is passed in, it will bypass login screen and take you directly to wallet
+/// important:
+/// If the returned VNWalletUser happens to change i.e. a logout happened
+/// VNWallet must be informed and the appropriate logout() methods must be called
+/// to tear down wallet. If this fails to happen, data from previous users can and will be displayed.
+///
+/// returns:
+/// Optional VNWalletUser and optional API Token from third party
 - (VNWalletUser * _Nullable)walletUser SWIFT_WARN_UNUSED_RESULT;
 @end
 
@@ -581,13 +589,21 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VNWallet * _
 
 SWIFT_PROTOCOL("_TtP10VNWalletUI16VNWalletDelegate_")
 @protocol VNWalletDelegate
-/// Provide a login controller that will be handling the login process
-/// Be sure to call <code>completion</code> when you have successfully authenticated the user.
-/// \param completion 
-/// Passing an error in the completion will restart the login process (i.e. loginController will get called again).
-/// If you require an access token please pass it in the completion.
+/// Provide a login controller that will be handling the login process. Be sure to call <code>completion</code> when you have successfully authenticated the user.
+/// \param completion Return a valid VNWalletUser, API Token (if the third party uses one) and the Error if login failed
 ///
+///
+/// returns:
+/// Valid UIViewController displaying login screen
 - (UIViewController * _Nonnull)loginControllerWithCompletion:(void (^ _Nonnull)(VNWalletUser * _Nullable, NSString * _Nullable, NSError * _Nullable))completion SWIFT_WARN_UNUSED_RESULT;
+/// If user object is passed in, it will bypass login screen and take you directly to wallet
+/// important:
+/// If the returned VNWalletUser happens to change i.e. a logout happened
+/// VNWallet must be informed and the appropriate logout() methods must be called
+/// to tear down wallet. If this fails to happen, data from previous users can and will be displayed.
+///
+/// returns:
+/// Optional VNWalletUser and optional API Token from third party
 - (VNWalletUser * _Nullable)walletUser SWIFT_WARN_UNUSED_RESULT;
 @end
 

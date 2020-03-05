@@ -83,6 +83,9 @@ public protocol VNModule {
 extension VNWalletUser {
   public static func formatBalanceInDollars(balance: Swift.Double) -> Swift.String
 }
+extension VNWalletUser {
+  public static func == (lhs: VNCore.VNWalletUser, rhs: VNCore.VNWalletUser) -> Swift.Bool
+}
 public typealias DefaultsCoreKeys = VNCore.VNDefaults.CoreKeys
 public typealias DefaultsWalletKeys = VNCore.VNDefaults.WalletKeys
 open class VNDefaults {
@@ -349,6 +352,7 @@ public protocol VNWalletProtocol : AnyObject {
   func getBalance(completion: @escaping (Foundation.NSNumber?, Swift.Error?) -> Swift.Void)
   func formatBalanceInDollars(balance: Swift.Double) -> Swift.String
   func showLogin(on controller: UIKit.UINavigationController, finish: @escaping (Swift.Bool, Swift.Error?) -> Swift.Void)
+  func loginIfNeeded(completion: @escaping (VNCore.VNWalletUser?, Swift.Bool, Swift.Error?) -> Swift.Void)
   func virtualCurrencyPaymentType() -> Swift.String
   func isWalletEnvironmentAvailable() -> Swift.Bool
   func logout()
@@ -461,6 +465,8 @@ extension VenueNext {
   final public func registerTicketingAccount(email: Swift.String, externalId: Swift.String, flow: Swift.String = "sdk", token: Swift.String? = nil, completion: @escaping (VNCore.AccountRepresentable?, Swift.Error?) -> Swift.Void)
   final public func logoutTicketingAccount()
   final public func getTicketingAccount(token: Swift.String? = nil)
+  final public func getTicketingAPIToken() -> Swift.String?
+  final public func setTicketingAPIToken(token: Swift.String)
 }
 @objc public enum ProductType : Swift.Int, Swift.CaseIterable {
   case food

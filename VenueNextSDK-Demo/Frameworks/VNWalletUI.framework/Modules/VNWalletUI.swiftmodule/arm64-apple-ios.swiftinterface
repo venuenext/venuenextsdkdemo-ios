@@ -29,6 +29,7 @@ extension VNWallet : VNCore.VNWalletProtocol {
   }
   public func getBalance(completion: @escaping (Foundation.NSNumber?, Swift.Error?) -> Swift.Void)
   public func showLogin(on controller: UIKit.UINavigationController, finish: @escaping (Swift.Bool, Swift.Error?) -> Swift.Void)
+  public func loginIfNeeded(completion: @escaping (VNCore.VNWalletUser?, Swift.Bool, Swift.Error?) -> Swift.Void)
 }
 public struct LoyaltyUpdateNotification : VNCore.SocketNotification, Swift.Decodable {
   public static func parse(json: [Swift.String : Any]) -> VNWalletUI.LoyaltyUpdateNotification?

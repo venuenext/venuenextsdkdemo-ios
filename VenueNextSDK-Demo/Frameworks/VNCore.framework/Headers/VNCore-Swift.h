@@ -388,6 +388,8 @@ SWIFT_CLASS("_TtC6VNCore12VNWalletUser")
 
 
 
+
+
 SWIFT_CLASS("_TtC6VNCore9VenueNext")
 @interface VenueNext : NSObject
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * _Nonnull shared;)
@@ -409,12 +411,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * 
 @end
 
 
-
-
 @interface VenueNext (SWIFT_EXTENSION(VNCore))
 - (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
 - (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
 @end
+
+
 
 
 
@@ -810,6 +812,8 @@ SWIFT_CLASS("_TtC6VNCore12VNWalletUser")
 
 
 
+
+
 SWIFT_CLASS("_TtC6VNCore9VenueNext")
 @interface VenueNext : NSObject
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * _Nonnull shared;)
@@ -831,12 +835,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * 
 @end
 
 
-
-
 @interface VenueNext (SWIFT_EXTENSION(VNCore))
 - (BOOL)canHandleWithUrl:(NSURL * _Nonnull)url SWIFT_WARN_UNUSED_RESULT;
 - (void)handleWithUrl:(NSURL * _Nonnull)url presenter:(UIViewController * _Nonnull)presenter completion:(void (^ _Nullable)(BOOL))completion;
 @end
+
+
 
 
 

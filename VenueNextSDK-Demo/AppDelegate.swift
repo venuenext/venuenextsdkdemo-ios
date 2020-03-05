@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // VenueNext SDKs can be configured from Swift or ObjC
         // To run the ObjC app set isSwiftDemoApp to false
 
-        let isSwift = false
+        let isSwift = true
         Appearance.start()
 
         //Initialize VenueNext SDK
