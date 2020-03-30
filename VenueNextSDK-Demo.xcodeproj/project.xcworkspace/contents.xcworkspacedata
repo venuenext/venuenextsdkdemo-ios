@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:VenueNextSDK-Demo.xcodeproj">
+      location = "group:/Users/rashaad/Documents/iOS/venuenextsdkdemo-ios/VenueNextSDK-Demo/vn-sdk-config.json">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

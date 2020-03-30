@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A14B61623397F160071A6E4 /* PresenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A14B61523397F150071A6E4 /* PresenceController.swift */; };
+		1A44F5B524325355006089F1 /* vn-sdk-config.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A44F5B424325355006089F1 /* vn-sdk-config.json */; };
 		6594257722C23B7500BCA348 /* DeepLinkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6594257522C23B7500BCA348 /* DeepLinkTableViewController.swift */; };
 		6594257822C23B7500BCA348 /* DeepLinkTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6594257622C23B7500BCA348 /* DeepLinkTableViewController.xib */; };
 		6594257B22C2BD2200BCA348 /* LinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6594257922C2BD2100BCA348 /* LinkTableViewCell.swift */; };
@@ -115,6 +116,7 @@
 
 /* Begin PBXFileReference section */
 		1A14B61523397F150071A6E4 /* PresenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenceController.swift; sourceTree = "<group>"; };
+		1A44F5B424325355006089F1 /* vn-sdk-config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "vn-sdk-config.json"; sourceTree = "<group>"; };
 		6580C7C1235EBDE400800A38 /* BraintreeDropIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BraintreeDropIn.framework; sourceTree = "<group>"; };
 		6580C7C2235EBDE400800A38 /* BraintreeCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BraintreeCore.framework; sourceTree = "<group>"; };
 		6580C7C3235EBDE400800A38 /* PayPalOneTouch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PayPalOneTouch.framework; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		AB2BCA8C228DB66400194A7A /* VenueNextSDK-Demo */ = {
 			isa = PBXGroup;
 			children = (
+				1A44F5B424325355006089F1 /* vn-sdk-config.json */,
 				AB2BCA8D228DB66400194A7A /* AppDelegate.swift */,
 				65E2C6E72340463F0096C1F9 /* Helpers */,
 				65E2C6E4233EDEFF0096C1F9 /* Controllers */,
@@ -389,6 +392,7 @@
 				ABC68E7D230EF7F500F41B01 /* DemoViewController.xib in Resources */,
 				AB2BCA98228DB66700194A7A /* LaunchScreen.storyboard in Resources */,
 				AB2BCA95228DB66700194A7A /* Assets.xcassets in Resources */,
+				1A44F5B524325355006089F1 /* vn-sdk-config.json in Resources */,
 				6594257822C23B7500BCA348 /* DeepLinkTableViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -570,7 +574,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 152;
+				CURRENT_PROJECT_VERSION = 165;
 				DEVELOPMENT_TEAM = 4DL8PZB55U;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -599,7 +603,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 152;
+				CURRENT_PROJECT_VERSION = 165;
 				DEVELOPMENT_TEAM = 4DL8PZB55U;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

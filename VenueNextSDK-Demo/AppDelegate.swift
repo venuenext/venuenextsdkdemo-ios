@@ -39,8 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PresenceSDK.getPresenceSDK().setConfig(consumerKey: "", displayName: "Demo App", useNewAccountsManager: true)
         PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
         
-        //Enable all wallet modes
-        VNWallet.enableModes(walletModes: WalletMode.allCases)
         //Configure Payment processor (place this above modules that will need it)
         VenueNext.configure(paymentProcessor: PaymentAdapter())
         //configure wallet
@@ -48,8 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //turn on wallet for VNOrder
         VenueNext.enableWallet(for: VNOrder.shared)
         
-        //Enable all product types to use VC
-        VenueNext.enableVirtualCurrency(for: ProductType.allCases)
         //Uncomment if you want to pass in a custom theme
         //VenueNext.configure(theme: <Custom Theme>)
 
@@ -89,8 +85,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func intializeSDK(for isSwift: Bool) {
         switch isSwift {
         case true:
-            // use the following code in your application:didFinishLaunchingWithOptions:
-            VenueNext.shared.initialize(sdkKey: "", sdkSecret: "")
+            
+            guard let configURLString = Bundle.main.path(forResource: "vn-sdk-config", ofType: "json"), let configURL = URL(string: configURLString) else {
+                fatalError("Failed to find config file at provided path")
+            }
+            
+            VenueNext.shared.initialize(sdkKey: "", sdkSecret: "", configURL: configURL) { (success, error) in
+                if success {
+                    print("Successfully initialized the SDK")
+                }
+            }
+            
             Analytics.initialize(with: CustomAnalytics())
         case false:
             ObjCConfiguration.start()
@@ -99,19 +104,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: VNWalletDelegate {
-    func virtualCurrencyName() -> String {
-        return "Virtual Currency"
-    }
 
     func walletUser() -> VNWalletUser? {
         return nil
     }
 
-    func walletProgramName() -> String {
-        return "Member"
-    }
-
-    func loginController(completion: @escaping (VNWalletUser?, NSError?) -> Void) -> UIViewController {
+    func loginController(completion: @escaping (VNWalletUser?, String?, NSError?) -> Void) -> UIViewController {
         let presenceController = PresenceController()
         presenceController.logout()
         presenceController.loginCompletion = { (member, error) in
@@ -120,20 +118,12 @@ extension AppDelegate: VNWalletDelegate {
                 let email = member?.email,
                 let externalID = member?.id else {
                     let error = NSError(domain: "com.venuenext.VNWallet", code: 404, userInfo: [NSLocalizedDescriptionKey: "Failed to retrieve member information"])
-                    completion(nil, error)
+                    completion(nil, nil, error)
                     return
             }
             let walletUser = VNWalletUser(firstName: firstName, lastName: lastName, email: email, externalID: externalID)
-            completion(walletUser, nil)
+            completion(walletUser, nil, nil)
         }
         return presenceController
-    }
-
-    func walletTitle() -> String {
-        return "Magic Money"
-    }
-
-    func walletVirtualCurrencyPaymentType() -> String {
-        return "magic_money" //or "vn_bank"
     }
 }

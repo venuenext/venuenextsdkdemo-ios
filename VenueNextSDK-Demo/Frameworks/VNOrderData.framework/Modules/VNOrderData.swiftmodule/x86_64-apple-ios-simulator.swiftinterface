@@ -38,6 +38,7 @@ extension Item {
   public func experiencePrice(for groupType: VNOrderData.Sale.GroupType) -> Swift.Double?
   public func earliestEvent() -> VNOrderData.ExperienceEvent?
   public func variant(for event: VNOrderData.ExperienceEvent) -> VNOrderData.Variant?
+  public func inventory(for event: VNOrderData.ExperienceEvent? = nil) -> Swift.Int64?
 }
 extension Variant {
   public static func fetch(with identifier: Swift.String, createIfNecessary: Swift.Bool = true, in context: CoreData.NSManagedObjectContext) throws -> VNOrderData.Variant
@@ -58,13 +59,22 @@ public class GetRevenueCentersParser {
   public static func parse(jsonArray: [[Swift.String : Any]], menusJsonArray: [[Swift.String : Any]]? = nil, into persistentContainer: CoreData.NSPersistentContainer)
   @objc deinit
 }
-extension GetRevenueCentersParser : VNCore.Identifiable {
+extension GetRevenueCentersParser : VNCore.VNIdentifiable {
   public static var classStringName: Swift.String {
     get
   }
   public static var domain: Swift.String {
     get
   }
+}
+extension VNOrderData : VNCore.VNModule {
+  public var moduleName: Swift.String {
+    get
+  }
+  public func reset(completion: @escaping (Swift.Bool, Swift.Error?) -> Swift.Void)
+}
+extension Cart {
+  public static func fetch(with standIdentifier: Swift.String, createIfNecessary: Swift.Bool = true, in context: CoreData.NSManagedObjectContext) throws -> VNOrderData.Cart
 }
 public struct OrderUpdateNotification : VNCore.SocketNotification {
   public var orderID: Swift.String
@@ -156,21 +166,38 @@ extension OrderSummary {
   public static func fetchAll(in context: CoreData.NSManagedObjectContext) -> [VNOrderData.OrderSummary]
 }
 extension OrderSummary {
-  public enum FoodOpenStates : Swift.String, Swift.CaseIterable {
-    case incomplete
-    case submitting
-    case submitted
-    case queued
-    case processing
-    case bumped
+  public enum OrderState : Swift.String, Swift.CaseIterable {
+    case approved_offline
     case assigned
+    case authorization_failed
+    case bumped
+    case cancelled
+    case closed_by_admin
+    case completed
+    case completion_pending
+    case delivered_without_alcohol
+    case delivery_failed
+    case concessions
+    case incomplete
+    case not_collected
+    case partially_refunded
+    case problem_reported
+    case processing
+    case queued
+    case refund_failed
+    case refunded
+    case settlement_failed
+    case submission_failed
+    case submitted
+    case submitting
+    case tabbed
     public typealias RawValue = Swift.String
     public init?(rawValue: Swift.String)
     public var rawValue: Swift.String {
       get
     }
-    public typealias AllCases = [VNOrderData.OrderSummary.FoodOpenStates]
-    public static var allCases: [VNOrderData.OrderSummary.FoodOpenStates] {
+    public typealias AllCases = [VNOrderData.OrderSummary.OrderState]
+    public static var allCases: [VNOrderData.OrderSummary.OrderState] {
       get
     }
   }
@@ -186,6 +213,12 @@ extension OrderSummary {
     public static var allCases: [VNOrderData.OrderSummary.ExperienceOpenStates] {
       get
     }
+  }
+  public static var foodOpenStates: [VNOrderData.OrderSummary.OrderState] {
+    get
+  }
+  public var orderState: VNOrderData.OrderSummary.OrderState? {
+    get
   }
   public func isOpenState(_ rawValue: Swift.String) -> Swift.Bool
   public var isOpen: Swift.Bool {
@@ -238,21 +271,15 @@ public typealias ItemAndModifiersCollection = [(item: VNOrderData.Item, quantity
   @objc public static let shared: VNOrderData.VNOrderData
   public var persistentContainer: CoreData.NSPersistentContainer {
     get
-    set
   }
   public var managedObjectContext: CoreData.NSManagedObjectContext {
     get
-    set
   }
   public var managedObjectContextForTests: CoreData.NSManagedObjectContext {
     get
     set
   }
-  public func saveContext() throws
-  public var cart: VNOrderData.Cart {
-    get
-    set
-  }
+  public var cart: VNOrderData.Cart
   public var notifier: VNCore.NotifyService<VNOrderData.OrderUpdateNotification>
   @objc deinit
 }
@@ -260,13 +287,13 @@ extension VNOrderData : VNCore.Notifiable {
   public static var notifierNotificationName: Foundation.Notification.Name {
     get
   }
-  public static func notificationName(orderSummary: VNOrderData.OrderSummary) -> Foundation.Notification.Name
+  public static func notificationName(orderSummaryUUID: Swift.String) -> Foundation.Notification.Name
   public static func notificationName(identifier: Swift.String) -> Foundation.Notification.Name
   public typealias SocketNotificationType = VNOrderData.OrderUpdateNotification
 }
 extension VNOrderData {
   @objc dynamic public func reloadStands(completion: ((Swift.Bool, Swift.Error?) -> Swift.Void)? = nil)
-  public func requestOrder(with uuid: Swift.String, for productType: VNCore.ProductType, completion: @escaping (Swift.Result<Swift.Bool, VNNetworkService.VNAnyError>) -> Swift.Void)
+  public func requestOrder(with uuid: Swift.String, for productType: VNCore.ProductType, completion: @escaping (Swift.Result<Swift.String?, VNNetworkService.VNAnyError>) -> Swift.Void)
   public func requestOrderHistory(productType: VNCore.ProductType, completion: ((Swift.Result<Swift.Bool, VNNetworkService.VNAnyError>) -> Swift.Void)? = nil)
   public func requestOrderAheadAvailability(for menu: VNOrderData.Menu, in context: CoreData.NSManagedObjectContext, completion: @escaping ([VNOrderData.RemoteOrderAheadAvailability]) -> Swift.Void)
   public func requestMenuItems(for menu: VNOrderData.Menu, in context: CoreData.NSManagedObjectContext, completion: (() -> Swift.Void)? = nil)
@@ -286,10 +313,6 @@ extension VNOrderData {
   @objc override dynamic public class var classStringName: Swift.String {
     @objc get
   }
-}
-extension VNOrderData {
-  public func deleteAllData(for entityName: Swift.String)
-  public func destroy()
 }
 @objc public class ReloadStandsOperation : VNOrderData.AsyncOperation {
   @objc override dynamic public init()
@@ -315,7 +338,7 @@ extension CartEntry {
 }
 extension Item {
   public static func fetch(with identifier: Swift.String, createIfNecessary: Swift.Bool = true, in context: CoreData.NSManagedObjectContext) throws -> VNOrderData.Item
-  public static func makeFetchedResultsController(for menu: VNOrderData.Menu, in context: CoreData.NSManagedObjectContext) throws -> CoreData.NSFetchedResultsController<VNOrderData.Item>
+  public static func makeFetchedResultsController(for menuUUID: Swift.String, in context: CoreData.NSManagedObjectContext) throws -> CoreData.NSFetchedResultsController<VNOrderData.Item>
   public static func makeExperienceFetchedResultsController(for menu: VNOrderData.Menu, with additionalPredicates: [Foundation.NSPredicate]? = nil, in context: CoreData.NSManagedObjectContext) throws -> CoreData.NSFetchedResultsController<VNOrderData.Item>
   public static func fetchItems(for menu: VNOrderData.Menu, in context: CoreData.NSManagedObjectContext) throws -> [VNOrderData.Item]
   public static func fetchItems(for menu: VNOrderData.Menu, isServiceFeeType: Swift.Bool = false, in context: CoreData.NSManagedObjectContext) throws -> [VNOrderData.Item]
@@ -1048,6 +1071,10 @@ extension ItemCategory {
 extension LineItem {
   @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<VNOrderData.LineItem>
   @objc @NSManaged dynamic public var eventUUID: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var expiresAt: Foundation.Date? {
     @objc get
     @objc set
   }
@@ -2118,9 +2145,9 @@ extension Venue {
     @objc set
   }
 }
-extension VNOrderData.OrderSummary.FoodOpenStates : Swift.Equatable {}
-extension VNOrderData.OrderSummary.FoodOpenStates : Swift.Hashable {}
-extension VNOrderData.OrderSummary.FoodOpenStates : Swift.RawRepresentable {}
+extension VNOrderData.OrderSummary.OrderState : Swift.Equatable {}
+extension VNOrderData.OrderSummary.OrderState : Swift.Hashable {}
+extension VNOrderData.OrderSummary.OrderState : Swift.RawRepresentable {}
 extension VNOrderData.OrderSummary.ExperienceOpenStates : Swift.Equatable {}
 extension VNOrderData.OrderSummary.ExperienceOpenStates : Swift.Hashable {}
 extension VNOrderData.OrderSummary.ExperienceOpenStates : Swift.RawRepresentable {}

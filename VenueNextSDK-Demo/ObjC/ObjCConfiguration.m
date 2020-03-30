@@ -10,7 +10,9 @@
 @end
 
 @implementation ObjCConfiguration
-+ (void)start {
-    [[VenueNext shared] initializeWithSdkKey:@"" sdkSecret:@"" jwt:@"" completion:nil];
++ (void)startWithURL:(NSURL *)configURL {
+    [[VenueNext shared] initializeWithSdkKey:@"" sdkSecret:@"" jwt:@"" configURL:configURL completion:^(BOOL success, NSError * _Nullable error) {
+        
+    }];
 }
 @end

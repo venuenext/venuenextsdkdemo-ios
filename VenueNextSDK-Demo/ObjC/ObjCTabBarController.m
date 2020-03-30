@@ -2,15 +2,18 @@
 
 #import "ObjCTabBarController.h"
 #import "DemoViewController/DemoViewController.h"
+
 @import UIKit;
 @import VNOrderUI;
 @import VNOrderData;
+@import VNCoreUI;
 @import VNCore;
 
 @interface ObjCTabBarController ()
-@property (strong, nonatomic) OrderCoordinator *orderCoordinator;
-@property (strong, nonatomic) OrderHistoryCoordinator *orderHistoryCoordinator;
-@property (strong, nonatomic) DemoViewController *demoViewContoller;
+
+@property (strong, nonatomic) DemoViewController *demoViewController;
+@property (strong, nonatomic) UINavigationController *standsTableNavigationController;
+@property (strong, nonatomic) UINavigationController *orderHistoryNavigationController;
 
 @end
 
@@ -32,21 +35,22 @@
     if (self = [super init]) {
         [VNPaymentProcessor setShared: [VNBraintree new]];
         
-        self.orderCoordinator = [OrderCoordinator new];
-        [self.orderCoordinator start];
-        [[self.orderCoordinator navigationController] setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch tag:1]];
+        self.demoViewController = [[DemoViewController alloc] initWithNibName:@"DemoViewController" bundle:NSBundle.mainBundle];
+        [self.demoViewController setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:0]];
+        UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:self.demoViewController];
         
-        _demoViewContoller = [[DemoViewController alloc] initWithNibName:@"DemoViewController" bundle:NSBundle.mainBundle];
-        [_demoViewContoller setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:0]];
+        self.standsTableNavigationController = [VNOrderNavigation rvcNavigationControllerWithProductTypes:@[@(ProductTypeFood)] title:@"TEST" dismissDelegate:nil];
+        [self.standsTableNavigationController setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch tag:1]];
         
-        self.orderHistoryCoordinator = [[OrderHistoryCoordinator alloc] initWithNavigationController:self.navigationController paymentProcessor: [VNPaymentProcessor shared]];
-        [self.orderHistoryCoordinator start];
-        [[self.orderHistoryCoordinator navigationController] setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:2]];
-        
-        UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:_demoViewContoller];
+        self.orderHistoryNavigationController = [VNOrderNavigation orderHistoryNavigationControllerWithDismissDelegate:nil];
+        [self.orderHistoryNavigationController setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:2]];
     
     
-        [self setViewControllers:@[navController,self.orderHistoryCoordinator.navigationController, self.orderHistoryCoordinator.navigationController]];
+        [self setViewControllers:@[
+                                   navController,
+                                   self.standsTableNavigationController,
+                                   self.orderHistoryNavigationController
+        ]];
     }
     
     return self;
@@ -80,10 +84,8 @@
     
 }
 
-- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id<PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion { 
+- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id<PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion {
     
 }
-
-
 
 @end

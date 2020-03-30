@@ -122,9 +122,6 @@ extension UIImage {
   @objc required dynamic public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
-public protocol CustomNavigable : AnyObject {
-  var navigationController: UIKit.UINavigationController! { get set }
-}
 extension UICollectionView {
   public func configureForPeekingDelegate(scrollDirection: UIKit.UICollectionView.ScrollDirection = .horizontal)
 }
@@ -152,6 +149,10 @@ extension UICollectionView {
   @objc deinit
 }
 @objc public class RoundedGradientButton : UIKit.UIButton {
+  public var isLoading: Swift.Bool {
+    get
+    set
+  }
   @objc override dynamic public func awakeFromNib()
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
   @objc deinit
@@ -196,6 +197,16 @@ extension UICollectionView.ScrollDirection {
   public func point(for value: CoreGraphics.CGFloat, defaultPoint: CoreGraphics.CGPoint) -> CoreGraphics.CGPoint
   public func size(for value: CoreGraphics.CGFloat, defaultSize: CoreGraphics.CGSize) -> CoreGraphics.CGSize
   public func edgeInsets(for value: CoreGraphics.CGFloat) -> UIKit.UIEdgeInsets
+}
+extension Alerting where Self : UIKit.UIViewController {
+  public func showAlert(withTitle title: Swift.String, description: Swift.String)
+  public func showAlert(withTitle title: Swift.String, description: Swift.String, completion: @escaping () -> Swift.Void)
+  public func showAlert(withTitle title: Swift.String, description: Swift.String, completion: @escaping (Swift.Bool) -> Swift.Void)
+  public func showModal(with title: Swift.String, description: Swift.String?, image: UIKit.UIImage?)
+  public func showModal(with title: Swift.String, description: Swift.String? = nil, image: UIKit.UIImage? = nil, actions: [VNCore.VNAlertAction]?)
+  public func showError(withTitle title: Swift.String = "Sorry!", withDescription description: Swift.String)
+  public func showError(_ error: Foundation.NSError)
+  public func showError(_ error: Swift.Error)
 }
 @objc public protocol PeekImplementationDelegate : AnyObject {
   @objc optional func peekImplementation(_ peekImplementation: VNCoreUI.PeekCollectionViewDelegateImplementation, didChangeActiveIndexTo activeIndex: Swift.Int)
@@ -439,13 +450,6 @@ extension ShimmerContainer where Self : UIKit.UIView {
   @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
   @objc deinit
 }
-public protocol Coordinator : AnyObject {
-  var childCoordinators: [VNCoreUI.Coordinator] { get set }
-  func start()
-}
-extension Coordinator {
-  public func childDidFinish(_ child: VNCoreUI.Coordinator?)
-}
 @objc final public class CircularProgressView : UIKit.UIView {
   final public func configure(progress: Swift.Double)
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
@@ -519,6 +523,12 @@ extension UIColor {
 extension UIColor {
   public func toColor(_ color: UIKit.UIColor, percentage: CoreGraphics.CGFloat) -> UIKit.UIColor
 }
+public protocol Presentable : AnyObject {
+  var dismissDelegate: VNCoreUI.DismissDelegate? { get set }
+}
+extension Presentable where Self : UIKit.UIViewController {
+  public func shouldDismiss()
+}
 @objc final public class SheetModalController : UIKit.UIViewController, VNCoreUI.HeightRecommendable {
   final public var actionHidden: Swift.Bool {
     get
@@ -557,6 +567,9 @@ extension UIColor {
   @objc override final public func viewDidAppear(_ animated: Swift.Bool)
   @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
   @objc deinit
+}
+@objc public protocol DismissDelegate : AnyObject {
+  @objc func shouldDismiss(viewController: UIKit.UIViewController)
 }
 @objc public protocol SubtitleTableViewCellDelegate : AnyObject {
   @objc optional func subTitle(for cell: VNCoreUI.SubtitleTableViewCell) -> Swift.String
@@ -657,36 +670,13 @@ extension Registerable where Self : UIKit.UICollectionViewCell {
   public static func cell(forCollection collectionView: UIKit.UICollectionView, indexPath: Foundation.IndexPath) -> Self
 }
 @objc open class XIBView : UIKit.UIView {
-  public func setup<T>(_ classType: T.Type) where T : VNCore.Identifiable
+  public func setup<T>(_ classType: T.Type) where T : VNCore.VNIdentifiable
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
   @objc required dynamic public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
 extension UIView {
-  public func loadNib<T>(_ classType: T.Type) -> UIKit.UIView where T : VNCore.Identifiable
-}
-extension Alerting where Self : UIKit.UIViewController {
-  public func showAlert(withTitle title: Swift.String, description: Swift.String)
-  public func showAlert(withTitle title: Swift.String, description: Swift.String, completion: @escaping () -> Swift.Void)
-  public func showAlert(withTitle title: Swift.String, description: Swift.String, completion: @escaping (Swift.Bool) -> Swift.Void)
-  public func showModal(with title: Swift.String, description: Swift.String?, image: UIKit.UIImage?)
-  public func showModal(with title: Swift.String, description: Swift.String? = nil, image: UIKit.UIImage? = nil, actions: [VNCore.VNAlertAction]?)
-  public func showError(withTitle title: Swift.String = "Sorry!", withDescription description: Swift.String)
-  public func showError(_ error: Foundation.NSError)
-  public func showError(_ error: Swift.Error)
-}
-extension UIViewController {
-  public struct AssociatedKeys {
-  }
-  public var preferredNavigationBarBackground: UIKit.UIColor? {
-    get
-    set
-  }
-  public var preferredNavigationBarTintColor: UIKit.UIColor? {
-    get
-    set
-  }
-  public func setNavigationBarAppearance(navigationController: UIKit.UINavigationController?)
+  public func loadNib<T>(_ classType: T.Type) -> UIKit.UIView where T : VNCore.VNIdentifiable
 }
 extension VNCoreUI.ImageCacheMode : Swift.Equatable {}
 extension VNCoreUI.ImageCacheMode : Swift.Hashable {}
