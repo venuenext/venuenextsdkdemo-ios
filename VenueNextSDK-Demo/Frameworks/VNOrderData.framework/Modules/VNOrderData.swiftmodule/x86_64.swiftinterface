@@ -166,38 +166,21 @@ extension OrderSummary {
   public static func fetchAll(in context: CoreData.NSManagedObjectContext) -> [VNOrderData.OrderSummary]
 }
 extension OrderSummary {
-  public enum OrderState : Swift.String, Swift.CaseIterable {
-    case approved_offline
-    case assigned
-    case authorization_failed
-    case bumped
-    case cancelled
-    case closed_by_admin
-    case completed
-    case completion_pending
-    case delivered_without_alcohol
-    case delivery_failed
-    case concessions
+  public enum FoodOpenStates : Swift.String, Swift.CaseIterable {
     case incomplete
-    case not_collected
-    case partially_refunded
-    case problem_reported
-    case processing
-    case queued
-    case refund_failed
-    case refunded
-    case settlement_failed
-    case submission_failed
-    case submitted
     case submitting
-    case tabbed
+    case submitted
+    case queued
+    case processing
+    case bumped
+    case assigned
     public typealias RawValue = Swift.String
     public init?(rawValue: Swift.String)
     public var rawValue: Swift.String {
       get
     }
-    public typealias AllCases = [VNOrderData.OrderSummary.OrderState]
-    public static var allCases: [VNOrderData.OrderSummary.OrderState] {
+    public typealias AllCases = [VNOrderData.OrderSummary.FoodOpenStates]
+    public static var allCases: [VNOrderData.OrderSummary.FoodOpenStates] {
       get
     }
   }
@@ -213,12 +196,6 @@ extension OrderSummary {
     public static var allCases: [VNOrderData.OrderSummary.ExperienceOpenStates] {
       get
     }
-  }
-  public static var foodOpenStates: [VNOrderData.OrderSummary.OrderState] {
-    get
-  }
-  public var orderState: VNOrderData.OrderSummary.OrderState? {
-    get
   }
   public func isOpenState(_ rawValue: Swift.String) -> Swift.Bool
   public var isOpen: Swift.Bool {
@@ -287,7 +264,7 @@ extension VNOrderData : VNCore.Notifiable {
   public static var notifierNotificationName: Foundation.Notification.Name {
     get
   }
-  public static func notificationName(orderSummaryUUID: Swift.String) -> Foundation.Notification.Name
+  public static func notificationName(orderSummary: VNOrderData.OrderSummary) -> Foundation.Notification.Name
   public static func notificationName(identifier: Swift.String) -> Foundation.Notification.Name
   public typealias SocketNotificationType = VNOrderData.OrderUpdateNotification
 }
@@ -2145,9 +2122,9 @@ extension Venue {
     @objc set
   }
 }
-extension VNOrderData.OrderSummary.OrderState : Swift.Equatable {}
-extension VNOrderData.OrderSummary.OrderState : Swift.Hashable {}
-extension VNOrderData.OrderSummary.OrderState : Swift.RawRepresentable {}
+extension VNOrderData.OrderSummary.FoodOpenStates : Swift.Equatable {}
+extension VNOrderData.OrderSummary.FoodOpenStates : Swift.Hashable {}
+extension VNOrderData.OrderSummary.FoodOpenStates : Swift.RawRepresentable {}
 extension VNOrderData.OrderSummary.ExperienceOpenStates : Swift.Equatable {}
 extension VNOrderData.OrderSummary.ExperienceOpenStates : Swift.Hashable {}
 extension VNOrderData.OrderSummary.ExperienceOpenStates : Swift.RawRepresentable {}

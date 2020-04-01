@@ -316,18 +316,8 @@ public enum VNWalletMode : Swift.String, Swift.CaseIterable {
   @objc override dynamic public init()
   @objc deinit
 }
-@objc public enum PaymentDisplayType : Swift.Int {
-  case checkout
-  case wallet
-  case other
-  public typealias RawValue = Swift.Int
-  public init?(rawValue: Swift.Int)
-  public var rawValue: Swift.Int {
-    get
-  }
-}
 @objc public protocol PaymentProcessable {
-  @objc func processPayment(from viewController: UIKit.UIViewController?, productType: VNCore.ProductType, displayType: VNCore.PaymentDisplayType, completion: @escaping (VNCore.PaymentMethodRepresentable?, Foundation.NSError?) -> Swift.Void)
+  @objc func processPayment(from viewController: UIKit.UIViewController?, productType: VNCore.ProductType, completion: @escaping (VNCore.PaymentMethodRepresentable?, Foundation.NSError?) -> Swift.Void)
   @objc func postPaymentMethod(paymentMethod: VNCore.PaymentMethodRepresentable, completion: @escaping ((Foundation.NSError?) -> Swift.Void))
   @objc func defaultPaymentMethod(completion: @escaping ((VNCore.PaymentMethodRepresentable?) -> Swift.Void))
 }
@@ -788,9 +778,6 @@ extension VNCore.Keychain.WalletKeys.User : Swift.RawRepresentable {}
 extension VNCore.VNWalletMode : Swift.Equatable {}
 extension VNCore.VNWalletMode : Swift.Hashable {}
 extension VNCore.VNWalletMode : Swift.RawRepresentable {}
-extension VNCore.PaymentDisplayType : Swift.Equatable {}
-extension VNCore.PaymentDisplayType : Swift.Hashable {}
-extension VNCore.PaymentDisplayType : Swift.RawRepresentable {}
 extension VNCore.PaymentMethodInstrument : Swift.Equatable {}
 extension VNCore.PaymentMethodInstrument : Swift.Hashable {}
 extension VNCore.PaymentMethodInstrument : Swift.RawRepresentable {}
