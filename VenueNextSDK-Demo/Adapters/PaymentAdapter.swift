@@ -23,7 +23,7 @@ import BraintreePaymentFlow
     private var braintreeApiClient: BTAPIClient?
     private var queue = OperationQueue()
     
-    func processPayment(from viewController: UIViewController?, productType: ProductType, completion: @escaping (PaymentMethodRepresentable?, NSError?) -> Void) {
+    func processPayment(from viewController: UIViewController?, productType: ProductType, displayType: PaymentDisplayType, completion: @escaping (PaymentMethodRepresentable?, NSError?) -> Void) {
         resetToDefaults()
         VNPayment.shared.getPaymentToken() { (result) in
             switch result {

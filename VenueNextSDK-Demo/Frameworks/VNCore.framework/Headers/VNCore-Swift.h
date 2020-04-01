@@ -238,6 +238,23 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 + (NSString * _Nonnull)domain SWIFT_WARN_UNUSED_RESULT;
 @end
 
+/// <ul>
+///   <li>
+///     checkout:     <em>Order checkout</em>
+///   </li>
+///   <li>
+///     wallet:       <em>Wallet</em>
+///   </li>
+///   <li>
+///     other:        <em>Is not Wallet or Checkout</em>
+///   </li>
+/// </ul>
+typedef SWIFT_ENUM(NSInteger, PaymentDisplayType, open) {
+  PaymentDisplayTypeCheckout = 0,
+  PaymentDisplayTypeWallet = 1,
+  PaymentDisplayTypeOther = 2,
+};
+
 /// The method that was used to pay, either Credit Card or Apple Pay
 typedef SWIFT_ENUM(NSInteger, PaymentMethodInstrument, open) {
   PaymentMethodInstrumentCreditCard = 0,
@@ -260,10 +277,9 @@ SWIFT_PROTOCOL("_TtP6VNCore26PaymentMethodRepresentable_")
 @class UIViewController;
 enum ProductType : NSInteger;
 
-/// An object conforming to PaymentProcessable will be responsible for processing payments.
 SWIFT_PROTOCOL("_TtP6VNCore18PaymentProcessable_")
 @protocol PaymentProcessable
-- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType displayType:(enum PaymentDisplayType)displayType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethodWithPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 - (void)defaultPaymentMethodWithCompletion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable))completion;
 @end
@@ -399,7 +415,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * 
 + (void)configureWithTheme:(id <VNCoreThemable> _Nonnull)theme;
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configURL:(NSURL * _Nonnull)configURL completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID configURL:(NSURL * _Nonnull)configURL completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
-- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configData:(NSData * _Nonnull)configData completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configData:(NSData * _Nonnull)configData forceReset:(BOOL)forceReset completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID configData:(NSData * _Nonnull)configData completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -662,6 +678,23 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 + (NSString * _Nonnull)domain SWIFT_WARN_UNUSED_RESULT;
 @end
 
+/// <ul>
+///   <li>
+///     checkout:     <em>Order checkout</em>
+///   </li>
+///   <li>
+///     wallet:       <em>Wallet</em>
+///   </li>
+///   <li>
+///     other:        <em>Is not Wallet or Checkout</em>
+///   </li>
+/// </ul>
+typedef SWIFT_ENUM(NSInteger, PaymentDisplayType, open) {
+  PaymentDisplayTypeCheckout = 0,
+  PaymentDisplayTypeWallet = 1,
+  PaymentDisplayTypeOther = 2,
+};
+
 /// The method that was used to pay, either Credit Card or Apple Pay
 typedef SWIFT_ENUM(NSInteger, PaymentMethodInstrument, open) {
   PaymentMethodInstrumentCreditCard = 0,
@@ -684,10 +717,9 @@ SWIFT_PROTOCOL("_TtP6VNCore26PaymentMethodRepresentable_")
 @class UIViewController;
 enum ProductType : NSInteger;
 
-/// An object conforming to PaymentProcessable will be responsible for processing payments.
 SWIFT_PROTOCOL("_TtP6VNCore18PaymentProcessable_")
 @protocol PaymentProcessable
-- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
+- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType displayType:(enum PaymentDisplayType)displayType completion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion;
 - (void)postPaymentMethodWithPaymentMethod:(id <PaymentMethodRepresentable> _Nonnull)paymentMethod completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 - (void)defaultPaymentMethodWithCompletion:(void (^ _Nonnull)(id <PaymentMethodRepresentable> _Nullable))completion;
 @end
@@ -823,7 +855,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * 
 + (void)configureWithTheme:(id <VNCoreThemable> _Nonnull)theme;
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configURL:(NSURL * _Nonnull)configURL completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID configURL:(NSURL * _Nonnull)configURL completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
-- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configData:(NSData * _Nonnull)configData completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configData:(NSData * _Nonnull)configData forceReset:(BOOL)forceReset completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID configData:(NSData * _Nonnull)configData completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end

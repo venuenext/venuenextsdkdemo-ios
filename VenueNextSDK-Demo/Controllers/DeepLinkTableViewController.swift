@@ -9,8 +9,9 @@ import VNCoreUI
 
 class DeepLinkTableViewController: UITableViewController {
     enum Section: CaseIterable {
-         case push
-         case modal
+        case push
+        case modal
+        case initialization
          
          var displayName: String {
              switch self {
@@ -18,6 +19,8 @@ class DeepLinkTableViewController: UITableViewController {
                  return "Push"
              case .modal:
                  return "Modal Presentation"
+             case .initialization:
+                return "Initialization"
              }
          }
          
@@ -27,33 +30,37 @@ class DeepLinkTableViewController: UITableViewController {
                  return [.pushFoodList, .pushMerchList, .pushExperienceList, .pushFoodMenu, .pushMerchMenu, .pushExperienceMenu, .pushExperienceDetail, .pushOrderHistory, .pushWallet]
              case .modal:
                  return [.modalFoodList, .modalMerchList, .modalExperienceList, .modalFoodMenu, .modalMerchMenu, .modalExperienceMenu, .modalExperienceDetail, .modalOrderHistory, .modalFoodReceipt, .modalExperienceReceipt, .modalDisclosure, .modalWallet]
-             }
+             case .initialization:
+                return [.reinitWithExternalID]
+            }
          }
      }
      
     enum LinkType: CaseIterable {
-         case modalFoodList
-         case modalMerchList
-         case modalExperienceList
-         case modalFoodMenu
-         case modalMerchMenu
-         case modalExperienceMenu
-         case modalExperienceDetail
-         case modalOrderHistory
-         case modalFoodReceipt
-         case modalExperienceReceipt
-         case modalDisclosure
-         case modalWallet
-     
-         case pushFoodList
-         case pushMerchList
-         case pushExperienceList
-         case pushFoodMenu
-         case pushMerchMenu
-         case pushExperienceMenu
-         case pushExperienceDetail
-         case pushOrderHistory
-         case pushWallet
+        case modalFoodList
+        case modalMerchList
+        case modalExperienceList
+        case modalFoodMenu
+        case modalMerchMenu
+        case modalExperienceMenu
+        case modalExperienceDetail
+        case modalOrderHistory
+        case modalFoodReceipt
+        case modalExperienceReceipt
+        case modalDisclosure
+        case modalWallet
+
+        case pushFoodList
+        case pushMerchList
+        case pushExperienceList
+        case pushFoodMenu
+        case pushMerchMenu
+        case pushExperienceMenu
+        case pushExperienceDetail
+        case pushOrderHistory
+        case pushWallet
+        
+        case reinitWithExternalID
      
          var name: String {
              let modal = "Modal - "
@@ -101,6 +108,8 @@ class DeepLinkTableViewController: UITableViewController {
                  return push + "Order History"
              case .pushWallet:
                  return push + "Wallet"
+             case .reinitWithExternalID:
+                return "Reinit w/ External ID"
              }
          }
      }
@@ -222,6 +231,43 @@ class DeepLinkTableViewController: UITableViewController {
             navigationController?.pushVNOrderHistory(animated: true)
         case .pushWallet:
             navigationController?.pushVNWalletViewController(animated: true)
+        case .reinitWithExternalID:
+            
+            let alertController = UIAlertController(title: "Enter ExternalID", message: nil, preferredStyle: .alert)
+            alertController.addTextField()
+            
+            let ok = UIAlertAction(title: "reinit", style: .default) { (action) in
+                if let externalID = alertController.textFields?.first?.text, !externalID.isEmpty {
+                    print("You entered %@", externalID)
+                    
+                    guard let configURLString = Bundle.main.path(forResource: "vn-sdk-config", ofType: "json"), let configURL = URL(string: configURLString) else {
+                        fatalError("Failed to find config file at provided path")
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.view.isUserInteractionEnabled = false
+                    }
+                    
+                    VenueNext.shared.initialize(sdkKey: "", sdkSecret: "", externalID: externalID, configURL: configURL) { (success, error) in
+                        DispatchQueue.main.async {
+                            self.view.isUserInteractionEnabled = true
+                            guard success else {
+                                print("failed to re-initialized the SDK %@", error?.localizedDescription ?? "")
+                                return
+                            }
+                            print("successfully re-initialized the SDK")
+                        }
+                    }
+                }
+            }
+            
+            let cancel = UIAlertAction(title: "cancel", style: .cancel)
+            
+            alertController.addAction(ok)
+            alertController.addAction(cancel)
+            DispatchQueue.main.async {
+                self.present(alertController, animated: true, completion: nil)
+            }
         }
     }
     

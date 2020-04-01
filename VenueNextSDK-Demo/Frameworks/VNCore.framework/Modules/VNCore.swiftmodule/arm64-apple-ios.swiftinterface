@@ -137,6 +137,12 @@ open class VNDefaults {
   }
   @objc deinit
 }
+extension User {
+  public struct LoginResponse : Swift.Codable {
+    public init(from decoder: Swift.Decoder) throws
+    public func encode(to encoder: Swift.Encoder) throws
+  }
+}
 public struct Venue : Swift.Codable, Swift.Hashable {
   public var uuid: Swift.String?
   public var name: Swift.String?
@@ -316,8 +322,18 @@ public enum VNWalletMode : Swift.String, Swift.CaseIterable {
   @objc override dynamic public init()
   @objc deinit
 }
+@objc public enum PaymentDisplayType : Swift.Int {
+  case checkout
+  case wallet
+  case other
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
 @objc public protocol PaymentProcessable {
-  @objc func processPayment(from viewController: UIKit.UIViewController?, productType: VNCore.ProductType, completion: @escaping (VNCore.PaymentMethodRepresentable?, Foundation.NSError?) -> Swift.Void)
+  @objc func processPayment(from viewController: UIKit.UIViewController?, productType: VNCore.ProductType, displayType: VNCore.PaymentDisplayType, completion: @escaping (VNCore.PaymentMethodRepresentable?, Foundation.NSError?) -> Swift.Void)
   @objc func postPaymentMethod(paymentMethod: VNCore.PaymentMethodRepresentable, completion: @escaping ((Foundation.NSError?) -> Swift.Void))
   @objc func defaultPaymentMethod(completion: @escaping ((VNCore.PaymentMethodRepresentable?) -> Swift.Void))
 }
@@ -411,7 +427,7 @@ public enum UserLoginParamType {
 final public class User {
   public static let shared: VNCore.User
   final public var userDevice: VNCore.Device?
-  final public var isLoggedIn: Swift.Bool {
+  public static var isLoggedIn: Swift.Bool {
     get
   }
   final public var identifier: Swift.String? {
@@ -441,9 +457,8 @@ final public class User {
   final public var accountNumber: Swift.String? {
     get
   }
-  final public func login(paramType: VNCore.UserLoginParamType = .none, completion: @escaping (Swift.Bool, Swift.Error?) -> Swift.Void)
+  final public func login(paramType: VNCore.UserLoginParamType = .none, completion: @escaping (VNCore.User.LoginResponse?, Swift.Error?) -> Swift.Void)
   final public func logout()
-  final public func clearCredentials()
   public static func retrieveTicketingAccount(token: Swift.String? = nil)
   @objc deinit
 }
@@ -551,7 +566,7 @@ public typealias VN = VNCore.VenueNext
   @objc public static func configure(theme: VNCore.VNCoreThemable)
   @objc final public func initialize(sdkKey: Swift.String, sdkSecret: Swift.String, jwt value: Swift.String, configURL: Foundation.URL, completion: @escaping ((Swift.Bool, Swift.Error?) -> Swift.Void))
   @objc final public func initialize(sdkKey: Swift.String, sdkSecret: Swift.String, externalID: Swift.String? = nil, configURL: Foundation.URL, completion: @escaping ((Swift.Bool, Swift.Error?) -> Swift.Void))
-  @objc final public func initialize(sdkKey: Swift.String, sdkSecret: Swift.String, jwt value: Swift.String, configData: Foundation.Data, completion: @escaping ((Swift.Bool, Swift.Error?) -> Swift.Void))
+  @objc final public func initialize(sdkKey: Swift.String, sdkSecret: Swift.String, jwt value: Swift.String, configData: Foundation.Data, forceReset: Swift.Bool, completion: @escaping ((Swift.Bool, Swift.Error?) -> Swift.Void))
   @objc final public func initialize(sdkKey: Swift.String, sdkSecret: Swift.String, externalID: Swift.String? = nil, configData: Foundation.Data, completion: @escaping ((Swift.Bool, Swift.Error?) -> Swift.Void))
   @objc override dynamic public init()
   @objc deinit
@@ -587,10 +602,11 @@ public struct Device : Swift.Codable {
   public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
-public typealias CoreKeys = VNCore.Keychain.CoreKeys
+public typealias VNCoreKeys = VNCore.Keychain.CoreKeys
 open class Keychain {
   public enum CoreKeys : Swift.String {
     case userID
+    case externalID
     case SDKKey
     case consumerKey
     case consumerSecret
@@ -778,6 +794,9 @@ extension VNCore.Keychain.WalletKeys.User : Swift.RawRepresentable {}
 extension VNCore.VNWalletMode : Swift.Equatable {}
 extension VNCore.VNWalletMode : Swift.Hashable {}
 extension VNCore.VNWalletMode : Swift.RawRepresentable {}
+extension VNCore.PaymentDisplayType : Swift.Equatable {}
+extension VNCore.PaymentDisplayType : Swift.Hashable {}
+extension VNCore.PaymentDisplayType : Swift.RawRepresentable {}
 extension VNCore.PaymentMethodInstrument : Swift.Equatable {}
 extension VNCore.PaymentMethodInstrument : Swift.Hashable {}
 extension VNCore.PaymentMethodInstrument : Swift.RawRepresentable {}

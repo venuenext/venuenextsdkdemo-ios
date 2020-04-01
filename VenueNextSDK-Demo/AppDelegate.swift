@@ -34,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Initialize VenueNext SDK
         intializeSDK(for: isSwift)
 
-
         //Setup PresenceSDK
         PresenceSDK.getPresenceSDK().setConfig(consumerKey: "", displayName: "Demo App", useNewAccountsManager: true)
         PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)

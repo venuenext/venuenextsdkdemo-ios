@@ -34,6 +34,15 @@ extension AnyError : Foundation.LocalizedError {
     get
   }
 }
+public struct EnvironmentRequest : VNNetworkService.Request {
+  public typealias ResponseType = Foundation.Data
+  public typealias ErrorType = VNNetworkService.VNAnyError
+  public var method: VNNetworkService.HTTP.Method
+  public var url: Foundation.URL
+  public var headers: [VNNetworkService.HTTP.HeaderKey : VNNetworkService.HTTP.HeaderValue]?
+  public var body: Foundation.Data?
+  public init(with key: Swift.String) throws
+}
 public protocol VNDecodableContainer : Swift.Decodable {
   associatedtype ContainedType : Swift.Decodable
   var element: Self.ContainedType { get }
