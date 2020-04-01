@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         intializeSDK(for: isSwift)
 
         //Setup PresenceSDK
-        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "", displayName: "Demo App", useNewAccountsManager: true)
+        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "NCA8hpkFiPJsDp03oX0sTXZri1jYLvhY", displayName: "Demo App", useNewAccountsManager: true)
         PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
         
         //Configure Payment processor (place this above modules that will need it)
