@@ -299,7 +299,7 @@ extension VNOrderData {
   public func requestMenuItems(for menu: VNOrderData.Menu, in context: CoreData.NSManagedObjectContext, completion: (() -> Swift.Void)? = nil)
   public func placeOrder(for productType: VNCore.ProductType, paymentMethod: VNPayment.VNPaymentMethodRepresentable?, walletBalance: Swift.Int64? = nil, virtualCurrencyPaymentType: Swift.String? = nil, completion: @escaping (Swift.String?, Swift.Error?) -> Swift.Void)
   public func placeOrderForQRCode(walletBalance: Swift.Int64? = nil, paymentMethod: VNPayment.VNPaymentMethodRepresentable?, virtualCurrencyPaymentType: Swift.String? = nil, completion: @escaping (Swift.String?, Swift.Error?) -> Swift.Void)
-  public func updateEmail(for order: VNOrderData.OrderSummary, email: Swift.String, completion: ((VNNetworkService.ResponseError?) -> Swift.Void)? = nil)
+  public func updateEmail(for orderID: Swift.String, email: Swift.String, completion: ((VNNetworkService.ResponseError?) -> Swift.Void)? = nil)
   public func reorder(order: VNOrderData.OrderSummary, completion: @escaping (VNOrderData.ReorderStatus) -> Swift.Void)
   public func requestTotals(cart: VNOrderData.Cart, productType: VNCore.ProductType, orderNumber: Swift.String? = nil, couponCode: Swift.String? = nil, qrCode: Swift.String? = nil, completion: ((VNOrderData.Cart?, Swift.Error?) -> Swift.Void)? = nil)
 }

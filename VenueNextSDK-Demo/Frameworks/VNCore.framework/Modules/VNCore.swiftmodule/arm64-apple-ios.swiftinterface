@@ -419,6 +419,11 @@ extension VenueNext : VNCore.VNModule {
   }
   final public func reset(completion: @escaping (Swift.Bool, Swift.Error?) -> Swift.Void)
 }
+public class VNThrottle {
+  public init(minimumDelay: Foundation.TimeInterval, queue: Dispatch.DispatchQueue = .main)
+  public func queue(_ block: @escaping () -> Swift.Void)
+  @objc deinit
+}
 public enum UserLoginParamType {
   case externalID(Swift.String)
   case jwt(Swift.String)
