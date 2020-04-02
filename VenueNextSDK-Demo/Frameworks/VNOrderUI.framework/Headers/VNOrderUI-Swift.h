@@ -483,6 +483,10 @@ SWIFT_CLASS("_TtC9VNOrderUI17VNOrderNavigation")
 + (UINavigationController * _Nonnull)rvcNavigationControllerWithProductTypes:(NSArray<NSNumber *> * _Nonnull)productTypes title:(NSString * _Nullable)title dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
 + (UINavigationController * _Nonnull)menuNavigationControllerWithMenuUUID:(NSString * _Nonnull)menuUUID productType:(enum ProductType)productType dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
 + (UINavigationController * _Nonnull)orderHistoryNavigationControllerWithDismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
++ (void)presentOrderSummaryWithPresenter:(UIViewController * _Nonnull)presenter url:(NSURL * _Nonnull)url completion:(void (^ _Nullable)(BOOL))completion;
++ (void)presentOrderSummaryWithPresenter:(UIViewController * _Nonnull)presenter orderSummaryID:(NSString * _Nonnull)orderSummaryID productType:(enum ProductType)productType completion:(void (^ _Nullable)(BOOL))completion;
++ (void)presentExperienceItemReceiptWithPresenter:(UIViewController * _Nonnull)presenter url:(NSURL * _Nonnull)url completion:(void (^ _Nullable)(BOOL))completion;
++ (void)presentExperienceItemReceiptWithPresenter:(UIViewController * _Nonnull)presenter experienceUUID:(NSString * _Nonnull)experienceUUID completion:(void (^ _Nullable)(BOOL))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -975,6 +979,10 @@ SWIFT_CLASS("_TtC9VNOrderUI17VNOrderNavigation")
 + (UINavigationController * _Nonnull)rvcNavigationControllerWithProductTypes:(NSArray<NSNumber *> * _Nonnull)productTypes title:(NSString * _Nullable)title dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
 + (UINavigationController * _Nonnull)menuNavigationControllerWithMenuUUID:(NSString * _Nonnull)menuUUID productType:(enum ProductType)productType dismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
 + (UINavigationController * _Nonnull)orderHistoryNavigationControllerWithDismissDelegate:(id <DismissDelegate> _Nullable)dismissDelegate SWIFT_WARN_UNUSED_RESULT;
++ (void)presentOrderSummaryWithPresenter:(UIViewController * _Nonnull)presenter url:(NSURL * _Nonnull)url completion:(void (^ _Nullable)(BOOL))completion;
++ (void)presentOrderSummaryWithPresenter:(UIViewController * _Nonnull)presenter orderSummaryID:(NSString * _Nonnull)orderSummaryID productType:(enum ProductType)productType completion:(void (^ _Nullable)(BOOL))completion;
++ (void)presentExperienceItemReceiptWithPresenter:(UIViewController * _Nonnull)presenter url:(NSURL * _Nonnull)url completion:(void (^ _Nullable)(BOOL))completion;
++ (void)presentExperienceItemReceiptWithPresenter:(UIViewController * _Nonnull)presenter experienceUUID:(NSString * _Nonnull)experienceUUID completion:(void (^ _Nullable)(BOOL))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

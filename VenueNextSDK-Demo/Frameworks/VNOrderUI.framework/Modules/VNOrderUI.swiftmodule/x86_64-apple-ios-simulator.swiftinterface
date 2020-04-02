@@ -132,6 +132,10 @@ extension UINavigationController {
   @objc(rvcNavigationControllerWithProductTypes:title:dismissDelegate:) public static func objc_rvcNavigationController(productTypes: Swift.Array<Swift.Int>, title: Swift.String? = nil, dismissDelegate: VNCoreUI.DismissDelegate?) -> UIKit.UINavigationController
   @objc public static func menuNavigationController(menuUUID: Swift.String, productType: VNCore.ProductType, dismissDelegate: VNCoreUI.DismissDelegate?) -> UIKit.UINavigationController
   @objc public static func orderHistoryNavigationController(dismissDelegate: VNCoreUI.DismissDelegate?) -> UIKit.UINavigationController
+  @objc public static func presentOrderSummary(presenter: UIKit.UIViewController, url: Foundation.URL, completion: ((Swift.Bool) -> Swift.Void)?)
+  @objc public static func presentOrderSummary(presenter: UIKit.UIViewController, orderSummaryID: Swift.String, productType: VNCore.ProductType, completion: ((Swift.Bool) -> Swift.Void)?)
+  @objc public static func presentExperienceItemReceipt(presenter: UIKit.UIViewController, url: Foundation.URL, completion: ((Swift.Bool) -> Swift.Void)?)
+  @objc public static func presentExperienceItemReceipt(presenter: UIKit.UIViewController, experienceUUID: Swift.String, completion: ((Swift.Bool) -> Swift.Void)?)
   @objc override dynamic public init()
   @objc deinit
 }
