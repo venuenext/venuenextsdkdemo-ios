@@ -10,8 +10,8 @@
 @end
 
 @implementation ObjCConfiguration
-+ (void)startWithURL:(NSURL *)configURL {
-    [[VenueNext shared] initializeWithSdkKey:@"" sdkSecret:@"" jwt:@"" configURL:configURL completion:^(BOOL success, NSError * _Nullable error) {
++ (void)start:(NSURL *)configURL {
+    [[VenueNext shared] initializeWithSdkKey:@"" sdkSecret:@"" jwt:@"" configURL:configURL forceReset: false completion:^(BOOL success, NSError * _Nullable error) {
         
     }];
 }

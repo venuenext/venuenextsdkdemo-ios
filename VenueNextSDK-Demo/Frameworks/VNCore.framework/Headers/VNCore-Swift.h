@@ -413,9 +413,61 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * 
 + (void)configureWithPaymentProcessor:(id <PaymentProcessable> _Nonnull)paymentProcessor;
 + (void)enableWalletFor:(id <VNOrderProtocol> _Nonnull)order;
 + (void)configureWithTheme:(id <VNCoreThemable> _Nonnull)theme;
-- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configURL:(NSURL * _Nonnull)configURL completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
-- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID configURL:(NSURL * _Nonnull)configURL completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+/// Intialize the SDK (Async).
+/// Note: Do not attempt to use SDK unless completion finishes successfully
+/// \param sdkKey String
+///
+/// \param sdkSecret String
+///
+/// \param jwt String (JSON Web Token)
+///
+/// \param configURL URL (of config file path)
+///
+/// \param forceReset Bool (True to reset CoreData, UserDefaults, Keychain), false otherwise
+///
+/// \param completion Completion block
+///
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configURL:(NSURL * _Nonnull)configURL forceReset:(BOOL)forceReset completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+/// Intialize the SDK (Async).
+/// Note: Do not attempt to use SDK unless completion finishes successfully
+/// \param sdkKey String
+///
+/// \param sdkSecret String
+///
+/// \param jwt String (JSON Web Token)
+///
+/// \param configData Data (of parsed config file)
+///
+/// \param forceReset Bool (True to reset CoreData, UserDefaults, Keychain), false otherwise
+///
+/// \param completion Completion block
+///
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configData:(NSData * _Nonnull)configData forceReset:(BOOL)forceReset completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+/// Intialize the SDK (Async).
+/// Note: Do not attempt to use SDK unless completion finishes successfully
+/// \param sdkKey String
+///
+/// \param sdkSecret String
+///
+/// \param externalID String (id of external user)
+///
+/// \param configURL URL (of config file path)
+///
+/// \param completion Completion block
+///
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID configURL:(NSURL * _Nonnull)configURL completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+/// Intialize the SDK (Async).
+/// Note: Do not attempt to use SDK unless completion finishes successfully
+/// \param sdkKey String
+///
+/// \param sdkSecret String
+///
+/// \param externalID String (id of external user)
+///
+/// \param configData Data (of parsed config file)
+///
+/// \param completion Completion block
+///
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID configData:(NSData * _Nonnull)configData completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -853,9 +905,61 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) VenueNext * 
 + (void)configureWithPaymentProcessor:(id <PaymentProcessable> _Nonnull)paymentProcessor;
 + (void)enableWalletFor:(id <VNOrderProtocol> _Nonnull)order;
 + (void)configureWithTheme:(id <VNCoreThemable> _Nonnull)theme;
-- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configURL:(NSURL * _Nonnull)configURL completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
-- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID configURL:(NSURL * _Nonnull)configURL completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+/// Intialize the SDK (Async).
+/// Note: Do not attempt to use SDK unless completion finishes successfully
+/// \param sdkKey String
+///
+/// \param sdkSecret String
+///
+/// \param jwt String (JSON Web Token)
+///
+/// \param configURL URL (of config file path)
+///
+/// \param forceReset Bool (True to reset CoreData, UserDefaults, Keychain), false otherwise
+///
+/// \param completion Completion block
+///
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configURL:(NSURL * _Nonnull)configURL forceReset:(BOOL)forceReset completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+/// Intialize the SDK (Async).
+/// Note: Do not attempt to use SDK unless completion finishes successfully
+/// \param sdkKey String
+///
+/// \param sdkSecret String
+///
+/// \param jwt String (JSON Web Token)
+///
+/// \param configData Data (of parsed config file)
+///
+/// \param forceReset Bool (True to reset CoreData, UserDefaults, Keychain), false otherwise
+///
+/// \param completion Completion block
+///
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret jwt:(NSString * _Nonnull)value configData:(NSData * _Nonnull)configData forceReset:(BOOL)forceReset completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+/// Intialize the SDK (Async).
+/// Note: Do not attempt to use SDK unless completion finishes successfully
+/// \param sdkKey String
+///
+/// \param sdkSecret String
+///
+/// \param externalID String (id of external user)
+///
+/// \param configURL URL (of config file path)
+///
+/// \param completion Completion block
+///
+- (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID configURL:(NSURL * _Nonnull)configURL completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
+/// Intialize the SDK (Async).
+/// Note: Do not attempt to use SDK unless completion finishes successfully
+/// \param sdkKey String
+///
+/// \param sdkSecret String
+///
+/// \param externalID String (id of external user)
+///
+/// \param configData Data (of parsed config file)
+///
+/// \param completion Completion block
+///
 - (void)initializeWithSdkKey:(NSString * _Nonnull)sdkKey sdkSecret:(NSString * _Nonnull)sdkSecret externalID:(NSString * _Nullable)externalID configData:(NSData * _Nonnull)configData completion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end

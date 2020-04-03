@@ -76,13 +76,14 @@
     completion(nil);
 }
 
-- (void)processPaymentFrom:(UIViewController * _Nullable)viewController completion:(void (^ _Nonnull)(id<PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion {
-    completion(self, nil);
-}
-
 - (void)defaultPaymentMethodWithCompletion:(void (^ _Nonnull)(id<PaymentMethodRepresentable> _Nullable))completion {
     
 }
+
+- (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType displayType:(enum PaymentDisplayType)displayType completion:(void (^ _Nonnull)(id<PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion {
+    completion(self, nil);
+}
+
 
 - (void)processPaymentFrom:(UIViewController * _Nullable)viewController productType:(enum ProductType)productType completion:(void (^ _Nonnull)(id<PaymentMethodRepresentable> _Nullable, NSError * _Nullable))completion {
     

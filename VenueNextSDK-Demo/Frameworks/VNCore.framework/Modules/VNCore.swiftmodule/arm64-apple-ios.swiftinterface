@@ -569,9 +569,9 @@ public typealias VN = VNCore.VenueNext
   @objc public static func enableWallet(for order: VNCore.VNOrderProtocol)
   public static func configure(wallet: VNCore.VNWalletProtocol, walletDelegate: Any, theme: VNCore.VNWalletThemable?)
   @objc public static func configure(theme: VNCore.VNCoreThemable)
-  @objc final public func initialize(sdkKey: Swift.String, sdkSecret: Swift.String, jwt value: Swift.String, configURL: Foundation.URL, completion: @escaping ((Swift.Bool, Swift.Error?) -> Swift.Void))
+  @objc final public func initialize(sdkKey: Swift.String, sdkSecret: Swift.String, jwt value: Swift.String, configURL: Foundation.URL, forceReset: Swift.Bool = false, completion: @escaping ((Swift.Bool, Swift.Error?) -> Swift.Void))
+  @objc final public func initialize(sdkKey: Swift.String, sdkSecret: Swift.String, jwt value: Swift.String, configData: Foundation.Data, forceReset: Swift.Bool = false, completion: @escaping ((Swift.Bool, Swift.Error?) -> Swift.Void))
   @objc final public func initialize(sdkKey: Swift.String, sdkSecret: Swift.String, externalID: Swift.String? = nil, configURL: Foundation.URL, completion: @escaping ((Swift.Bool, Swift.Error?) -> Swift.Void))
-  @objc final public func initialize(sdkKey: Swift.String, sdkSecret: Swift.String, jwt value: Swift.String, configData: Foundation.Data, forceReset: Swift.Bool, completion: @escaping ((Swift.Bool, Swift.Error?) -> Swift.Void))
   @objc final public func initialize(sdkKey: Swift.String, sdkSecret: Swift.String, externalID: Swift.String? = nil, configData: Foundation.Data, completion: @escaping ((Swift.Bool, Swift.Error?) -> Swift.Void))
   @objc override dynamic public init()
   @objc deinit
