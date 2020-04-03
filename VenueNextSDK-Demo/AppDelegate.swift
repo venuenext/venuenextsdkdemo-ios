@@ -29,32 +29,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // To run the ObjC app set isSwiftDemoApp to false
 
         let isSwift = true
-        Appearance.start()
 
         //Initialize VenueNext SDK
         intializeSDK(for: isSwift)
 
-        //Setup PresenceSDK
-        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "NCA8hpkFiPJsDp03oX0sTXZri1jYLvhY", displayName: "Demo App", useNewAccountsManager: true)
-        PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
-        
         //Configure Payment processor (place this above modules that will need it)
         VenueNext.configure(paymentProcessor: PaymentAdapter())
+        VNPaymentProcessor.shared = PaymentAdapter()
+        
         //configure wallet
         VenueNext.configure(wallet: VNWallet.shared, walletDelegate: self, theme: CustomWalletTheme())
+        
         //turn on wallet for VNOrder
         VenueNext.enableWallet(for: VNOrder.shared)
         
         //Uncomment if you want to pass in a custom theme
         //VenueNext.configure(theme: <Custom Theme>)
 
-        VNPaymentProcessor.shared = PaymentAdapter()
+        Appearance.configure()
 
+        // The following code is for testing purpose
+        setUpPresenceSDK()
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController(for: isSwift)
         window?.makeKeyAndVisible()
 
         return true
+    
+        
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -84,7 +87,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func intializeSDK(for isSwift: Bool) {
         switch isSwift {
         case true:
-            
             guard let configURLString = Bundle.main.path(forResource: "vn-sdk-config", ofType: "json"), let configURL = URL(string: configURLString) else {
                 fatalError("Failed to find config file at provided path")
             }
@@ -99,6 +101,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case false:
             ObjCConfiguration.start()
         }
+    }
+    
+    func setUpPresenceSDK(){
+        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "", displayName: "Demo App", useNewAccountsManager: true)
+        PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
     }
 }
 
