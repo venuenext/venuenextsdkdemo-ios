@@ -35,7 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //Configure Payment processor (place this above modules that will need it)
         VenueNext.configure(paymentProcessor: PaymentAdapter())
-        VNPaymentProcessor.shared = PaymentAdapter()
         
         //configure wallet
         VenueNext.configure(wallet: VNWallet.shared, walletDelegate: self, theme: CustomWalletTheme())
