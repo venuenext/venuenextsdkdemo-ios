@@ -248,7 +248,7 @@ class DeepLinkTableViewController: UITableViewController {
                         self.view.isUserInteractionEnabled = false
                     }
                     
-                    VenueNext.shared.initialize(sdkKey: "SDK_KEY", sdkSecret: "SDK_DELEGATE", externalID: externalID, configURL: configURL) { (success, error) in
+                    VenueNext.shared.initialize(sdkKey: AppDelegate.sdkKey, sdkSecret: AppDelegate.sdkSecret, externalID: externalID, configURL: configURL) { (success, error) in
                         DispatchQueue.main.async {
                             self.view.isUserInteractionEnabled = true
                             guard success else {

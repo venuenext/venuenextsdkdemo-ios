@@ -22,6 +22,10 @@ class CustomWalletTheme: VNWalletBaseTheme {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    
+    static var sdkKey = ""
+    static var sdkSecret = ""
+    static var presenceKey = ""
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -90,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Failed to find config file at provided path")
             }
             
-            VenueNext.shared.initialize(sdkKey: "", sdkSecret: "", configURL: configURL) { (success, error) in
+            VenueNext.shared.initialize(sdkKey: AppDelegate.sdkKey, sdkSecret: AppDelegate.sdkSecret, configURL: configURL) { (success, error) in
                 if success {
                     print("Successfully initialized the SDK")
                 }
@@ -103,7 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func setUpPresenceSDK(){
-        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "", displayName: "Demo App", useNewAccountsManager: true)
+        PresenceSDK.getPresenceSDK().setConfig(consumerKey: AppDelegate.presenceKey, displayName: "Demo App", useNewAccountsManager: true)
         PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
     }
 }
