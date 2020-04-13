@@ -1,0 +1,11 @@
+framework module VenueNextCoreUI {
+  umbrella header "VenueNextCoreUI.h"
+
+  export *
+  module * { export * }
+}
+
+module VenueNextCoreUI.Swift {
+    header "VenueNextCoreUI-Swift.h"
+    requires objc
+}

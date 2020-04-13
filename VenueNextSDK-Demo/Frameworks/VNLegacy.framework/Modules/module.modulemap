@@ -1,6 +1,0 @@
-framework module VNLegacy {
-  umbrella header "VNLegacy.h"
-
-  export *
-  module * { export * }
-}

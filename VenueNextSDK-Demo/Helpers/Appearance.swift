@@ -1,10 +1,10 @@
 // Copyright © 2019 VenueNext. All rights reserved.
 
 import UIKit
-import VNCore
+import VenueNextCore
 
 struct Appearance {
-    static func start() {
+    static func configure() {
         UITabBar.appearance().tintColor = VN.theme.primaryLight
         UITabBar.appearance().barTintColor = VN.theme.primaryAccent
         UITabBar.appearance().unselectedItemTintColor = VN.theme.primaryLight

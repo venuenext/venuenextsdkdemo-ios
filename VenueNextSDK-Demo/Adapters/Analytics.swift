@@ -3,8 +3,8 @@
 
 
 import Foundation
-import VNCore
-import VNAnalytics
+import VenueNextCore
+import VenueNextAnalytics
 
 class CustomAnalytics: AnalyticsAdapter {
     func register(userID: String?) {

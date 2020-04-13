@@ -1,12 +1,12 @@
 //  Copyright © 2019 VenueNext. All rights reserved.
 
 import UIKit
-import VNCore
-import VNOrderData
-import VNOrderUI
-import VNWalletUI
-import VNPayment
-import VNAnalytics
+import VenueNextCore
+import VenueNextOrderData
+import VenueNextOrderUI
+import VenueNextWalletUI
+import VenueNextPayment
+import VenueNextAnalytics
 import PresenceSDK
 
 class CustomWalletTheme: VNWalletBaseTheme {
@@ -22,6 +22,10 @@ class CustomWalletTheme: VNWalletBaseTheme {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    
+    static var sdkKey = ""
+    static var sdkSecret = ""
+    static var presenceKey = ""
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -29,27 +33,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // To run the ObjC app set isSwiftDemoApp to false
 
         let isSwift = true
-        Appearance.start()
 
         //Initialize VenueNext SDK
         intializeSDK(for: isSwift)
 
-        //Setup PresenceSDK
-        PresenceSDK.getPresenceSDK().setConfig(consumerKey: "", displayName: "Demo App", useNewAccountsManager: true)
-        PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
-        
         //Configure Payment processor (place this above modules that will need it)
         VenueNext.configure(paymentProcessor: PaymentAdapter())
+        
         //configure wallet
         VenueNext.configure(wallet: VNWallet.shared, walletDelegate: self, theme: CustomWalletTheme())
+        
         //turn on wallet for VNOrder
         VenueNext.enableWallet(for: VNOrder.shared)
         
         //Uncomment if you want to pass in a custom theme
         //VenueNext.configure(theme: <Custom Theme>)
 
-        VNPaymentProcessor.shared = PaymentAdapter()
+        Appearance.configure()
 
+        // The following code is for testing purpose
+        setUpPresenceSDK()
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController(for: isSwift)
         window?.makeKeyAndVisible()
@@ -82,23 +86,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func intializeSDK(for isSwift: Bool) {
+        guard let configURLString = Bundle.main.path(forResource: "vn-sdk-config", ofType: "json"), let configURL = URL(string: configURLString) else {
+            fatalError("Failed to find config file at provided path")
+        }
         switch isSwift {
         case true:
-            
-            guard let configURLString = Bundle.main.path(forResource: "vn-sdk-config", ofType: "json"), let configURL = URL(string: configURLString) else {
-                fatalError("Failed to find config file at provided path")
-            }
-            
-            VenueNext.shared.initialize(sdkKey: "", sdkSecret: "", configURL: configURL) { (success, error) in
+            VenueNext.shared.initialize(sdkKey: AppDelegate.sdkKey, sdkSecret: AppDelegate.sdkSecret, configURL: configURL) { (success, error) in
                 if success {
                     print("Successfully initialized the SDK")
                 }
             }
             
-            Analytics.initialize(with: CustomAnalytics())
+            VNAnalytics.initialize(with: CustomAnalytics())
         case false:
-            ObjCConfiguration.start()
+            ObjCConfiguration.start(configURL)
         }
+    }
+    
+    func setUpPresenceSDK() {
+        PresenceSDK.getPresenceSDK().setConfig(consumerKey: AppDelegate.presenceKey, displayName: "Demo App", useNewAccountsManager: true)
+        PresenceSDK.getPresenceSDK().setBrandingColors(BrandingColors(oneColor: VN.theme.primaryAccent))
     }
 }
 

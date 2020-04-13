@@ -1,0 +1,132 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+// swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name VenueNextWalletUI
+import AVFoundation
+import Foundation
+import Swift
+import UIKit
+import VenueNextCore
+import VenueNextCoreUI
+import VenueNextOrderService
+import VenueNextOrderUI
+import VenueNextPayment
+import VenueNextWalletData
+import VenueNextWalletService
+@_exported import VenueNextWalletUI
+import os.log
+import os
+extension VNWallet : VenueNextCore.VNWalletProtocol {
+  public func isVirtualCurrencyEnabled(for productType: VenueNextCore.ProductType? = nil) -> Swift.Bool
+  public func logout()
+  public func isWalletEnvironmentAvailable() -> Swift.Bool
+  public func virtualCurrencyPaymentType() -> Swift.String
+  public func formatBalanceInDollars(balance: Swift.Double) -> Swift.String
+  public var currencyName: Swift.String {
+    get
+  }
+  public var isLoggedIn: Swift.Bool {
+    get
+  }
+  public func getBalance(completion: @escaping (Foundation.NSNumber?, Swift.Error?) -> Swift.Void)
+  public func showLogin(on controller: UIKit.UINavigationController, finish: @escaping (Swift.Bool, Swift.Error?) -> Swift.Void)
+  public func loginIfNeeded(completion: @escaping (VenueNextCore.VNWalletUser?, Swift.Bool, Swift.Error?) -> Swift.Void)
+}
+public struct LoyaltyUpdateNotification : VenueNextCore.SocketNotification, Swift.Decodable {
+  public static func parse(json: [Swift.String : Any]) -> VenueNextWalletUI.LoyaltyUpdateNotification?
+  public init(from decoder: Swift.Decoder) throws
+}
+extension UINavigationController {
+  @objc dynamic public func pushVNWalletViewController(animated: Swift.Bool)
+}
+@objc public class VNWallet : ObjectiveC.NSObject {
+  @objc public static let shared: VenueNextWalletUI.VNWallet
+  @objc public var delegate: VenueNextWalletUI.VNWalletDelegate! {
+    get
+    }
+  public static var theme: VenueNextCore.VNWalletThemable {
+    get
+    }
+  public var walletModes: [VenueNextCore.VNWalletMode] {
+    get
+  }
+  public func configure(walletDelegate: Any, theme: VenueNextCore.VNWalletThemable?)
+  public func configure(walletConfig: VenueNextCore.VNWalletConfig)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public typealias WalletRoutes = VenueNextCore.DeepLinkRoute.WalletRoutes
+extension DeepLinkRoute {
+  public enum WalletRoutes : Swift.String, Swift.CaseIterable {
+    case transfer
+    case transferOld
+    case login
+    public typealias RawValue = Swift.String
+    public init?(rawValue: Swift.String)
+    public var rawValue: Swift.String {
+      get
+    }
+    public typealias AllCases = [VenueNextCore.DeepLinkRoute.WalletRoutes]
+    public static var allCases: [VenueNextCore.DeepLinkRoute.WalletRoutes] {
+      get
+    }
+  }
+}
+@objc public protocol VNWalletDelegate {
+  @objc func loginController(completion: @escaping (VenueNextCore.VNWalletUser?, Swift.String?, Foundation.NSError?) -> Swift.Void) -> UIKit.UIViewController
+  @objc func walletUser() -> VenueNextCore.VNWalletUser?
+}
+extension VNWallet : VenueNextCore.VNDeepLinkable {
+  public func route<T>(for url: Foundation.URL) -> T? where T : Swift.RawRepresentable, T.RawValue == Swift.String
+  public func canHandle(url: Foundation.URL) -> Swift.Bool
+  public func handle(url: Foundation.URL, presenter: UIKit.UIViewController, completion: ((Swift.Bool) -> Swift.Void)?)
+}
+@objc public class VNWalletNavigation : ObjectiveC.NSObject {
+  @objc public static func walletNavigationController(dismissDelegate: VenueNextCoreUI.DismissDelegate?) -> UIKit.UINavigationController
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc open class PresentableNavigationController : UIKit.UINavigationController, VenueNextCoreUI.Presentable {
+  weak public var dismissDelegate: VenueNextCoreUI.DismissDelegate?
+  @objc public init(rootViewController: UIKit.UIViewController, dismissDelegate: VenueNextCoreUI.DismissDelegate?)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic open func viewWillAppear(_ animated: Swift.Bool)
+  @available(iOS 5.0, *)
+  @objc override dynamic public init(navigationBarClass: Swift.AnyClass?, toolbarClass: Swift.AnyClass?)
+  @objc override dynamic public init(rootViewController: UIKit.UIViewController)
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc deinit
+}
+@objc public enum WalletMode : Swift.Int, Swift.CaseIterable {
+  case qrCode
+  case qrScanner
+  case virtualCurrencyToggle
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+  public typealias AllCases = [VenueNextWalletUI.WalletMode]
+  public static var allCases: [VenueNextWalletUI.WalletMode] {
+    get
+  }
+}
+extension UINavigationController {
+  @objc override dynamic open var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
+    @objc get
+  }
+}
+extension UIImage {
+  convenience public init<E, T>(icon: E, _ bundle: T.Type) where E : Swift.RawRepresentable, E.RawValue == Swift.String
+}
+extension VNWallet : VenueNextCore.VNModule {
+  public var moduleName: Swift.String {
+    get
+  }
+  public func reset(completion: @escaping (Swift.Bool, Swift.Error?) -> Swift.Void)
+}
+extension VenueNextCore.DeepLinkRoute.WalletRoutes : Swift.Equatable {}
+extension VenueNextCore.DeepLinkRoute.WalletRoutes : Swift.Hashable {}
+extension VenueNextCore.DeepLinkRoute.WalletRoutes : Swift.RawRepresentable {}
+extension VenueNextWalletUI.WalletMode : Swift.Equatable {}
+extension VenueNextWalletUI.WalletMode : Swift.Hashable {}
+extension VenueNextWalletUI.WalletMode : Swift.RawRepresentable {}

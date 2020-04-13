@@ -2,11 +2,11 @@
 //
 
 import UIKit
-import VNCore
-import VNPayment
-import VNOrderUI
-import VNOrderData
-import VNWalletUI
+import VenueNextCore
+import VenueNextPayment
+import VenueNextOrderUI
+import VenueNextOrderData
+import VenueNextWalletUI
 
 class TabBarController: UITabBarController {
 

@@ -1,42 +1,42 @@
 // Copyright © 2019 VenueNext. All rights reserved.
 
 import UIKit
-import VNOrderUI
-import VNOrderData
-import VNWalletUI
-import VNCore
-import VNCoreUI
+import VenueNextOrderUI
+import VenueNextOrderData
+import VenueNextWalletUI
+import VenueNextCore
+import VenueNextCoreUI
 
 class DeepLinkTableViewController: UITableViewController {
     enum Section: CaseIterable {
         case push
         case modal
         case initialization
-         
-         var displayName: String {
-             switch self {
-             case .push:
-                 return "Push"
-             case .modal:
-                 return "Modal Presentation"
-             case .initialization:
+        
+        var displayName: String {
+            switch self {
+            case .push:
+                return "Push"
+            case .modal:
+                return "Modal Presentation"
+            case .initialization:
                 return "Initialization"
-             }
-         }
-         
-         var rows: [LinkType] {
-             switch self {
-             case .push:
-                 return [.pushFoodList, .pushMerchList, .pushExperienceList, .pushFoodMenu, .pushMerchMenu, .pushExperienceMenu, .pushExperienceDetail, .pushOrderHistory, .pushWallet]
-             case .modal:
-                 return [.modalFoodList, .modalMerchList, .modalExperienceList, .modalFoodMenu, .modalMerchMenu, .modalExperienceMenu, .modalExperienceDetail, .modalOrderHistory, .modalFoodReceipt, .modalExperienceReceipt, .modalDisclosure, .modalWallet]
-             case .initialization:
+            }
+        }
+        
+        var rows: [LinkType] {
+            switch self {
+            case .push:
+                return [.pushFoodList, .pushMerchList, .pushExperienceList, .pushFoodMenu, .pushMerchMenu, .pushExperienceMenu, .pushExperienceDetail, .pushOrderHistory, .pushWallet]
+            case .modal:
+                return [.modalFoodList, .modalMerchList, .modalExperienceList, .modalFoodMenu, .modalMerchMenu, .modalExperienceMenu, .modalExperienceDetail, .modalOrderHistory, .modalFoodReceipt, .modalExperienceReceipt, .modalExperienceItem, .modalDisclosure, .modalWallet]
+            case .initialization:
                 return [.reinitWithExternalID]
             }
-         }
-     }
-     
-    enum LinkType: CaseIterable {
+        }
+    }
+    
+   enum LinkType: CaseIterable {
         case modalFoodList
         case modalMerchList
         case modalExperienceList
@@ -47,9 +47,10 @@ class DeepLinkTableViewController: UITableViewController {
         case modalOrderHistory
         case modalFoodReceipt
         case modalExperienceReceipt
+        case modalExperienceItem
         case modalDisclosure
         case modalWallet
-
+    
         case pushFoodList
         case pushMerchList
         case pushExperienceList
@@ -59,60 +60,62 @@ class DeepLinkTableViewController: UITableViewController {
         case pushExperienceDetail
         case pushOrderHistory
         case pushWallet
-        
+    
         case reinitWithExternalID
-     
-         var name: String {
-             let modal = "Modal - "
-             let push = "Push - "
-             switch self {
-             case .modalFoodList:
-                 return modal + "Food RvCs"
-             case .modalMerchList:
-                 return modal + "Merch RvCs"
-             case .modalExperienceList:
-                 return modal + "Experience RvCs"
-             case .modalFoodMenu:
-                 return modal + "Food Menu"
-             case .modalMerchMenu:
-                 return modal + "Merch Menu"
-             case .modalExperienceMenu:
-                 return modal + "Experience Menu"
-             case .modalExperienceDetail:
-                 return modal + "Experience Details"
-             case .modalOrderHistory:
-                 return modal + "Order History"
-             case .modalFoodReceipt:
-                 return modal + "Food Receipt"
-             case .modalExperienceReceipt:
-                 return modal + "Experience Receipt"
-             case .modalDisclosure:
-                 return modal + "Disclosure"
-             case .modalWallet:
-                 return modal + "Wallet"
-             case .pushFoodList:
-                 return push + "Food RvCs"
-             case .pushMerchList:
-                 return push + "Merch RvCs"
-             case .pushExperienceList:
-                 return push + "Experience RvCs"
-             case .pushFoodMenu:
-                 return push + "Food Menu"
-             case .pushMerchMenu:
-                 return push + "Merch Menu"
-             case .pushExperienceMenu:
-                 return push + "Experience Menu"
-             case .pushExperienceDetail:
-                 return push + "Experience Details"
-             case .pushOrderHistory:
-                 return push + "Order History"
-             case .pushWallet:
-                 return push + "Wallet"
-             case .reinitWithExternalID:
+    
+        var name: String {
+            let modal = "Modal - "
+            let push = "Push - "
+            switch self {
+            case .modalFoodList:
+                return modal + "Food RvCs"
+            case .modalMerchList:
+                return modal + "Merch RvCs"
+            case .modalExperienceList:
+                return modal + "Experience RvCs"
+            case .modalFoodMenu:
+                return modal + "Food Menu"
+            case .modalMerchMenu:
+                return modal + "Merch Menu"
+            case .modalExperienceMenu:
+                return modal + "Experience Menu"
+            case .modalExperienceDetail:
+                return modal + "Experience Details"
+            case .modalOrderHistory:
+                return modal + "Order History"
+            case .modalFoodReceipt:
+                return modal + "Food Receipt"
+            case .modalExperienceReceipt:
+                return modal + "Experience Receipt"
+            case .modalExperienceItem:
+                return modal + "Experience Item"
+            case .modalDisclosure:
+                return modal + "Disclosure"
+            case .modalWallet:
+                return modal + "Wallet"
+            case .pushFoodList:
+                return push + "Food RvCs"
+            case .pushMerchList:
+                return push + "Merch RvCs"
+            case .pushExperienceList:
+                return push + "Experience RvCs"
+            case .pushFoodMenu:
+                return push + "Food Menu"
+            case .pushMerchMenu:
+                return push + "Merch Menu"
+            case .pushExperienceMenu:
+                return push + "Experience Menu"
+            case .pushExperienceDetail:
+                return push + "Experience Details"
+            case .pushOrderHistory:
+                return push + "Order History"
+            case .pushWallet:
+                return push + "Wallet"
+            case .reinitWithExternalID:
                 return "Reinit w/ External ID"
-             }
-         }
-     }
+            }
+        }
+    }
     
     public init() {
         super.init(nibName: String(describing: DeepLinkTableViewController.self), bundle: Bundle(for: type(of: self)))
@@ -135,12 +138,6 @@ class DeepLinkTableViewController: UITableViewController {
         super.viewDidLoad()
         title = "Debug"
         LinkTableViewCell.register(tableView: tableView)
-        configureNavigationBar()
-    }
-
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         configureNavigationBar()
     }
     
@@ -191,8 +188,11 @@ class DeepLinkTableViewController: UITableViewController {
             let receiptNavigationController = VNOrderNavigation.receiptNavigationController(orderSummaryUUID: "7e9d1376-08f2-4153-b5b8-d8f32ccf5849", productType: .food, dismissDelegate: self)
             navigationController?.present(receiptNavigationController, animated: true, completion: nil)
         case .modalExperienceReceipt:
-            // TODO: COME BACK
-            break
+            let receiptNavigationController = VNOrderNavigation.receiptNavigationController(orderSummaryUUID: "da80e658-5e4d-4ce0-b47b-02b26179ecd3", productType: .experience, dismissDelegate: self)
+            navigationController?.present(receiptNavigationController, animated: true, completion: nil)
+        case .modalExperienceItem:
+            let receiptNavigationController = VNOrderNavigation.receiptNavigationController(experienceItemUUID: "90a31b0a-e30a-48f6-a645-9aa119c5eb37", dismissDelegate: self)
+            navigationController?.present(receiptNavigationController, animated: true, completion: nil)
         case .modalDisclosure:
             definesPresentationContext = true
             DispatchQueue.main.async { [weak self] in
@@ -224,7 +224,7 @@ class DeepLinkTableViewController: UITableViewController {
         case .pushMerchMenu:
             navigationController?.pushVNMenu(for: "d6b9509f-3479-4b2b-b50c-f643ba422b5f", productType: .merchandise, animated: true)
         case .pushExperienceMenu:
-            navigationController?.pushVNMenu(for: "e6489e97-4873-46be-b2c5-7262873d6e9e", productType: .experience, animated: true)
+            navigationController?.pushVNMenu(for: "e6489e97-4873-46be-b2c5-7262873d6e9e", eventUUID: "ccd06805-0e02-44ea-be11-34892b6ed19f", productType: .experience, animated: true)
         case .pushExperienceDetail:
             navigationController?.pushVNExperienceDetails(for: "5a469d76-0689-44f3-82ec-568b7089533f", eventUUID: "53c61080-3f10-4ec8-a881-0968efc225f9", variantUUID: "6a9b0e57-adc2-4f24-9631-844f47b882ef", animated: true)
         case .pushOrderHistory:

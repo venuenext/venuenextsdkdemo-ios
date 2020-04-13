@@ -1,0 +1,20 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+// swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name VenueNextWalletService
+import Foundation
+import Swift
+import VenueNextCore
+import VenueNextNetworkService
+@_exported import VenueNextWalletService
+@objc public class VNWalletService : ObjectiveC.NSObject {
+  @objc public static let shared: VenueNextWalletService.VNWalletService
+  @objc public func getWalletUserBalance(completion: @escaping (Foundation.Data?, Swift.Error?) -> Swift.Void)
+  @objc public func getWalletBalanceHistory(completion: @escaping (Foundation.Data?, Swift.Error?) -> Swift.Void)
+  @objc public func getLoyaltyAwardRules(completion: @escaping (Foundation.Data?, Swift.Error?) -> Swift.Void)
+  @objc public func postQRCode(completion: @escaping (Foundation.Data?, Swift.Error?) -> Swift.Void)
+  @objc public func postVendPaymentTypes(completion: @escaping (Foundation.Data?, Swift.Error?) -> Swift.Void)
+  @objc public func postVirtualCurrencyTransfer(params: [Swift.String : Any], completion: @escaping (Foundation.Data?, Swift.Error?) -> Swift.Void)
+  @objc public func postVirtualCurrencyCancelTransfer(params: [Swift.String : Any], completion: @escaping (Foundation.Data?, Swift.Error?) -> Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
+}

@@ -1,0 +1,11 @@
+framework module VenueNextAnalytics {
+  umbrella header "VenueNextAnalytics.h"
+
+  export *
+  module * { export * }
+}
+
+module VenueNextAnalytics.Swift {
+    header "VenueNextAnalytics-Swift.h"
+    requires objc
+}

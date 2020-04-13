@@ -1,0 +1,89 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+// swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name VenueNextOrderService
+import Foundation
+import Swift
+import VenueNextCore
+import VenueNextNetworkService
+@_exported import VenueNextOrderService
+import os.log
+import os
+public enum ServiceType : Swift.String, Swift.Codable {
+  case delivery
+  case deliveryFriend
+  case deliveryPickup
+  case deliveryFind
+  case expressPickup
+  case orderAhead
+  case concessions
+  case walkup
+  case experience
+  public var displayText: Swift.String {
+    get
+  }
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct Venue : Swift.Codable, Swift.Hashable {
+  public var uuid: Swift.String?
+  public var name: Swift.String?
+  public var displayName: Swift.String?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: VenueNextOrderService.Venue, b: VenueNextOrderService.Venue) -> Swift.Bool
+}
+extension Venue {
+  public init(uuid: Swift.String)
+  public init(uuid: Swift.String, name: Swift.String, displayName: Swift.String)
+}
+final public class Orders {
+  @objc deinit
+}
+extension Orders {
+  public enum ReorderStatus {
+    case canReorder
+    case notCurrentlyAccepting
+    case itemNotAvailable
+    public static func == (a: VenueNextOrderService.Orders.ReorderStatus, b: VenueNextOrderService.Orders.ReorderStatus) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+}
+@objc public class VNOrderService : ObjectiveC.NSObject {
+  @objc public static let shared: VenueNextOrderService.VNOrderService
+  public func getRevenueCenterData(for venueUUID: Swift.String, completion: @escaping (Foundation.Data?, Swift.Error?) -> Swift.Void)
+  public func getMenusData(for standUUID: Swift.String, completion: @escaping (Swift.Result<Foundation.Data, VenueNextNetworkService.VNAnyError>) -> Swift.Void)
+  public func getMenuItemsData(for menuUUID: Swift.String, completion: @escaping (Swift.Result<Foundation.Data, VenueNextNetworkService.VNAnyError>) -> Swift.Void)
+  public func getOrderAheadAvailability(for standUUID: Swift.String, completion: @escaping (Swift.Result<Foundation.Data, VenueNextNetworkService.ResponseError>) -> Swift.Void)
+  public func placeOrder(_ jsonDict: [Swift.String : Any], for productType: VenueNextCore.ProductType, completion: @escaping (Foundation.Data?, VenueNextNetworkService.VNAnyError?) -> Swift.Void)
+  public func getTotals(for orderParams: [Swift.String : Any], productType: VenueNextCore.ProductType, completion: @escaping (Foundation.Data?, VenueNextNetworkService.VNAnyError?) -> Swift.Void)
+  public func getOrderHistory(productType: VenueNextCore.ProductType, completion: @escaping (Swift.Result<Foundation.Data, VenueNextNetworkService.VNAnyError>) -> Swift.Void)
+  public func requestOrder(uuid: Swift.String, productType: VenueNextCore.ProductType, completion: @escaping (Swift.Result<Foundation.Data, VenueNextNetworkService.VNAnyError>) -> Swift.Void)
+  public func updateEmail(for orderUUID: Swift.String, email: Swift.String, completion: @escaping (Swift.Result<Foundation.Data, VenueNextNetworkService.ResponseError>) -> Swift.Void)
+  public func reorder(uuid: Swift.String, completion: @escaping (Swift.Result<Foundation.Data, VenueNextNetworkService.ResponseError>) -> Swift.Void)
+  public func redeemExperience(userItemUUID: Swift.String, completion: @escaping (Swift.Result<Foundation.Data, VenueNextNetworkService.ResponseError>) -> Swift.Void)
+  public func getSections(revenueCenterUUID: Swift.String, completion: @escaping (Foundation.Data?, Swift.Error?) -> Swift.Void)
+  public func getRows(section: Swift.String, aisles: [Swift.Int]?, completion: @escaping (Foundation.Data?, Swift.Error?) -> Swift.Void)
+  public func getSeats(section: Swift.String, row: Swift.String, aisles: [Swift.Int]?, completion: @escaping (Foundation.Data?, Swift.Error?) -> Swift.Void)
+  public func getProfile(userUUID: Swift.String, completion: @escaping (Foundation.Data?, Swift.Error?) -> Swift.Void)
+  public func transferExperience(itemIdentifiers: [Swift.String], senderEmail: Swift.String, recipientEmail: Swift.String, message: Swift.String? = "", completion: @escaping (Swift.Bool, [Foundation.Data]) -> Swift.Void)
+  public func acceptExperienceTransfer(transferID: Swift.String, completion: @escaping (Swift.Bool) -> Swift.Void)
+  public func cancelExperienceTransfer(transferID: Swift.String, completion: @escaping (Swift.Bool) -> Swift.Void)
+  public func getUserItems(completion: @escaping (Foundation.Data?, Swift.Error?) -> Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension VenueNextOrderService.ServiceType : Swift.Equatable {}
+extension VenueNextOrderService.ServiceType : Swift.Hashable {}
+extension VenueNextOrderService.ServiceType : Swift.RawRepresentable {}
+extension VenueNextOrderService.Orders.ReorderStatus : Swift.Equatable {}
+extension VenueNextOrderService.Orders.ReorderStatus : Swift.Hashable {}

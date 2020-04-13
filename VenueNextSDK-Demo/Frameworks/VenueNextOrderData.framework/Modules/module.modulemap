@@ -1,0 +1,11 @@
+framework module VenueNextOrderData {
+  umbrella header "VenueNextOrderData.h"
+
+  export *
+  module * { export * }
+}
+
+module VenueNextOrderData.Swift {
+    header "VenueNextOrderData-Swift.h"
+    requires objc
+}

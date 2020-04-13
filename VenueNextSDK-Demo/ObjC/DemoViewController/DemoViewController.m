@@ -1,6 +1,6 @@
 // Copyright © 2019 VenueNext. All rights reserved.
-@import VNOrderUI;
-@import VNCore;
+@import VenueNextOrderUI;
+@import VenueNextCore;
 #import "DemoViewController.h"
 
 @interface DemoViewController ()
@@ -25,6 +25,6 @@
 }
 
 - (IBAction)pushMenu:(id)sender {
-    [self.navigationController pushVNMenuFor:@"d1192eb8-2369-40a3-8880-d279137f5426" productType:ProductTypeFood animated:YES];
+    [self.navigationController pushVNMenuFor:@"d1192eb8-2369-40a3-8880-d279137f5426" eventUUID: nil productType:ProductTypeFood animated:YES];
 }
 @end

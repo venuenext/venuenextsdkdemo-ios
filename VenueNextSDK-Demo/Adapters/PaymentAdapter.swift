@@ -1,16 +1,16 @@
 //  Copyright © 2019 VenueNext, Inc. All rights reserved.
-//
 
 import Foundation
 import os.log
-import VNCore
-import VNPayment
-import BraintreeDropIn
+import VenueNextCore
+import VenueNextPayment
+import VenueNextOrderData
+import BraintreeDropIn // Import
 import BraintreeApplePay // Import
-import VNOrderData  // Import
-import BraintreePaymentFlow
+import BraintreePaymentFlow // Import
 
 @objc class PaymentAdapter: NSObject, PaymentProcessable, PaymentMethodRepresentable {
+    
     
     var cardType: String = ""
     var lastFour: String = ""
@@ -32,6 +32,11 @@ import BraintreePaymentFlow
                     let request =  BTDropInRequest()
                     request.paypalDisabled = true
                     request.vaultManager = true
+                    /*
+                     ApplePay should be enabled only for .checkout
+                     */
+                    let applePayDisabled = displayType != .checkout
+                    request.applePayDisabled = applePayDisabled
                     let dropIn = BTDropInController(authorization: token, request: request) { [weak self] (controller, result, error) in
                         
                         guard let self = self else { return }
@@ -101,6 +106,8 @@ import BraintreePaymentFlow
                 }
             case .failure(let error):
                 print(error.error.localizedDescription)
+                let error = NSError(source: self, code: 404, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription])
+                completion(nil, error)
             }
         }
     }
