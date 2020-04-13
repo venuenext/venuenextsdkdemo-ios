@@ -1,0 +1,93 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name VenueNextWalletData
+import Foundation
+import Swift
+@_exported import VenueNextWalletData
+@objc open class GetLoyaltyRewardRuleParser : ObjectiveC.NSObject {
+  public static func parse(data: Foundation.Data) throws -> [VenueNextWalletData.LoyaltyRewardRuleRepresentable]?
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct VNWalletTransactionRepresentable : Swift.Decodable {
+  public enum TransactionType : Swift.String {
+    case sendTransfer
+    case foodPurchase
+    case marketplacePurchase
+    case canceledTransfer
+    case autoAward
+    case externalCredit
+    case externalCharge
+    case adminCredit
+    case unknown
+    public typealias RawValue = Swift.String
+    public init?(rawValue: Swift.String)
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public var amount: Swift.Int64?
+  public var createdAt: Swift.String?
+  public var displayTitle: Swift.String?
+  public var extraNote: Swift.String?
+  public var balance: Swift.Int64?
+  public var transferUUID: Swift.String?
+  public var createdAtDateString: Swift.String? {
+    get
+  }
+  public var amountString: Swift.String? {
+    get
+  }
+  public var transactionType: VenueNextWalletData.VNWalletTransactionRepresentable.TransactionType {
+    get
+  }
+  public var isTransfer: Swift.Bool {
+    get
+  }
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct LoyaltyRewardRuleRepresentable : Swift.Decodable {
+  public var description: Swift.String?
+  public var imageUrl: Swift.String?
+  public var name: Swift.String?
+  public var rewardAmount: Swift.String {
+    get
+  }
+  public var amountToNextAward: Swift.String {
+    get
+  }
+  public enum RewardRuleType : Swift.String {
+    case purchaseCashBack
+    case earlyTicketScan
+    case multipleTicketScan
+    case offline
+    case ticketScan
+    case unknown
+    public typealias RawValue = Swift.String
+    public init?(rawValue: Swift.String)
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public var ruleType: VenueNextWalletData.LoyaltyRewardRuleRepresentable.RewardRuleType {
+    get
+  }
+  public var awardThreshold: Swift.Double? {
+    get
+  }
+  public var awardProgress: Swift.Double {
+    get
+  }
+  public init(from decoder: Swift.Decoder) throws
+}
+@objc open class GetBalanceHistoryParser : ObjectiveC.NSObject {
+  public static func parse(data: Foundation.Data) throws -> [VenueNextWalletData.VNWalletTransactionRepresentable]?
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension VenueNextWalletData.VNWalletTransactionRepresentable.TransactionType : Swift.Equatable {}
+extension VenueNextWalletData.VNWalletTransactionRepresentable.TransactionType : Swift.Hashable {}
+extension VenueNextWalletData.VNWalletTransactionRepresentable.TransactionType : Swift.RawRepresentable {}
+extension VenueNextWalletData.LoyaltyRewardRuleRepresentable.RewardRuleType : Swift.Equatable {}
+extension VenueNextWalletData.LoyaltyRewardRuleRepresentable.RewardRuleType : Swift.Hashable {}
+extension VenueNextWalletData.LoyaltyRewardRuleRepresentable.RewardRuleType : Swift.RawRepresentable {}

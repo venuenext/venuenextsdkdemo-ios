@@ -1,9 +1,10 @@
 //  Copyright © 2019 VenueNext, Inc. All rights reserved.
 
 import Foundation
-import VNCore
-import VNPayment
-import VNOrderData
+import os.log
+import VenueNextCore
+import VenueNextPayment
+import VenueNextOrderData
 import BraintreeDropIn // Import
 import BraintreeApplePay // Import
 import BraintreePaymentFlow // Import

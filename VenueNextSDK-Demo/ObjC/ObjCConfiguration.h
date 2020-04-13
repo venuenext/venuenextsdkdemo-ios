@@ -5,7 +5,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ObjCConfiguration : NSObject
-+ (void)start;
++ (void)start:(NSURL *)configURL;
 @end
 
 NS_ASSUME_NONNULL_END

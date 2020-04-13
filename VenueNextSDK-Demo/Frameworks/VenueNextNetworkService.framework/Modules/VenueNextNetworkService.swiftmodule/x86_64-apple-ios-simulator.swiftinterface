@@ -1,0 +1,721 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+// swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name VenueNextNetworkService
+import Foundation
+import Network
+import Swift
+import SystemConfiguration
+@_exported import VenueNextNetworkService
+import os.log
+import os
+public struct AnyError : Swift.Error {
+  public let error: Swift.Error
+  public init(_ error: Swift.Error)
+}
+extension AnyError : VenueNextNetworkService.ErrorConvertible {
+  public static func error(from error: Swift.Error) -> VenueNextNetworkService.AnyError
+}
+extension AnyError : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension AnyError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public var failureReason: Swift.String? {
+    get
+  }
+  public var helpAnchor: Swift.String? {
+    get
+  }
+  public var recoverySuggestion: Swift.String? {
+    get
+  }
+}
+public struct EnvironmentRequest : VenueNextNetworkService.Request {
+  public typealias ResponseType = Foundation.Data
+  public typealias ErrorType = VenueNextNetworkService.VNAnyError
+  public var method: VenueNextNetworkService.HTTP.Method
+  public var url: Foundation.URL
+  public var headers: [VenueNextNetworkService.HTTP.HeaderKey : VenueNextNetworkService.HTTP.HeaderValue]?
+  public var body: Foundation.Data?
+  public init(with key: Swift.String) throws
+}
+public protocol VNDecodableContainer : Swift.Decodable {
+  associatedtype ContainedType : Swift.Decodable
+  var element: Self.ContainedType { get }
+}
+extension VNRequest where T : Swift.Decodable {
+  public init<U>(method: VenueNextNetworkService.HTTP.Method, url: Foundation.URL, headers: [VenueNextNetworkService.HTTP.HeaderKey : VenueNextNetworkService.HTTP.HeaderValue]? = nil, body: Foundation.Data? = nil, cachePolicy: Foundation.URLRequest.CachePolicy = RequestDefaults.defaultCachePolicy, timeout: Foundation.TimeInterval = RequestDefaults.defaultTimeout, decoder: Foundation.JSONDecoder = JSONDecoder(), containerType: U.Type) where T == U.ContainedType, U : VenueNextNetworkService.VNDecodableContainer
+}
+extension VNAnyError : VenueNextNetworkService.VNDecodingFailureInitializable {
+  public init(error: Swift.DecodingError, decoding: Swift.Decodable.Type, data: Foundation.Data)
+}
+public protocol VNNetworkServiceFailureInitializable : Swift.Error {
+  var failureResponse: VenueNextNetworkService.HTTP.Response? { get }
+  var httpServiceError: VenueNextNetworkService.VNNetworkError { get }
+  init(networkServiceFailure: VenueNextNetworkService.VNNetworkServiceFailure)
+}
+public protocol VNDecodingFailureInitializable : Swift.Error {
+  init(error: Swift.DecodingError, decoding: Swift.Decodable.Type, data: Foundation.Data)
+}
+public typealias RequestTransformBlock<T, E> = (VenueNextNetworkService.VNNetworkServiceSuccess) -> Swift.Result<T, E> where E : Swift.Error
+public protocol Request {
+  associatedtype ResponseType
+  associatedtype ErrorType : VenueNextNetworkService.VNNetworkServiceFailureInitializable
+  var method: VenueNextNetworkService.HTTP.Method { get }
+  var url: Foundation.URL { get }
+  var urlRequest: Foundation.URLRequest { get }
+  var headers: [VenueNextNetworkService.HTTP.HeaderKey : VenueNextNetworkService.HTTP.HeaderValue]? { get set }
+  var body: Foundation.Data? { get set }
+  var cachePolicy: Foundation.URLRequest.CachePolicy { get }
+  var timeout: Foundation.TimeInterval { get }
+  func transformSuccess(_ networkServiceSuccess: VenueNextNetworkService.VNNetworkServiceSuccess) -> Swift.Result<Self.ResponseType, Self.ErrorType>
+}
+public struct EmptyResponse {
+  public init()
+}
+public struct RequestDefaults {
+  public static var defaultCachePolicy: Foundation.URLRequest.CachePolicy
+  public static var defaultTimeout: Foundation.TimeInterval
+  public typealias DecodingErrorTransformer<E> = (Swift.Error, Any.Type, Foundation.Data) -> E
+  public static func successTransformer<ResponseType, ErrorType>(for decoder: Foundation.JSONDecoder) -> VenueNextNetworkService.RequestTransformBlock<ResponseType, ErrorType> where ResponseType : Swift.Decodable, ErrorType : VenueNextNetworkService.VNDecodingFailureInitializable
+  public static func successTransformer<ResponseType, ErrorType>(for decoder: Foundation.JSONDecoder, catchTransformer: @escaping VenueNextNetworkService.RequestDefaults.DecodingErrorTransformer<ErrorType>) -> VenueNextNetworkService.RequestTransformBlock<ResponseType, ErrorType> where ResponseType : Swift.Decodable, ErrorType : Swift.Error
+  public static func successTransformer<ContainerType, ErrorType>(for decoder: Foundation.JSONDecoder, withContainerType containerType: ContainerType.Type) -> VenueNextNetworkService.RequestTransformBlock<ContainerType.ContainedType, ErrorType> where ContainerType : VenueNextNetworkService.VNDecodableContainer, ErrorType : VenueNextNetworkService.VNDecodingFailureInitializable
+  public static func successTransformer<ContainerType, ErrorType>(for decoder: Foundation.JSONDecoder, withContainerType containerType: ContainerType.Type, catchTransformer: @escaping VenueNextNetworkService.RequestDefaults.DecodingErrorTransformer<ErrorType>) -> VenueNextNetworkService.RequestTransformBlock<ContainerType.ContainedType, ErrorType> where ContainerType : VenueNextNetworkService.VNDecodableContainer, ErrorType : Swift.Error
+}
+extension Request {
+  public var urlRequest: Foundation.URLRequest {
+    get
+  }
+  public var cachePolicy: Foundation.URLRequest.CachePolicy {
+    get
+  }
+  public var timeout: Foundation.TimeInterval {
+    get
+  }
+  public func addingHeaders(_ additionalHeaders: [VenueNextNetworkService.HTTP.HeaderKey : VenueNextNetworkService.HTTP.HeaderValue]) -> Self
+  public func usingHeaders(_ headers: [VenueNextNetworkService.HTTP.HeaderKey : VenueNextNetworkService.HTTP.HeaderValue]?) -> Self
+  public func usingBody(_ body: Foundation.Data?) -> Self
+}
+extension Request where Self.ErrorType : VenueNextNetworkService.VNDecodingFailureInitializable, Self.ResponseType : Swift.Decodable {
+  public func dataTransformer(with decoder: Foundation.JSONDecoder) -> VenueNextNetworkService.RequestTransformBlock<Self.ResponseType, Self.ErrorType>
+  public func transformSuccess(_ networkServiceSuccess: VenueNextNetworkService.VNNetworkServiceSuccess) -> Swift.Result<Self.ResponseType, Self.ErrorType>
+}
+extension Request where Self.ResponseType == VenueNextNetworkService.EmptyResponse {
+  public func transformSuccess(_ networkServiceSuccess: VenueNextNetworkService.VNNetworkServiceSuccess) -> Swift.Result<VenueNextNetworkService.EmptyResponse, Self.ErrorType>
+}
+extension Result {
+  public typealias Value = Success
+  public typealias Error = Failure
+}
+extension Result {
+  public typealias Success = Swift.Result<Success, Failure>.Value
+  public typealias Failure = Swift.Result<Success, Failure>.Error
+}
+extension Result {
+  public init(_ value: Swift.Result<Success, Failure>.Value?, failWith: @autoclosure () -> Swift.Result<Success, Failure>.Error)
+  public init(_ f: @autoclosure () throws -> Swift.Result<Success, Failure>.Value)
+  @available(*, deprecated, renamed: "init(catching:)")
+  public init(attempt f: () throws -> Swift.Result<Success, Failure>.Value)
+  public init(catching body: () throws -> Success)
+  @available(*, deprecated, renamed: "get()")
+  public func dematerialize() throws -> Swift.Result<Success, Failure>.Value
+  public func get() throws -> Success
+  public func analysis<Result>(ifSuccess: (Swift.Result<Success, Failure>.Value) -> Result, ifFailure: (Swift.Result<Success, Failure>.Error) -> Result) -> Result
+  public static var errorDomain: Swift.String {
+    get
+  }
+  public static var functionKey: Swift.String {
+    get
+  }
+  public static var fileKey: Swift.String {
+    get
+  }
+  public static var lineKey: Swift.String {
+    get
+  }
+  public static func error(_ message: Swift.String? = nil, function: Swift.String = #function, file: Swift.String = #file, line: Swift.Int = #line) -> Foundation.NSError
+}
+extension Result : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension Result : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension Result : VenueNextNetworkService.ResultProtocol {
+  public init(value: Swift.Result<Success, Failure>.Value)
+  public init(error: Swift.Result<Success, Failure>.Error)
+  public var result: Swift.Result<Swift.Result<Success, Failure>.Value, Swift.Result<Success, Failure>.Error> {
+    get
+  }
+}
+extension Result where Failure == VenueNextNetworkService.AnyError {
+  public init(_ f: @autoclosure () throws -> Swift.Result<Success, Failure>.Value)
+  public init(attempt f: () throws -> Swift.Result<Success, Failure>.Value)
+}
+@available(*, deprecated, renamed: "Result.init(attempt:)")
+public func materialize<T>(_ f: () throws -> T) -> Swift.Result<T, VenueNextNetworkService.AnyError>
+@available(*, deprecated, renamed: "Result.init(_:)")
+public func materialize<T>(_ f: @autoclosure () throws -> T) -> Swift.Result<T, VenueNextNetworkService.AnyError>
+extension NSError : VenueNextNetworkService.ErrorConvertible {
+  public static func error(from error: Swift.Error) -> Self
+}
+@available(*, unavailable, message: "Use the overload which returns `Result<T, AnyError>` instead")
+public func materialize<T>(_ f: () throws -> T) -> Swift.Result<T, Foundation.NSError>
+@available(*, unavailable, message: "Use the overload which returns `Result<T, AnyError>` instead")
+public func materialize<T>(_ f: @autoclosure () throws -> T) -> Swift.Result<T, Foundation.NSError>
+@available(*, unavailable, message: "This has been removed. Use `Result.init(attempt:)` instead. See https://github.com/antitypical/Result/issues/85 for the details.")
+public func `try`<T>(_ function: Swift.String = #function, file: Swift.String = #file, line: Swift.Int = #line, try: (Foundation.NSErrorPointer) -> T?) -> Swift.Result<T, Foundation.NSError>
+@available(*, unavailable, message: "This has been removed. Use `Result.init(attempt:)` instead. See https://github.com/antitypical/Result/issues/85 for the details.")
+public func `try`(_ function: Swift.String = #function, file: Swift.String = #file, line: Swift.Int = #line, try: (Foundation.NSErrorPointer) -> Swift.Bool) -> Swift.Result<(), Foundation.NSError>
+@objc final public class NetworkMonitor : ObjectiveC.NSObject {
+  @objc public static var shared: VenueNextNetworkService.NetworkMonitor
+  @objc final public var isMonitoring: Swift.Bool
+  public static var networkReachableNotificationName: Foundation.Notification.Name {
+    get
+  }
+  public static var networkUnreachableNotificationName: Foundation.Notification.Name {
+    get
+  }
+  public static var networkStatusChangedNotificationName: Foundation.Notification.Name {
+    get
+  }
+  final public var isNetworkAccessible: Swift.Bool {
+    get
+    }
+  final public func start()
+  final public func stop()
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct HTTP {
+  public enum Method : Swift.String {
+    case get
+    case head
+    case post
+    case put
+    case delete
+    case patch
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.String)
+  }
+  public struct HeaderKey : Swift.RawRepresentable, Swift.Equatable, Swift.Hashable {
+    public var rawValue: Swift.String
+    public init(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+  }
+  public struct HeaderValue : Swift.RawRepresentable, Swift.Equatable {
+    public var rawValue: Swift.String
+    public init(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+  }
+  public enum Status {
+    public struct Success : Swift.RawRepresentable, Swift.Equatable {
+      public var rawValue: Swift.Int
+      public init(rawValue: Swift.Int)
+      public typealias RawValue = Swift.Int
+    }
+    public struct Redirection : Swift.RawRepresentable, Swift.Equatable {
+      public var rawValue: Swift.Int
+      public init(rawValue: Swift.Int)
+      public typealias RawValue = Swift.Int
+    }
+    public struct ClientError : Swift.RawRepresentable, Swift.Equatable {
+      public var rawValue: Swift.Int
+      public init(rawValue: Swift.Int)
+      public typealias RawValue = Swift.Int
+    }
+    public struct ServerError : Swift.RawRepresentable, Swift.Equatable {
+      public var rawValue: Swift.Int
+      public init(rawValue: Swift.Int)
+      public typealias RawValue = Swift.Int
+    }
+    case unknown(Swift.Int)
+    case success(VenueNextNetworkService.HTTP.Status.Success)
+    case redirection(VenueNextNetworkService.HTTP.Status.Redirection)
+    case clientError(VenueNextNetworkService.HTTP.Status.ClientError)
+    case serverError(VenueNextNetworkService.HTTP.Status.ServerError)
+  }
+  public struct Response : Swift.Equatable {
+    public let code: Swift.Int
+    public let data: Foundation.Data?
+    public let headers: [Swift.String : Swift.String]?
+    public var status: VenueNextNetworkService.HTTP.Status {
+      get
+    }
+    public var dataString: Swift.String? {
+      get
+    }
+    public init(code: Swift.Int, data: Foundation.Data?, headers: [Swift.String : Swift.String]? = nil)
+    public static func == (a: VenueNextNetworkService.HTTP.Response, b: VenueNextNetworkService.HTTP.Response) -> Swift.Bool
+  }
+}
+extension HTTP.HeaderKey {
+  public static let accept: VenueNextNetworkService.HTTP.HeaderKey
+  public static let acceptCharset: VenueNextNetworkService.HTTP.HeaderKey
+  public static let acceptEncoding: VenueNextNetworkService.HTTP.HeaderKey
+  public static let acceptLanguage: VenueNextNetworkService.HTTP.HeaderKey
+  public static let acceptDatetime: VenueNextNetworkService.HTTP.HeaderKey
+  public static let authorization: VenueNextNetworkService.HTTP.HeaderKey
+  public static let contentLength: VenueNextNetworkService.HTTP.HeaderKey
+  public static let contentMD5: VenueNextNetworkService.HTTP.HeaderKey
+  public static let contentType: VenueNextNetworkService.HTTP.HeaderKey
+  public static let date: VenueNextNetworkService.HTTP.HeaderKey
+  public static let userAgent: VenueNextNetworkService.HTTP.HeaderKey
+  public static let cacheControl: VenueNextNetworkService.HTTP.HeaderKey
+}
+extension HTTP.HeaderValue {
+  public static let applicationJSON: VenueNextNetworkService.HTTP.HeaderValue
+  public static let applicationFormURLEncoded: VenueNextNetworkService.HTTP.HeaderValue
+  public static let applicationXML: VenueNextNetworkService.HTTP.HeaderValue
+  public static let multipartForm: VenueNextNetworkService.HTTP.HeaderValue
+  public static let textPlain: VenueNextNetworkService.HTTP.HeaderValue
+  public static let imagePNG: VenueNextNetworkService.HTTP.HeaderValue
+  public static let imageJPEG: VenueNextNetworkService.HTTP.HeaderValue
+  public static let imageGIF: VenueNextNetworkService.HTTP.HeaderValue
+  public static let encodingCompress: VenueNextNetworkService.HTTP.HeaderValue
+  public static let encodingDeflate: VenueNextNetworkService.HTTP.HeaderValue
+  public static let encodingExi: VenueNextNetworkService.HTTP.HeaderValue
+  public static let encodingGzip: VenueNextNetworkService.HTTP.HeaderValue
+  public static let encodingIdentity: VenueNextNetworkService.HTTP.HeaderValue
+  public static let encodingPack200Gzip: VenueNextNetworkService.HTTP.HeaderValue
+  public static let encodingBr: VenueNextNetworkService.HTTP.HeaderValue
+  public static let passKit: VenueNextNetworkService.HTTP.HeaderValue
+  public static let jsonAPI: VenueNextNetworkService.HTTP.HeaderValue
+  public static let noCache: VenueNextNetworkService.HTTP.HeaderValue
+  public static let maxAgeCache: VenueNextNetworkService.HTTP.HeaderValue
+  public static func authorizationBearer(token: Swift.String) -> VenueNextNetworkService.HTTP.HeaderValue
+  public static let defaultUserAgent: VenueNextNetworkService.HTTP.HeaderValue
+}
+extension HTTP.Status.Success {
+  public static let ok: VenueNextNetworkService.HTTP.Status.Success
+  public static let created: VenueNextNetworkService.HTTP.Status.Success
+  public static let accepted: VenueNextNetworkService.HTTP.Status.Success
+  public static let nonAuthoritativeInformation: VenueNextNetworkService.HTTP.Status.Success
+  public static let noContent: VenueNextNetworkService.HTTP.Status.Success
+  public static let resetContent: VenueNextNetworkService.HTTP.Status.Success
+  public static let partialContent: VenueNextNetworkService.HTTP.Status.Success
+  public static let multiStatus: VenueNextNetworkService.HTTP.Status.Success
+  public static let alreadyReported: VenueNextNetworkService.HTTP.Status.Success
+  public static let imUsed: VenueNextNetworkService.HTTP.Status.Success
+}
+extension HTTP.Status.Redirection {
+  public static let multipleChoices: VenueNextNetworkService.HTTP.Status.Redirection
+  public static let movedPermanently: VenueNextNetworkService.HTTP.Status.Redirection
+  public static let found: VenueNextNetworkService.HTTP.Status.Redirection
+  public static let seeOther: VenueNextNetworkService.HTTP.Status.Redirection
+  public static let notModified: VenueNextNetworkService.HTTP.Status.Redirection
+  public static let useProxy: VenueNextNetworkService.HTTP.Status.Redirection
+  public static let switchProxy: VenueNextNetworkService.HTTP.Status.Redirection
+  public static let temporaryRedirect: VenueNextNetworkService.HTTP.Status.Redirection
+  public static let permanentRedirect: VenueNextNetworkService.HTTP.Status.Redirection
+}
+extension HTTP.Status.ClientError {
+  public static let badRequest: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let unauthorized: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let paymentRequired: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let forbidden: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let notFound: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let methodNotAllowed: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let notAcceptable: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let proxyAuthenticationRequired: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let requestTimeout: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let conflict: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let gone: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let lengthRequried: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let preconditionFailed: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let payloadTooLarge: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let uriTooLong: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let unsupportedMediaType: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let rangeNotSatisfiable: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let expectationFailed: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let imATeapot: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let misdirectedRequest: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let unproccessableEntity: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let locked: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let failedDependency: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let upgradeRequired: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let preconditionRequired: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let tooManyRequests: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let requestHeaderFieldsTooLarge: VenueNextNetworkService.HTTP.Status.ClientError
+  public static let unavailableForLegalReasons: VenueNextNetworkService.HTTP.Status.ClientError
+}
+extension HTTP.Status.ServerError {
+  public static let internalServerError: VenueNextNetworkService.HTTP.Status.ServerError
+  public static let notImplemented: VenueNextNetworkService.HTTP.Status.ServerError
+  public static let badGateway: VenueNextNetworkService.HTTP.Status.ServerError
+  public static let serviceUnavailable: VenueNextNetworkService.HTTP.Status.ServerError
+  public static let gatewayTimeout: VenueNextNetworkService.HTTP.Status.ServerError
+  public static let httpVersionNotSupported: VenueNextNetworkService.HTTP.Status.ServerError
+  public static let variantAlsoNegotiates: VenueNextNetworkService.HTTP.Status.ServerError
+  public static let insufficientStorage: VenueNextNetworkService.HTTP.Status.ServerError
+  public static let loopDetected: VenueNextNetworkService.HTTP.Status.ServerError
+  public static let notExtended: VenueNextNetworkService.HTTP.Status.ServerError
+  public static let networkAuthenticationRequired: VenueNextNetworkService.HTTP.Status.ServerError
+}
+public class VNNetworkService {
+  public init(session: Foundation.URLSession = URLSession.shared)
+  @objc deinit
+}
+public struct ResponseError : Swift.Error {
+  public typealias DictionaryType = [Swift.AnyHashable : Any]
+  public var data: Foundation.Data
+  public var stringValue: Swift.String?
+  public var dictionaryValue: VenueNextNetworkService.ResponseError.DictionaryType?
+  public init(data: Foundation.Data)
+  public init(string: Swift.String)
+}
+extension VNNetworkService : VenueNextNetworkService.VNNetworkServiceProtocol {
+  public func executeRequest(request: Foundation.URLRequest, completion: @escaping VenueNextNetworkService.VNNetworkServiceCompletion)
+  public func executeRequest<T>(request: T, completion: @escaping (Swift.Result<Foundation.Data?, VenueNextNetworkService.ResponseError>) -> Swift.Void) where T : VenueNextNetworkService.Request
+  public func cancelTask(for request: Foundation.URLRequest)
+  public func cancelAll()
+}
+extension OSLog {
+  public static let network: os.OSLog
+}
+public protocol ParameterEncoding {
+  func encode(_ urlRequest: Foundation.URLRequest, with parameters: [Swift.String : Any]?) throws -> Foundation.URLRequest
+}
+public struct URLEncoding : VenueNextNetworkService.ParameterEncoding {
+  public init()
+  public func encode(_ urlRequest: Foundation.URLRequest, with parameters: [Swift.String : Any]?) throws -> Foundation.URLRequest
+}
+@dynamicMemberLookup public enum JSON {
+  case dictionary(Swift.Dictionary<Swift.String, VenueNextNetworkService.JSON>)
+  case array(Swift.Array<VenueNextNetworkService.JSON>)
+  case string(Swift.String)
+  case number(Foundation.NSNumber)
+  case bool(Swift.Bool)
+  case null
+  public subscript(dynamicMember member: Swift.String) -> VenueNextNetworkService.JSON {
+    get
+  }
+  public subscript(index: Swift.Int) -> VenueNextNetworkService.JSON {
+    get
+  }
+  public subscript(key: Swift.String) -> VenueNextNetworkService.JSON {
+    get
+  }
+  public init(data: Foundation.Data, options: Foundation.JSONSerialization.ReadingOptions = .allowFragments) throws
+  public init(_ object: Any)
+  public var dictionary: Swift.Dictionary<Swift.String, VenueNextNetworkService.JSON>? {
+    get
+  }
+  public var array: Swift.Array<VenueNextNetworkService.JSON>? {
+    get
+  }
+  public var string: Swift.String? {
+    get
+  }
+  public var number: Foundation.NSNumber? {
+    get
+  }
+  public var double: Swift.Double? {
+    get
+  }
+  public var int: Swift.Int? {
+    get
+  }
+  public var bool: Swift.Bool? {
+    get
+  }
+  public var object: Any {
+    get
+  }
+  public func data(options: Foundation.JSONSerialization.WritingOptions = []) -> Foundation.Data
+}
+extension JSON : Swift.ExpressibleByDictionaryLiteral {
+  public init(dictionaryLiteral elements: (Swift.String, Any)...)
+  public typealias Key = Swift.String
+  public typealias Value = Any
+}
+extension JSON : Swift.ExpressibleByArrayLiteral {
+  public init(arrayLiteral elements: Any...)
+  public typealias ArrayLiteralElement = Any
+}
+extension JSON : Swift.ExpressibleByStringLiteral {
+  public init(stringLiteral value: Swift.StringLiteralType)
+  public init(extendedGraphemeClusterLiteral value: Swift.StringLiteralType)
+  public init(unicodeScalarLiteral value: Swift.StringLiteralType)
+  public typealias StringLiteralType = Swift.StringLiteralType
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.StringLiteralType
+  public typealias UnicodeScalarLiteralType = Swift.StringLiteralType
+}
+extension JSON : Swift.ExpressibleByFloatLiteral {
+  public init(floatLiteral value: Swift.FloatLiteralType)
+  public typealias FloatLiteralType = Swift.FloatLiteralType
+}
+extension JSON : Swift.ExpressibleByIntegerLiteral {
+  public init(integerLiteral value: Swift.IntegerLiteralType)
+  public typealias IntegerLiteralType = Swift.IntegerLiteralType
+}
+extension JSON : Swift.ExpressibleByBooleanLiteral {
+  public init(booleanLiteral value: Swift.BooleanLiteralType)
+  public typealias BooleanLiteralType = Swift.BooleanLiteralType
+}
+extension JSON : Swift.CustomStringConvertible, Swift.CustomDebugStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+public enum ReachabilityError : Swift.Error {
+  case FailedToCreateWithAddress(Darwin.sockaddr_in)
+  case FailedToCreateWithHostname(Swift.String)
+  case UnableToSetCallback
+  case UnableToSetDispatchQueue
+  case UnableToGetInitialFlags
+}
+@available(*, unavailable, renamed: "Notification.Name.reachabilityChanged")
+public let ReachabilityChangedNotification: Foundation.NSNotification.Name
+extension NSNotification.Name {
+  public static let reachabilityChanged: Foundation.Notification.Name
+}
+public class Reachability {
+  public typealias NetworkReachable = (VenueNextNetworkService.Reachability) -> ()
+  public typealias NetworkUnreachable = (VenueNextNetworkService.Reachability) -> ()
+  @available(*, unavailable, renamed: "Connection")
+  public enum NetworkStatus : Swift.CustomStringConvertible {
+    case notReachable, reachableViaWiFi, reachableViaWWAN
+    public var description: Swift.String {
+      get
+    }
+    public static func == (a: VenueNextNetworkService.Reachability.NetworkStatus, b: VenueNextNetworkService.Reachability.NetworkStatus) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public enum Connection : Swift.CustomStringConvertible {
+    case none, wifi, cellular
+    public var description: Swift.String {
+      get
+    }
+    public static func == (a: VenueNextNetworkService.Reachability.Connection, b: VenueNextNetworkService.Reachability.Connection) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public var whenReachable: VenueNextNetworkService.Reachability.NetworkReachable?
+  public var whenUnreachable: VenueNextNetworkService.Reachability.NetworkUnreachable?
+  @available(*, deprecated, renamed: "allowsCellularConnection")
+  final public let reachableOnWWAN: Swift.Bool
+  public var allowsCellularConnection: Swift.Bool
+  public var notificationCenter: Foundation.NotificationCenter
+  @available(*, deprecated, renamed: "connection.description")
+  public var currentReachabilityString: Swift.String {
+    get
+  }
+  @available(*, unavailable, renamed: "connection")
+  public var currentReachabilityStatus: VenueNextNetworkService.Reachability.Connection {
+    get
+  }
+  public var connection: VenueNextNetworkService.Reachability.Connection {
+    get
+  }
+  required public init(reachabilityRef: SystemConfiguration.SCNetworkReachability, queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil)
+  convenience public init?(hostname: Swift.String, queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil)
+  convenience public init?(queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil)
+  @objc deinit
+}
+extension Reachability {
+  public func startNotifier() throws
+  public func stopNotifier()
+  @available(*, deprecated, message: "Please use `connection != .none`")
+  public var isReachable: Swift.Bool {
+    get
+  }
+  @available(*, deprecated, message: "Please use `connection == .cellular`")
+  public var isReachableViaWWAN: Swift.Bool {
+    get
+  }
+  @available(*, deprecated, message: "Please use `connection == .wifi`")
+  public var isReachableViaWiFi: Swift.Bool {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+}
+extension JSONDecoder {
+  public func decode<T, U>(_ type: T.Type, from data: Foundation.Data, with container: U.Type) throws -> T where T == U.ContainedType, U : VenueNextNetworkService.VNDecodableContainer
+}
+open class VNHTTPClient {
+  public static let `default`: VenueNextNetworkService.VNHTTPClient
+  @objc deinit
+}
+extension VNHTTPClient : VenueNextNetworkService.HTTPServiceProtocol {
+  public func executeRequest<T>(request: T, completion: @escaping (Swift.Result<T.ResponseType, T.ErrorType>) -> Swift.Void) where T : VenueNextNetworkService.Request
+}
+public enum VNNetworkError : Swift.Error, Swift.Equatable {
+  case unknownError
+  case unknownStatusCode
+  case redirection
+  case clientError(VenueNextNetworkService.HTTP.Status.ClientError)
+  case serverError(VenueNextNetworkService.HTTP.Status.ServerError)
+  case noData
+  case noInternetConnection
+  case timedOut
+  case cancelled
+  public static func == (a: VenueNextNetworkService.VNNetworkError, b: VenueNextNetworkService.VNNetworkError) -> Swift.Bool
+}
+public struct VNNetworkServiceSuccess : Swift.Equatable {
+  public let data: Foundation.Data
+  public let response: VenueNextNetworkService.HTTP.Response
+  public init(data: Foundation.Data, response: VenueNextNetworkService.HTTP.Response)
+  public static func == (a: VenueNextNetworkService.VNNetworkServiceSuccess, b: VenueNextNetworkService.VNNetworkServiceSuccess) -> Swift.Bool
+}
+public struct VNNetworkServiceFailure : Swift.Error, Swift.Equatable {
+  public static func == (lhs: VenueNextNetworkService.VNNetworkServiceFailure, rhs: VenueNextNetworkService.VNNetworkServiceFailure) -> Swift.Bool
+  public let error: VenueNextNetworkService.VNNetworkError
+  public let response: VenueNextNetworkService.HTTP.Response?
+  public init(error: VenueNextNetworkService.VNNetworkError, response: VenueNextNetworkService.HTTP.Response?)
+}
+public typealias VNNetworkServiceResult = Swift.Result<VenueNextNetworkService.VNNetworkServiceSuccess, VenueNextNetworkService.VNNetworkServiceFailure>
+public typealias VNNetworkServiceCompletion = (VenueNextNetworkService.VNNetworkServiceResult) -> Swift.Void
+public protocol VNNetworkServiceProtocol {
+  func executeRequest(request: Foundation.URLRequest, completion: @escaping VenueNextNetworkService.VNNetworkServiceCompletion)
+}
+public protocol ResultProtocol {
+  associatedtype Value
+  associatedtype Error : Swift.Error
+  init(value: Self.Value)
+  init(error: Self.Error)
+  var result: Swift.Result<Self.Value, Self.Error> { get }
+}
+extension Result {
+  public var value: Swift.Result<Success, Failure>.Value? {
+    get
+  }
+  public var error: Swift.Result<Success, Failure>.Error? {
+    get
+  }
+  public func map<U>(_ transform: (Swift.Result<Success, Failure>.Value) -> U) -> Swift.Result<U, Swift.Result<Success, Failure>.Error>
+  public func flatMap<U>(_ transform: (Swift.Result<Success, Failure>.Value) -> Swift.Result<U, Swift.Result<Success, Failure>.Error>) -> Swift.Result<U, Swift.Result<Success, Failure>.Error>
+  public func fanout<U>(_ other: @autoclosure () -> Swift.Result<U, Swift.Result<Success, Failure>.Error>) -> Swift.Result<(Swift.Result<Success, Failure>.Value, U), Swift.Result<Success, Failure>.Error>
+  public func mapError<Error2>(_ transform: (Swift.Result<Success, Failure>.Error) -> Error2) -> Swift.Result<Swift.Result<Success, Failure>.Value, Error2> where Error2 : Swift.Error
+  public func flatMapError<Error2>(_ transform: (Swift.Result<Success, Failure>.Error) -> Swift.Result<Swift.Result<Success, Failure>.Value, Error2>) -> Swift.Result<Swift.Result<Success, Failure>.Value, Error2> where Error2 : Swift.Error
+  public func bimap<U, Error2>(success: (Swift.Result<Success, Failure>.Value) -> U, failure: (Swift.Result<Success, Failure>.Error) -> Error2) -> Swift.Result<U, Error2> where Error2 : Swift.Error
+}
+extension Result {
+  public func recover(_ value: @autoclosure () -> Swift.Result<Success, Failure>.Value) -> Swift.Result<Success, Failure>.Value
+  public func recover(with result: @autoclosure () -> Swift.Result<Swift.Result<Success, Failure>.Value, Swift.Result<Success, Failure>.Error>) -> Swift.Result<Swift.Result<Success, Failure>.Value, Swift.Result<Success, Failure>.Error>
+}
+public protocol ErrorConvertible : Swift.Error {
+  static func error(from error: Swift.Error) -> Self
+}
+extension Result where Failure : VenueNextNetworkService.ErrorConvertible {
+  public func tryMap<U>(_ transform: (Swift.Result<Success, Failure>.Value) throws -> U) -> Swift.Result<U, Swift.Result<Success, Failure>.Error>
+}
+extension Result {
+  public static func ?? (left: Swift.Result<Swift.Result<Success, Failure>.Value, Swift.Result<Success, Failure>.Error>, right: @autoclosure () -> Swift.Result<Success, Failure>.Value) -> Swift.Result<Success, Failure>.Value
+  public static func ?? (left: Swift.Result<Swift.Result<Success, Failure>.Value, Swift.Result<Success, Failure>.Error>, right: @autoclosure () -> Swift.Result<Swift.Result<Success, Failure>.Value, Swift.Result<Success, Failure>.Error>) -> Swift.Result<Swift.Result<Success, Failure>.Value, Swift.Result<Success, Failure>.Error>
+}
+@available(*, unavailable, renamed: "ErrorConvertible")
+public protocol ErrorProtocolConvertible : VenueNextNetworkService.ErrorConvertible {
+}
+public struct VNAnyError : Swift.Error, VenueNextNetworkService.VNNetworkServiceFailureInitializable {
+  public let error: Swift.Error
+  public var httpServiceError: VenueNextNetworkService.VNNetworkError {
+    get
+  }
+  public var failureResponse: VenueNextNetworkService.HTTP.Response?
+  public init(_ error: Swift.Error)
+  public init(networkServiceFailure: VenueNextNetworkService.VNNetworkServiceFailure)
+}
+extension VNAnyError : VenueNextNetworkService.ErrorConvertible {
+  public static func error(from error: Swift.Error) -> VenueNextNetworkService.VNAnyError
+  public static func error(from vnNetworkError: VenueNextNetworkService.VNNetworkError) -> VenueNextNetworkService.VNAnyError
+}
+extension VNAnyError {
+  public static var errorDomain: Swift.String {
+    get
+  }
+  public static var lineKey: Swift.String {
+    get
+  }
+  public static var functionKey: Swift.String {
+    get
+  }
+  public static var fileKey: Swift.String {
+    get
+  }
+  public static func error(_ message: Swift.String? = nil, function: Swift.String = #function, file: Swift.String = #file, line: Swift.Int = #line) -> Foundation.NSError
+}
+public struct HTTPServiceHelper {
+  public static func handleNetworkServiceSuccess<T>(_ serviceSuccess: VenueNextNetworkService.VNNetworkServiceSuccess, for request: T, completion: @escaping VenueNextNetworkService.HTTPServiceCompletion<T.ResponseType, T.ErrorType>) where T : VenueNextNetworkService.Request
+  public static func handleResponse<T, U>(_ response: T, completion: @escaping VenueNextNetworkService.HTTPServiceCompletion<T, U>) where U : Swift.Error
+  public static func handleNetworkServiceFailure<T, U>(_ serviceFailure: VenueNextNetworkService.VNNetworkServiceFailure, completion: @escaping VenueNextNetworkService.HTTPServiceCompletion<T, U>) where U : VenueNextNetworkService.VNNetworkServiceFailureInitializable
+  public static func handleErrorFailure<T, U>(_ error: U, completion: @escaping VenueNextNetworkService.HTTPServiceCompletion<T, U>) where U : Swift.Error
+}
+@objc public class NetworkOperation : Foundation.Operation {
+  @objc override dynamic public var isExecuting: Swift.Bool {
+    @objc get
+  }
+  @objc override dynamic public var isFinished: Swift.Bool {
+    @objc get
+  }
+  public init(closure: @escaping (@escaping () -> Swift.Void) -> Swift.Void)
+  @objc override dynamic public func main()
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension URL {
+  public func appendingQueryItems(_ queryItems: [Foundation.URLQueryItem]) -> Foundation.URL?
+}
+public typealias HTTPServiceCompletion<T, E> = (Swift.Result<T, E>) -> Swift.Void where E : Swift.Error
+public protocol HTTPServiceProtocol {
+  func executeRequest<T>(request: T, completion: @escaping VenueNextNetworkService.HTTPServiceCompletion<T.ResponseType, T.ErrorType>) where T : VenueNextNetworkService.Request
+}
+public struct VNNetworkServiceHelper {
+  public static func networkServiceFailure(for clientError: Swift.Error?) -> VenueNextNetworkService.VNNetworkServiceFailure
+  public static func networkServiceResult(for response: VenueNextNetworkService.HTTP.Response) -> VenueNextNetworkService.VNNetworkServiceResult
+}
+public class Oauth {
+  public typealias Credentials = (key: Swift.String, secret: Swift.String)
+  public static func calculateSignature(url: Foundation.URL, method: Swift.String, consumerCredentials cc: VenueNextNetworkService.Oauth.Credentials, userCredentials uc: VenueNextNetworkService.Oauth.Credentials?) -> Swift.String
+  public static func httpBody(forFormParameters paras: [Swift.String : Swift.String], encoding: Swift.String.Encoding = .utf8) -> Foundation.Data?
+  @objc deinit
+}
+extension CharacterSet {
+  public static let rfc3986Unreserved: Foundation.CharacterSet
+}
+public struct VNRequest<T> : VenueNextNetworkService.Request {
+  public typealias TransformBlock = VenueNextNetworkService.RequestTransformBlock<T, VenueNextNetworkService.VNAnyError>
+  public var method: VenueNextNetworkService.HTTP.Method
+  public var url: Foundation.URL
+  public var headers: [VenueNextNetworkService.HTTP.HeaderKey : VenueNextNetworkService.HTTP.HeaderValue]?
+  public var body: Foundation.Data?
+  public var cachePolicy: Foundation.URLRequest.CachePolicy
+  public var timeout: Foundation.TimeInterval
+  public init(method: VenueNextNetworkService.HTTP.Method, url: Foundation.URL, headers: [VenueNextNetworkService.HTTP.HeaderKey : VenueNextNetworkService.HTTP.HeaderValue]? = nil, body: Foundation.Data? = nil, cachePolicy: Foundation.URLRequest.CachePolicy = RequestDefaults.defaultCachePolicy, timeout: Foundation.TimeInterval = RequestDefaults.defaultTimeout, dataTransformer: @escaping VenueNextNetworkService.VNRequest<T>.TransformBlock)
+  public func transformSuccess(_ serviceSuccess: VenueNextNetworkService.VNNetworkServiceSuccess) -> Swift.Result<T, VenueNextNetworkService.VNAnyError>
+  public typealias ResponseType = T
+  public typealias ErrorType = VenueNextNetworkService.VNAnyError
+}
+extension VNRequest where T : Swift.Decodable {
+  public init(method: VenueNextNetworkService.HTTP.Method, url: Foundation.URL, headers: [VenueNextNetworkService.HTTP.HeaderKey : VenueNextNetworkService.HTTP.HeaderValue]? = nil, body: Foundation.Data? = nil, cachePolicy: Foundation.URLRequest.CachePolicy = RequestDefaults.defaultCachePolicy, timeout: Foundation.TimeInterval = RequestDefaults.defaultTimeout, decoder: Foundation.JSONDecoder = JSONDecoder())
+}
+extension VenueNextNetworkService.HTTP.Method : Swift.Equatable {}
+extension VenueNextNetworkService.HTTP.Method : Swift.Hashable {}
+extension VenueNextNetworkService.HTTP.Method : Swift.RawRepresentable {}
+@available(*, unavailable, renamed: "Connection")
+extension VenueNextNetworkService.Reachability.NetworkStatus : Swift.Equatable {}
+@available(*, unavailable, renamed: "Connection")
+extension VenueNextNetworkService.Reachability.NetworkStatus : Swift.Hashable {}
+extension VenueNextNetworkService.Reachability.Connection : Swift.Equatable {}
+extension VenueNextNetworkService.Reachability.Connection : Swift.Hashable {}

@@ -4,10 +4,10 @@
 #import "DemoViewController/DemoViewController.h"
 
 @import UIKit;
-@import VNOrderUI;
-@import VNOrderData;
-@import VNCoreUI;
-@import VNCore;
+@import VenueNextOrderUI;
+@import VenueNextOrderData;
+@import VenueNextCoreUI;
+@import VenueNextCore;
 
 @interface ObjCTabBarController ()
 

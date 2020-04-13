@@ -1,12 +1,12 @@
 //  Copyright © 2019 VenueNext. All rights reserved.
 
 import UIKit
-import VNCore
-import VNOrderData
-import VNOrderUI
-import VNWalletUI
-import VNPayment
-import VNAnalytics
+import VenueNextCore
+import VenueNextOrderData
+import VenueNextOrderUI
+import VenueNextWalletUI
+import VenueNextPayment
+import VenueNextAnalytics
 import PresenceSDK
 
 class CustomWalletTheme: VNWalletBaseTheme {
@@ -59,8 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 
         return true
-    
-        
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -88,27 +86,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func intializeSDK(for isSwift: Bool) {
+        guard let configURLString = Bundle.main.path(forResource: "vn-sdk-config", ofType: "json"), let configURL = URL(string: configURLString) else {
+            fatalError("Failed to find config file at provided path")
+        }
         switch isSwift {
         case true:
-            guard let configURLString = Bundle.main.path(forResource: "vn-sdk-config", ofType: "json"), let configURL = URL(string: configURLString) else {
-                fatalError("Failed to find config file at provided path")
-            }
-            
             VenueNext.shared.initialize(sdkKey: AppDelegate.sdkKey, sdkSecret: AppDelegate.sdkSecret, configURL: configURL) { (success, error) in
                 if success {
                     print("Successfully initialized the SDK")
                 }
             }
             
-            Analytics.initialize(with: CustomAnalytics())
+            VNAnalytics.initialize(with: CustomAnalytics())
         case false:
-            ObjCConfiguration.start()
+            ObjCConfiguration.start(configURL)
         }
     }
     
-    func setUpPresenceSDK(){
+    func setUpPresenceSDK() {
         PresenceSDK.getPresenceSDK().setConfig(consumerKey: AppDelegate.presenceKey, displayName: "Demo App", useNewAccountsManager: true)
-        PresenceSDK.getPresenceSDK().setBrandingColor(color: VN.theme.primaryAccent)
+        PresenceSDK.getPresenceSDK().setBrandingColors(BrandingColors(oneColor: VN.theme.primaryAccent))
     }
 }
 

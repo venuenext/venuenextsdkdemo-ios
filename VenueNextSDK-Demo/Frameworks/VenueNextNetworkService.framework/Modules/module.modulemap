@@ -1,0 +1,11 @@
+framework module VenueNextNetworkService {
+  umbrella header "VenueNextNetworkService.h"
+
+  export *
+  module * { export * }
+}
+
+module VenueNextNetworkService.Swift {
+    header "VenueNextNetworkService-Swift.h"
+    requires objc
+}

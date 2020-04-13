@@ -1,0 +1,6 @@
+framework module VenueNextLegacy {
+  umbrella header "VenueNextLegacy.h"
+
+  export *
+  module * { export * }
+}

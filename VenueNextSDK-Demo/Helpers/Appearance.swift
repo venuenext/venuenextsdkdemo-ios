@@ -1,7 +1,7 @@
 // Copyright © 2019 VenueNext. All rights reserved.
 
 import UIKit
-import VNCore
+import VenueNextCore
 
 struct Appearance {
     static func configure() {

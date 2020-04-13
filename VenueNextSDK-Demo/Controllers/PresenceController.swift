@@ -7,7 +7,7 @@
 //
 
 import PresenceSDK
-import VNCore
+import VenueNextCore
 
 class SpinnerView: UIView {
     

@@ -1,0 +1,11 @@
+framework module VenueNextWalletService {
+  umbrella header "VenueNextWalletService.h"
+
+  export *
+  module * { export * }
+}
+
+module VenueNextWalletService.Swift {
+    header "VenueNextWalletService-Swift.h"
+    requires objc
+}
